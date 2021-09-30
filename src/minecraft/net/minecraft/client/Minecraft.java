@@ -149,7 +149,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
     public int displayWidth;
     public int displayHeight;
     private boolean field_181541_X;
-    private final Timer timer = new Timer(20.0F);
+    public final Timer timer = new Timer(20.0F);
 
     /** Instance of PlayerUsageSnooper. */
     private final PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this, MinecraftServer.getCurrentTimeMillis());

@@ -127,7 +127,7 @@ public class GuiCreateFlatWorld extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        createFlatWorldListSlotGui.drawScreen(mouseX, mouseY, partialTicks);
+        createFlatWorldListSlotGui.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, flatWorldTitle, width / 2, 8, 16777215);
         int i = width / 2 - 92 - 16;
         drawString(fontRendererObj, field_146394_i, i, 32, 16777215);

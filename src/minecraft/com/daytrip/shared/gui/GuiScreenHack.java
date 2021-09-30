@@ -2,23 +2,32 @@ package com.daytrip.shared.gui;
 
 import com.daytrip.shared.gui.button.impl.GuiIconButtonClose;
 import com.daytrip.sunrise.SunriseClient;
+import com.daytrip.sunrise.hack.setting.Setting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlot;
-import net.minecraft.client.resources.I18n;
 
 import java.io.IOException;
 
-public class GuiScreenHacks extends GuiScreen {
-    private GuiScreenHacks.List list;
+public class GuiScreenHack extends GuiScreen {
+    private GuiScreenHack.List list;
+
+    private final GuiScreen parentScreen;
+    private final int index;
+
+    public GuiScreenHack(GuiScreen parentScreen, int index) {
+        this.parentScreen = parentScreen;
+        this.index = index;
+    }
 
     public void initGui()
     {
         buttonList.add(new GuiIconButtonClose(500, width - 23, height - 27));
-        buttonList.add(new GuiButton(501, width / 2 - 30, height - 27, 60, 20, "Edit"));
+        buttonList.add(new GuiButton(501, width / 2 - 30 + 40, height - 27, 60, 20, "Edit"));
+        buttonList.add(new GuiButton(502, width / 2 - 30 - 40, height - 27, 60, 20, SunriseClient.hacks.get(index).isEnabled() ? "Enabled" : "Disabled"));
 
-        list = new GuiScreenHacks.List(mc);
+        list = new GuiScreenHack.List(mc);
         list.registerScrollButtons(7, 8);
     }
 
@@ -33,13 +42,12 @@ public class GuiScreenHacks extends GuiScreen {
         if (button.enabled)
         {
             if (button.id == 500) {
-                mc.displayGuiScreen(null);
-
-                if (mc.currentScreen == null) {
-                    mc.setIngameFocus();
-                }
+                mc.displayGuiScreen(parentScreen);
             } else if (button.id == 501) {
-                mc.displayGuiScreen(new GuiScreenHack(this, list.selectedSlot));
+                mc.displayGuiScreen(new GuiScreenHackSetting(this, list.selectedSlot, index));
+            } else if (button.id == 502) {
+                SunriseClient.hacks.get(index).toggle();
+                button.displayString = SunriseClient.hacks.get(index).isEnabled() ? "Enabled" : "Disabled";
             }
             list.actionPerformed(button);
         }
@@ -48,19 +56,25 @@ public class GuiScreenHacks extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         list.drawScreen(mouseX, mouseY);
-        drawCenteredString(fontRendererObj, I18n.format("client.screen.hacks.title"), width / 2, 16, 16777215);
+        drawCenteredString(fontRendererObj, SunriseClient.hacks.get(index).getName(), width / 2, 16, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     class List extends GuiSlot {
         private int selectedSlot;
+        private final int index;
 
         public List(Minecraft mcIn) {
-            super(mcIn, GuiScreenHacks.this.width, GuiScreenHacks.this.height, 32, GuiScreenHacks.this.height - 65 + 4, 18);
+            super(mcIn, GuiScreenHack.this.width, GuiScreenHack.this.height, 32, GuiScreenHack.this.height - 65 + 4, 18);
+            index = GuiScreenHack.this.index;
         }
 
         protected int getSize() {
-            return SunriseClient.hacks.size();
+            return SunriseClient.hacks.get(index).getSettings().size();
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
@@ -84,7 +98,8 @@ public class GuiScreenHacks extends GuiScreen {
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn)
         {
-            drawCenteredString(fontRendererObj, SunriseClient.hacks.get(entryID).getName(), width / 2, p_180791_3_ + 1, 16777215);
+            Setting setting = SunriseClient.hacks.get(index).getSettings().get(entryID);
+            drawCenteredString(fontRendererObj, setting.getName(), width / 2, p_180791_3_ + 1, 16777215);
         }
     }
 }

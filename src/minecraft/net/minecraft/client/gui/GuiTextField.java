@@ -1,13 +1,13 @@
 package net.minecraft.client.gui;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.MathHelper;
+
+import java.util.function.Predicate;
 
 public class GuiTextField extends Gui
 {
@@ -55,7 +55,7 @@ public class GuiTextField extends Gui
     /** True if this textbox is visible */
     private boolean visible = true;
     private GuiPageButtonList.GuiResponder field_175210_x;
-    private Predicate<String> field_175209_y = Predicates.alwaysTrue();
+    private Predicate<String> field_175209_y = s -> true;
 
     public GuiTextField(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height)
     {
@@ -85,7 +85,7 @@ public class GuiTextField extends Gui
      */
     public void setText(String p_146180_1_)
     {
-        if (field_175209_y.apply(p_146180_1_))
+        if (field_175209_y.test(p_146180_1_))
         {
             if (p_146180_1_.length() > maxStringLength)
             {
@@ -156,7 +156,7 @@ public class GuiTextField extends Gui
             s = s + text.substring(j);
         }
 
-        if (field_175209_y.apply(s))
+        if (field_175209_y.test(s))
         {
             text = s;
             moveCursorBy(i - selectionEnd + l);
@@ -215,7 +215,7 @@ public class GuiTextField extends Gui
                     s = s + text.substring(j);
                 }
 
-                if (field_175209_y.apply(s))
+                if (field_175209_y.test(s))
                 {
                     text = s;
 

@@ -100,7 +100,7 @@ public class GuiLanguage extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        list.drawScreen(mouseX, mouseY, partialTicks);
+        list.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, I18n.format("options.language"), width / 2, 16, 16777215);
         drawCenteredString(fontRendererObj, "(" + I18n.format("options.languageWarning") + ")", width / 2, height - 56, 8421504);
         super.drawScreen(mouseX, mouseY, partialTicks);

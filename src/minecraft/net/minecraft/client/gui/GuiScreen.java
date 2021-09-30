@@ -162,7 +162,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         {
             if (i == 0)
             {
-                list.set(0, stack.getRarity().rarityColor + list.get(i));
+                list.set(0, stack.getRarity().rarityColor + list.get(0));
             }
             else
             {
@@ -670,7 +670,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         mc.getTextureManager().bindTexture(optionsBackground);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
         worldrenderer.pos(0.0D, height, 0.0D).tex(0.0D, (float) height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();
         worldrenderer.pos(width, height, 0.0D).tex((float) width / 32.0F, (float) height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();

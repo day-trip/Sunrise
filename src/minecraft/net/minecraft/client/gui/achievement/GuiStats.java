@@ -158,7 +158,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
         }
         else
         {
-            displaySlot.drawScreen(mouseX, mouseY, partialTicks);
+            displaySlot.drawScreen(mouseX, mouseY);
             drawCenteredString(fontRendererObj, screenTitle, width / 2, 20, 16777215);
             super.drawScreen(mouseX, mouseY, partialTicks);
         }
@@ -234,7 +234,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
         {
             super(mcIn, GuiStats.this.width, GuiStats.this.height, 32, GuiStats.this.height - 64, 20);
             setShowSelectionBox(false);
-            setHasListHeader(true, 20);
+            setHasListHeader(20);
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)

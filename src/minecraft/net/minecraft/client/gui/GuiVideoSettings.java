@@ -121,7 +121,7 @@ public class GuiVideoSettings extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
+        optionsRowList.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, screenTitle, width / 2, 5, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

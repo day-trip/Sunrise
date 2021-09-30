@@ -226,8 +226,8 @@ public class GuiScreenResourcePacks extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawBackground(0);
-        availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-        selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+        availableResourcePacksList.drawScreen(mouseX, mouseY);
+        selectedResourcePacksList.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
         drawCenteredString(fontRendererObj, I18n.format("resourcePack.folderInfo"), width / 2 - 77, height - 26, 8421504);
         super.drawScreen(mouseX, mouseY, partialTicks);

@@ -1,9 +1,6 @@
 package net.minecraft.client.gui;
 
-import com.google.common.base.Predicate;
 import com.google.common.primitives.Floats;
-import java.io.IOException;
-import java.util.Random;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -12,6 +9,10 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderSettings;
+
+import java.io.IOException;
+import java.util.Random;
+import java.util.function.Predicate;
 
 public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.FormatHelper, GuiPageButtonList.GuiResponder
 {
@@ -32,13 +33,9 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     private boolean field_175338_A;
     private int field_175339_B;
     private boolean field_175340_C;
-    private final Predicate<String> field_175332_D = new Predicate<String>()
-    {
-        public boolean apply(String p_apply_1_)
-        {
-            Float f = Floats.tryParse(p_apply_1_);
-            return p_apply_1_.length() == 0 || f != null && Floats.isFinite(f.floatValue()) && f.floatValue() >= 0.0F;
-        }
+    private final Predicate<String> field_175332_D = p_apply_1_ -> {
+        Float f = Floats.tryParse(p_apply_1_);
+        return p_apply_1_.length() == 0 || f != null && Floats.isFinite(f.floatValue()) && f.floatValue() >= 0.0F;
     };
     private final ChunkProviderSettings.Factory field_175334_E = new ChunkProviderSettings.Factory();
     private ChunkProviderSettings.Factory field_175336_F;
@@ -966,7 +963,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        field_175349_r.drawScreen(mouseX, mouseY, partialTicks);
+        field_175349_r.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, field_175341_a, width / 2, 2, 16777215);
         drawCenteredString(fontRendererObj, field_175333_f, width / 2, 12, 16777215);
         drawCenteredString(fontRendererObj, field_175335_g, width / 2, 22, 16777215);

@@ -109,7 +109,7 @@ public class GuiScreenCustomizePresets extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        field_175311_g.drawScreen(mouseX, mouseY, partialTicks);
+        field_175311_g.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, field_175315_a, width / 2, 8, 16777215);
         drawString(fontRendererObj, field_175313_s, 50, 30, 10526880);
         drawString(fontRendererObj, field_175312_t, 50, 70, 10526880);

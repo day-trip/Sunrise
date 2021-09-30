@@ -1,11 +1,12 @@
 package net.minecraft.client.gui;
 
-import com.google.common.base.Predicate;
-import java.io.IOException;
-import java.net.IDN;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
+
+import java.io.IOException;
+import java.net.IDN;
+import java.util.function.Predicate;
 
 public class GuiScreenAddServer extends GuiScreen
 {
@@ -14,33 +15,29 @@ public class GuiScreenAddServer extends GuiScreen
     private GuiTextField serverIPField;
     private GuiTextField serverNameField;
     private GuiButton serverResourcePacks;
-    private final Predicate<String> field_181032_r = new Predicate<String>()
-    {
-        public boolean apply(String p_apply_1_)
+    private final Predicate<String> field_181032_r = p_apply_1_ -> {
+        if (p_apply_1_.length() == 0)
         {
-            if (p_apply_1_.length() == 0)
+            return true;
+        }
+        else
+        {
+            String[] astring = p_apply_1_.split(":");
+
+            if (astring.length == 0)
             {
                 return true;
             }
             else
             {
-                String[] astring = p_apply_1_.split(":");
-
-                if (astring.length == 0)
+                try
                 {
+                    IDN.toASCII(astring[0]);
                     return true;
                 }
-                else
+                catch (IllegalArgumentException var4)
                 {
-                    try
-                    {
-                        String s = IDN.toASCII(astring[0]);
-                        return true;
-                    }
-                    catch (IllegalArgumentException var4)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
         }

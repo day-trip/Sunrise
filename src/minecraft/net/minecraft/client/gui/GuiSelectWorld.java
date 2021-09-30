@@ -228,7 +228,7 @@ public class GuiSelectWorld extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        field_146638_t.drawScreen(mouseX, mouseY, partialTicks);
+        field_146638_t.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, field_146628_f, width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

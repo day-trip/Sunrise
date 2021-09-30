@@ -84,7 +84,7 @@ public class GuiIngestServers extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        field_152311_g.drawScreen(mouseX, mouseY, partialTicks);
+        field_152311_g.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, field_152310_f, width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

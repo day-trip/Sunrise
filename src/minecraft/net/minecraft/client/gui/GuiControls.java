@@ -157,7 +157,7 @@ public class GuiControls extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        keyBindingList.drawScreen(mouseX, mouseY, partialTicks);
+        keyBindingList.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, screenTitle, width / 2, 8, 16777215);
         boolean flag = true;
 

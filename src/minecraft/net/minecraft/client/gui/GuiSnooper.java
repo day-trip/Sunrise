@@ -104,7 +104,7 @@ public class GuiSnooper extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        field_146606_s.drawScreen(mouseX, mouseY, partialTicks);
+        field_146606_s.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, field_146610_i, width / 2, 8, 16777215);
         int i = 22;
 

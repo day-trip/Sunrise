@@ -119,7 +119,7 @@ public class GuiFlatPresets extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         drawDefaultBackground();
-        field_146435_s.drawScreen(mouseX, mouseY, partialTicks);
+        field_146435_s.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, presetsTitle, width / 2, 8, 16777215);
         drawString(fontRendererObj, presetsShare, 50, 30, 10526880);
         drawString(fontRendererObj, field_146436_r, 50, 70, 10526880);

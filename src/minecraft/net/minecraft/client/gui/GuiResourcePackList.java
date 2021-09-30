@@ -17,7 +17,7 @@ public abstract class GuiResourcePackList extends GuiListExtended
         mc = mcIn;
         field_148204_l = p_i45055_4_;
         field_148163_i = false;
-        setHasListHeader(true, (int)((float)mcIn.fontRendererObj.FONT_HEIGHT * 1.5F));
+        setHasListHeader((int)((float)mcIn.fontRendererObj.FONT_HEIGHT * 1.5F));
     }
 
     /**

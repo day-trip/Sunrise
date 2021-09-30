@@ -368,7 +368,7 @@ public class GuiMultiplayer extends GuiScreen {
     {
         hoveringText = null;
         drawDefaultBackground();
-        serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
+        serverListSelector.drawScreen(mouseX, mouseY);
         drawCenteredString(fontRendererObj, I18n.format("multiplayer.title"), width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
 

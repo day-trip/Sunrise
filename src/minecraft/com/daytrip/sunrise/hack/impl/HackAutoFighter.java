@@ -5,6 +5,7 @@ import com.daytrip.shared.ExtendedReach;
 import com.daytrip.shared.event.Event;
 import com.daytrip.shared.event.impl.*;
 import com.daytrip.sunrise.hack.Hack;
+import com.daytrip.sunrise.hack.setting.Setting;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +19,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class HackAutoFighter extends Hack {
     private EntityLivingBase target;
@@ -46,7 +48,7 @@ public class HackAutoFighter extends Hack {
 
     public HackAutoFighter() {
         super(Keyboard.KEY_P, "Auto Fighter", "auto_fighter");
-        settings.add(new SettingBoolean("Strafe", true));
+        settingManager.addSetting(new SettingBoolean("Strafe", "strafe", true));
     }
 
     @Override
@@ -103,7 +105,7 @@ public class HackAutoFighter extends Hack {
 
                     startMoving();
 
-                    if(((SettingBoolean)settings.get(0)).getValue()) {
+                    if(settingManager.<SettingBoolean>getSetting("strafe").getValue()) {
                         if(fDist > 2) {
                             if(strafeTicks > targetStrafeTicks) {
                                 strafeTicks = 0;
@@ -248,7 +250,7 @@ public class HackAutoFighter extends Hack {
         double predY = minecraft.thePlayer.posY + (minecraft.thePlayer.motionY * getBPSState()) * minecraft.timer.renderPartialTicks;
         double predZ = minecraft.thePlayer.posZ + (minecraft.thePlayer.motionZ * getBPSState()) * minecraft.timer.renderPartialTicks;
 
-        BlockPos predictedLocation = new BlockPos(Math.rint(predX), Math.rint(predY), Math.rint(predZ));
+        BlockPos predictedLocation = new BlockPos(CommonMath.round(predX), CommonMath.round(predY), CommonMath.round(predZ));
 
         System.out.println("a");
         System.out.println(minecraft.thePlayer.getPosition());
@@ -267,7 +269,10 @@ public class HackAutoFighter extends Hack {
             minecraft.thePlayer.jump();
         }
 
-        if(dangerBlocks.contains(predictedBlock.getBlock()) || dangerBlocks.contains(predictedBlockDown.getBlock())) {
+        BlockPos groundBlock = findBlock(predictedLocation.down());
+        IBlockState predictedBlockGround = minecraft.theWorld.getBlockState(groundBlock);
+
+        if(dangerBlocks.contains(predictedBlock.getBlock()) || dangerBlocks.contains(predictedBlockDown.getBlock()) || (predictedBlockGround.getBlock() != Blocks.water && predictedLocation.down().getY() - groundBlock.getY() > 13)) {
             if(autoNav) {
                 stopMoving(true);
                 minecraft.thePlayer.movementInput.moveStrafe = 0;
@@ -277,6 +282,20 @@ public class HackAutoFighter extends Hack {
         } else {
             autoNav = true;
         }
+    }
+
+    private BlockPos findBlock(BlockPos start) {
+        int airBlocks = 0;
+        int i = 0;
+        while(true) {
+            if(minecraft.theWorld.getBlockState(start.down(airBlocks + 1)).getBlock() == Blocks.air) {
+                airBlocks++;
+            } else {
+                break;
+            }
+            i++;
+        }
+        return start.down(airBlocks);
     }
 
     private double getBPSState() {
@@ -344,7 +363,7 @@ public class HackAutoFighter extends Hack {
     @Override
     protected void enable() {
         super.enable();
-        learnInventoryLayout();
+        //learnInventoryLayout();
         targetStrafeTicks = 50 + minecraft.theWorld.rand.nextInt(30);
         targetLerpTicks = 18 + minecraft.theWorld.rand.nextInt(4);
         targetJumpTicks = 20 + minecraft.theWorld.rand.nextInt(10);

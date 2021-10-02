@@ -1,38 +1,26 @@
 package com.daytrip.sunrise;
 
-import com.daytrip.shared.gui.GuiScreenHacks;
-import com.daytrip.sunrise.hack.Hack;
-import com.daytrip.sunrise.hack.HackGui;
-import com.daytrip.sunrise.hack.impl.HackAimbot;
-import com.daytrip.sunrise.hack.impl.HackAutoFighter;
 import com.daytrip.shared.event.Event;
 import com.daytrip.shared.event.EventBus;
 import com.daytrip.shared.event.EventListener;
 import com.daytrip.shared.event.impl.EventKeypress;
 import com.daytrip.shared.event.impl.EventRegisterListeners;
-import com.daytrip.sunrise.hack.impl.HackBridger;
+import com.daytrip.shared.gui.GuiScreenHacks;
+import com.daytrip.sunrise.hack.HackManager;
+import com.daytrip.sunrise.hack.SunriseGUI;
+import com.daytrip.sunrise.hack.impl.*;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public class SunriseClient implements EventListener {
-    public static final List<Hack> hacks = new CopyOnWriteArrayList<>();
-    public static final HackGui hackGui = new HackGui();
-
     @Override
     public void onEvent(Event event) {
         if(event instanceof EventRegisterListeners) {
             registerHacks();
-            EventBus.registerListener(hackGui);
+            EventBus.registerListener(new SunriseGUI());
         }
         if(event instanceof EventKeypress) {
-            for(Hack hack : hacks) {
-                if(hack.getKey() == ((EventKeypress) event).getKey() && Keyboard.isKeyDown(hack.getKey())) {
-                    hack.toggle();
-                }
-            }
+            HackManager.keyPress(((EventKeypress) event).getKey());
             if(((EventKeypress) event).getKey() == Keyboard.KEY_RSHIFT) {
                 Minecraft.getMinecraft().displayGuiScreen(new GuiScreenHacks());
             }
@@ -40,14 +28,11 @@ public class SunriseClient implements EventListener {
     }
 
     private void registerHacks() {
-        registerHack(new HackAutoFighter());
-        registerHack(new HackAimbot());
-        registerHack(new HackBridger());
-    }
-
-    private void registerHack(Hack hack) {
-        EventBus.registerListener(hack);
-        hacks.add(hack);
+        HackManager.addHack(new HackAutoFighter());
+        HackManager.addHack(new HackAimbot());
+        HackManager.addHack(new HackBridger());
+        HackManager.addHack(new HackXRay());
+        HackManager.addHack(new HackEntityInfo());
     }
 
     @Override

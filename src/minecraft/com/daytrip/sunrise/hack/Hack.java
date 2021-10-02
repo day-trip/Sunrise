@@ -23,7 +23,7 @@ public class Hack implements EventListener {
 
     protected boolean isEnabled;
 
-    protected List<Setting> settings = new ArrayList<>();
+    protected HackSettingManager settingManager = new HackSettingManager();
 
     public Hack(int key, String name, String id) {
         minecraft = Minecraft.getMinecraft();
@@ -143,7 +143,7 @@ public class Hack implements EventListener {
         return id;
     }
 
-    public List<Setting> getSettings() {
-        return settings;
+    public HackSettingManager getSettingManager() {
+        return settingManager;
     }
 }

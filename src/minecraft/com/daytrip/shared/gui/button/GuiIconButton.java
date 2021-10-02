@@ -24,9 +24,13 @@ public class GuiIconButton extends GuiButton {
         {
             mc.getTextureManager().bindTexture(GuiButton.buttonTextures);
             GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            GlStateManager.blendFunc(770, 771);
+
             boolean flag = mouseX >= xPosition && mouseY >= yPosition && mouseX < xPosition + width && mouseY < yPosition + height;
 
-            drawTexturedModalRect(xPosition, yPosition, texX, texY + (flag ? height : 0), width, height);
+            drawTexturedModalRect(xPosition, yPosition, texX, texY + (!forceEnabled ? 0 : (flag ? height : 0)), width, height);
         }
     }
 

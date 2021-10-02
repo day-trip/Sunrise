@@ -5,8 +5,8 @@ import com.daytrip.sunrise.hack.setting.Setting;
 public class SettingBoolean extends Setting {
     private boolean value;
 
-    public SettingBoolean(String name, boolean defaultValue) {
-        super(name);
+    public SettingBoolean(String name, String id, boolean defaultValue) {
+        super(name, id);
         value = defaultValue;
     }
 

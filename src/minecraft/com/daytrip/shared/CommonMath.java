@@ -83,63 +83,10 @@ public class CommonMath {
         return (fromRadians + delta * progress + PI2) % PI2;
     }
 
-    public static EntityLivingBase getTarget(float par1, double distance) {
-        Minecraft mc = Minecraft.getMinecraft();
-
-        Entity pointedEntity;
-        MovingObjectPosition omo = mc.getRenderViewEntity().rayTrace(distance, par1);
-        Vec3 vec3 = mc.getRenderViewEntity().getPositionVector();
-        Vec3 vec31 = mc.getRenderViewEntity().getLook(par1);
-        Vec3 vec32 = vec3.addVector(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance);
-        pointedEntity = null;
-        Vec3 vec33 = null;
-        float f1 = 1.0F;
-        List<Entity> list = mc.theWorld.getEntitiesWithinAABBExcludingEntity(mc.getRenderViewEntity(), mc.getRenderViewEntity().getEntityBoundingBox().addCoord(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance).expand(f1, f1, f1));
-        double d2 = distance;
-
-        for (Entity value : list) {
-
-            if (value.canBeCollidedWith()) {
-                float f2 = value.getCollisionBorderSize();
-                AxisAlignedBB axisalignedbb = value.getEntityBoundingBox().expand(f2, f2, f2);
-                MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3, vec32);
-
-                if (axisalignedbb.isVecInside(vec3)) {
-                    if (0.0D < d2 || d2 == 0.0D) {
-                        pointedEntity = value;
-                        vec33 = movingobjectposition == null ? vec3 : movingobjectposition.hitVec;
-                        d2 = 0.0D;
-                    }
-                } else if (movingobjectposition != null) {
-                    double d3 = vec3.distanceTo(movingobjectposition.hitVec);
-
-                    if (d3 < d2 || d2 == 0.0D) {
-                        pointedEntity = value;
-                        vec33 = movingobjectposition.hitVec;
-                        d2 = d3;
-                    }
-                }
-            }
+    public static int round(double a) {
+        if(a < 0) {
+            return (int) Math.ceil(a + 0.5d);
         }
-        if (pointedEntity != null && (d2 < distance || omo == null))
-        {
-            omo = new MovingObjectPosition(pointedEntity, vec33);
-
-            if (pointedEntity instanceof EntityLivingBase || pointedEntity instanceof EntityItemFrame)
-            {
-                mc.pointedEntity = pointedEntity;
-            }
-        }
-        if (omo != null)
-        {
-            if (omo.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY)
-            {
-                if(omo.entityHit instanceof EntityLivingBase)
-                {
-                    return (EntityLivingBase)omo.entityHit;
-                }
-            }
-        }
-        return null;
+        return (int) Math.round(a);
     }
 }

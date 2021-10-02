@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import com.daytrip.shared.LoadingManager;
 import com.daytrip.sunrise.SunriseClient;
 import com.daytrip.shared.event.Event;
 import com.daytrip.shared.event.EventBus;
@@ -38,7 +39,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -101,9 +101,11 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -115,6 +117,7 @@ import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -257,7 +260,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
     private final MinecraftSessionService sessionService;
     private SkinManager skinManager;
     private final Queue < FutureTask<? >> scheduledTasks = Queues.newArrayDeque();
-    private final long field_175615_aJ = 0L;
     private final Thread mcThread = Thread.currentThread();
 
     /**
@@ -272,9 +274,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
 
     /** String that shows the debug information */
     public String debug = "";
-    public boolean field_175613_B;
-    public boolean field_175614_C;
-    public boolean field_175611_D;
     public boolean renderChunksMany = true;
 
     /** Approximate time (in ms) of last update to debug string */
@@ -445,6 +444,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
     private void postInit() {
         checkGLError("Post startup");
         ingameGUI = new GuiIngame(this);
+        LoadingManager.next();
 
         if (serverName != null)
         {
@@ -481,9 +481,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         checkGLError("Startup");
         textureMapBlocks = new TextureMap("textures");
         textureMapBlocks.setMipmapLevels(gameSettings.mipmapLevels);
+        LoadingManager.next();
         renderEngine.loadTickableTexture(TextureMap.locationBlocksTexture, textureMapBlocks);
         renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+        LoadingManager.next();
         textureMapBlocks.setBlurMipmapDirect(false, gameSettings.mipmapLevels > 0);
+        LoadingManager.next();
         ModelManager modelManager = new ModelManager(textureMapBlocks);
         mcResourceManager.registerReloadListener(modelManager);
         renderItem = new RenderItem(renderEngine, modelManager);
@@ -497,13 +500,19 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         renderGlobal = new RenderGlobal(this);
         mcResourceManager.registerReloadListener(renderGlobal);
         guiAchievement = new GuiAchievement(this);
+        LoadingManager.next();
         GlStateManager.viewport(0, 0, displayWidth, displayHeight);
+        LoadingManager.next();
         effectRenderer = new EffectRenderer(theWorld, renderEngine);
+        LoadingManager.next();
     }
 
     private void preInit() throws LWJGLException {
+        LoadingManager.setTotal(22);
         gameSettings = new GameSettings(this, mcDataDir);
+        LoadingManager.next();
         defaultResourcePacks.add(mcDefaultResourcePack);
+        LoadingManager.next();
         startTimerHackThread();
 
         if (gameSettings.overrideHeight > 0 && gameSettings.overrideWidth > 0)
@@ -512,30 +521,43 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
             displayHeight = gameSettings.overrideHeight;
         }
 
+        LoadingManager.next();
+
         logger.info("LWJGL Version: " + Sys.getVersion());
         setWindowIcon();
         setInitialDisplayMode();
         createDisplay();
+        LoadingManager.next();
         OpenGlHelper.initializeTextures();
+        LoadingManager.next();
         framebufferMc = new Framebuffer(displayWidth, displayHeight, true);
         framebufferMc.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
+        LoadingManager.next();
         registerMetadataSerializers();
+        LoadingManager.next();
         mcResourcePackRepository = new ResourcePackRepository(fileResourcepacks, new File(mcDataDir, "server-resource-packs"), mcDefaultResourcePack, metadataSerializer_, gameSettings);
         mcResourceManager = new SimpleReloadableResourceManager(metadataSerializer_);
         mcLanguageManager = new LanguageManager(metadataSerializer_, gameSettings.language);
         mcResourceManager.registerReloadListener(mcLanguageManager);
         refreshResources();
+        LoadingManager.next();
+        drawSplashScreen();
         renderEngine = new TextureManager(mcResourceManager);
         mcResourceManager.registerReloadListener(renderEngine);
-        drawSplashScreen(renderEngine);
+        LoadingManager.next();
+        fontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
+        smoothFontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii_smooth.png"), renderEngine, false);
+        LoadingManager.next();
+        drawSplashScreen();
         initStream();
+        LoadingManager.next();
         skinManager = new SkinManager(renderEngine, new File(fileAssets, "skins"), sessionService);
         saveLoader = new AnvilSaveConverter(new File(mcDataDir, "saves"));
         mcSoundHandler = new SoundHandler(mcResourceManager, gameSettings);
         mcResourceManager.registerReloadListener(mcSoundHandler);
         mcMusicTicker = new MusicTicker(this);
-        fontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
-        smoothFontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii_smooth.png"), renderEngine, false);
+        LoadingManager.next();
+        drawSplashScreen();
 
         if (gameSettings.language != null)
         {
@@ -547,6 +569,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         mcResourceManager.registerReloadListener(fontRendererObj);
         mcResourceManager.registerReloadListener(smoothFontRendererObj);
         mcResourceManager.registerReloadListener(standardGalacticFontRenderer);
+        LoadingManager.next();
+        drawSplashScreen();
         mcResourceManager.registerReloadListener(new GrassColorReloadListener());
         mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
         AchievementList.openInventory.setStatStringFormatter(p_74535_1_ -> {
@@ -559,6 +583,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
                 return "Error: " + exception.getLocalizedMessage();
             }
         });
+        LoadingManager.next();
+        drawSplashScreen();
         mouseHelper = new MouseHelper();
         checkGLError("Pre startup");
         GlStateManager.enableTexture2D();
@@ -572,6 +598,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
         GlStateManager.matrixMode(5888);
+        LoadingManager.next();
+        drawSplashScreen();
     }
 
     private void registerMetadataSerializers()
@@ -864,8 +892,137 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         displayHeight = displaymode.getHeight();
     }
 
-    private void drawSplashScreen(TextureManager textureManagerInstance) throws LWJGLException
-    {
+    private void drawPlainBackground(int color) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        float f = (float)(color >> 24 & 255) / 255.0F;
+        float f1 = (float)(color >> 16 & 255) / 255.0F;
+        float f2 = (float)(color >> 8 & 255) / 255.0F;
+        float f3 = (float)(color & 255) / 255.0F;
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.shadeModel(7425);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        worldrenderer.pos(displayWidth, 0, 0.0D).color(f1, f2, f3, f).endVertex();
+        worldrenderer.pos(0, 0, 0.0D).color(f1, f2, f3, f).endVertex();
+        worldrenderer.pos(0, displayHeight, 0.0D).color(f1, f2, f3, f).endVertex();
+        worldrenderer.pos(displayWidth, displayHeight, 0.0D).color(f1, f2, f3, f).endVertex();
+        tessellator.draw();
+        GlStateManager.shadeModel(7424);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableTexture2D();
+    }
+
+    private void drawLoadingImage(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        renderEngine.bindTexture(new ResourceLocation("textures/gui/title/background.png"));
+
+        float f = 1.0F / textureWidth;
+        float f1 = 1.0F / textureHeight;
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(x, y + height, 0.0D).tex(u * f, (v + (float)height) * f1).endVertex();
+        worldrenderer.pos(x + width, y + height, 0.0D).tex((u + (float)width) * f, (v + (float)height) * f1).endVertex();
+        worldrenderer.pos(x + width, y, 0.0D).tex((u + (float)width) * f, v * f1).endVertex();
+        worldrenderer.pos(x, y, 0.0D).tex(u * f, v * f1).endVertex();
+        tessellator.draw();
+    }
+
+    private void drawLoadingGradient(int startColor, int endColor) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        float f = (float)(startColor >> 24 & 255) / 255.0F;
+        float f1 = (float)(startColor >> 16 & 255) / 255.0F;
+        float f2 = (float)(startColor >> 8 & 255) / 255.0F;
+        float f3 = (float)(startColor & 255) / 255.0F;
+        float f4 = (float)(endColor >> 24 & 255) / 255.0F;
+        float f5 = (float)(endColor >> 16 & 255) / 255.0F;
+        float f6 = (float)(endColor >> 8 & 255) / 255.0F;
+        float f7 = (float)(endColor & 255) / 255.0F;
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.shadeModel(7425);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        worldrenderer.pos(displayWidth, 0, 0.0D).color(f1, f2, f3, f).endVertex();
+        worldrenderer.pos(0, 0, 0.0D).color(f1, f2, f3, f).endVertex();
+        worldrenderer.pos(0, displayHeight, 0.0D).color(f5, f6, f7, f4).endVertex();
+        worldrenderer.pos(displayWidth, displayHeight, 0.0D).color(f5, f6, f7, f4).endVertex();
+        tessellator.draw();
+        GlStateManager.shadeModel(7424);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableTexture2D();
+    }
+
+    public static float lerp(float point1, float point2, float alpha) {
+        return point1 + alpha * (point2 - point1);
+    }
+
+    private void drawLoadingBar(float progress) {
+        ScaledResolution scaledresolution = new ScaledResolution(this);
+        int k = scaledresolution.getScaledWidth();
+        int l = scaledresolution.getScaledHeight();
+
+        GlStateManager.matrixMode(5889);
+        GlStateManager.loadIdentity();
+        GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
+        GlStateManager.matrixMode(5888);
+        GlStateManager.loadIdentity();
+        GlStateManager.translate(0.0F, 0.0F, -200.0F);
+
+        if (!OpenGlHelper.isFramebufferEnabled())
+        {
+            GlStateManager.clear(16640);
+        }
+
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        if (progress >= 0)
+        {
+            int width = k / 2;
+            int height = 13;
+            int xPos = k / 2 - width / 2;
+            int yPos = l - l / 6;
+            float scaledProgress = lerp(0, width, progress);
+            GlStateManager.disableTexture2D();
+            worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+            worldrenderer.pos(xPos, yPos, 0.0D).color(128, 128, 128, 255).endVertex();
+            worldrenderer.pos(xPos, yPos + height, 0.0D).color(128, 128, 128, 255).endVertex();
+            worldrenderer.pos(xPos + width, yPos + height, 0.0D).color(128, 128, 128, 255).endVertex();
+            worldrenderer.pos(xPos + width, yPos, 0.0D).color(128, 128, 128, 255).endVertex();
+            worldrenderer.pos(xPos, yPos, 0.0D).color(128, 255, 128, 255).endVertex();
+            worldrenderer.pos(xPos, yPos + height, 0.0D).color(128, 255, 128, 255).endVertex();
+            worldrenderer.pos(xPos + scaledProgress, yPos + height, 0.0D).color(128, 255, 128, 255).endVertex();
+            worldrenderer.pos(xPos + scaledProgress, yPos, 0.0D).color(128, 255, 128, 255).endVertex();
+            tessellator.draw();
+            GlStateManager.enableTexture2D();
+        }
+
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+
+        GlStateManager.matrixMode(5889);
+        GlStateManager.loadIdentity();
+        GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
+        GlStateManager.matrixMode(5888);
+        GlStateManager.loadIdentity();
+        GlStateManager.translate(0.0F, 0.0F, -2000.0F);
+        GlStateManager.disableLighting();
+        GlStateManager.disableFog();
+        GlStateManager.disableDepth();
+        GlStateManager.enableTexture2D();
+    }
+
+    private void drawSplashScreen() {
         ScaledResolution scaledresolution = new ScaledResolution(this);
         int i = scaledresolution.getScaleFactor();
         Framebuffer framebuffer = new Framebuffer(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i, true);
@@ -880,55 +1037,22 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         GlStateManager.disableFog();
         GlStateManager.disableDepth();
         GlStateManager.enableTexture2D();
-        InputStream inputstream = null;
 
-        try
-        {
-            inputstream = mcDefaultResourcePack.getInputStream(locationMojangPng);
-            mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(ImageIO.read(inputstream)));
-            textureManagerInstance.bindTexture(mojangLogo);
+        if(renderEngine == null) {
+            drawPlainBackground(new Color(206, 61, 61, 225).getRGB());
+        } else {
+            drawLoadingImage(0, 0, 0, 0, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+            drawLoadingGradient(new Color(206, 61, 61, 200).getRGB(), new Color(196, 103, 10, 190).getRGB());
         }
-        catch (IOException ioexception)
-        {
-            logger.error("Unable to load logo: " + locationMojangPng, ioexception);
-        }
-        finally
-        {
-            IOUtils.closeQuietly(inputstream);
-        }
+        drawLoadingBar(LoadingManager.getPercentage());
 
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(displayWidth, displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(displayWidth, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        tessellator.draw();
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        int j = 256;
-        int k = 256;
-        func_181536_a((scaledresolution.getScaledWidth() - j) / 2, (scaledresolution.getScaledHeight() - k) / 2, 0, 0, j, k, 255, 255, 255, 255);
-        GlStateManager.disableLighting();
-        GlStateManager.disableFog();
+        //smoothFontRendererObj.drawCenteredString("Sunrise Client", displayWidth / 2, displayHeight / 2, Color.BLUE.getRGB(), true);
+        //fontRendererObj.drawCenteredString("Loading...", displayWidth / 2, displayHeight - displayHeight / 4, Color.GREEN.getRGB(), false);
+
         framebuffer.unbindFramebuffer();
         framebuffer.framebufferRender(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i);
-        GlStateManager.enableAlpha();
-        GlStateManager.alphaFunc(516, 0.1F);
-        updateDisplay();
-    }
 
-    public void func_181536_a(int p_181536_1_, int p_181536_2_, int p_181536_3_, int p_181536_4_, int p_181536_5_, int p_181536_6_, int p_181536_7_, int p_181536_8_, int p_181536_9_, int p_181536_10_)
-    {
-        float f = 0.00390625F;
-        float f1 = 0.00390625F;
-        WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(p_181536_1_, p_181536_2_ + p_181536_6_, 0.0D).tex((float)p_181536_3_ * f, (float)(p_181536_4_ + p_181536_6_) * f1).color(p_181536_7_, p_181536_8_, p_181536_9_, p_181536_10_).endVertex();
-        worldrenderer.pos(p_181536_1_ + p_181536_5_, p_181536_2_ + p_181536_6_, 0.0D).tex((float)(p_181536_3_ + p_181536_5_) * f, (float)(p_181536_4_ + p_181536_6_) * f1).color(p_181536_7_, p_181536_8_, p_181536_9_, p_181536_10_).endVertex();
-        worldrenderer.pos(p_181536_1_ + p_181536_5_, p_181536_2_, 0.0D).tex((float)(p_181536_3_ + p_181536_5_) * f, (float)p_181536_4_ * f1).color(p_181536_7_, p_181536_8_, p_181536_9_, p_181536_10_).endVertex();
-        worldrenderer.pos(p_181536_1_, p_181536_2_, 0.0D).tex((float)p_181536_3_ * f, (float)p_181536_4_ * f1).color(p_181536_7_, p_181536_8_, p_181536_9_, p_181536_10_).endVertex();
-        Tessellator.getInstance().draw();
+        updateDisplay();
     }
 
     /**
@@ -987,18 +1111,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
      */
     private void checkGLError(String message)
     {
-        boolean enableGLErrorChecking = true;
-        if (enableGLErrorChecking)
-        {
-            int i = GL11.glGetError();
+        int i = GL11.glGetError();
 
-            if (i != 0)
-            {
-                String s = GLU.gluErrorString(i);
-                logger.error("########## GL ERROR ##########");
-                logger.error("@ " + message);
-                logger.error(i + ": " + s);
-            }
+        if (i != 0)
+        {
+            String s = GLU.gluErrorString(i);
+            logger.error("########## GL ERROR ##########");
+            logger.error("@ " + message);
+            logger.error(i + ": " + s);
         }
     }
 
@@ -3014,17 +3134,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
                         }
                         else if (getTwitchStream().isReadyToBroadcast())
                         {
-                            displayGuiScreen(new GuiYesNo(new GuiYesNoCallback()
-                            {
-                                public void confirmClicked(boolean result, int id)
+                            displayGuiScreen(new GuiYesNo((result, id) -> {
+                                if (result)
                                 {
-                                    if (result)
-                                    {
-                                        getTwitchStream().func_152930_t();
-                                    }
-
-                                    displayGuiScreen(null);
+                                    getTwitchStream().func_152930_t();
                                 }
+
+                                displayGuiScreen(null);
                             }, I18n.format("stream.confirm_start"), "", 0));
                         }
                         else if (getTwitchStream().func_152928_D() && getTwitchStream().func_152936_l())

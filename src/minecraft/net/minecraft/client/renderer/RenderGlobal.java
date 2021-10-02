@@ -233,15 +233,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 entityOutlineShader.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
                 entityOutlineFramebuffer = entityOutlineShader.getFramebufferRaw("final");
             }
-            catch (IOException ioexception)
+            catch (IOException | JsonSyntaxException ioexception)
             {
                 logger.warn("Failed to load shader: " + resourcelocation, ioexception);
-                entityOutlineShader = null;
-                entityOutlineFramebuffer = null;
-            }
-            catch (JsonSyntaxException jsonsyntaxexception)
-            {
-                logger.warn("Failed to load shader: " + resourcelocation, jsonsyntaxexception);
                 entityOutlineShader = null;
                 entityOutlineFramebuffer = null;
             }
@@ -339,8 +333,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     private void renderSky(WorldRenderer worldRendererIn, float p_174968_2_, boolean p_174968_3_)
     {
-        int i = 64;
-        int j = 6;
         worldRendererIn.begin(7, DefaultVertexFormats.POSITION);
 
         for (int k = -384; k <= 384; k += 64)
@@ -434,10 +426,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                 for (int j = 0; j < 4; ++j)
                 {
-                    double d17 = 0.0D;
                     double d18 = (double)((j & 2) - 1) * d3;
                     double d19 = (double)((j + 1 & 2) - 1) * d3;
-                    double d20 = 0.0D;
                     double d21 = d18 * d16 - d19 * d15;
                     double d22 = d19 * d16 + d18 * d15;
                     double d23 = d21 * d12 + 0.0D * d13;
@@ -604,14 +594,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 RenderHelper.disableStandardItemLighting();
                 renderManager.setRenderOutlines(true);
 
-                for (int j = 0; j < list.size(); ++j)
-                {
-                    Entity entity3 = list.get(j);
+                for (Entity entity3 : list) {
                     boolean flag = mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase) mc.getRenderViewEntity()).isPlayerSleeping();
                     boolean flag1 = entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == mc.thePlayer) && entity3 instanceof EntityPlayer;
 
-                    if ((entity3 != mc.getRenderViewEntity() || mc.gameSettings.thirdPersonView != 0 || flag) && flag1)
-                    {
+                    if ((entity3 != mc.getRenderViewEntity() || mc.gameSettings.thirdPersonView != 0 || flag) && flag1) {
                         renderManager.renderEntitySimple(entity3, partialTicks);
                     }
                 }
@@ -641,7 +628,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                 if (!classinheritancemultimap.isEmpty())
                 {
-                    Iterator iterator = classinheritancemultimap.iterator();
+                    Iterator<Entity> iterator = classinheritancemultimap.iterator();
 
                     while (true)
                     {

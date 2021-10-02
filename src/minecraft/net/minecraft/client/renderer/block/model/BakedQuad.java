@@ -14,28 +14,28 @@ public class BakedQuad
 
     public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn)
     {
-        this.vertexData = vertexDataIn;
-        this.tintIndex = tintIndexIn;
-        this.face = faceIn;
+        vertexData = vertexDataIn;
+        tintIndex = tintIndexIn;
+        face = faceIn;
     }
 
     public int[] getVertexData()
     {
-        return this.vertexData;
+        return vertexData;
     }
 
     public boolean hasTintIndex()
     {
-        return this.tintIndex != -1;
+        return tintIndex != -1;
     }
 
     public int getTintIndex()
     {
-        return this.tintIndex;
+        return tintIndex;
     }
 
     public EnumFacing getFace()
     {
-        return this.face;
+        return face;
     }
 }

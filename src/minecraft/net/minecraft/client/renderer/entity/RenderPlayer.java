@@ -20,8 +20,6 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
 {
-    /** this field is used to indicate the 3-pixel wide arms */
-    private final boolean smallArms;
 
     public RenderPlayer(RenderManager renderManager)
     {
@@ -31,7 +29,6 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
     public RenderPlayer(RenderManager renderManager, boolean useSmallArms)
     {
         super(renderManager, new ModelPlayer(0.0F, useSmallArms), 0.5F);
-        smallArms = useSmallArms;
         addLayer(new LayerBipedArmor(this));
         addLayer(new LayerHeldItem(this));
         addLayer(new LayerArrow(this));
@@ -148,10 +145,10 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
 
             if (scoreobjective != null)
             {
-                // Score score = scoreboard.getValueFromObjective(entityIn.getName(), scoreobjective);
+                Score score = scoreboard.getValueFromObjective(entityIn.getName(), scoreobjective);
                 // Return tag #0
 
-                renderLivingLabel(entityIn, entityIn.getDisplayName().getFormattedText() + " | Health: " + entityIn.getHealth() + "/" + entityIn.getMaxHealth() + " | Food: " + entityIn.getFoodStats().getFoodLevel() + " | Saturation: " + entityIn.getFoodStats().getSaturationLevel(), x, y, z);
+                renderLivingLabel(entityIn, score.getPlayerName(), x, y, z);
                 y += (float) getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * p_177069_9_;
             }
         }

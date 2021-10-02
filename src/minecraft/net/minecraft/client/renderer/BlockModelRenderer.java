@@ -2,6 +2,9 @@ package net.minecraft.client.renderer;
 
 import java.util.BitSet;
 import java.util.List;
+
+import com.daytrip.sunrise.hack.HackManager;
+import com.daytrip.sunrise.hack.impl.HackXRay;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -96,6 +99,7 @@ public class BlockModelRenderer
                 if (!checkSides || blockIn.shouldSideBeRendered(blockAccessIn, blockpos, enumfacing))
                 {
                     int i = blockIn.getMixedBrightnessForBlock(blockAccessIn, blockpos);
+                    if(HackManager.enabled("x_ray") && HackXRay.ignores.contains(blockIn)) i = 15;
                     renderModelStandardQuads(blockAccessIn, blockIn, blockPosIn, enumfacing, i, false, worldRendererIn, list, bitset);
                     flag = true;
                 }
@@ -111,6 +115,10 @@ public class BlockModelRenderer
         }
 
         return flag;
+    }
+
+    private void drawBlockOverlay(BlockPos pos) {
+
     }
 
     private void renderModelAmbientOcclusionQuads(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn, WorldRenderer worldRendererIn, List<BakedQuad> listQuadsIn, float[] quadBounds, BitSet boundsFlags, BlockModelRenderer.AmbientOcclusionFace aoFaceIn)
@@ -273,6 +281,7 @@ public class BlockModelRenderer
             }
 
             worldRendererIn.addVertexData(bakedquad.getVertexData());
+
             worldRendererIn.putBrightness4(brightnessIn, brightnessIn, brightnessIn, brightnessIn);
 
             if (bakedquad.hasTintIndex())
@@ -562,16 +571,16 @@ public class BlockModelRenderer
 
         public static BlockModelRenderer.EnumNeighborInfo getNeighbourInfo(EnumFacing p_178273_0_)
         {
-            return EnumNeighborInfo.field_178282_n[p_178273_0_.getIndex()];
+            return field_178282_n[p_178273_0_.getIndex()];
         }
 
         static {
-            EnumNeighborInfo.field_178282_n[EnumFacing.DOWN.getIndex()] = EnumNeighborInfo.DOWN;
-            EnumNeighborInfo.field_178282_n[EnumFacing.UP.getIndex()] = EnumNeighborInfo.UP;
-            EnumNeighborInfo.field_178282_n[EnumFacing.NORTH.getIndex()] = EnumNeighborInfo.NORTH;
-            EnumNeighborInfo.field_178282_n[EnumFacing.SOUTH.getIndex()] = EnumNeighborInfo.SOUTH;
-            EnumNeighborInfo.field_178282_n[EnumFacing.WEST.getIndex()] = EnumNeighborInfo.WEST;
-            EnumNeighborInfo.field_178282_n[EnumFacing.EAST.getIndex()] = EnumNeighborInfo.EAST;
+            field_178282_n[EnumFacing.DOWN.getIndex()] = DOWN;
+            field_178282_n[EnumFacing.UP.getIndex()] = UP;
+            field_178282_n[EnumFacing.NORTH.getIndex()] = NORTH;
+            field_178282_n[EnumFacing.SOUTH.getIndex()] = SOUTH;
+            field_178282_n[EnumFacing.WEST.getIndex()] = WEST;
+            field_178282_n[EnumFacing.EAST.getIndex()] = EAST;
         }
     }
 
@@ -623,16 +632,16 @@ public class BlockModelRenderer
 
         public static BlockModelRenderer.VertexTranslations getVertexTranslations(EnumFacing p_178184_0_)
         {
-            return VertexTranslations.field_178199_k[p_178184_0_.getIndex()];
+            return field_178199_k[p_178184_0_.getIndex()];
         }
 
         static {
-            VertexTranslations.field_178199_k[EnumFacing.DOWN.getIndex()] = VertexTranslations.DOWN;
-            VertexTranslations.field_178199_k[EnumFacing.UP.getIndex()] = VertexTranslations.UP;
-            VertexTranslations.field_178199_k[EnumFacing.NORTH.getIndex()] = VertexTranslations.NORTH;
-            VertexTranslations.field_178199_k[EnumFacing.SOUTH.getIndex()] = VertexTranslations.SOUTH;
-            VertexTranslations.field_178199_k[EnumFacing.WEST.getIndex()] = VertexTranslations.WEST;
-            VertexTranslations.field_178199_k[EnumFacing.EAST.getIndex()] = VertexTranslations.EAST;
+            field_178199_k[EnumFacing.DOWN.getIndex()] = DOWN;
+            field_178199_k[EnumFacing.UP.getIndex()] = UP;
+            field_178199_k[EnumFacing.NORTH.getIndex()] = NORTH;
+            field_178199_k[EnumFacing.SOUTH.getIndex()] = SOUTH;
+            field_178199_k[EnumFacing.WEST.getIndex()] = WEST;
+            field_178199_k[EnumFacing.EAST.getIndex()] = EAST;
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.daytrip.shared.gui;
 
 import com.daytrip.shared.gui.button.impl.GuiIconButtonClose;
-import com.daytrip.sunrise.SunriseClient;
+import com.daytrip.sunrise.hack.HackManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -60,7 +60,7 @@ public class GuiScreenHacks extends GuiScreen {
         }
 
         protected int getSize() {
-            return SunriseClient.hacks.size();
+            return HackManager.count();
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
@@ -84,7 +84,7 @@ public class GuiScreenHacks extends GuiScreen {
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn)
         {
-            drawCenteredString(fontRendererObj, SunriseClient.hacks.get(entryID).getName(), width / 2, p_180791_3_ + 1, 16777215);
+            drawCenteredString(fontRendererObj, HackManager.getHack(entryID).getName(), width / 2, p_180791_3_ + 1, 16777215);
         }
     }
 }

@@ -3,13 +3,12 @@ package net.minecraft.client.main;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
-import com.mojang.authlib.properties.PropertyMap.Serializer;
+
 import java.io.File;
 import java.net.Authenticator;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
-import java.net.Proxy.Type;
 import java.util.List;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -61,15 +60,15 @@ public class Main
         {
             try
             {
-                proxy = new Proxy(Type.SOCKS, new InetSocketAddress(s, optionset.valueOf(optionspec6)));
+                proxy = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(s, optionset.valueOf(optionspec6)));
             }
             catch (Exception ignored)
             {
             }
         }
 
-        final String s1 = optionset.valueOf(optionspec7);
-        final String s2 = optionset.valueOf(optionspec8);
+        String s1 = optionset.valueOf(optionspec7);
+        String s2 = optionset.valueOf(optionspec8);
 
         if (!proxy.equals(Proxy.NO_PROXY) && isNullOrEmpty(s1) && isNullOrEmpty(s2))
         {
@@ -87,7 +86,7 @@ public class Main
         boolean flag = optionset.has("fullscreen");
         boolean flag1 = optionset.has("checkGlErrors");
         String s3 = optionset.valueOf(optionspec12);
-        Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new Serializer()).create();
+        Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer()).create();
         PropertyMap propertymap = gson.fromJson(optionset.valueOf(optionspec15), PropertyMap.class);
         PropertyMap propertymap1 = gson.fromJson(optionset.valueOf(optionspec16), PropertyMap.class);
         File file1 = optionset.valueOf(optionspec2);

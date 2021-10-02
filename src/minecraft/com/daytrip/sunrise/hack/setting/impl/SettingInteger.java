@@ -7,8 +7,8 @@ public class SettingInteger extends Setting {
     private int minValue;
     private int maxValue;
 
-    public SettingInteger(String name, int defaultValue, int minValue, int maxValue) {
-        super(name);
+    public SettingInteger(String name, String id, int defaultValue, int minValue, int maxValue) {
+        super(name, id);
         value = defaultValue;
         this.minValue = minValue;
         this.maxValue = maxValue;

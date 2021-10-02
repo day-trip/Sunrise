@@ -1,7 +1,7 @@
 package com.daytrip.shared.gui;
 
 import com.daytrip.shared.gui.button.impl.GuiIconButtonClose;
-import com.daytrip.sunrise.SunriseClient;
+import com.daytrip.sunrise.hack.HackManager;
 import com.daytrip.sunrise.hack.setting.Setting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -25,7 +25,7 @@ public class GuiScreenHack extends GuiScreen {
     {
         buttonList.add(new GuiIconButtonClose(500, width - 23, height - 27));
         buttonList.add(new GuiButton(501, width / 2 - 30 + 40, height - 27, 60, 20, "Edit"));
-        buttonList.add(new GuiButton(502, width / 2 - 30 - 40, height - 27, 60, 20, SunriseClient.hacks.get(index).isEnabled() ? "Enabled" : "Disabled"));
+        buttonList.add(new GuiButton(502, width / 2 - 30 - 40, height - 27, 60, 20, HackManager.getHack(index).isEnabled() ? "Enabled" : "Disabled"));
 
         list = new GuiScreenHack.List(mc);
         list.registerScrollButtons(7, 8);
@@ -46,8 +46,8 @@ public class GuiScreenHack extends GuiScreen {
             } else if (button.id == 501) {
                 mc.displayGuiScreen(new GuiScreenHackSetting(this, list.selectedSlot, index));
             } else if (button.id == 502) {
-                SunriseClient.hacks.get(index).toggle();
-                button.displayString = SunriseClient.hacks.get(index).isEnabled() ? "Enabled" : "Disabled";
+                HackManager.getHack(index).toggle();
+                button.displayString = HackManager.getHack(index).isEnabled() ? "Enabled" : "Disabled";
             }
             list.actionPerformed(button);
         }
@@ -56,7 +56,7 @@ public class GuiScreenHack extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         list.drawScreen(mouseX, mouseY);
-        drawCenteredString(fontRendererObj, SunriseClient.hacks.get(index).getName(), width / 2, 16, 16777215);
+        drawCenteredString(fontRendererObj, HackManager.getHack(index).getName(), width / 2, 16, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -74,7 +74,7 @@ public class GuiScreenHack extends GuiScreen {
         }
 
         protected int getSize() {
-            return SunriseClient.hacks.get(index).getSettings().size();
+            return HackManager.getHack(index).getSettingManager().count();
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
@@ -98,7 +98,7 @@ public class GuiScreenHack extends GuiScreen {
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn)
         {
-            Setting setting = SunriseClient.hacks.get(index).getSettings().get(entryID);
+            Setting setting = HackManager.getHack(index).getSettingManager().getSetting(entryID);
             drawCenteredString(fontRendererObj, setting.getName(), width / 2, p_180791_3_ + 1, 16777215);
         }
     }

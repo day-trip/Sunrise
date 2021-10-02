@@ -267,7 +267,7 @@ public class FontRenderer implements IResourceManagerReloadListener
     {
         if (unicodePageLocations[p_111271_1_] == null)
         {
-            unicodePageLocations[p_111271_1_] = new ResourceLocation(String.format("textures/font/unicode_page_%02x.png", Integer.valueOf(p_111271_1_)));
+            unicodePageLocations[p_111271_1_] = new ResourceLocation(String.format("textures/font/unicode_page_%02x.png", p_111271_1_));
         }
 
         return unicodePageLocations[p_111271_1_];
@@ -334,7 +334,7 @@ public class FontRenderer implements IResourceManagerReloadListener
 
     public int drawCenteredString(String text, int x, int y, int color, boolean dropShadow)
     {
-        return drawString(text, (float)x - getStringWidth(text) / 2f, (float)y, color, dropShadow);
+        return drawString(text, (float)x - (getStringWidth(text) / 2f), (float)y, color, dropShadow);
     }
 
     /**
@@ -409,7 +409,7 @@ public class FontRenderer implements IResourceManagerReloadListener
                     underlineStyle = false;
                     italicStyle = false;
 
-                    if (i1 < 0 || i1 > 15)
+                    if (i1 < 0)
                     {
                         i1 = 15;
                     }
@@ -443,8 +443,7 @@ public class FontRenderer implements IResourceManagerReloadListener
                 {
                     italicStyle = true;
                 }
-                else if (i1 == 21)
-                {
+                else {
                     randomStyle = false;
                     boldStyle = false;
                     strikethroughStyle = false;

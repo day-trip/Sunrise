@@ -585,7 +585,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     {
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
 
-        if (entity instanceof EntityPlayer && entity != entityplayersp)
+        if (entity instanceof EntityPlayer)
         {
             Team team = entity.getTeam();
             Team team1 = entityplayersp.getTeam();
@@ -596,9 +596,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
                 switch (team$enumvisible)
                 {
-                    case ALWAYS:
-                        return true;
-
                     case NEVER:
                         return false;
 

@@ -6,10 +6,10 @@ Description: Rendering screen
 
 java.lang.ClassCastException: [Ljava.lang.Object; incompatible with [Ljava.util.Map$Entry;
 	at com.daytrip.sunrise.hack.HackManager.getHack(HackManager.java:27)
-	at com.daytrip.shared.gui.GuiScreenHacks$List.drawSlot(GuiScreenHacks.java:87)
+	at com.daytrip.sunrise.gui.GuiScreenHacks$List.drawSlot(GuiScreenHacks.java:87)
 	at net.minecraft.client.gui.GuiSlot.drawSelectionBox(GuiSlot.java:480)
 	at net.minecraft.client.gui.GuiSlot.drawScreen(GuiSlot.java:249)
-	at com.daytrip.shared.gui.GuiScreenHacks.drawScreen(GuiScreenHacks.java:50)
+	at com.daytrip.sunrise.gui.GuiScreenHacks.drawScreen(GuiScreenHacks.java:50)
 	at net.minecraft.client.renderer.EntityRenderer.func_181560_a(EntityRenderer.java:1162)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1225)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:371)
@@ -23,14 +23,14 @@ A detailed walkthrough of the error, its code path and all known details is as f
 -- Head --
 Stacktrace:
 	at com.daytrip.sunrise.hack.HackManager.getHack(HackManager.java:27)
-	at com.daytrip.shared.gui.GuiScreenHacks$List.drawSlot(GuiScreenHacks.java:87)
+	at com.daytrip.sunrise.gui.GuiScreenHacks$List.drawSlot(GuiScreenHacks.java:87)
 	at net.minecraft.client.gui.GuiSlot.drawSelectionBox(GuiSlot.java:480)
 	at net.minecraft.client.gui.GuiSlot.drawScreen(GuiSlot.java:249)
-	at com.daytrip.shared.gui.GuiScreenHacks.drawScreen(GuiScreenHacks.java:50)
+	at com.daytrip.sunrise.gui.GuiScreenHacks.drawScreen(GuiScreenHacks.java:50)
 
 -- Screen render details --
 Details:
-	Screen name: com.daytrip.shared.gui.GuiScreenHacks
+	Screen name: com.daytrip.sunrise.gui.GuiScreenHacks
 	Mouse location: Scaled: (213, 119). Absolute: (427, 240)
 	Screen size: Scaled: (427, 240). Absolute: (854, 480). Scale factor of 2
 

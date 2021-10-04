@@ -1,12 +1,7 @@
 package com.daytrip.shared;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.util.*;
-
-import java.util.List;
+import net.minecraft.util.Vec3;
 
 public class CommonMath {
     public static final float PI = 3.1415927f;
@@ -43,6 +38,12 @@ public class CommonMath {
         len = Math.sqrt(dirx*dirx + diry*diry + dirz*dirz);
     }
 
+
+    /**
+     * Updates the values for following functions
+     * @param attacker The attacker
+     * @param vec3 The position of the target
+     */
     public static void updateValues(EntityLivingBase attacker, Vec3 vec3) {
         dirx = attacker.posX - vec3.xCoord;
         diry = attacker.posY - vec3.yCoord;
@@ -78,15 +79,13 @@ public class CommonMath {
         return (float) pitch;
     }
 
+
     public static float lerpAngle(float fromRadians, float toRadians, float progress) {
         float delta = ((toRadians - fromRadians + PI2 + PI) % PI2) - PI;
         return (fromRadians + delta * progress + PI2) % PI2;
     }
 
-    public static int round(double a) {
-        if(a < 0) {
-            return (int) Math.ceil(a + 0.5d);
-        }
-        return (int) Math.round(a);
+    public static float lerp(float point1, float point2, float alpha) {
+        return point1 + alpha * (point2 - point1);
     }
 }

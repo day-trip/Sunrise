@@ -1,7 +1,6 @@
 package net.minecraft.client.entity;
 
 import com.mojang.authlib.GameProfile;
-import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.ImageBufferDownload;
@@ -32,7 +31,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public boolean isSpectator()
     {
-        NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(this.getGameProfile().getId());
+        NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(getGameProfile().getId());
         return networkplayerinfo != null && networkplayerinfo.getGameType() == WorldSettings.GameType.SPECTATOR;
     }
 
@@ -41,17 +40,17 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public boolean hasPlayerInfo()
     {
-        return this.getPlayerInfo() != null;
+        return getPlayerInfo() != null;
     }
 
     protected NetworkPlayerInfo getPlayerInfo()
     {
-        if (this.playerInfo == null)
+        if (playerInfo == null)
         {
-            this.playerInfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(this.getUniqueID());
+            playerInfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(getUniqueID());
         }
 
-        return this.playerInfo;
+        return playerInfo;
     }
 
     /**
@@ -59,7 +58,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public boolean hasSkin()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
         return networkplayerinfo != null && networkplayerinfo.hasLocationSkin();
     }
 
@@ -68,28 +67,26 @@ public abstract class AbstractClientPlayer extends EntityPlayer
      */
     public ResourceLocation getLocationSkin()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-        return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(this.getUniqueID()) : networkplayerinfo.getLocationSkin();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
+        return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(getUniqueID()) : networkplayerinfo.getLocationSkin();
     }
 
     public ResourceLocation getLocationCape()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
         return networkplayerinfo == null ? null : networkplayerinfo.getLocationCape();
     }
 
-    public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username)
+    public static void getDownloadImageSkin(ResourceLocation resourceLocationIn, String username)
     {
         TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
         ITextureObject itextureobject = texturemanager.getTexture(resourceLocationIn);
 
         if (itextureobject == null)
         {
-            itextureobject = new ThreadDownloadImageData((File)null, String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", new Object[] {StringUtils.stripControlCodes(username)}), DefaultPlayerSkin.getDefaultSkin(getOfflineUUID(username)), new ImageBufferDownload());
+            itextureobject = new ThreadDownloadImageData(null, String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", StringUtils.stripControlCodes(username)), DefaultPlayerSkin.getDefaultSkin(getOfflineUUID(username)), new ImageBufferDownload());
             texturemanager.loadTexture(resourceLocationIn, itextureobject);
         }
-
-        return (ThreadDownloadImageData)itextureobject;
     }
 
     /**
@@ -102,30 +99,30 @@ public abstract class AbstractClientPlayer extends EntityPlayer
 
     public String getSkinType()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-        return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(this.getUniqueID()) : networkplayerinfo.getSkinType();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
+        return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(getUniqueID()) : networkplayerinfo.getSkinType();
     }
 
     public float getFovModifier()
     {
         float f = 1.0F;
 
-        if (this.capabilities.isFlying)
+        if (capabilities.isFlying)
         {
             f *= 1.1F;
         }
 
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-        f = (float)((double)f * ((iattributeinstance.getAttributeValue() / (double)this.capabilities.getWalkSpeed() + 1.0D) / 2.0D));
+        IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+        f = (float)((double)f * ((iattributeinstance.getAttributeValue() / (double) capabilities.getWalkSpeed() + 1.0D) / 2.0D));
 
-        if (this.capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f))
+        if (capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f))
         {
             f = 1.0F;
         }
 
-        if (this.isUsingItem() && this.getItemInUse().getItem() == Items.bow)
+        if (isUsingItem() && getItemInUse().getItem() == Items.bow)
         {
-            int i = this.getItemInUseDuration();
+            int i = getItemInUseDuration();
             float f1 = (float)i / 20.0F;
 
             if (f1 > 1.0F)

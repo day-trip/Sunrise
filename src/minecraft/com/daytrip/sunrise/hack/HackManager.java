@@ -25,6 +25,10 @@ public class HackManager {
         return new ArrayList<>(entry).get(id).getValue();
     }
 
+    public static Map<String, Hack> getHacks() {
+        return hacks;
+    }
+
     public static int count() {
         return hacks.size();
     }

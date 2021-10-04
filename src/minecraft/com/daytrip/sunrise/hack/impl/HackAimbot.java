@@ -31,10 +31,10 @@ public class HackAimbot extends Hack {
         }
         if(event instanceof EventClickMouse) {
             if(((EventClickMouse) event).getButton() == 2) {
-                ExtendedReach reach = new ExtendedReach(null, 25, minecraft, minecraft.thePlayer);
-                reach.getMouseOver();
-                if(reach.mcObjectMouseOver.entityHit instanceof EntityLivingBase) {
-                    target = (EntityLivingBase) reach.mcObjectMouseOver.entityHit;
+                ExtendedReach reach = new ExtendedReach(null, 25, minecraft.thePlayer);
+                reach.calculateMouseOver();
+                if(reach.objectMouseOver.entityHit instanceof EntityLivingBase) {
+                    target = (EntityLivingBase) reach.objectMouseOver.entityHit;
                 }
                 event.setCancelled(true);
             }

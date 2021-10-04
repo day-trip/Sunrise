@@ -25,7 +25,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.stream.MetadataAchievement;
 import net.minecraft.client.stream.MetadataCombat;
 import net.minecraft.client.stream.MetadataPlayerDeath;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.creativetab.CreativeTabs;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;

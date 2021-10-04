@@ -5,7 +5,6 @@ import com.daytrip.shared.ExtendedReach;
 import com.daytrip.shared.event.Event;
 import com.daytrip.shared.event.impl.*;
 import com.daytrip.sunrise.hack.Hack;
-import com.daytrip.sunrise.hack.setting.Setting;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -15,11 +14,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import org.apache.http.auth.AUTH;
 import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class HackAutoFighter extends Hack {
     private EntityLivingBase target;
@@ -27,12 +26,16 @@ public class HackAutoFighter extends Hack {
     private int inventorySwordSlot = 0;
     private int inventoryRodSlot = 3;
 
+    private double distanceToTarget;
+
     private int attackTicks;
-    private int blockHitCounter;
+
+    private int hitCounter;
 
     private int rodTicks;
 
     private int lerpTicks;
+
     private int targetLerpTicks;
 
     private int jumpTicks;
@@ -42,19 +45,26 @@ public class HackAutoFighter extends Hack {
     private int strafeTicks;
     private int targetStrafeTicks;
 
-    protected boolean autoNav;
+    private boolean wantsToJump;
+
+    private boolean autoNav;
 
     private final Block[] DANGER_BLOCKS = {Blocks.fire, Blocks.lava, Blocks.flowing_lava, Blocks.water, Blocks.flowing_water, Blocks.soul_sand, Blocks.web};
 
     public HackAutoFighter() {
         super(Keyboard.KEY_P, "Auto Fighter", "auto_fighter");
         settingManager.addSetting(new SettingBoolean("Strafe", "strafe", true));
+        settingManager.addSetting(new SettingBoolean("Move Towards Target", "approach_target", true));
+        settingManager.addSetting(new SettingBoolean("Aim Lock", "aim_lock", true));
+        settingManager.addSetting(new SettingBoolean("Interpolate Aim", "interpolate", true));
     }
 
     @Override
     public void onEvent(Event event) throws Exception {
         if(event instanceof EventProcessMouse && target != null && minecraft.inWorld()) {
-            event.setCancelled(true);
+            if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
+                event.setCancelled(true);
+            }
         }
         if(event instanceof EventClickMouse && minecraft.inWorld()) {
             if(event.getCustomFromTarget().equals(id)) return;
@@ -64,10 +74,10 @@ public class HackAutoFighter extends Hack {
             }
 
             if(((EventClickMouse) event).getButton() == 2) {
-                ExtendedReach reach = new ExtendedReach(null, 25, minecraft, minecraft.thePlayer);
-                reach.getMouseOver();
-                if(reach.mcObjectMouseOver.entityHit instanceof EntityLivingBase) {
-                    target = (EntityLivingBase) reach.mcObjectMouseOver.entityHit;
+                ExtendedReach reach = new ExtendedReach(null, 25, minecraft.thePlayer);
+                reach.calculateMouseOver();
+                if(reach.objectMouseOver.entityHit instanceof EntityLivingBase) {
+                    target = (EntityLivingBase) reach.objectMouseOver.entityHit;
                     event.setCancelled(true);
                 }
             }
@@ -92,77 +102,34 @@ public class HackAutoFighter extends Hack {
             event.setCancelled(true);
         }
         if(event instanceof EventTick && target != null && minecraft.inWorld()) {
-            double fDist = Math.floor(target.getDistanceToEntity(minecraft.thePlayer));
+            distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
 
-            navigation();
+            //navigation();
+
+            autoNav = true;
 
             if(autoNav) {
-                if(fDist < 4) {
+                if(distanceToTarget < 4) {
                     rodTicks = 0;
 
                     minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
                     minecraft.playerController.syncCurrentPlayItem();
 
-                    startMoving();
+                    approachTarget();
+                    strafeTarget();
 
-                    if(settingManager.<SettingBoolean>getSetting("strafe").getValue()) {
-                        if(fDist > 2) {
-                            if(strafeTicks > targetStrafeTicks) {
-                                strafeTicks = 0;
-                                targetStrafeTicks = 50 + minecraft.theWorld.rand.nextInt(30);
-                                minecraft.thePlayer.movementInput.moveStrafe = 0;
-                                if(strafe.equals("left")) {
-                                    strafe = "right";
-                                } else {
-                                    strafe = "left";
-                                }
-                            } else {
-                                strafeTicks++;
-                                if(strafe.equals("left")) {
-                                    minecraft.thePlayer.movementInput.moveStrafe = -1;
-                                } else {
-                                    minecraft.thePlayer.movementInput.moveStrafe = 1;
-                                }
-                            }
-                        } else {
-                            minecraft.thePlayer.movementInput.moveStrafe = 0;
-                        }
+                    if(!wantsToJump && !minecraft.thePlayer.onGround) {
+                        minecraft.thePlayer.setJumping(false);
                     }
 
-                    minecraft.thePlayer.setJumping(false);
-
-                    if(attackTicks > 2) {
-                        if(blockHitCounter > 3) {
-                            blockHitCounter = 0;
-
-                            EventClickMouse eventClickMouse = new EventClickMouse();
-                            eventClickMouse.setButton(1);
-                            eventClickMouse.setCustomFromTarget(id);
-                            eventClickMouse.post();
-
-                            minecraft.thePlayer.setSprinting(false);
-                            minecraft.thePlayer.movementInput.moveForward = 0;
-                            minecraft.thePlayer.setSprinting(true);
-                            minecraft.thePlayer.movementInput.moveForward = 1;
-                        } else {
-                            blockHitCounter++;
-
-                            EventClickMouse eventClickMouse = new EventClickMouse();
-                            eventClickMouse.setButton(0);
-                            eventClickMouse.setCustomFromTarget(id);
-                            eventClickMouse.post();
-                        }
-                        attackTicks = 0;
-                    } else {
-                        attackTicks++;
-                    }
+                    attackTarget();
                 } else {
                     startMoving();
 
                     minecraft.thePlayer.inventory.currentItem = inventoryRodSlot;
                     minecraft.playerController.syncCurrentPlayItem();
 
-                    if(rodTicks > 10) {
+                    if(rodTicks > distanceToTarget * 2) {
                         rodTicks = 0;
                         EventClickMouse eventClickMouse = new EventClickMouse();
                         eventClickMouse.setButton(1);
@@ -175,7 +142,7 @@ public class HackAutoFighter extends Hack {
                     if(jumpTicks > targetJumpTicks) {
                         jumpTicks = 0;
                         targetJumpTicks = 20 + minecraft.theWorld.rand.nextInt(10);
-                        if(fDist > 6) {
+                        if(distanceToTarget > 10) {
                             jump();
                         }
                     } else {
@@ -184,17 +151,24 @@ public class HackAutoFighter extends Hack {
                 }
             }
 
-            if(lerpTicks > targetLerpTicks) {
-                lerpTicks = 0;
-                targetLerpTicks = 18 + minecraft.theWorld.rand.nextInt(4);
-            } else {
-                lerpTicks++;
+            if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
+                if(lerpTicks > 10) {
+                    lerpTicks = 0;
+                    targetLerpTicks = 18 + minecraft.theWorld.rand.nextInt(4);
+                } else {
+                    lerpTicks++;
+                }
+
+                CommonMath.updateValues(minecraft.thePlayer, target);
+
+                if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
+                    minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), (lerpTicks + minecraft.timer.elapsedPartialTicks - 0) / 10f));
+                    minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), (lerpTicks + minecraft.timer.elapsedPartialTicks - 0) / 10f));
+                } else {
+                    minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
+                    minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+                }
             }
-
-            CommonMath.updateValues(minecraft.thePlayer, target);
-
-            minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), targetLerpTicks / 20f));
-            minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), targetLerpTicks / 20f));
 
             if(target.getHealth() <= 0) {
                 loseTarget();
@@ -219,6 +193,86 @@ public class HackAutoFighter extends Hack {
                     }
                 }
             }
+         }
+    }
+
+    @Override
+    protected void disable() {
+        super.disable();
+        loseTarget();
+    }
+
+    @Override
+    protected void enable() {
+        super.enable();
+        targetStrafeTicks = 50 + minecraft.theWorld.rand.nextInt(30);
+        targetLerpTicks = 18 + minecraft.theWorld.rand.nextInt(4);
+        targetJumpTicks = 20 + minecraft.theWorld.rand.nextInt(10);
+    }
+
+    private void approachTarget() {
+        if(settingManager.<SettingBoolean>getSetting("approach_target").getValue()) {
+            if(distanceToTarget < 1) {
+                minecraft.thePlayer.movementInput.moveForward = -1;
+            } else {
+                if(distanceToTarget > 2.5) {
+                    startMoving();
+                } else {
+                    stopMoving();
+                }
+            }
+        } else {
+            stopMoving();
+        }
+    }
+
+    private void strafeTarget() {
+        if(settingManager.<SettingBoolean>getSetting("strafe").getValue()) {
+            if(distanceToTarget > 2) {
+                if(strafeTicks > targetStrafeTicks) {
+                    strafeTicks = 0;
+                    targetStrafeTicks = 50 + minecraft.theWorld.rand.nextInt(30);
+                    minecraft.thePlayer.movementInput.moveStrafe = 0;
+                    if(strafe.equals("left")) {
+                        strafe = "right";
+                    } else {
+                        strafe = "left";
+                    }
+                } else {
+                    strafeTicks++;
+                    if(strafe.equals("left")) {
+                        minecraft.thePlayer.movementInput.moveStrafe = -1;
+                    } else {
+                        minecraft.thePlayer.movementInput.moveStrafe = 1;
+                    }
+                }
+            } else {
+                minecraft.thePlayer.movementInput.moveStrafe = 0;
+            }
+        }
+    }
+
+    private void attackTarget() throws Exception {
+        if(attackTicks > 2) {
+            attackTicks = 0;
+            EventClickMouse eventClickMouse = new EventClickMouse();
+            eventClickMouse.setButton(0);
+            eventClickMouse.setCustomFromTarget(id);
+            eventClickMouse.post();
+
+            if(hitCounter > 5) {
+                hitCounter = 0;
+                stopMoving();
+                //EventClickMouse eventRightClickMouse = new EventClickMouse();
+                //eventRightClickMouse.setButton(1);
+                //eventRightClickMouse.setCustomFromTarget(id);
+                //eventRightClickMouse.post();
+                startMoving();
+            } else {
+                hitCounter++;
+            }
+        } else {
+            attackTicks++;
         }
     }
 
@@ -229,20 +283,8 @@ public class HackAutoFighter extends Hack {
         jumpTicks = 0;
         rodTicks = 0;
         strafeTicks = 0;
-        blockHitCounter = 0;
+        hitCounter = 0;
         stopMoving();
-    }
-
-    private void learnInventoryLayout() {
-        for(int i = 0; i < 9; i++) {
-            ItemStack stack = minecraft.thePlayer.inventory.mainInventory[i];
-            if(stack.getItem() == Items.iron_sword || stack.getItem() == Items.wooden_sword || stack.getItem() == Items.stone_sword || stack.getItem() == Items.golden_sword || stack.getItem() == Items.diamond_sword) {
-                inventorySwordSlot = i;
-            }
-            if(stack.getItem() == Items.fishing_rod) {
-                inventoryRodSlot = i;
-            }
-        }
     }
 
     private void navigation() {
@@ -250,7 +292,7 @@ public class HackAutoFighter extends Hack {
         double predY = minecraft.thePlayer.posY + (minecraft.thePlayer.motionY * getBPSState()) * minecraft.timer.renderPartialTicks;
         double predZ = minecraft.thePlayer.posZ + (minecraft.thePlayer.motionZ * getBPSState()) * minecraft.timer.renderPartialTicks;
 
-        BlockPos predictedLocation = new BlockPos(CommonMath.round(predX), CommonMath.round(predY), CommonMath.round(predZ));
+        BlockPos predictedLocation = new BlockPos(Math.round(predX), Math.round(predY), Math.round(predZ));
 
         System.out.println("a");
         System.out.println(minecraft.thePlayer.getPosition());
@@ -286,14 +328,12 @@ public class HackAutoFighter extends Hack {
 
     private BlockPos findBlock(BlockPos start) {
         int airBlocks = 0;
-        int i = 0;
         while(true) {
             if(minecraft.theWorld.getBlockState(start.down(airBlocks + 1)).getBlock() == Blocks.air) {
                 airBlocks++;
             } else {
                 break;
             }
-            i++;
         }
         return start.down(airBlocks);
     }
@@ -352,20 +392,5 @@ public class HackAutoFighter extends Hack {
 
     public EntityLivingBase getTarget() {
         return target;
-    }
-
-    @Override
-    protected void disable() {
-        super.disable();
-        loseTarget();
-    }
-
-    @Override
-    protected void enable() {
-        super.enable();
-        //learnInventoryLayout();
-        targetStrafeTicks = 50 + minecraft.theWorld.rand.nextInt(30);
-        targetLerpTicks = 18 + minecraft.theWorld.rand.nextInt(4);
-        targetJumpTicks = 20 + minecraft.theWorld.rand.nextInt(10);
     }
 }

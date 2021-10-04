@@ -9,20 +9,18 @@ import net.minecraft.util.BlockPos;
 
 public class CrashReportCategory
 {
-    private final CrashReport crashReport;
     private final String name;
-    private final List<CrashReportCategory.Entry> children = Lists.<CrashReportCategory.Entry>newArrayList();
+    private final List<CrashReportCategory.Entry> children = Lists.newArrayList();
     private StackTraceElement[] stackTrace = new StackTraceElement[0];
 
     public CrashReportCategory(CrashReport report, String name)
     {
-        this.crashReport = report;
         this.name = name;
     }
 
     public static String getCoordinateInfo(double x, double y, double z)
     {
-        return String.format("%.2f,%.2f,%.2f - %s", new Object[] {Double.valueOf(x), Double.valueOf(y), Double.valueOf(z), getCoordinateInfo(new BlockPos(x, y, z))});
+        return String.format("%.2f,%.2f,%.2f - %s", x, y, z, getCoordinateInfo(new BlockPos(x, y, z)));
     }
 
     public static String getCoordinateInfo(BlockPos pos)
@@ -34,7 +32,7 @@ public class CrashReportCategory
 
         try
         {
-            stringbuilder.append(String.format("World: (%d,%d,%d)", new Object[] {Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(k)}));
+            stringbuilder.append(String.format("World: (%d,%d,%d)", Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(k)));
         }
         catch (Throwable var17)
         {
@@ -54,7 +52,7 @@ public class CrashReportCategory
             int j2 = i1 << 4;
             int k2 = (l + 1 << 4) - 1;
             int l2 = (i1 + 1 << 4) - 1;
-            stringbuilder.append(String.format("Chunk: (at %d,%d,%d in %d,%d; contains blocks %d,0,%d to %d,255,%d)", new Object[] {Integer.valueOf(j1), Integer.valueOf(k1), Integer.valueOf(l1), Integer.valueOf(l), Integer.valueOf(i1), Integer.valueOf(i2), Integer.valueOf(j2), Integer.valueOf(k2), Integer.valueOf(l2)}));
+            stringbuilder.append(String.format("Chunk: (at %d,%d,%d in %d,%d; contains blocks %d,0,%d to %d,255,%d)", Integer.valueOf(j1), Integer.valueOf(k1), Integer.valueOf(l1), Integer.valueOf(l), Integer.valueOf(i1), Integer.valueOf(i2), Integer.valueOf(j2), Integer.valueOf(k2), Integer.valueOf(l2)));
         }
         catch (Throwable var16)
         {
@@ -75,7 +73,7 @@ public class CrashReportCategory
             int i5 = k3 << 9;
             int j5 = (j3 + 1 << 9) - 1;
             int i3 = (k3 + 1 << 9) - 1;
-            stringbuilder.append(String.format("Region: (%d,%d; contains chunks %d,%d to %d,%d, blocks %d,0,%d to %d,255,%d)", new Object[] {Integer.valueOf(j3), Integer.valueOf(k3), Integer.valueOf(l3), Integer.valueOf(i4), Integer.valueOf(j4), Integer.valueOf(k4), Integer.valueOf(l4), Integer.valueOf(i5), Integer.valueOf(j5), Integer.valueOf(i3)}));
+            stringbuilder.append(String.format("Region: (%d,%d; contains chunks %d,%d to %d,%d, blocks %d,0,%d to %d,255,%d)", Integer.valueOf(j3), Integer.valueOf(k3), Integer.valueOf(l3), Integer.valueOf(i4), Integer.valueOf(j4), Integer.valueOf(k4), Integer.valueOf(l4), Integer.valueOf(i5), Integer.valueOf(j5), Integer.valueOf(i3)));
         }
         catch (Throwable var15)
         {
@@ -92,11 +90,11 @@ public class CrashReportCategory
     {
         try
         {
-            this.addCrashSection(sectionName, callable.call());
+            addCrashSection(sectionName, callable.call());
         }
         catch (Throwable throwable)
         {
-            this.addCrashSectionThrowable(sectionName, throwable);
+            addCrashSectionThrowable(sectionName, throwable);
         }
     }
 
@@ -105,7 +103,7 @@ public class CrashReportCategory
      */
     public void addCrashSection(String sectionName, Object value)
     {
-        this.children.add(new CrashReportCategory.Entry(sectionName, value));
+        children.add(new CrashReportCategory.Entry(sectionName, value));
     }
 
     /**
@@ -113,7 +111,7 @@ public class CrashReportCategory
      */
     public void addCrashSectionThrowable(String sectionName, Throwable throwable)
     {
-        this.addCrashSection(sectionName, throwable);
+        addCrashSection(sectionName, throwable);
     }
 
     /**
@@ -130,9 +128,9 @@ public class CrashReportCategory
         }
         else
         {
-            this.stackTrace = new StackTraceElement[astacktraceelement.length - 3 - size];
-            System.arraycopy(astacktraceelement, 3 + size, this.stackTrace, 0, this.stackTrace.length);
-            return this.stackTrace.length;
+            stackTrace = new StackTraceElement[astacktraceelement.length - 3 - size];
+            System.arraycopy(astacktraceelement, 3 + size, stackTrace, 0, stackTrace.length);
+            return stackTrace.length;
         }
     }
 
@@ -141,23 +139,23 @@ public class CrashReportCategory
      */
     public boolean firstTwoElementsOfStackTraceMatch(StackTraceElement s1, StackTraceElement s2)
     {
-        if (this.stackTrace.length != 0 && s1 != null)
+        if (stackTrace.length != 0 && s1 != null)
         {
-            StackTraceElement stacktraceelement = this.stackTrace[0];
+            StackTraceElement stacktraceelement = stackTrace[0];
 
             if (stacktraceelement.isNativeMethod() == s1.isNativeMethod() && stacktraceelement.getClassName().equals(s1.getClassName()) && stacktraceelement.getFileName().equals(s1.getFileName()) && stacktraceelement.getMethodName().equals(s1.getMethodName()))
             {
-                if (s2 != null != this.stackTrace.length > 1)
+                if (s2 != null != stackTrace.length > 1)
                 {
                     return false;
                 }
-                else if (s2 != null && !this.stackTrace[1].equals(s2))
+                else if (s2 != null && !stackTrace[1].equals(s2))
                 {
                     return false;
                 }
                 else
                 {
-                    this.stackTrace[0] = s1;
+                    stackTrace[0] = s1;
                     return true;
                 }
             }
@@ -177,17 +175,17 @@ public class CrashReportCategory
      */
     public void trimStackTraceEntriesFromBottom(int amount)
     {
-        StackTraceElement[] astacktraceelement = new StackTraceElement[this.stackTrace.length - amount];
-        System.arraycopy(this.stackTrace, 0, astacktraceelement, 0, astacktraceelement.length);
-        this.stackTrace = astacktraceelement;
+        StackTraceElement[] astacktraceelement = new StackTraceElement[stackTrace.length - amount];
+        System.arraycopy(stackTrace, 0, astacktraceelement, 0, astacktraceelement.length);
+        stackTrace = astacktraceelement;
     }
 
     public void appendToStringBuilder(StringBuilder builder)
     {
-        builder.append("-- ").append(this.name).append(" --\n");
+        builder.append("-- ").append(name).append(" --\n");
         builder.append("Details:");
 
-        for (CrashReportCategory.Entry crashreportcategory$entry : this.children)
+        for (CrashReportCategory.Entry crashreportcategory$entry : children)
         {
             builder.append("\n\t");
             builder.append(crashreportcategory$entry.getKey());
@@ -195,11 +193,11 @@ public class CrashReportCategory
             builder.append(crashreportcategory$entry.getValue());
         }
 
-        if (this.stackTrace != null && this.stackTrace.length > 0)
+        if (stackTrace != null && stackTrace.length > 0)
         {
             builder.append("\nStacktrace:");
 
-            for (StackTraceElement stacktraceelement : this.stackTrace)
+            for (StackTraceElement stacktraceelement : stackTrace)
             {
                 builder.append("\n\tat ");
                 builder.append(stacktraceelement.toString());
@@ -209,19 +207,19 @@ public class CrashReportCategory
 
     public StackTraceElement[] getStackTrace()
     {
-        return this.stackTrace;
+        return stackTrace;
     }
 
-    public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData)
+    public static void addBlockInfo(CrashReportCategory category, BlockPos pos, Block blockIn, int blockData)
     {
-        final int i = Block.getIdFromBlock(blockIn);
+        int i = Block.getIdFromBlock(blockIn);
         category.addCrashSectionCallable("Block type", new Callable<String>()
         {
             public String call() throws Exception
             {
                 try
                 {
-                    return String.format("ID #%d (%s // %s)", new Object[] {Integer.valueOf(i), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName()});
+                    return String.format("ID #%d (%s // %s)", Integer.valueOf(i), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
                 }
                 catch (Throwable var2)
                 {
@@ -240,7 +238,7 @@ public class CrashReportCategory
                 else
                 {
                     String s = String.format("%4s", new Object[] {Integer.toBinaryString(blockData)}).replace(" ", "0");
-                    return String.format("%1$d / 0x%1$X / 0b%2$s", new Object[] {Integer.valueOf(blockData), s});
+                    return String.format("%1$d / 0x%1$X / 0b%2$s", Integer.valueOf(blockData), s);
                 }
             }
         });
@@ -248,12 +246,12 @@ public class CrashReportCategory
         {
             public String call() throws Exception
             {
-                return CrashReportCategory.getCoordinateInfo(pos);
+                return getCoordinateInfo(pos);
             }
         });
     }
 
-    public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state)
+    public static void addBlockInfo(CrashReportCategory category, BlockPos pos, IBlockState state)
     {
         category.addCrashSectionCallable("Block", new Callable<String>()
         {
@@ -266,7 +264,7 @@ public class CrashReportCategory
         {
             public String call() throws Exception
             {
-                return CrashReportCategory.getCoordinateInfo(pos);
+                return getCoordinateInfo(pos);
             }
         });
     }
@@ -297,12 +295,12 @@ public class CrashReportCategory
 
         public String getKey()
         {
-            return this.key;
+            return key;
         }
 
         public String getValue()
         {
-            return this.value;
+            return value;
         }
     }
 }

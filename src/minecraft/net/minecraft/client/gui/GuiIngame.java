@@ -1,14 +1,8 @@
 package net.minecraft.client.gui;
 
 import com.daytrip.shared.event.impl.EventRenderHud;
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -35,15 +29,13 @@ import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.FoodStats;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
+import net.minecraft.util.*;
 import net.minecraft.world.border.WorldBorder;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class GuiIngame extends Gui
 {
@@ -786,7 +778,6 @@ public class GuiIngame extends Gui
                     for (int i5 = 0; i5 < l4; ++i5)
                     {
                         int j5 = 52;
-                        int k5 = 0;
 
                         int l5 = j1 - i5 * 8 - 9;
                         drawTexturedModalRect(l5, j9, j5, 9, 9, 9);
@@ -839,7 +830,6 @@ public class GuiIngame extends Gui
         if (BossStatus.bossName != null && BossStatus.statusBarTime > 0)
         {
             --BossStatus.statusBarTime;
-            FontRenderer fontrenderer = mc.fontRendererObj;
             ScaledResolution scaledresolution = new ScaledResolution(mc);
             int i = scaledresolution.getScaledWidth();
             int j = 182;

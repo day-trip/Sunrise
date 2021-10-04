@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import java.util.Random;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.creativetab.CreativeTabs;
 import net.minecraft.util.EnumWorldBlockLayer;
 
 public class BlockGlass extends BlockBreakable

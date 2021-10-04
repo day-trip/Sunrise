@@ -147,12 +147,8 @@ public class AxisAlignedBB
                 }
             }
 
-            return offsetX;
         }
-        else
-        {
-            return offsetX;
-        }
+        return offsetX;
     }
 
     /**
@@ -183,12 +179,8 @@ public class AxisAlignedBB
                 }
             }
 
-            return offsetY;
         }
-        else
-        {
-            return offsetY;
-        }
+        return offsetY;
     }
 
     /**
@@ -219,12 +211,8 @@ public class AxisAlignedBB
                 }
             }
 
-            return offsetZ;
         }
-        else
-        {
-            return offsetZ;
-        }
+        return offsetZ;
     }
 
     /**

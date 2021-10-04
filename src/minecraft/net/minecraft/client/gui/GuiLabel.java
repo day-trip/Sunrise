@@ -50,10 +50,9 @@ public class GuiLabel extends Gui
     /**
      * Sets the Label to be centered
      */
-    public GuiLabel setCentered()
+    public void setCentered()
     {
         centered = true;
-        return this;
     }
 
     public void drawLabel(Minecraft mc, int mouseX, int mouseY)

@@ -853,7 +853,7 @@ public abstract class EntityLivingBase extends Entity
 
     public void setHealth(float health)
     {
-        dataWatcher.updateObject(6, Float.valueOf(MathHelper.clamp_float(health, 0.0F, getMaxHealth())));
+        dataWatcher.updateObject(6, MathHelper.clamp_float(health, 0.0F, getMaxHealth()));
     }
 
     /**

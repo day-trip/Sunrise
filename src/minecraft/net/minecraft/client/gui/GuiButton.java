@@ -42,6 +42,7 @@ public class GuiButton extends Gui
     public float textAlpha = 1.0F;
 
     public boolean drawText = true;
+    public boolean fontSmooth = false;
 
     public GuiButton(int buttonId, int x, int y, String buttonText)
     {
@@ -61,6 +62,16 @@ public class GuiButton extends Gui
         width = widthIn;
         height = heightIn;
         displayString = buttonText;
+    }
+
+    public GuiButton setSmoothFont() {
+        fontSmooth = true;
+        return this;
+    }
+
+    public GuiButton setCentered() {
+        xPosition -= width / 2;
+        return this;
     }
 
     /**
@@ -104,9 +115,7 @@ public class GuiButton extends Gui
             mouseDragged(mc, mouseX, mouseY);
 
             if(drawText) {
-                FontRenderer fontrenderer = mc.fontRendererObj;
-
-                int j = new Color(224 / 255f, 224 / 255f, 224 / 255f, textAlpha).getRGB();
+                int j = new Color(32 / 255f, 32 / 255f, 128 / 255f, textAlpha).getRGB();
 
                 if (!enabled)
                 {
@@ -114,10 +123,14 @@ public class GuiButton extends Gui
                 }
                 else if (hovered)
                 {
-                    j = new Color(255 / 255f, 255 / 255f, 160 / 255f, textAlpha).getRGB();
+                    j = new Color(255 / 255f, 140 / 255f, 0 / 255f, textAlpha).getRGB();
                 }
 
-                drawCenteredString(fontrenderer, displayString, xPosition + width / 2, yPosition + (height - 8) / 2, j);
+                if(!forceEnabled) {
+                    j = new Color(160 / 255f, 160 / 255f, 160 / 255f, textAlpha).getRGB();
+                }
+
+                drawCenteredStringWithoutShadow(fontSmooth ? mc.smoothFontRendererObj : mc.fontRendererObj, displayString, xPosition + width / 2, yPosition + (height - 8) / 2, j);
             }
         }
     }

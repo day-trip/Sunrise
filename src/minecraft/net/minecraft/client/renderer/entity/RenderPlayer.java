@@ -195,17 +195,17 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         }
     }
 
-    protected void rotateCorpse(AbstractClientPlayer bat, float p_77043_2_, float p_77043_3_, float partialTicks)
+    protected void rotateCorpse(AbstractClientPlayer player, float p_77043_2_, float p_77043_3_, float partialTicks)
     {
-        if (bat.isEntityAlive() && bat.isPlayerSleeping())
+        if (player.isEntityAlive() && player.isPlayerSleeping())
         {
-            GlStateManager.rotate(bat.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(getDeathMaxRotation(bat), 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(player.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(getDeathMaxRotation(player), 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
         }
         else
         {
-            super.rotateCorpse(bat, p_77043_2_, p_77043_3_, partialTicks);
+            super.rotateCorpse(player, p_77043_2_, p_77043_3_, partialTicks);
         }
     }
 }

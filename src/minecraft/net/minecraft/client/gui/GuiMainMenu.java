@@ -1,7 +1,8 @@
 package net.minecraft.client.gui;
 
-import com.daytrip.shared.gui.button.impl.GuiIconButtonClose;
-import com.daytrip.shared.gui.button.impl.GuiIconButtonSettings;
+import com.daytrip.shared.CommonMath;
+import com.daytrip.sunrise.gui.button.GuiIconButtonClose;
+import com.daytrip.sunrise.gui.button.GuiIconButtonSettings;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -44,8 +45,8 @@ public class GuiMainMenu extends GuiScreen {
         buttonList.add(new GuiButtonLanguage(5, 3, height - 20 - 7));
         buttonList.add(new GuiIconButtonSettings(0, 30, height - 20 - 7));
         buttonList.add(new GuiIconButtonClose(4, width - 20 - 3, height - 20 - 7));
-        buttonList.add(new GuiButton(1, width / 2 - 50 - 40, height - 20 - 7, 80, 20, I18n.format("menu.singleplayer")));
-        buttonList.add(new GuiButton(2, width / 2 + 50 - 40, height - 20 - 7, 80, 20, I18n.format("menu.multiplayer")));
+        buttonList.add(new GuiButton(1, width / 2 - 50 - 40, height - 20 - 7, 80, 20, I18n.format("menu.singleplayer")).setSmoothFont());
+        buttonList.add(new GuiButton(2, width / 2 + 50 - 40, height - 20 - 7, 80, 20, I18n.format("menu.multiplayer")).setSmoothFont());
 
         mc.func_181537_a(false);
     }
@@ -79,8 +80,19 @@ public class GuiMainMenu extends GuiScreen {
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/title/background.png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/title/galaxy.png"));
         drawModalRectWithCustomSizedTexture(0, 0, 0, 0, width, height, width, height);
+
+        drawGradientRect(0, 0, width, height, -1072689136, -804253680);
+
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/title/sun.png"));
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(775, 769, 1, 0);
+        GlStateManager.enableAlpha();
+        drawModalRectWithCustomSizedTexture(width / 2 - 100, (int) CommonMath.lerp(0, height / 2f + 500f, startTicks / 30f), 0, 0, 200, 200, 200, 200);
+        GlStateManager.disableAlpha();
+        GlStateManager.disableBlend();
 
         String copyright = "(C) Mojang AB & DayTrip. Do not distribute!";
 
@@ -99,7 +111,7 @@ public class GuiMainMenu extends GuiScreen {
         GlStateManager.translate(width / 2f, height / 2f, 0);
         GlStateManager.scale(clamp(startTicks / 2, 5, 15), clamp(startTicks / 2, 5, 10), 1);
         GlStateManager.translate(-(width / 2f), -(height / 2f), 0);
-        drawCenteredStringWithoutShadow(mc.smoothFontRendererObj, I18n.format("client.name"), width / 2, height / 2 - fontRendererObj.FONT_HEIGHT / 2, 0x0000FF);
+        drawCenteredStringWithoutShadow(mc.smoothFontRendererObj, I18n.format("client.name"), width / 2, height / 2 - fontRendererObj.FONT_HEIGHT / 2, Color.blue.getRGB());
         GlStateManager.popMatrix();
 
         super.drawScreen(mouseX, mouseY, partialTicks);

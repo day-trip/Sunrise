@@ -321,6 +321,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
 
         try
         {
+            //EventBus.initBus();
+
             EventBus.registerListener(new SunriseClient());
 
             new EventRegisterListeners().post();
@@ -898,19 +900,19 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         GlStateManager.enableTexture2D();
     }
 
-    private void drawLoadingImage(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
+    private void drawLoadingImage(int width, int height, float textureWidth, float textureHeight) {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
-        renderEngine.bindTexture(new ResourceLocation("textures/gui/title/background.png"));
+        renderEngine.bindTexture(new ResourceLocation("textures/gui/title/galaxy.png"));
 
         float f = 1.0F / textureWidth;
         float f1 = 1.0F / textureHeight;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(x, y + height, 0.0D).tex(u * f, (v + (float)height) * f1).endVertex();
-        worldrenderer.pos(x + width, y + height, 0.0D).tex((u + (float)width) * f, (v + (float)height) * f1).endVertex();
-        worldrenderer.pos(x + width, y, 0.0D).tex((u + (float)width) * f, v * f1).endVertex();
-        worldrenderer.pos(x, y, 0.0D).tex(u * f, v * f1).endVertex();
+        worldrenderer.pos(0, 0 + height, 0.0D).tex((float) 0 * f, ((float) 0 + (float)height) * f1).endVertex();
+        worldrenderer.pos(0 + width, 0 + height, 0.0D).tex(((float) 0 + (float)width) * f, ((float) 0 + (float)height) * f1).endVertex();
+        worldrenderer.pos(0 + width, 0, 0.0D).tex(((float) 0 + (float)width) * f, (float) 0 * f1).endVertex();
+        worldrenderer.pos(0, 0, 0.0D).tex((float) 0 * f, (float) 0 * f1).endVertex();
         tessellator.draw();
     }
 
@@ -1020,10 +1022,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         GlStateManager.enableTexture2D();
 
         if(renderEngine == null) {
-            drawPlainBackground(new Color(206, 61, 61, 225).getRGB());
+            drawPlainBackground(Color.darkGray.getRGB());
         } else {
-            drawLoadingImage(0, 0, 0, 0, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
-            drawLoadingGradient(new Color(206, 61, 61, 200).getRGB(), new Color(196, 103, 10, 190).getRGB());
+            drawLoadingImage(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+            drawLoadingGradient(-1072689136, -804253680);
         }
         drawLoadingBar(LoadingManager.getPercentage());
 

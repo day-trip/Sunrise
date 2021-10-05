@@ -88,4 +88,14 @@ public class CommonMath {
     public static float lerp(float point1, float point2, float alpha) {
         return point1 + alpha * (point2 - point1);
     }
+
+    public static void somethingIncomplete() {
+        int[][] data = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 1},
+                {1, 0, 0, 1, 1},
+                {0, 0, 0, 1, 0},
+                {1, 1, 0, 0, 1}
+        };
+    }
 }

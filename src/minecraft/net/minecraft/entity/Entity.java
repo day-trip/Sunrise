@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+
+import com.daytrip.shared.event.Event;
+import com.daytrip.shared.event.EventBus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -1743,9 +1746,7 @@ public abstract class Entity implements ICommandSender
      */
     protected abstract void writeEntityToNBT(NBTTagCompound tagCompound);
 
-    public void onChunkLoad()
-    {
-    }
+    public void onChunkLoad() { }
 
     /**
      * creates a NBT list from the array of doubles passed to this function

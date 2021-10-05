@@ -32,16 +32,16 @@ import org.apache.logging.log4j.Logger;
 public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
 {
     private static final Logger logger = LogManager.getLogger();
-    private Map<ChunkCoordIntPair, NBTTagCompound> chunksToRemove = new ConcurrentHashMap();
-    private Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.<ChunkCoordIntPair>newSetFromMap(new ConcurrentHashMap());
+    private final Map<ChunkCoordIntPair, NBTTagCompound> chunksToRemove = new ConcurrentHashMap<>();
+    private final Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     /** Save directory for chunks using the Anvil format */
     private final File chunkSaveLocation;
-    private boolean field_183014_e = false;
+    private boolean field_183014_e;
 
     public AnvilChunkLoader(File chunkSaveLocationIn)
     {
-        this.chunkSaveLocation = chunkSaveLocationIn;
+        chunkSaveLocation = chunkSaveLocationIn;
     }
 
     /**
@@ -50,11 +50,11 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
     public Chunk loadChunk(World worldIn, int x, int z) throws IOException
     {
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(x, z);
-        NBTTagCompound nbttagcompound = (NBTTagCompound)this.chunksToRemove.get(chunkcoordintpair);
+        NBTTagCompound nbttagcompound = chunksToRemove.get(chunkcoordintpair);
 
         if (nbttagcompound == null)
         {
-            DataInputStream datainputstream = RegionFileCache.getChunkInputStream(this.chunkSaveLocation, x, z);
+            DataInputStream datainputstream = RegionFileCache.getChunkInputStream(chunkSaveLocation, x, z);
 
             if (datainputstream == null)
             {
@@ -64,7 +64,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
             nbttagcompound = CompressedStreamTools.read(datainputstream);
         }
 
-        return this.checkedReadChunkFromNBT(worldIn, x, z, nbttagcompound);
+        return checkedReadChunkFromNBT(worldIn, x, z, nbttagcompound);
     }
 
     /**
@@ -88,14 +88,14 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
             }
             else
             {
-                Chunk chunk = this.readChunkFromNBT(worldIn, nbttagcompound);
+                Chunk chunk = readChunkFromNBT(worldIn, nbttagcompound);
 
                 if (!chunk.isAtLocation(x, z))
                 {
                     logger.error("Chunk file at " + x + "," + z + " is in the wrong location; relocating. (Expected " + x + ", " + z + ", got " + chunk.xPosition + ", " + chunk.zPosition + ")");
                     nbttagcompound.setInteger("xPos", x);
                     nbttagcompound.setInteger("zPos", z);
-                    chunk = this.readChunkFromNBT(worldIn, nbttagcompound);
+                    chunk = readChunkFromNBT(worldIn, nbttagcompound);
                 }
 
                 return chunk;
@@ -103,8 +103,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
         }
     }
 
-    public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException, IOException
-    {
+    public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException {
         worldIn.checkSessionLock();
 
         try
@@ -112,20 +111,20 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             nbttagcompound.setTag("Level", nbttagcompound1);
-            this.writeChunkToNBT(chunkIn, worldIn, nbttagcompound1);
-            this.addChunkToPending(chunkIn.getChunkCoordIntPair(), nbttagcompound);
+            writeChunkToNBT(chunkIn, worldIn, nbttagcompound1);
+            addChunkToPending(chunkIn.getChunkCoordIntPair(), nbttagcompound);
         }
         catch (Exception exception)
         {
-            logger.error((String)"Failed to save chunk", (Throwable)exception);
+            logger.error("Failed to save chunk", exception);
         }
     }
 
     protected void addChunkToPending(ChunkCoordIntPair p_75824_1_, NBTTagCompound p_75824_2_)
     {
-        if (!this.pendingAnvilChunksCoordinates.contains(p_75824_1_))
+        if (!pendingAnvilChunksCoordinates.contains(p_75824_1_))
         {
-            this.chunksToRemove.put(p_75824_1_, p_75824_2_);
+            chunksToRemove.put(p_75824_1_, p_75824_2_);
         }
 
         ThreadedFileIOBase.getThreadedIOInstance().queueIO(this);
@@ -136,34 +135,34 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
      */
     public boolean writeNextIO()
     {
-        if (this.chunksToRemove.isEmpty())
+        if (chunksToRemove.isEmpty())
         {
-            if (this.field_183014_e)
+            if (field_183014_e)
             {
-                logger.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", new Object[] {this.chunkSaveLocation.getName()});
+                logger.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", chunkSaveLocation.getName());
             }
 
             return false;
         }
         else
         {
-            ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair)this.chunksToRemove.keySet().iterator().next();
+            ChunkCoordIntPair chunkcoordintpair = chunksToRemove.keySet().iterator().next();
             boolean lvt_3_1_;
 
             try
             {
-                this.pendingAnvilChunksCoordinates.add(chunkcoordintpair);
-                NBTTagCompound nbttagcompound = (NBTTagCompound)this.chunksToRemove.remove(chunkcoordintpair);
+                pendingAnvilChunksCoordinates.add(chunkcoordintpair);
+                NBTTagCompound nbttagcompound = chunksToRemove.remove(chunkcoordintpair);
 
                 if (nbttagcompound != null)
                 {
                     try
                     {
-                        this.func_183013_b(chunkcoordintpair, nbttagcompound);
+                        func_183013_b(chunkcoordintpair, nbttagcompound);
                     }
                     catch (Exception exception)
                     {
-                        logger.error((String)"Failed to save chunk", (Throwable)exception);
+                        logger.error("Failed to save chunk", exception);
                     }
                 }
 
@@ -171,7 +170,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
             }
             finally
             {
-                this.pendingAnvilChunksCoordinates.remove(chunkcoordintpair);
+                pendingAnvilChunksCoordinates.remove(chunkcoordintpair);
             }
 
             return lvt_3_1_;
@@ -180,7 +179,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
 
     private void func_183013_b(ChunkCoordIntPair p_183013_1_, NBTTagCompound p_183013_2_) throws IOException
     {
-        DataOutputStream dataoutputstream = RegionFileCache.getChunkOutputStream(this.chunkSaveLocation, p_183013_1_.chunkXPos, p_183013_1_.chunkZPos);
+        DataOutputStream dataoutputstream = RegionFileCache.getChunkOutputStream(chunkSaveLocation, p_183013_1_.chunkXPos, p_183013_1_.chunkZPos);
         CompressedStreamTools.write(p_183013_2_, dataoutputstream);
         dataoutputstream.close();
     }
@@ -189,8 +188,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
      * Save extra data associated with this Chunk not normally saved during autosave, only during chunk unload.
      * Currently unused.
      */
-    public void saveExtraChunkData(World worldIn, Chunk chunkIn) throws IOException
-    {
+    public void saveExtraChunkData(World worldIn, Chunk chunkIn) {
     }
 
     /**
@@ -208,19 +206,16 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
     {
         try
         {
-            this.field_183014_e = true;
+            field_183014_e = true;
 
             while (true)
             {
-                if (this.writeNextIO())
-                {
-                    continue;
-                }
+                writeNextIO();
             }
         }
         finally
         {
-            this.field_183014_e = false;
+            field_183014_e = false;
         }
     }
 
@@ -336,7 +331,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
             for (NextTickListEntry nextticklistentry : list)
             {
                 NBTTagCompound nbttagcompound3 = new NBTTagCompound();
-                ResourceLocation resourcelocation = (ResourceLocation)Block.blockRegistry.getNameForObject(nextticklistentry.getBlock());
+                ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(nextticklistentry.getBlock());
                 nbttagcompound3.setString("i", resourcelocation == null ? "" : resourcelocation.toString());
                 nbttagcompound3.setInteger("x", nextticklistentry.position.getX());
                 nbttagcompound3.setInteger("y", nextticklistentry.position.getY());

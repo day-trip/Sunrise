@@ -1,1725 +1,369 @@
-[14:09:33] [Client thread/ERROR]: Can't find the resource index file: assets\indexes\1.8.json
-[14:09:33] [Client thread/INFO]: Setting user: Player234
-[14:09:33] [Client thread/INFO]: (Session ID is token:0:Player234)
-[14:09:34] [Client thread/INFO]: Logging in with username & password
-[14:09:35] [Client thread/INFO]: LWJGL Version: 2.9.4
-[14:09:35] [Client thread/INFO]: Reloading ResourceManager: Default
-[14:09:36] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[14:09:36] [Thread-9/INFO]: Initializing LWJGL OpenAL
-[14:09:36] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[14:09:36] [Thread-9/INFO]: OpenAL initialized.
-[14:09:37] [Sound Library Loader/INFO]: Sound engine started
-[14:09:38] [Client thread/INFO]: Created: 512x512 textures-atlas
-[14:09:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:09:42] [Server thread/INFO]: Starting integrated minecraft server version 1.8.8
-[14:09:42] [Server thread/INFO]: Generating keypair
-[14:09:43] [Server thread/INFO]: Preparing start region for level 0
-[14:09:43] [Server thread/INFO]: Changing view distance to 4, from 10
-[14:09:44] [Server thread/INFO]: __DayTrip__[local:E:ae3a9044] logged in with entity id 13 at (-375.0344329915017, 4.0, 943.7796808100602)
-[14:09:44] [Server thread/INFO]: __DayTrip__ joined the game
-[14:09:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
-[14:09:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.game.creative
-[14:09:47] [Client thread/INFO]: 53
-[14:09:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
-[14:09:50] [Client thread/INFO]: 28
-[14:09:50] [Server thread/INFO]: [__DayTrip__: Changing to clear weather]
-[14:09:50] [Client thread/INFO]: [CHAT] Changing to clear weather
-[14:09:51] [Client thread/INFO]: 57
-[14:09:51] [Client thread/INFO]: 57
-[14:09:51] [Client thread/INFO]: 57
-[14:09:52] [Client thread/INFO]: 57
-[14:09:52] [Client thread/INFO]: 17
-[14:09:53] [Client thread/INFO]: 17
-[14:09:53] [Client thread/INFO]: 17
-[14:09:53] [Client thread/INFO]: 17
-[14:09:54] [Client thread/INFO]: 17
-[14:09:54] [Client thread/INFO]: 17
-[14:09:54] [Client thread/INFO]: 57
-[14:09:54] [Client thread/INFO]: 57
-[14:09:55] [Client thread/INFO]: 57
-[14:09:55] [Client thread/INFO]: 57
-[14:09:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:09:56] [Client thread/INFO]: 57
-[14:09:56] [Client thread/INFO]: 17
-[14:09:56] [Client thread/INFO]: 17
-[14:09:57] [Client thread/INFO]: 17
-[14:09:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:09:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:09:57] [Client thread/INFO]: 17
-[14:09:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:09:58] [Client thread/INFO]: 57
-[14:09:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:09:58] [Client thread/INFO]: 8
-[14:09:58] [Client thread/INFO]: 8
-[14:09:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.orb
-[14:09:59] [Client thread/INFO]: 2
-[14:09:59] [Client thread/INFO]: 2
-[14:09:59] [Client thread/INFO]: 57
-[14:10:00] [Client thread/INFO]: 57
-[14:10:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:00] [Client thread/INFO]: 17
-[14:10:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
-[14:10:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:01] [Client thread/INFO]: 17
-[14:10:01] [Client thread/INFO]: 57
-[14:10:01] [Client thread/INFO]: 57
-[14:10:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:01] [Client thread/INFO]: 17
-[14:10:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:02] [Client thread/INFO]: 17
-[14:10:02] [Client thread/INFO]: 57
-[14:10:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:03] [Client thread/INFO]: 57
-[14:10:03] [Client thread/INFO]: 17
-[14:10:03] [Client thread/INFO]: 17
-[14:10:03] [Client thread/INFO]: 17
-[14:10:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:04] [Client thread/INFO]: 57
-[14:10:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:05] [Client thread/INFO]: 57
-[14:10:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:05] [Client thread/INFO]: 17
-[14:10:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.orb
-[14:10:05] [Client thread/INFO]: 8
-[14:10:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.orb
-[14:10:06] [Client thread/INFO]: 8
-[14:10:06] [Client thread/INFO]: 57
-[14:10:07] [Client thread/INFO]: 2
-[14:10:07] [Client thread/INFO]: 2
-[14:10:07] [Client thread/INFO]: 57
-[14:10:07] [Client thread/INFO]: 3
-[14:10:07] [Client thread/INFO]: 3
-[14:10:07] [Client thread/INFO]: 57
-[14:10:08] [Client thread/INFO]: 17
-[14:10:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:10] [Client thread/INFO]: 17
-[14:10:10] [Client thread/INFO]: 57
-[14:10:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:10] [Client thread/INFO]: 31
-[14:10:10] [Client thread/INFO]: 31
-[14:10:11] [Client thread/INFO]: 17
-[14:10:11] [Client thread/INFO]: 17
-[14:10:11] [Client thread/INFO]: 17
-[14:10:11] [Client thread/INFO]: 57
-[14:10:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:14] [Client thread/INFO]: 17
-[14:10:14] [Client thread/INFO]: 57
-[14:10:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:14] [Client thread/INFO]: 31
-[14:10:14] [Client thread/INFO]: 31
-[14:10:14] [Client thread/INFO]: [CHAT] [Sunrise Client]: Enabled hack X-Ray! (Keybind: X)
-[14:10:14] [Client thread/INFO]: true
-[14:10:14] [Client thread/INFO]: 45
-[14:10:14] [Client thread/INFO]: 31
-[14:10:14] [Client thread/INFO]: 45
-[14:10:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:15] [Client thread/INFO]: 31
-[14:10:16] [Client thread/INFO]: 57
-[14:10:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:16] [Client thread/INFO]: 57
-[14:10:17] [Client thread/INFO]: 57
-[14:10:17] [Client thread/INFO]: 57
-[14:10:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:17] [Client thread/INFO]: 57
-[14:10:18] [Client thread/INFO]: 57
-[14:10:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:18] [Client thread/INFO]: [CHAT] [Sunrise Client]: Disabled hack X-Ray! (Keybind: X)
-[14:10:18] [Client thread/INFO]: false
-[14:10:18] [Client thread/INFO]: 45
-[14:10:18] [Client thread/INFO]: 45
-[14:10:18] [Client thread/INFO]: 57
-[14:10:18] [Client thread/INFO]: 57
-[14:10:19] [Client thread/INFO]: 57
-[14:10:19] [Client thread/INFO]: 57
-[14:10:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:21] [Client thread/INFO]: 17
-[14:10:21] [Client thread/INFO]: 17
-[14:10:21] [Client thread/INFO]: 17
-[14:10:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:22] [Client thread/INFO]: 17
-[14:10:23] [Client thread/INFO]: 17
-[14:10:23] [Client thread/INFO]: 17
-[14:10:23] [Client thread/INFO]: 17
-[14:10:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:25] [Client thread/INFO]: 17
-[14:10:25] [Client thread/INFO]: 17
-[14:10:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:25] [Client thread/INFO]: 17
-[14:10:25] [Client thread/INFO]: 17
-[14:10:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:33] [Client thread/INFO]: 17
-[14:10:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:35] [Client thread/INFO]: 17
-[14:10:35] [Client thread/INFO]: 17
-[14:10:35] [Client thread/INFO]: 17
-[14:10:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:37] [Client thread/INFO]: 17
-[14:10:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:37] [Client thread/INFO]: 17
-[14:10:37] [Client thread/INFO]: 17
-[14:10:37] [Client thread/INFO]: 17
-[14:10:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:40] [Client thread/INFO]: 17
-[14:10:40] [Client thread/INFO]: 17
-[14:10:40] [Client thread/INFO]: 17
-[14:10:40] [Client thread/INFO]: 17
-[14:10:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:41] [Client thread/INFO]: 17
-[14:10:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:41] [Client thread/INFO]: 31
-[14:10:41] [Client thread/INFO]: 31
-[14:10:41] [Client thread/INFO]: 17
-[14:10:41] [Client thread/INFO]: 17
-[14:10:42] [Client thread/INFO]: 17
-[14:10:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:43] [Client thread/INFO]: 17
-[14:10:43] [Client thread/INFO]: 17
-[14:10:43] [Client thread/INFO]: 17
-[14:10:43] [Client thread/INFO]: 17
-[14:10:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:43] [Client thread/INFO]: 17
-[14:10:43] [Client thread/INFO]: 17
-[14:10:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:43] [Client thread/INFO]: 17
-[14:10:44] [Client thread/INFO]: 17
-[14:10:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:44] [Client thread/INFO]: 17
-[14:10:44] [Client thread/INFO]: 17
-[14:10:45] [Client thread/INFO]: 17
-[14:10:45] [Client thread/INFO]: 17
-[14:10:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:46] [Client thread/INFO]: 17
-[14:10:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:46] [Client thread/INFO]: 17
-[14:10:46] [Client thread/INFO]: 17
-[14:10:46] [Client thread/INFO]: 17
-[14:10:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:47] [Client thread/INFO]: 17
-[14:10:47] [Client thread/INFO]: 17
-[14:10:47] [Client thread/INFO]: 17
-[14:10:47] [Client thread/INFO]: 17
-[14:10:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:48] [Client thread/INFO]: 17
-[14:10:48] [Client thread/INFO]: 17
-[14:10:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:48] [Client thread/INFO]: 17
-[14:10:48] [Client thread/INFO]: 17
-[14:10:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:49] [Client thread/INFO]: 17
-[14:10:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:49] [Client thread/INFO]: 17
-[14:10:49] [Client thread/INFO]: 17
-[14:10:49] [Client thread/INFO]: 17
-[14:10:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:50] [Client thread/INFO]: 17
-[14:10:50] [Client thread/INFO]: 17
-[14:10:50] [Client thread/INFO]: 17
-[14:10:50] [Client thread/INFO]: 17
-[14:10:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:51] [Client thread/INFO]: 17
-[14:10:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:51] [Client thread/INFO]: 29
-[14:10:52] [Client thread/INFO]: 17
-[14:10:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:53] [Client thread/INFO]: 29
-[14:10:53] [Client thread/INFO]: 17
-[14:10:53] [Client thread/INFO]: 29
-[14:10:53] [Client thread/INFO]: 17
-[14:10:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:54] [Client thread/INFO]: 29
-[14:10:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:54] [Client thread/INFO]: 17
-[14:10:54] [Client thread/INFO]: 29
-[14:10:54] [Client thread/INFO]: 17
-[14:10:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:54] [Client thread/INFO]: 29
-[14:10:54] [Client thread/INFO]: 17
-[14:10:54] [Client thread/INFO]: 17
-[14:10:54] [Client thread/INFO]: 29
-[14:10:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:55] [Client thread/INFO]: 29
-[14:10:55] [Client thread/INFO]: 17
-[14:10:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:55] [Client thread/INFO]: 17
-[14:10:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:55] [Client thread/INFO]: 29
-[14:10:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:55] [Client thread/INFO]: 29
-[14:10:55] [Client thread/INFO]: 17
-[14:10:56] [Client thread/INFO]: 29
-[14:10:56] [Client thread/INFO]: 17
-[14:10:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:56] [Client thread/INFO]: 29
-[14:10:56] [Client thread/INFO]: 17
-[14:10:57] [Client thread/INFO]: 29
-[14:10:57] [Client thread/INFO]: 17
-[14:10:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:58] [Client thread/INFO]: 29
-[14:10:58] [Client thread/INFO]: 17
-[14:10:58] [Client thread/INFO]: 29
-[14:10:58] [Client thread/INFO]: 17
-[14:10:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:58] [Client thread/INFO]: 29
-[14:10:58] [Client thread/INFO]: 17
-[14:10:58] [Client thread/INFO]: 29
-[14:10:58] [Client thread/INFO]: 17
-[14:10:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:10:59] [Client thread/INFO]: 29
-[14:10:59] [Client thread/INFO]: 17
-[14:10:59] [Client thread/INFO]: 17
-[14:11:00] [Client thread/INFO]: 29
-[14:11:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:01] [Client thread/INFO]: 29
-[14:11:01] [Client thread/INFO]: 17
-[14:11:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:01] [Client thread/INFO]: 29
-[14:11:01] [Client thread/INFO]: 17
-[14:11:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:01] [Client thread/INFO]: 29
-[14:11:01] [Client thread/INFO]: 17
-[14:11:01] [Client thread/INFO]: 29
-[14:11:01] [Client thread/INFO]: 17
-[14:11:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:02] [Client thread/INFO]: 29
-[14:11:02] [Client thread/INFO]: 17
-[14:11:02] [Client thread/INFO]: 29
-[14:11:02] [Client thread/INFO]: 17
-[14:11:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
-[14:11:03] [Client thread/INFO]: 29
-[14:11:03] [Client thread/INFO]: 17
-[14:11:03] [Client thread/INFO]: 1
-[14:11:03] [Server thread/INFO]: Saving and pausing game...
-[14:11:03] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
-[14:11:03] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
-[14:11:03] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
-[14:11:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:11:04] [Server thread/INFO]: Stopping server
-[14:11:04] [Server thread/INFO]: Saving players
-[14:11:04] [Server thread/INFO]: Saving worlds
-[14:11:04] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
-[14:11:04] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
-[14:11:04] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
-[14:11:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:11:07] [Client thread/INFO]: Connecting to mc.hypixel.net, 25565
-[14:11:08] [Client thread/INFO]: [CHAT]                                      
-[14:11:08] [Client thread/INFO]: [CHAT]                          
-[14:11:09] [Client thread/INFO]: 17
-[14:11:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:09] [Client thread/INFO]: 5
-[14:11:09] [Client thread/INFO]: 5
-[14:11:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:10] [Client thread/INFO]: 17
-[14:11:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:10] [Client thread/INFO]: 29
-[14:11:10] [Client thread/INFO]: 17
-[14:11:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:11] [Client thread/INFO]: 57
-[14:11:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:12] [Client thread/INFO]: [CHAT] §b[MVP§c+§b] mommysof§f §6joined the lobby!
-[14:11:13] [Client thread/INFO]: 57
-[14:11:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:13] [Client thread/INFO]: 57
-[14:11:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:13] [Client thread/INFO]: 57
-[14:11:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:14] [Client thread/INFO]: 57
-[14:11:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:17] [Client thread/INFO]: 57
-[14:11:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:17] [Client thread/INFO]: 17
-[14:11:17] [Client thread/INFO]: 30
-[14:11:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:18] [Client thread/INFO]: 30
-[14:11:18] [Client thread/INFO]: 31
-[14:11:18] [Client thread/INFO]: [CHAT]  §b>§c>§a>§r §6[MVP§e++§6] Scapply§f §6joined the lobby! §a<§c<§b<
-[14:11:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:19] [Client thread/INFO]: 29
-[14:11:19] [Client thread/INFO]: 30
-[14:11:19] [Client thread/INFO]: 31
-[14:11:19] [Client thread/INFO]: 29
-[14:11:19] [Client thread/INFO]: 30
-[14:11:19] [Client thread/INFO]: 32
-[14:11:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:20] [Client thread/INFO]: 32
-[14:11:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:20] [Client thread/INFO]: 17
-[14:11:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:21] [Client thread/INFO]: 17
-[14:11:21] [Client thread/INFO]: 29
-[14:11:23] [Client thread/INFO]: [CHAT] Sending you to mini1014A!
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeObjective(Scoreboard.java:218) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleScoreboardObjective(NetHandlerPlayClient.java:1718) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:64) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:10) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:24] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:11:25] [Client thread/INFO]: [CHAT]        
-[14:11:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:25] [Client thread/INFO]: [CHAT] __DayTrip__ has joined (2/2)!
-[14:11:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:25] [Client thread/INFO]: [CHAT] The game starts in 5 seconds!
-[14:11:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
-[14:11:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:25] [Client thread/INFO]: [CHAT] The game starts in 4 seconds!
-[14:11:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
-[14:11:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:26] [Client thread/INFO]: 15
-[14:11:26] [Client thread/INFO]: 17
-[14:11:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:26] [Client thread/INFO]: [CHAT] The game starts in 3 seconds!
-[14:11:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
-[14:11:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:27] [Client thread/INFO]: 15
-[14:11:27] [Client thread/INFO]: 29
-[14:11:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:27] [Client thread/INFO]: [CHAT] The game starts in 2 seconds!
-[14:11:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
-[14:11:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:28] [Client thread/INFO]: [CHAT] The game starts in 1 second!
-[14:11:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
-[14:11:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:29] [Client thread/INFO]: [CHAT] ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-[14:11:29] [Client thread/INFO]: [CHAT]                                Classic Duel
-[14:11:29] [Client thread/INFO]: [CHAT] 
-[14:11:29] [Client thread/INFO]: [CHAT]                      Eliminate your opponents!
-[14:11:29] [Client thread/INFO]: [CHAT] 
-[14:11:29] [Client thread/INFO]: [CHAT]                      Opponent:  [VIP] FireVsWater
-[14:11:29] [Client thread/INFO]: [CHAT] 
-[14:11:29] [Client thread/INFO]: [CHAT] ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-[14:11:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:30] [Client thread/INFO]: [CHAT] [Sunrise Client]: Enabled hack Auto Fighter! (Keybind: P)
-[14:11:30] [Client thread/INFO]: true
-[14:11:30] [Client thread/INFO]: 25
-[14:11:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:30] [Client thread/INFO]: 25
-[14:11:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:30] [Client thread/INFO]: 57
-[14:11:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:34] [Client thread/INFO]: [CHAT] 
-[14:11:34] [Client thread/INFO]: [CHAT]   >>  CLICK HERE to see how the Solo Leaderboard works!  <<
-[14:11:34] [Client thread/INFO]: [CHAT] 
-[14:11:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.swim.splash
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.swim.splash
-[14:11:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.swim.splash
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.swim.splash
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.bow
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.successful_hit
-[14:11:45] [Client thread/INFO]: [CHAT] FireVsWater was killed by __DayTrip__.
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:ambient.weather.thunder
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.explode
-[14:11:45] [Client thread/INFO]: [CHAT] +33 coins! (Win)
-[14:11:45] [Client thread/INFO]: [CHAT] ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-[14:11:45] [Client thread/INFO]: [CHAT]                           Classic Duel - 00:16
-[14:11:45] [Client thread/INFO]: [CHAT] 
-[14:11:45] [Client thread/INFO]: [CHAT]                __DayTrip__ WINNER!  [VIP] FireVsWater
-[14:11:45] [Client thread/INFO]: [CHAT] 
-[14:11:45] [Client thread/INFO]: [CHAT]                       18❤ - Damage Dealt - 10❤
-[14:11:45] [Client thread/INFO]: [CHAT]                     69.2% - Melee Accuracy - 25%
-[14:11:45] [Client thread/INFO]: [CHAT]                       N/A - Bow Accuracy - N/A
-[14:11:45] [Client thread/INFO]: [CHAT]                   0❤ - Health Regenerated - 0❤
-[14:11:45] [Client thread/INFO]: [CHAT] 
-[14:11:45] [Client thread/INFO]: [CHAT] ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-[14:11:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:46] [Client thread/INFO]: [CHAT] §7[SPECTATOR] §a[VIP] FireVsWater§f: gg
-[14:11:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:46] [Client thread/INFO]: 1
-[14:11:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:47] [Client thread/INFO]: 5
-[14:11:47] [Client thread/INFO]: 5
-[14:11:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:47] [Client thread/INFO]: [CHAT] §a§l▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-§r                            §f§lReward Summary
-
-   §7You earned
-§r     • §648 Duels Coins
-§r     • §314 Hypixel Experience
-§r     • §280 Guild Experience
-
-§a§l▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-[14:11:47] [Client thread/INFO]: [CHAT] 
-[14:11:47] [Client thread/INFO]: [CHAT] YOU WON! Want to play again? CLICK HERE! 
-[14:11:47] [Client thread/INFO]: [CHAT] 
-[14:11:48] [Client thread/INFO]: 20
-[14:11:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:50] [Client thread/INFO]: [CHAT] ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-[14:11:50] [Client thread/INFO]: [CHAT]                                         
-[14:11:50] [Client thread/INFO]: [CHAT]                             TITLE PROGRESS:
-[14:11:50] [Client thread/INFO]: [CHAT] 
-[14:11:50] [Client thread/INFO]: [CHAT]                     Rookie II unlocked in 9 more wins!
-[14:11:50] [Client thread/INFO]: [CHAT]       (■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■)
-[14:11:50] [Client thread/INFO]: [CHAT]                                52 / 60 (86.7%)
-[14:11:50] [Client thread/INFO]: [CHAT] 
-[14:11:50] [Client thread/INFO]: [CHAT]                   Current Classic Duel Streak: 2
-[14:11:50] [Client thread/INFO]: [CHAT]                   Best Lifetime Classic Duel Streak: 5
-[14:11:50] [Client thread/INFO]: [CHAT]               Current Win Streak Against FireVsWater: 1
-[14:11:50] [Client thread/INFO]: [CHAT] 
-[14:11:50] [Client thread/INFO]: [CHAT] ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-[14:11:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.game
-[14:11:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:52] [Client thread/INFO]: [CHAT] -----------------------------------------------------
-[14:11:52] [Client thread/INFO]: [CHAT] You sent a friend request to FireVsWater! They have 5 minutes to accept it!
-[14:11:52] [Client thread/INFO]: [CHAT] -----------------------------------------------------
-[14:11:52] [Client thread/INFO]: 17
-[14:11:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:53] [Client thread/INFO]: 17
-[14:11:53] [Client thread/INFO]: 17
-[14:11:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:53] [Client thread/INFO]: 17
-[14:11:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:53] [Client thread/INFO]: 17
-[14:11:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
-[14:11:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:54] [Client thread/INFO]: [CHAT] §aThis game has been recorded. §6Buy §aVIP §6to get access to the Replay System.
-[14:11:54] [Client thread/INFO]: 57
-[14:11:55] [Client thread/INFO]: [CHAT] -----------------------------------------------------
-[14:11:55] [Client thread/INFO]: [CHAT] You are now friends with [VIP] FireVsWater
-[14:11:55] [Client thread/INFO]: [CHAT] -----------------------------------------------------
-[14:11:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:55] [Client thread/INFO]: [CHAT] 
-[14:11:55] [Client thread/INFO]: [CHAT] Queued! Use the bed to return to lobby!
-[14:11:55] [Client thread/INFO]: [CHAT] 
-[14:11:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:56] [Client thread/INFO]: 57
-[14:11:56] [Client thread/INFO]: 17
-[14:11:56] [Client thread/INFO]: 17
-[14:11:56] [Client thread/INFO]: 17
-[14:11:56] [Client thread/INFO]: 17
-[14:11:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:57] [Client thread/INFO]: 57
-[14:11:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:57] [Client thread/INFO]: 57
-[14:11:57] [Client thread/INFO]: 17
-[14:11:57] [Client thread/INFO]: 53
-[14:11:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
-[14:11:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:11:59] [Client thread/INFO]: [CHAT] Sending you to mini1043M!
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeObjective(Scoreboard.java:218) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleScoreboardObjective(NetHandlerPlayClient.java:1718) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:64) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:10) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeObjective(Scoreboard.java:218) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleScoreboardObjective(NetHandlerPlayClient.java:1718) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:64) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:10) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeObjective(Scoreboard.java:218) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleScoreboardObjective(NetHandlerPlayClient.java:1718) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:64) ~[bin/:?]
-	at net.minecraft.network.play.server.S3BPacketScoreboardObjective.processPacket(S3BPacketScoreboardObjective.java:10) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:00] [Client thread/FATAL]: Error executing task
-java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:20) [bin/:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1170) [bin/:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:352) [bin/:?]
-	at net.minecraft.client.main.Main.main(Main.java:109) [bin/:?]
-	at Start.main(Start.java:9) [bin/:?]
-Caused by: java.lang.NullPointerException
-	at net.minecraft.scoreboard.Scoreboard.removeTeam(Scoreboard.java:296) ~[bin/:?]
-	at net.minecraft.client.network.NetHandlerPlayClient.handleTeams(NetHandlerPlayClient.java:1827) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:140) ~[bin/:?]
-	at net.minecraft.network.play.server.S3EPacketTeams.processPacket(S3EPacketTeams.java:12) ~[bin/:?]
-	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:15) ~[bin/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_282]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_282]
-	at net.minecraft.util.Util.func_181617_a(Util.java:19) ~[bin/:?]
-	... 4 more
-[14:12:01] [Client thread/INFO]: [CHAT]        
-[14:12:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:01] [Client thread/INFO]: [CHAT] __DayTrip__ has joined (1/2)!
-[14:12:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:02] [Client thread/INFO]: 15
-[14:12:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:02] [Client thread/INFO]: 17
-[14:12:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:02] [Client thread/INFO]: 17
-[14:12:02] [Client thread/INFO]: 17
-[14:12:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:03] [Client thread/INFO]: 57
-[14:12:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:04] [Client thread/INFO]: 57
-[14:12:04] [Client thread/INFO]: 15
-[14:12:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:04] [Client thread/INFO]: 17
-[14:12:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:04] [Client thread/INFO]: 17
-[14:12:04] [Client thread/INFO]: 17
-[14:12:04] [Client thread/INFO]: 17
-[14:12:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:05] [Client thread/INFO]: 29
-[14:12:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:05] [Client thread/INFO]: 57
-[14:12:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:06] [Client thread/INFO]: 15
-[14:12:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:10] [Client thread/INFO]: 29
-[14:12:10] [Client thread/INFO]: 57
-[14:12:10] [Client thread/INFO]: 17
-[14:12:10] [Client thread/INFO]: 15
-[14:12:11] [Client thread/INFO]: 1
-[14:12:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
-[14:12:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
-[14:12:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[14:12:39] [Client thread/INFO]: Stopping!
-[14:12:39] [Client thread/INFO]: SoundSystem shutting down...
-[14:12:39] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[14:19:12] [Client thread/ERROR]: Can't find the resource index file: assets\indexes\1.8.json
+[14:19:12] [Client thread/INFO]: Setting user: Player78
+[14:19:12] [Client thread/INFO]: (Session ID is token:0:Player78)
+[14:19:14] [Client thread/INFO]: Logging in with username & password
+[14:19:14] [Client thread/INFO]: LWJGL Version: 2.9.4
+[14:19:15] [Client thread/INFO]: Reloading ResourceManager: Default
+[14:19:16] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[14:19:16] [Thread-9/INFO]: Initializing LWJGL OpenAL
+[14:19:16] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[14:19:16] [Thread-9/INFO]: OpenAL initialized.
+[14:19:17] [Sound Library Loader/INFO]: Sound engine started
+[14:19:18] [Client thread/INFO]: Created: 512x512 textures-atlas
+[14:19:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[14:19:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[14:19:26] [Server thread/INFO]: Starting integrated minecraft server version 1.8.8
+[14:19:26] [Server thread/INFO]: Generating keypair
+[14:19:26] [Server thread/INFO]: Preparing start region for level 0
+[14:19:27] [Server thread/INFO]: Changing view distance to 2, from 10
+[14:19:27] [Server thread/INFO]: __DayTrip__[local:E:1e24405d] logged in with entity id 11 at (-450.0, 4.0, 1030.0)
+[14:19:27] [Server thread/INFO]: __DayTrip__ joined the game
+[14:19:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.orb
+[14:19:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.orb
+[14:19:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:19:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.orb
+[14:19:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.game.creative
+[14:19:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:19:35] [Client thread/INFO]: 8
+[14:19:35] [Client thread/INFO]: 8
+[14:19:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:19:36] [Client thread/INFO]: 2
+[14:19:37] [Client thread/INFO]: 2
+[14:19:37] [Client thread/INFO]: [CHAT] [Sunrise Client]: Enabled hack Auto Fighter! (Keybind: P)
+[14:19:37] [Client thread/INFO]: true
+[14:19:37] [Client thread/INFO]: 25
+[14:19:37] [Client thread/INFO]: 25
+[14:19:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:39] [Client thread/INFO]: 1
+[14:19:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:42] [Client thread/INFO]: 57
+[14:19:42] [Client thread/INFO]: 57
+[14:19:42] [Client thread/INFO]: 57
+[14:19:42] [Client thread/INFO]: 17
+[14:19:42] [Client thread/INFO]: 57
+[14:19:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:19:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:44] [Client thread/INFO]: 17
+[14:19:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:44] [Client thread/INFO]: 17
+[14:19:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:45] [Client thread/INFO]: 17
+[14:19:45] [Client thread/INFO]: 8
+[14:19:45] [Client thread/INFO]: 8
+[14:19:45] [Client thread/INFO]: 31
+[14:19:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:19:46] [Client thread/INFO]: 31
+[14:19:46] [Client thread/INFO]: 2
+[14:19:46] [Client thread/INFO]: 2
+[14:19:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:19:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:48] [Client thread/INFO]: 1
+[14:19:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:19:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:19:48] [Client thread/INFO]: 1
+[14:19:48] [Server thread/INFO]: Saving and pausing game...
+[14:19:48] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
+[14:19:49] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
+[14:19:49] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
+[14:20:06] [Client thread/INFO]: 1
+[14:20:06] [Client thread/INFO]: 57
+[14:20:06] [Client thread/INFO]: 57
+[14:20:06] [Client thread/INFO]: 57
+[14:20:06] [Client thread/INFO]: 17
+[14:20:06] [Client thread/INFO]: 57
+[14:20:07] [Client thread/INFO]: 17
+[14:20:07] [Client thread/INFO]: 57
+[14:20:07] [Client thread/INFO]: 57
+[14:20:07] [Client thread/INFO]: 57
+[14:20:07] [Client thread/INFO]: 57
+[14:20:07] [Client thread/INFO]: 17
+[14:20:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:08] [Client thread/INFO]: 17
+[14:20:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:08] [Client thread/INFO]: 17
+[14:20:08] [Client thread/INFO]: 57
+[14:20:08] [Client thread/INFO]: 17
+[14:20:08] [Client thread/INFO]: 57
+[14:20:08] [Client thread/INFO]: 57
+[14:20:08] [Client thread/INFO]: 57
+[14:20:09] [Client thread/INFO]: 17
+[14:20:09] [Client thread/INFO]: 17
+[14:20:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:09] [Client thread/INFO]: 57
+[14:20:09] [Client thread/INFO]: 57
+[14:20:09] [Client thread/INFO]: 57
+[14:20:09] [Client thread/INFO]: 57
+[14:20:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[14:20:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[14:20:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:11] [Client thread/INFO]: 17
+[14:20:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.orb
+[14:20:11] [Client thread/INFO]: 17
+[14:20:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
+[14:20:12] [Client thread/INFO]: 17
+[14:20:12] [Client thread/INFO]: 17
+[14:20:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:20:13] [Client thread/INFO]: 17
+[14:20:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
+[14:20:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:13] [Client thread/INFO]: 17
+[14:20:16] [Client thread/INFO]: 42
+[14:20:16] [Client thread/INFO]: 17
+[14:20:17] [Client thread/INFO]: 17
+[14:20:18] [Client thread/INFO]: 31
+[14:20:19] [Client thread/INFO]: 31
+[14:20:19] [Client thread/INFO]: 42
+[14:20:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:20:20] [Client thread/INFO]: 42
+[14:20:20] [Client thread/INFO]: 17
+[14:20:21] [Client thread/INFO]: 17
+[14:20:21] [Client thread/INFO]: 17
+[14:20:22] [Client thread/INFO]: 42
+[14:20:22] [Client thread/INFO]: 17
+[14:20:22] [Client thread/INFO]: 57
+[14:20:22] [Client thread/INFO]: 57
+[14:20:22] [Client thread/INFO]: 57
+[14:20:23] [Client thread/INFO]: 57
+[14:20:23] [Client thread/INFO]: 57
+[14:20:23] [Client thread/INFO]: 31
+[14:20:23] [Client thread/INFO]: 31
+[14:20:23] [Client thread/INFO]: 57
+[14:20:24] [Client thread/INFO]: 17
+[14:20:24] [Client thread/INFO]: 17
+[14:20:24] [Client thread/INFO]: 57
+[14:20:25] [Client thread/INFO]: 57
+[14:20:25] [Client thread/INFO]: 31
+[14:20:25] [Client thread/INFO]: 31
+[14:20:27] [Client thread/INFO]: 42
+[14:20:27] [Client thread/INFO]: 42
+[14:20:28] [Client thread/INFO]: 31
+[14:20:28] [Client thread/INFO]: 31
+[14:20:28] [Client thread/INFO]: 42
+[14:20:28] [Client thread/INFO]: 42
+[14:20:29] [Client thread/INFO]: 31
+[14:20:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
+[14:20:29] [Client thread/INFO]: 31
+[14:20:29] [Client thread/INFO]: 31
+[14:20:30] [Client thread/INFO]: 31
+[14:20:30] [Client thread/INFO]: 17
+[14:20:30] [Client thread/INFO]: 17
+[14:20:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:31] [Client thread/INFO]: 30
+[14:20:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[14:20:32] [Client thread/INFO]: 30
+[14:20:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:34] [Client thread/INFO]: 31
+[14:20:34] [Client thread/INFO]: 57
+[14:20:34] [Client thread/INFO]: 57
+[14:20:35] [Client thread/INFO]: 57
+[14:20:35] [Client thread/INFO]: 31
+[14:20:35] [Client thread/INFO]: 57
+[14:20:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
+[14:20:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:20:35] [Client thread/INFO]: 17
+[14:20:36] [Client thread/INFO]: 17
+[14:20:36] [Client thread/INFO]: 57
+[14:20:36] [Client thread/INFO]: 57
+[14:20:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[14:20:36] [Client thread/INFO]: 17
+[14:20:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[14:20:37] [Client thread/INFO]: 57
+[14:20:37] [Client thread/INFO]: 57
+[14:20:37] [Client thread/INFO]: 57
+[14:20:37] [Client thread/INFO]: 17
+[14:20:37] [Client thread/INFO]: 57
+[14:20:37] [Client thread/INFO]: 42
+[14:20:38] [Client thread/INFO]: 42
+[14:20:38] [Client thread/INFO]: 31
+[14:20:38] [Client thread/INFO]: 42
+[14:20:38] [Client thread/INFO]: 31
+[14:20:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:39] [Client thread/INFO]: 42
+[14:20:39] [Client thread/INFO]: 17
+[14:20:39] [Client thread/INFO]: 17
+[14:20:39] [Client thread/INFO]: 42
+[14:20:41] [Client thread/INFO]: 42
+[14:20:43] [Client thread/INFO]: 17
+[14:20:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[14:20:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[14:20:43] [Client thread/INFO]: 57
+[14:20:43] [Client thread/INFO]: 57
+[14:20:43] [Client thread/INFO]: 57
+[14:20:44] [Client thread/INFO]: 17
+[14:20:44] [Client thread/INFO]: 57
+[14:20:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:44] [Client thread/INFO]: 57
+[14:20:44] [Client thread/INFO]: 57
+[14:20:45] [Client thread/INFO]: 57
+[14:20:45] [Client thread/INFO]: 32
+[14:20:45] [Client thread/INFO]: 57
+[14:20:45] [Client thread/INFO]: 32
+[14:20:45] [Client thread/INFO]: 17
+[14:20:45] [Client thread/INFO]: 17
+[14:20:45] [Client thread/INFO]: 17
+[14:20:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:46] [Client thread/INFO]: 57
+[14:20:47] [Client thread/INFO]: 57
+[14:20:47] [Client thread/INFO]: 57
+[14:20:47] [Client thread/INFO]: 57
+[14:20:47] [Client thread/INFO]: 17
+[14:20:47] [Client thread/INFO]: 31
+[14:20:48] [Client thread/INFO]: 57
+[14:20:48] [Client thread/INFO]: 31
+[14:20:48] [Client thread/INFO]: 57
+[14:20:48] [Client thread/INFO]: 57
+[14:20:48] [Client thread/INFO]: 57
+[14:20:48] [Client thread/INFO]: 57
+[14:20:49] [Client thread/INFO]: 57
+[14:20:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:49] [Client thread/INFO]: 17
+[14:20:49] [Client thread/INFO]: 17
+[14:20:49] [Client thread/INFO]: 17
+[14:20:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:20:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
+[14:20:51] [Client thread/INFO]: 57
+[14:20:51] [Client thread/INFO]: 57
+[14:20:51] [Client thread/INFO]: 57
+[14:20:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:20:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:20:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:20:59] [Client thread/INFO]: 57
+[14:21:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:21:00] [Client thread/INFO]: 30
+[14:21:00] [Client thread/INFO]: 30
+[14:21:01] [Client thread/INFO]: 57
+[14:21:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:21:01] [Client thread/INFO]: 17
+[14:21:01] [Client thread/INFO]: 32
+[14:21:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:21:01] [Client thread/INFO]: 17
+[14:21:02] [Client thread/INFO]: 57
+[14:21:02] [Client thread/INFO]: 42
+[14:21:02] [Client thread/INFO]: 32
+[14:21:03] [Client thread/INFO]: 42
+[14:21:03] [Client thread/INFO]: 17
+[14:21:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lavapop
+[14:21:03] [Client thread/INFO]: 32
+[14:21:03] [Client thread/INFO]: 42
+[14:21:03] [Client thread/INFO]: 32
+[14:21:04] [Client thread/INFO]: 30
+[14:21:04] [Client thread/INFO]: 30
+[14:21:04] [Client thread/INFO]: 30
+[14:21:04] [Client thread/INFO]: 30
+[14:21:04] [Client thread/INFO]: 42
+[14:21:04] [Client thread/INFO]: 30
+[14:21:04] [Client thread/INFO]: 30
+[14:21:05] [Client thread/INFO]: 42
+[14:21:05] [Client thread/INFO]: 42
+[14:21:05] [Client thread/INFO]: 17
+[14:21:06] [Client thread/INFO]: 17
+[14:21:06] [Client thread/INFO]: 42
+[14:21:06] [Client thread/INFO]: 42
+[14:21:07] [Client thread/INFO]: 17
+[14:21:07] [Client thread/INFO]: 17
+[14:21:07] [Client thread/INFO]: 57
+[14:21:07] [Client thread/INFO]: 57
+[14:21:08] [Client thread/INFO]: 42
+[14:21:08] [Client thread/INFO]: 42
+[14:21:09] [Client thread/INFO]: 42
+[14:21:09] [Client thread/INFO]: 42
+[14:21:09] [Client thread/INFO]: 42
+[14:21:09] [Client thread/INFO]: 42
+[14:21:09] [Client thread/INFO]: 57
+[14:21:10] [Client thread/INFO]: 57
+[14:21:10] [Client thread/INFO]: 31
+[14:21:10] [Client thread/INFO]: 31
+[14:21:11] [Client thread/INFO]: 57
+[14:21:11] [Client thread/INFO]: 57
+[14:21:11] [Client thread/INFO]: 57
+[14:21:11] [Client thread/INFO]: 57
+[14:21:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:21:12] [Client thread/INFO]: 57
+[14:21:12] [Client thread/INFO]: 57
+[14:21:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:21:12] [Client thread/INFO]: 42
+[14:21:12] [Client thread/INFO]: 42
+[14:21:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:21:13] [Client thread/INFO]: 42
+[14:21:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[14:21:13] [Client thread/INFO]: 42
+[14:21:14] [Client thread/INFO]: 42
+[14:21:14] [Client thread/INFO]: 42
+[14:21:14] [Client thread/INFO]: 17
+[14:21:15] [Client thread/INFO]: 17
+[14:21:15] [Client thread/INFO]: 57
+[14:21:15] [Client thread/INFO]: 57
+[14:21:15] [Client thread/INFO]: 57
+[14:21:17] [Client thread/INFO]: 57
+[14:21:17] [Client thread/INFO]: 42
+[14:21:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:liquid.lava
+[14:21:19] [Client thread/INFO]: 42
+[14:21:20] [Client thread/INFO]: 42
+[14:21:20] [Client thread/INFO]: 42
+[14:21:21] [Client thread/INFO]: 42
+[14:21:21] [Client thread/INFO]: 42
+[14:21:22] [Client thread/INFO]: 42
+[14:21:22] [Client thread/INFO]: 42
+[14:21:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.game.creative
+[14:21:22] [Client thread/INFO]: 42
+[14:21:23] [Client thread/INFO]: 42
+[14:21:23] [Client thread/INFO]: 42
+[14:21:24] [Client thread/INFO]: 42
+[14:21:26] [Client thread/INFO]: 42
+[14:21:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
+[14:21:30] [Client thread/INFO]: 42
+[14:21:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
+[14:21:30] [Client thread/INFO]: 57
+[14:21:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
+[14:21:31] [Client thread/INFO]: 57
+[14:21:31] [Client thread/INFO]: 57
+[14:21:31] [Client thread/INFO]: 42
+[14:21:31] [Client thread/INFO]: 57
+[14:21:31] [Client thread/INFO]: 57
+[14:21:31] [Client thread/INFO]: 42
+[14:21:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
+[14:21:32] [Server thread/INFO]: __DayTrip__ fell out of the world
+[14:21:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
+[14:21:32] [Client thread/INFO]: [CHAT] __DayTrip__ fell out of the world
+[14:21:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[14:21:34] [Client thread/INFO]: 57
+[14:21:34] [Client thread/INFO]: 57
+[14:21:34] [Client thread/INFO]: 57
+[14:21:35] [Client thread/INFO]: 29
+[14:21:35] [Client thread/INFO]: 17
+[14:21:36] [Client thread/INFO]: 42
+[14:21:36] [Client thread/INFO]: 42
+[14:21:37] [Client thread/INFO]: 57
+[14:21:37] [Client thread/INFO]: 42
+[14:21:38] [Client thread/INFO]: 42
+[14:21:38] [Client thread/INFO]: 29
+[14:21:38] [Client thread/INFO]: 17
+[14:21:38] [Client thread/INFO]: 1
+[14:21:38] [Server thread/INFO]: Saving and pausing game...
+[14:21:38] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
+[14:21:38] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
+[14:21:38] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
+[14:21:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[14:21:40] [Server thread/INFO]: Stopping server
+[14:21:40] [Server thread/INFO]: Saving players
+[14:21:40] [Server thread/INFO]: Saving worlds
+[14:21:40] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
+[14:21:40] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
+[14:21:40] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
+[14:21:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[14:21:41] [Client thread/INFO]: Stopping!
+[14:21:41] [Client thread/INFO]: SoundSystem shutting down...
+[14:21:41] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

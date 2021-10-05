@@ -1,0 +1,73 @@
+---- Minecraft Crash Report ----
+// Surprise! Haha. Well, this is awkward.
+
+Time: 10/4/21 7:29 PM
+Description: Initializing game
+
+java.lang.NoClassDefFoundError: javassist.bytecode.ClassFile
+	at org.reflections.adapters.JavassistAdapter.getOfCreateClassObject(JavassistAdapter.java:100)
+	at org.reflections.adapters.JavassistAdapter.getOfCreateClassObject(JavassistAdapter.java:24)
+	at org.reflections.scanners.AbstractScanner.scan(AbstractScanner.java:30)
+	at org.reflections.Reflections.scan(Reflections.java:250)
+	at org.reflections.Reflections.scan(Reflections.java:204)
+	at org.reflections.Reflections.<init>(Reflections.java:129)
+	at org.reflections.Reflections.<init>(Reflections.java:170)
+	at org.reflections.Reflections.<init>(Reflections.java:143)
+	at com.daytrip.shared.event.EventBus.initBus(EventBus.java:17)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:324)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at Start.main(Start.java:9)
+Caused by: java.lang.ClassNotFoundException: javassist.bytecode.ClassFile
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:591)
+	at java.lang.ClassLoader.loadClassHelper(ClassLoader.java:953)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:898)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:352)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:881)
+	... 12 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at org.reflections.adapters.JavassistAdapter.getOfCreateClassObject(JavassistAdapter.java:100)
+	at org.reflections.adapters.JavassistAdapter.getOfCreateClassObject(JavassistAdapter.java:24)
+	at org.reflections.scanners.AbstractScanner.scan(AbstractScanner.java:30)
+	at org.reflections.Reflections.scan(Reflections.java:250)
+	at org.reflections.Reflections.scan(Reflections.java:204)
+	at org.reflections.Reflections.<init>(Reflections.java:129)
+	at org.reflections.Reflections.<init>(Reflections.java:170)
+	at org.reflections.Reflections.<init>(Reflections.java:143)
+	at com.daytrip.shared.event.EventBus.initBus(EventBus.java:17)
+
+-- Initialization --
+Details:
+Stacktrace:
+	at net.minecraft.client.Minecraft.run(Minecraft.java:324)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at Start.main(Start.java:9)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.8
+	Operating System: Windows 8.1 (amd64) version 6.3
+	Java Version: 1.8.0_282, AdoptOpenJDK
+	Java VM Version: Eclipse OpenJ9 VM (JRE 1.8.0 Windows 8.1 amd64-64-Bit Compressed References 20210120_972 (JIT enabled, AOT enabled)
+OpenJ9   - 345e1b09e
+OMR      - 741e94ea8
+JCL      - ab07c6a8fd based on jdk8u282-b08), Eclipse OpenJ9
+	Memory: 18520056 bytes (17 MB) / 66322432 bytes (63 MB) up to 17160339456 bytes (16365 MB)
+	JVM Flags: 3 total; -Xoptionsfile=C:\Users\Jai Giri\.jdks\adopt-openj9-1.8.0_282\jre\bin\compressedrefs\options.default -Xlockword:mode=default,noLockword=java/lang/String,noLockword=java/util/MapEntry,noLockword=java/util/HashMap$Entry,noLockword=org/apache/harmony/luni/util/ModifiedMap$Entry,noLockword=java/util/Hashtable$Entry,noLockword=java/lang/invoke/MethodType,noLockword=java/lang/invoke/MethodHandle,noLockword=java/lang/invoke/CollectHandle,noLockword=java/lang/invoke/ConstructorHandle,noLockword=java/lang/invoke/ConvertHandle,noLockword=java/lang/invoke/ArgumentConversionHandle,noLockword=java/lang/invoke/AsTypeHandle,noLockword=java/lang/invoke/ExplicitCastHandle,noLockword=java/lang/invoke/FilterReturnHandle,noLockword=java/lang/invoke/DirectHandle,noLockword=java/lang/invoke/ReceiverBoundHandle,noLockword=java/lang/invoke/DynamicInvokerHandle,noLockword=java/lang/invoke/FieldHandle,noLockword=java/lang/invoke/FieldGetterHandle,noLockword=java/lang/invoke/FieldSetterHandle,noLockword=java/lang/invoke/StaticFieldGetterHandle,noLockword=java/lang/invoke/StaticFieldSetterHandle,noLockword=java/lang/invoke/IndirectHandle,noLockword=java/lang/invoke/InterfaceHandle,noLockword=java/lang/invoke/VirtualHandle,noLockword=java/lang/invoke/PrimitiveHandle,noLockword=java/lang/invoke/InvokeExactHandle,noLockword=java/lang/invoke/InvokeGenericHandle,noLockword=java/lang/invoke/VarargsCollectorHandle,noLockword=java/lang/invoke/ThunkTuple -Xjcl:jclse29
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	GL Caps: 
+	Using VBOs: ~~ERROR~~ NullPointerException: null
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: ~~ERROR~~ NullPointerException: null
+	Current Language: ~~ERROR~~ NullPointerException: null
+	Profiler Position: N/A (disabled)
+	CPU: <unknown>

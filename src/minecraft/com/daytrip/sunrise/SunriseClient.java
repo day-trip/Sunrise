@@ -7,7 +7,6 @@ import com.daytrip.shared.event.EventListener;
 import com.daytrip.shared.event.impl.EventGamePreInit;
 import com.daytrip.shared.event.impl.EventKeypress;
 import com.daytrip.shared.event.impl.EventRegisterListeners;
-import com.daytrip.sunrise.gui.GuiScreenHacks;
 import com.daytrip.sunrise.gui.GuiScreenMenu;
 import com.daytrip.sunrise.hack.HackManager;
 import com.daytrip.sunrise.hack.SunriseGUI;

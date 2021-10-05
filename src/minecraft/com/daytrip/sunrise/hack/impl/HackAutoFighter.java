@@ -5,26 +5,27 @@ import com.daytrip.shared.ExtendedReach;
 import com.daytrip.shared.event.Event;
 import com.daytrip.shared.event.impl.*;
 import com.daytrip.sunrise.hack.Hack;
+import com.daytrip.sunrise.hack.pathfinding.PathFinder;
+import com.daytrip.sunrise.hack.pathfinding.Point;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import org.apache.http.auth.AUTH;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.util.vector.Vector2f;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class HackAutoFighter extends Hack {
     private EntityLivingBase target;
 
-    private int inventorySwordSlot = 0;
-    private int inventoryRodSlot = 3;
+    private static final int inventorySwordSlot = 0;
+    private static final int inventoryRodSlot = 3;
 
     private double distanceToTarget;
 
@@ -35,11 +36,6 @@ public class HackAutoFighter extends Hack {
     private int rodTicks;
 
     private int lerpTicks;
-
-    private int targetLerpTicks;
-
-    private int jumpTicks;
-    private float targetJumpTicks;
 
     private String strafe = "left";
     private int strafeTicks;
@@ -101,79 +97,6 @@ public class HackAutoFighter extends Hack {
         if(event instanceof EventUpdateMovementInput && target != null && minecraft.inWorld()) {
             event.setCancelled(true);
         }
-        if(event instanceof EventTick && target != null && minecraft.inWorld()) {
-            distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
-
-            //navigation();
-
-            autoNav = true;
-
-            if(autoNav) {
-                if(distanceToTarget < 4) {
-                    rodTicks = 0;
-
-                    minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
-                    minecraft.playerController.syncCurrentPlayItem();
-
-                    approachTarget();
-                    strafeTarget();
-
-                    if(!wantsToJump && !minecraft.thePlayer.onGround) {
-                        minecraft.thePlayer.setJumping(false);
-                    }
-
-                    attackTarget();
-                } else {
-                    startMoving();
-
-                    minecraft.thePlayer.inventory.currentItem = inventoryRodSlot;
-                    minecraft.playerController.syncCurrentPlayItem();
-
-                    if(rodTicks > distanceToTarget * 2) {
-                        rodTicks = 0;
-                        EventClickMouse eventClickMouse = new EventClickMouse();
-                        eventClickMouse.setButton(1);
-                        eventClickMouse.setCustomFromTarget(id);
-                        eventClickMouse.post();
-                    } else {
-                        rodTicks++;
-                    }
-
-                    if(jumpTicks > targetJumpTicks) {
-                        jumpTicks = 0;
-                        targetJumpTicks = 20 + minecraft.theWorld.rand.nextInt(10);
-                        if(distanceToTarget > 10) {
-                            jump();
-                        }
-                    } else {
-                        jumpTicks++;
-                    }
-                }
-            }
-
-            if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
-                if(lerpTicks > 10) {
-                    lerpTicks = 0;
-                    targetLerpTicks = 18 + minecraft.theWorld.rand.nextInt(4);
-                } else {
-                    lerpTicks++;
-                }
-
-                CommonMath.updateValues(minecraft.thePlayer, target);
-
-                if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
-                    minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), (lerpTicks + minecraft.timer.elapsedPartialTicks - 0) / 10f));
-                    minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), (lerpTicks + minecraft.timer.elapsedPartialTicks - 0) / 10f));
-                } else {
-                    minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
-                    minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
-                }
-            }
-
-            if(target.getHealth() <= 0) {
-                loseTarget();
-            }
-        }
         if(event instanceof EventKeypress) {
             if(minecraft.inWorld()) {
                 if(target != null) {
@@ -193,7 +116,56 @@ public class HackAutoFighter extends Hack {
                     }
                 }
             }
-         }
+        }
+        if(event instanceof EventTick && target != null && minecraft.inWorld()) {
+            distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
+
+            //navigation();
+            pathFinderNavigation();
+
+            autoNav = true;
+
+            if(autoNav) {
+                if(distanceToTarget < 4) {
+                    rodTicks = 0;
+
+                    minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
+                    minecraft.playerController.syncCurrentPlayItem();
+
+                    approachTarget();
+                    strafeTarget();
+
+                    if(minecraft.thePlayer.isCollidedHorizontally) {
+                        minecraft.thePlayer.jump();
+                    } else {
+                        minecraft.thePlayer.setJumping(false);
+                    }
+
+                    attackTarget();
+                } else {
+                    startMoving();
+
+                    minecraft.thePlayer.inventory.currentItem = inventoryRodSlot;
+                    minecraft.playerController.syncCurrentPlayItem();
+
+                    if(rodTicks > 10) {
+                        rodTicks = 0;
+                        EventClickMouse eventClickMouse = new EventClickMouse();
+                        eventClickMouse.setButton(1);
+                        eventClickMouse.setCustomFromTarget(id);
+                        eventClickMouse.post();
+                    } else {
+                        rodTicks++;
+                    }
+                }
+            }
+
+            aimOnTarget();
+
+            if(!target.isEntityAlive()) {
+                loseTarget();
+            }
+        }
     }
 
     @Override
@@ -206,8 +178,6 @@ public class HackAutoFighter extends Hack {
     protected void enable() {
         super.enable();
         targetStrafeTicks = 50 + minecraft.theWorld.rand.nextInt(30);
-        targetLerpTicks = 18 + minecraft.theWorld.rand.nextInt(4);
-        targetJumpTicks = 20 + minecraft.theWorld.rand.nextInt(10);
     }
 
     private void approachTarget() {
@@ -228,7 +198,8 @@ public class HackAutoFighter extends Hack {
 
     private void strafeTarget() {
         if(settingManager.<SettingBoolean>getSetting("strafe").getValue()) {
-            if(distanceToTarget > 2) {
+            System.out.println(new Vec3(minecraft.thePlayer.motionX, minecraft.thePlayer.motionY, minecraft.thePlayer.motionZ).lengthVector());
+            if(distanceToTarget > 2.5) {
                 if(strafeTicks > targetStrafeTicks) {
                     strafeTicks = 0;
                     targetStrafeTicks = 50 + minecraft.theWorld.rand.nextInt(30);
@@ -263,10 +234,10 @@ public class HackAutoFighter extends Hack {
             if(hitCounter > 5) {
                 hitCounter = 0;
                 stopMoving();
-                //EventClickMouse eventRightClickMouse = new EventClickMouse();
-                //eventRightClickMouse.setButton(1);
-                //eventRightClickMouse.setCustomFromTarget(id);
-                //eventRightClickMouse.post();
+                EventClickMouse eventRightClickMouse = new EventClickMouse();
+                eventRightClickMouse.setButton(1);
+                eventRightClickMouse.setCustomFromTarget(id);
+                eventRightClickMouse.post();
                 startMoving();
             } else {
                 hitCounter++;
@@ -276,18 +247,95 @@ public class HackAutoFighter extends Hack {
         }
     }
 
+    private void aimOnTarget() {
+        if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
+            if(lerpTicks > 7) {
+                lerpTicks = 0;
+            } else {
+                lerpTicks++;
+            }
+
+            CommonMath.updateValues(minecraft.thePlayer, target);
+
+            if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
+                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), (lerpTicks + minecraft.timer.elapsedPartialTicks - 0) / 7f));
+                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), (lerpTicks + minecraft.timer.elapsedPartialTicks - 0) / 7f));
+            } else {
+                minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
+                minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+            }
+        }
+    }
+
+    private void rodTarget() {
+
+    }
+
     private void loseTarget() {
         target = null;
         lerpTicks = 0;
         attackTicks = 0;
-        jumpTicks = 0;
         rodTicks = 0;
         strafeTicks = 0;
         hitCounter = 0;
         stopMoving();
     }
 
-    private void navigation() {
+    private final Map<Vector2f, int[][]> pathDataMap = new HashMap<>();
+    private List<Point> finalPath;
+
+    private void pathFinderNavigation() {
+        Vector2f chunkCoords = new Vector2f(minecraft.thePlayer.getPosition().getX() >> 4, minecraft.thePlayer.getPosition().getZ() >> 4);
+        Chunk chunk = minecraft.theWorld.getChunkFromChunkCoords((int) chunkCoords.x, (int) chunkCoords.y);
+
+        int x = chunk.xPosition << 4;
+        int z = chunk.zPosition << 4;
+
+        pathDataMap.computeIfAbsent(chunkCoords, vector2f -> {
+            int[][] pathData = new int[16][16];
+
+            for(int xx = x; xx < x + 16; xx++) {
+                for(int zz = z; zz < z + 16; zz++) {
+                    List<Block> dangerBlocks = Arrays.asList(DANGER_BLOCKS);
+                    int xxx = xx - x;
+                    int zzz = zz - z;
+                    IBlockState state = minecraft.theWorld.getBlockState(new BlockPos(xx, minecraft.thePlayer.getPosition().getY(), zz));
+                    IBlockState stateDown = minecraft.theWorld.getBlockState(new BlockPos(xx, minecraft.thePlayer.getPosition().getY() - 1, zz));
+                    if(dangerBlocks.contains(state.getBlock()) || dangerBlocks.contains(stateDown.getBlock())) {
+                        pathData[xxx][zzz] = 1;
+                    } else {
+                        pathData[xxx][zzz] = 0;
+                    }
+                }
+            }
+            System.out.println(Arrays.deepToString(pathData));
+            return pathData;
+        });
+
+        List<Point> path =  PathFinder.FindPath(
+                pathDataMap.get(chunkCoords),
+                new Point(
+                        minecraft.thePlayer.getPosition().getX() - x,
+                        minecraft.thePlayer.getPosition().getZ() - z
+                ),
+                new Point(
+                        target.getPosition().getX() - x,
+                        target.getPosition().getZ() - z
+                )
+        );
+
+        if(path != null) {
+            finalPath = new ArrayList<>();
+            for(Point point : path) {
+                System.out.println(new Point(point.x + x, point.y + z));
+                finalPath.add(new Point(point.x + x, point.y + z));
+            }
+        }
+
+
+    }
+
+    private void legacyNavigation() {
         double predX = minecraft.thePlayer.posX + (minecraft.thePlayer.motionX * getBPSState()) * minecraft.timer.renderPartialTicks;
         double predY = minecraft.thePlayer.posY + (minecraft.thePlayer.motionY * getBPSState()) * minecraft.timer.renderPartialTicks;
         double predZ = minecraft.thePlayer.posZ + (minecraft.thePlayer.motionZ * getBPSState()) * minecraft.timer.renderPartialTicks;

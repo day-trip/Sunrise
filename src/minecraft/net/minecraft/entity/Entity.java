@@ -1098,7 +1098,7 @@ public abstract class Entity implements ICommandSender
     /**
      * Returns if this entity is in water and will end up adding the waters velocity to the entity
      */
-    public boolean handleWaterMovement()
+    public void handleWaterMovement()
     {
         if (worldObj.handleMaterialAcceleration(getEntityBoundingBox().expand(0.0D, -0.4000000059604645D, 0.0D).contract(0.001D, 0.001D, 0.001D), Material.water, this))
         {
@@ -1116,7 +1116,6 @@ public abstract class Entity implements ICommandSender
             inWater = false;
         }
 
-        return inWater;
     }
 
     /**
@@ -1432,15 +1431,10 @@ public abstract class Entity implements ICommandSender
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (isEntityInvulnerable(source))
-        {
-            return false;
-        }
-        else
-        {
+        if (!isEntityInvulnerable(source)) {
             setBeenAttacked();
-            return false;
         }
+        return false;
     }
 
     /**

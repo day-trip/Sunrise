@@ -1629,7 +1629,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
     /**
      * Called when user clicked his mouse right button (place)
      */
-    @SuppressWarnings("incomplete-switch")
     private void rightClickMouse()
     {
         if (!playerController.func_181040_m())

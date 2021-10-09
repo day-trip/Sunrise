@@ -245,7 +245,7 @@ public class EntityItem extends Entity
     /**
      * Returns if this entity is in water and will end up adding the waters velocity to the entity
      */
-    public boolean handleWaterMovement()
+    public void handleWaterMovement()
     {
         if (this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.water, this))
         {
@@ -261,7 +261,6 @@ public class EntityItem extends Entity
             this.inWater = false;
         }
 
-        return this.inWater;
     }
 
     /**

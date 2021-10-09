@@ -564,15 +564,15 @@ public class GuiIngame extends Gui
         if (mc.getRenderViewEntity() instanceof EntityPlayer)
         {
             EntityPlayer entityplayer = (EntityPlayer) mc.getRenderViewEntity();
-            int i = MathHelper.ceiling_float_int(entityplayer.getHealth());
+            int currentPlayerHealth = MathHelper.ceiling_float_int(entityplayer.getHealth());
             boolean flag = healthUpdateCounter > (long) updateCounter && (healthUpdateCounter - (long) updateCounter) / 3L % 2L == 1L;
 
-            if (i < playerHealth && entityplayer.hurtResistantTime > 0)
+            if (currentPlayerHealth < playerHealth && entityplayer.hurtResistantTime > 0)
             {
                 lastSystemTime = Minecraft.getSystemTime();
                 healthUpdateCounter = updateCounter + 20;
             }
-            else if (i > playerHealth && entityplayer.hurtResistantTime > 0)
+            else if (currentPlayerHealth > playerHealth && entityplayer.hurtResistantTime > 0)
             {
                 lastSystemTime = Minecraft.getSystemTime();
                 healthUpdateCounter = updateCounter + 10;
@@ -580,23 +580,21 @@ public class GuiIngame extends Gui
 
             if (Minecraft.getSystemTime() - lastSystemTime > 1000L)
             {
-                playerHealth = i;
-                lastPlayerHealth = i;
+                playerHealth = currentPlayerHealth;
+                lastPlayerHealth = currentPlayerHealth;
                 lastSystemTime = Minecraft.getSystemTime();
             }
 
-            playerHealth = i;
-            int j = lastPlayerHealth;
+            playerHealth = currentPlayerHealth;
+            int lastPH = lastPlayerHealth;
             rand.setSeed(updateCounter * 312871L);
-            FoodStats foodstats = entityplayer.getFoodStats();
-            int k = foodstats.getFoodLevel();
-            IAttributeInstance iattributeinstance = entityplayer.getEntityAttribute(SharedMonsterAttributes.maxHealth);
+            int foodLevel = entityplayer.getFoodStats().getFoodLevel();
             int i1 = p_180477_1_.getScaledWidth() / 2 - 91;
             int j1 = p_180477_1_.getScaledWidth() / 2 + 91;
             int k1 = p_180477_1_.getScaledHeight() - 39;
-            float f = (float)iattributeinstance.getAttributeValue();
+            float playerMaxHealth = (float)entityplayer.getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
             float f1 = entityplayer.getAbsorptionAmount();
-            int l1 = MathHelper.ceiling_float_int((f + f1) / 2.0F / 10.0F);
+            int l1 = MathHelper.ceiling_float_int((playerMaxHealth + f1) / 2.0F / 10.0F);
             int i2 = Math.max(10 - (l1 - 2), 3);
             int j2 = k1 - (l1 - 1) * i2 - 10;
             float f2 = f1;
@@ -605,7 +603,7 @@ public class GuiIngame extends Gui
 
             if (entityplayer.isPotionActive(Potion.regeneration))
             {
-                l2 = updateCounter % MathHelper.ceiling_float_int(f + 5.0F);
+                l2 = updateCounter % MathHelper.ceiling_float_int(playerMaxHealth + 5.0F);
             }
 
             mc.mcProfiler.startSection("armor");
@@ -635,7 +633,7 @@ public class GuiIngame extends Gui
 
             mc.mcProfiler.endStartSection("health");
 
-            for (int i6 = MathHelper.ceiling_float_int((f + f1) / 2.0F) - 1; i6 >= 0; --i6)
+            for (int i6 = MathHelper.ceiling_float_int((playerMaxHealth + f1) / 2.0F) - 1; i6 >= 0; --i6)
             {
                 int j6 = 16;
 
@@ -659,7 +657,7 @@ public class GuiIngame extends Gui
                 int i4 = i1 + i6 % 10 * 8;
                 int j4 = k1 - l3 * i2;
 
-                if (i <= 4)
+                if (currentPlayerHealth <= 4)
                 {
                     j4 += rand.nextInt(2);
                 }
@@ -680,12 +678,12 @@ public class GuiIngame extends Gui
 
                 if (flag)
                 {
-                    if (i6 * 2 + 1 < j)
+                    if (i6 * 2 + 1 < lastPH)
                     {
                         drawTexturedModalRect(i4, j4, j6 + 54, 9 * k4, 9, 9);
                     }
 
-                    if (i6 * 2 + 1 == j)
+                    if (i6 * 2 + 1 == lastPH)
                     {
                         drawTexturedModalRect(i4, j4, j6 + 63, 9 * k4, 9, 9);
                     }
@@ -706,12 +704,12 @@ public class GuiIngame extends Gui
                 }
                 else
                 {
-                    if (i6 * 2 + 1 < i)
+                    if (i6 * 2 + 1 < currentPlayerHealth)
                     {
                         drawTexturedModalRect(i4, j4, j6 + 36, 9 * k4, 9, 9);
                     }
 
-                    if (i6 * 2 + 1 == i)
+                    if (i6 * 2 + 1 == currentPlayerHealth)
                     {
                         drawTexturedModalRect(i4, j4, j6 + 45, 9 * k4, 9, 9);
                     }
@@ -736,7 +734,7 @@ public class GuiIngame extends Gui
                         j8 = 13;
                     }
 
-                    if (entityplayer.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (k * 3 + 1) == 0)
+                    if (entityplayer.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (foodLevel * 3 + 1) == 0)
                     {
                         i7 = k1 + (rand.nextInt(3) - 1);
                     }
@@ -744,12 +742,12 @@ public class GuiIngame extends Gui
                     int i9 = j1 - k6 * 8 - 9;
                     drawTexturedModalRect(i9, i7, 16 + j8 * 9, 27, 9, 9);
 
-                    if (k6 * 2 + 1 < k)
+                    if (k6 * 2 + 1 < foodLevel)
                     {
                         drawTexturedModalRect(i9, i7, l7 + 36, 27, 9, 9);
                     }
 
-                    if (k6 * 2 + 1 == k)
+                    if (k6 * 2 + 1 == foodLevel)
                     {
                         drawTexturedModalRect(i9, i7, l7 + 45, 27, 9, 9);
                     }

@@ -132,6 +132,19 @@ public class BotAutoFighter extends Hack {
                 }
             }
         }
+        if(event instanceof EventPlayerDamaged) {
+            if(((EventPlayerDamaged) event).player == minecraft.thePlayer) {
+                //minecraft.thePlayer.jump();
+            }
+        }
+        if(event instanceof EventEntityAttackedByPlayer) {
+            if(minecraft.inWorld() && target != null) {
+                if(((EventEntityAttackedByPlayer) event).getAttacker() == minecraft.thePlayer && ((EventEntityAttackedByPlayer) event).getTarget() == target) {
+                    System.out.println("Da hit counter has incremented!");
+                    hitCounter++;
+                }
+            }
+        }
         if(event instanceof EventTick && target != null && minecraft.inWorld()) {
             if(!target.isEntityAlive()) {
                 // Don't do anything if the target died
@@ -156,8 +169,8 @@ public class BotAutoFighter extends Hack {
                     minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
                 }
 
-                minecraft.thePlayer.movementInput.jump = false;
-                minecraft.thePlayer.setJumping(false);
+                //minecraft.thePlayer.movementInput.jump = false;
+                //minecraft.thePlayer.setJumping(false);
                 minecraft.thePlayer.movementInput.sneak = false;
                 minecraft.thePlayer.setSneaking(false);
 
@@ -219,8 +232,8 @@ public class BotAutoFighter extends Hack {
 
 
                 if(hitCounter > 3) {
+                    System.out.println("Da hit counter was greater than 3!");
                     hitCounter = 0;
-                    stopMoving();
                     EventClickMouse eventRightClickMouse = new EventClickMouse();
                     eventRightClickMouse.setButton(1);
                     eventRightClickMouse.setCustomFromTarget(id);
@@ -229,6 +242,7 @@ public class BotAutoFighter extends Hack {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    stopMoving();
                     canMove = false;
                     canSword = false;
                     TimerManager.registerTimer(new TickTimer(tickTimer12 -> canSword = true, 3, false));
@@ -236,8 +250,6 @@ public class BotAutoFighter extends Hack {
                         canMove = true;
                         startMoving();
                     }, 6, false));
-                } else {
-                    hitCounter++;
                 }
 
                 /*

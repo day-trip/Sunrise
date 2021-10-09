@@ -169,9 +169,9 @@ public class EntityXPOrb extends Entity
     /**
      * Returns if this entity is in water and will end up adding the waters velocity to the entity
      */
-    public boolean handleWaterMovement()
+    public void handleWaterMovement()
     {
-        return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.water, this);
+        this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.water, this);
     }
 
     /**

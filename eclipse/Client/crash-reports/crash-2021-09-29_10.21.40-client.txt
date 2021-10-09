@@ -5,7 +5,7 @@ Time: 9/29/21 10:21 AM
 Description: Unexpected error
 
 java.lang.NullPointerException: Unexpected error
-	at com.daytrip.shared.CommonMath.updateValues(CommonMath.java:26)
+	at com.daytrip.shared.math.CommonMath.updateValues(CommonMath.java:26)
 	at com.daytrip.sunrise.hack.impl.HackAimbot.onEvent(HackAimbot.java:42)
 	at com.daytrip.shared.event.EventBus.post(EventBus.java:18)
 	at com.daytrip.shared.event.Event.post(Event.java:27)
@@ -21,7 +21,7 @@ A detailed walkthrough of the error, its code path and all known details is as f
 
 -- Head --
 Stacktrace:
-	at com.daytrip.shared.CommonMath.updateValues(CommonMath.java:26)
+	at com.daytrip.shared.math.CommonMath.updateValues(CommonMath.java:26)
 	at com.daytrip.sunrise.hack.impl.HackAimbot.onEvent(HackAimbot.java:42)
 	at com.daytrip.shared.event.EventBus.post(EventBus.java:18)
 	at com.daytrip.shared.event.Event.post(Event.java:27)

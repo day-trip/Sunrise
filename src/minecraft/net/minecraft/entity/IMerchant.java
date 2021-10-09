@@ -3,8 +3,8 @@ package net.minecraft.entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.village.MerchantRecipe;
-import net.minecraft.village.MerchantRecipeList;
+import net.minecraft.world.village.MerchantRecipe;
+import net.minecraft.world.village.MerchantRecipeList;
 
 public interface IMerchant
 {

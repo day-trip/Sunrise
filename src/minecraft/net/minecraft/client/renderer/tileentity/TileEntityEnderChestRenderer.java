@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.tileentity;
 
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.tileentity.TileEntityEnderChest;
+import net.minecraft.block.tileentity.TileEntityEnderChest;
 import net.minecraft.util.ResourceLocation;
 
 public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<TileEntityEnderChest>

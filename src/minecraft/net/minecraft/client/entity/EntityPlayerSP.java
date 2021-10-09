@@ -8,7 +8,6 @@ import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiRepair;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiBeacon;
 import net.minecraft.client.gui.inventory.GuiBrewingStand;
@@ -41,7 +40,7 @@ import net.minecraft.network.play.client.C16PacketClientStatus;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatFileWriter;
-import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.block.tileentity.TileEntitySign;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -436,70 +435,55 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     protected boolean pushOutOfBlocks(double x, double y, double z)
     {
-        if (noClip)
-        {
-            return false;
-        }
-        else
-        {
+        if (!noClip) {
             BlockPos blockpos = new BlockPos(x, y, z);
-            double d0 = x - (double)blockpos.getX();
-            double d1 = z - (double)blockpos.getZ();
+            double d0 = x - (double) blockpos.getX();
+            double d1 = z - (double) blockpos.getZ();
 
-            if (!isOpenBlockSpace(blockpos))
-            {
+            if (!isOpenBlockSpace(blockpos)) {
                 int i = -1;
                 double d2 = 9999.0D;
 
-                if (isOpenBlockSpace(blockpos.west()) && d0 < d2)
-                {
+                if (isOpenBlockSpace(blockpos.west()) && d0 < d2) {
                     d2 = d0;
                     i = 0;
                 }
 
-                if (isOpenBlockSpace(blockpos.east()) && 1.0D - d0 < d2)
-                {
+                if (isOpenBlockSpace(blockpos.east()) && 1.0D - d0 < d2) {
                     d2 = 1.0D - d0;
                     i = 1;
                 }
 
-                if (isOpenBlockSpace(blockpos.north()) && d1 < d2)
-                {
+                if (isOpenBlockSpace(blockpos.north()) && d1 < d2) {
                     d2 = d1;
                     i = 4;
                 }
 
-                if (isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2)
-                {
-                    d2 = 1.0D - d1;
+                if (isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2) {
                     i = 5;
                 }
 
                 float f = 0.1F;
 
-                if (i == 0)
-                {
+                if (i == 0) {
                     motionX = -f;
                 }
 
-                if (i == 1)
-                {
+                if (i == 1) {
                     motionX = f;
                 }
 
-                if (i == 4)
-                {
+                if (i == 4) {
                     motionZ = -f;
                 }
 
-                if (i == 5)
-                {
+                if (i == 5) {
                     motionZ = f;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     /**

@@ -57,9 +57,9 @@ import net.minecraft.scoreboard.*;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatBase;
-import net.minecraft.tileentity.*;
+import net.minecraft.block.tileentity.*;
 import net.minecraft.util.*;
-import net.minecraft.village.MerchantRecipeList;
+import net.minecraft.world.village.MerchantRecipeList;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.WorldSettings;
@@ -275,9 +275,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             {
                 int i = packetIn.getEntityID() - entity.getEntityId();
 
-                for (int j = 0; j < aentity.length; ++j)
-                {
-                    aentity[j].setEntityId(aentity[j].getEntityId() + i);
+                for (Entity value : aentity) {
+                    value.setEntityId(value.getEntityId() + i);
                 }
             }
 
@@ -509,7 +508,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     /**
      * Locally eliminates the entities. Invoked by the server when the items are in fact destroyed, or the player is no
      * longer registered as required to monitor them. The latter  happens when distance between the player and item
-     * increases beyond a certain treshold (typically the viewing distance)
+     * increases beyond a certain threshold (typically the viewing distance)
      */
     public void handleDestroyEntities(S13PacketDestroyEntities packetIn)
     {
@@ -782,9 +781,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         {
             int i = packetIn.getEntityID() - entitylivingbase.getEntityId();
 
-            for (int j = 0; j < aentity.length; ++j)
-            {
-                aentity[j].setEntityId(aentity[j].getEntityId() + i);
+            for (Entity entity : aentity) {
+                entity.setEntityId(entity.getEntityId() + i);
             }
         }
 
@@ -1295,7 +1293,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         for (Map.Entry<StatBase, Integer> entry : packetIn.func_148974_c().entrySet())
         {
             StatBase statbase = entry.getKey();
-            int i = entry.getValue().intValue();
+            int i = entry.getValue();
 
             if (statbase.isAchievement() && i > 0)
             {
@@ -1352,9 +1350,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (packetIn.eventType == S42PacketCombatEvent.Event.END_COMBAT)
         {
-            long i = 1000 * packetIn.field_179772_d / 20;
+            long i = 1000L * packetIn.field_179772_d / 20;
             MetadataCombat metadatacombat = new MetadataCombat(gameController.thePlayer, entitylivingbase);
-            gameController.getTwitchStream().func_176026_a(metadatacombat, 0L - i, 0L);
+            gameController.getTwitchStream().func_176026_a(metadatacombat, -i, 0L);
         }
         else if (packetIn.eventType == S42PacketCombatEvent.Event.ENTITY_DIED)
         {
@@ -1425,7 +1423,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     {
         if (!netManager.isLocalChannel())
         {
-            netManager.setCompressionTreshold(packetIn.func_179760_a());
+            netManager.setCompressionThreshold(packetIn.func_179760_a());
         }
     }
 
@@ -1641,7 +1639,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (entity != null)
         {
-            entity.clientUpdateEntityNBT(packetIn.getTagCompound());
+            entity.clientUpdateEntityNBT();
         }
     }
 
@@ -1664,7 +1662,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                 int i = packetbuffer.readInt();
                 GuiScreen guiscreen = gameController.currentScreen;
 
-                if (guiscreen != null && guiscreen instanceof GuiMerchant && i == gameController.thePlayer.openContainer.windowId)
+                if (guiscreen instanceof GuiMerchant && i == gameController.thePlayer.openContainer.windowId)
                 {
                     IMerchant imerchant = ((GuiMerchant)guiscreen).getMerchant();
                     MerchantRecipeList merchantrecipelist = MerchantRecipeList.readFromBuf(packetbuffer);

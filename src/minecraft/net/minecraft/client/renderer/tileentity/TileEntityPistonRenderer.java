@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntityPiston;
+import net.minecraft.block.tileentity.TileEntityPiston;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 

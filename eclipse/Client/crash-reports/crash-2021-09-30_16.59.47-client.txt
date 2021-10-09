@@ -5,8 +5,8 @@ Time: 9/30/21 4:59 PM
 Description: Unexpected error
 
 java.lang.NullPointerException: Unexpected error
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.learnInventoryLayout(HackAutoFighter.java:237)
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.enable(HackAutoFighter.java:355)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.learnInventoryLayout(HackAutoFighter.java:237)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.enable(HackAutoFighter.java:355)
 	at com.daytrip.sunrise.hack.Hack.setEnabled(Hack.java:45)
 	at com.daytrip.sunrise.hack.Hack.toggle(Hack.java:57)
 	at com.daytrip.sunrise.SunriseClient.onEvent(SunriseClient.java:33)
@@ -24,8 +24,8 @@ A detailed walkthrough of the error, its code path and all known details is as f
 
 -- Head --
 Stacktrace:
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.learnInventoryLayout(HackAutoFighter.java:237)
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.enable(HackAutoFighter.java:355)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.learnInventoryLayout(HackAutoFighter.java:237)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.enable(HackAutoFighter.java:355)
 	at com.daytrip.sunrise.hack.Hack.setEnabled(Hack.java:45)
 	at com.daytrip.sunrise.hack.Hack.toggle(Hack.java:57)
 	at com.daytrip.sunrise.SunriseClient.onEvent(SunriseClient.java:33)

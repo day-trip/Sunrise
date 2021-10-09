@@ -5,37 +5,37 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.DecoderException;
+
 import java.util.List;
-import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
 public class NettyCompressionDecoder extends ByteToMessageDecoder
 {
     private final Inflater inflater;
-    private int treshold;
+    private int threshold;
 
-    public NettyCompressionDecoder(int treshold)
+    public NettyCompressionDecoder(int threshold)
     {
-        this.treshold = treshold;
-        this.inflater = new Inflater();
+        this.threshold = threshold;
+        inflater = new Inflater();
     }
 
-    protected void decode(ChannelHandlerContext p_decode_1_, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws DataFormatException, Exception
+    protected void decode(ChannelHandlerContext context, ByteBuf buffer, List<Object> output) throws Exception
     {
-        if (p_decode_2_.readableBytes() != 0)
+        if (buffer.readableBytes() != 0)
         {
-            PacketBuffer packetbuffer = new PacketBuffer(p_decode_2_);
+            PacketBuffer packetbuffer = new PacketBuffer(buffer);
             int i = packetbuffer.readVarIntFromBuffer();
 
             if (i == 0)
             {
-                p_decode_3_.add(packetbuffer.readBytes(packetbuffer.readableBytes()));
+                output.add(packetbuffer.readBytes(packetbuffer.readableBytes()));
             }
             else
             {
-                if (i < this.treshold)
+                if (i < threshold)
                 {
-                    throw new DecoderException("Badly compressed packet - size of " + i + " is below server threshold of " + this.treshold);
+                    throw new DecoderException("Badly compressed packet - size of " + i + " is below server threshold of " + threshold);
                 }
 
                 if (i > 2097152)
@@ -45,17 +45,17 @@ public class NettyCompressionDecoder extends ByteToMessageDecoder
 
                 byte[] abyte = new byte[packetbuffer.readableBytes()];
                 packetbuffer.readBytes(abyte);
-                this.inflater.setInput(abyte);
+                inflater.setInput(abyte);
                 byte[] abyte1 = new byte[i];
-                this.inflater.inflate(abyte1);
-                p_decode_3_.add(Unpooled.wrappedBuffer(abyte1));
-                this.inflater.reset();
+                inflater.inflate(abyte1);
+                output.add(Unpooled.wrappedBuffer(abyte1));
+                inflater.reset();
             }
         }
     }
 
-    public void setCompressionTreshold(int treshold)
+    public void setCompressionThreshold(int threshold)
     {
-        this.treshold = treshold;
+        this.threshold = threshold;
     }
 }

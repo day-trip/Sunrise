@@ -5,8 +5,8 @@ Time: 10/5/21 1:45 PM
 Description: Unexpected error
 
 java.lang.NullPointerException: Unexpected error
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.newNav(HackAutoFighter.java:329)
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.onEvent(HackAutoFighter.java:130)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.newNav(HackAutoFighter.java:329)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.onEvent(HackAutoFighter.java:130)
 	at com.daytrip.shared.event.EventBus.post(EventBus.java:57)
 	at com.daytrip.shared.event.Event.post(Event.java:28)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1941)
@@ -21,8 +21,8 @@ A detailed walkthrough of the error, its code path and all known details is as f
 
 -- Head --
 Stacktrace:
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.newNav(HackAutoFighter.java:329)
-	at com.daytrip.sunrise.hack.impl.HackAutoFighter.onEvent(HackAutoFighter.java:130)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.newNav(HackAutoFighter.java:329)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.onEvent(HackAutoFighter.java:130)
 	at com.daytrip.shared.event.EventBus.post(EventBus.java:57)
 	at com.daytrip.shared.event.Event.post(Event.java:28)
 

@@ -20,8 +20,8 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.profiler.crash.CrashReport;
+import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,7 +31,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntitySelectors;
@@ -43,7 +43,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.Vec3;
-import net.minecraft.village.VillageCollection;
+import net.minecraft.world.village.VillageCollection;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.border.WorldBorder;
@@ -3040,7 +3040,7 @@ public abstract class World implements IBlockAccess
 
     public <T extends Entity> List<T> getEntitiesWithinAABB(Class <? extends T > classEntity, AxisAlignedBB bb)
     {
-        return this.getEntitiesWithinAABB(classEntity, bb, EntitySelectors.NOT_SPECTATING);
+        return getEntitiesWithinAABB(classEntity, bb, EntitySelectors.NOT_SPECTATING);
     }
 
     public <T extends Entity> List<T> getEntitiesWithinAABB(Class <? extends T > clazz, AxisAlignedBB aabb, Predicate <? super T > filter)
@@ -3067,7 +3067,7 @@ public abstract class World implements IBlockAccess
 
     public <T extends Entity> T findNearestEntityWithinAABB(Class <? extends T > entityType, AxisAlignedBB aabb, T closestTo)
     {
-        List<T> list = this.getEntitiesWithinAABB(entityType, aabb);
+        List<T> list = getEntitiesWithinAABB(entityType, aabb);
         T t = null;
         double d0 = Double.MAX_VALUE;
 
@@ -3583,7 +3583,7 @@ public abstract class World implements IBlockAccess
         else
         {
             BiomeGenBase biomegenbase = getBiomeGenForCoords(strikePosition);
-            return !biomegenbase.getEnableSnow() && (!this.canSnowAt(strikePosition, false) && biomegenbase.canSpawnLightningBolt());
+            return !biomegenbase.getEnableSnow() && (!canSnowAt(strikePosition, false) && biomegenbase.canSpawnLightningBolt());
         }
     }
 

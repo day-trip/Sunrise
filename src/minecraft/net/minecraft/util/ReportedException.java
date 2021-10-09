@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import net.minecraft.crash.CrashReport;
+import net.minecraft.profiler.crash.CrashReport;
 
 public class ReportedException extends RuntimeException
 {

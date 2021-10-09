@@ -2,7 +2,7 @@ package net.minecraft.inventory;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.block.tileentity.TileEntityFurnace;
 
 public class SlotFurnaceFuel extends Slot
 {

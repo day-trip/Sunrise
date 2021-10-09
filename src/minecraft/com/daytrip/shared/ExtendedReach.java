@@ -10,14 +10,15 @@ import java.util.List;
 
 public class ExtendedReach
 {
-
     private final Minecraft minecraft;
+
     public MovingObjectPosition objectMouseOver;
+    public boolean airTargeted;
+
     private final double range;
     private final Entity requestingEntity;
+
     private float partialTicks;
-    public boolean airTargeted;
-    public EnumFacing blockSideHit;
 
     public ExtendedReach(Float partialTicks, double range, Entity entity)
     {
@@ -42,7 +43,6 @@ public class ExtendedReach
                 objectMouseOver = requestingEntity.rayTrace(d0, partialTicks);
                 BlockPos blockPos = objectMouseOver.getBlockPos();
                 IBlockState state = minecraft.theWorld.getBlockState(blockPos);
-                blockSideHit = objectMouseOver.sideHit;
 
                 airTargeted = state.getBlock() == Blocks.air;
 

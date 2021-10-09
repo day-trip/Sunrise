@@ -2,8 +2,8 @@ package net.minecraft.entity.player;
 
 import java.util.concurrent.Callable;
 import net.minecraft.block.Block;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.profiler.crash.CrashReport;
+import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;

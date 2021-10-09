@@ -3,10 +3,7 @@ package net.minecraft.entity;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
-import com.daytrip.shared.event.Event;
-import com.daytrip.shared.event.EventBus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -17,8 +14,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.profiler.crash.CrashReport;
+import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -276,11 +273,11 @@ public abstract class Entity implements ICommandSender
         }
 
         dataWatcher = new DataWatcher(this);
-        dataWatcher.addObject(0, Byte.valueOf((byte)0));
-        dataWatcher.addObject(1, Short.valueOf((short)300));
-        dataWatcher.addObject(3, Byte.valueOf((byte)0));
+        dataWatcher.addObject(0, (byte) 0);
+        dataWatcher.addObject(1, (short) 300);
+        dataWatcher.addObject(3, (byte) 0);
         dataWatcher.addObject(2, "");
-        dataWatcher.addObject(4, Byte.valueOf((byte)0));
+        dataWatcher.addObject(4, (byte) 0);
         entityInit();
     }
 
@@ -1012,7 +1009,7 @@ public abstract class Entity implements ICommandSender
      */
     public void setSilent(boolean isSilent)
     {
-        dataWatcher.updateObject(4, Byte.valueOf((byte)(isSilent ? 1 : 0)));
+        dataWatcher.updateObject(4, (byte) (isSilent ? 1 : 0));
     }
 
     /**
@@ -2164,9 +2161,9 @@ public abstract class Entity implements ICommandSender
      * Determines if an entity is visible or not to a specfic player, if the entity is normally invisible.
      * For EntityLivingBase subclasses, returning false when invisible will render the entity semitransparent.
      */
-    public boolean isInvisibleToPlayer(EntityPlayer player)
+    public boolean isVisibleToPlayer(EntityPlayer player)
     {
-        return !player.isSpectator() && isInvisible();
+        return player.isSpectator() || !isInvisible();
     }
 
     public void setInvisible(boolean invisible)
@@ -2202,11 +2199,11 @@ public abstract class Entity implements ICommandSender
 
         if (set)
         {
-            dataWatcher.updateObject(0, Byte.valueOf((byte)(b0 | 1 << flag)));
+            dataWatcher.updateObject(0, (byte) (b0 | 1 << flag));
         }
         else
         {
-            dataWatcher.updateObject(0, Byte.valueOf((byte)(b0 & ~(1 << flag))));
+            dataWatcher.updateObject(0, (byte) (b0 & ~(1 << flag)));
         }
     }
 
@@ -2217,7 +2214,7 @@ public abstract class Entity implements ICommandSender
 
     public void setAir(int air)
     {
-        dataWatcher.updateObject(1, Short.valueOf((short)air));
+        dataWatcher.updateObject(1, (short) air);
     }
 
     /**
@@ -2400,7 +2397,7 @@ public abstract class Entity implements ICommandSender
 
     public String toString()
     {
-        return String.format("%s['%s'/%d, l='%s', x=%.2f, y=%.2f, z=%.2f]", getClass().getSimpleName(), getName(), entityId, worldObj == null ? "~NULL~" : worldObj.getWorldInfo().getWorldName(), Double.valueOf(posX), Double.valueOf(posY), Double.valueOf(posZ));
+        return String.format("%s['%s'/%d, l='%s', x=%.2f, y=%.2f, z=%.2f]", getClass().getSimpleName(), getName(), entityId, worldObj == null ? "~NULL~" : worldObj.getWorldInfo().getWorldName(), posX, posY, posZ);
     }
 
     public boolean isEntityInvulnerable(DamageSource source)
@@ -2512,45 +2509,21 @@ public abstract class Entity implements ICommandSender
     /**
      * Return whether this entity should NOT trigger a pressure plate or a tripwire.
      */
-    public boolean doesEntityNotTriggerPressurePlate()
+    public boolean doesEntityTriggerPressurePlate()
     {
-        return false;
+        return true;
     }
 
     public void addEntityCrashInfo(CrashReportCategory category)
     {
-        category.addCrashSectionCallable("Entity Type", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return EntityList.getEntityString(Entity.this) + " (" + Entity.this.getClass().getCanonicalName() + ")";
-            }
-        });
-        category.addCrashSection("Entity ID", Integer.valueOf(entityId));
-        category.addCrashSectionCallable("Entity Name", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return getName();
-            }
-        });
-        category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", Double.valueOf(posX), Double.valueOf(posY), Double.valueOf(posZ)));
+        category.addCrashSectionCallable("Entity Type", () -> EntityList.getEntityString(this) + " (" + getClass().getCanonicalName() + ")");
+        category.addCrashSection("Entity ID", entityId);
+        category.addCrashSectionCallable("Entity Name", this::getName);
+        category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", posX, posY, posZ));
         category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)));
-        category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", Double.valueOf(motionX), Double.valueOf(motionY), Double.valueOf(motionZ)));
-        category.addCrashSectionCallable("Entity's Rider", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return riddenByEntity.toString();
-            }
-        });
-        category.addCrashSectionCallable("Entity's Vehicle", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return ridingEntity.toString();
-            }
-        });
+        category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", motionX, motionY, motionZ));
+        category.addCrashSectionCallable("Entity's Rider", () -> riddenByEntity.toString());
+        category.addCrashSectionCallable("Entity's Vehicle", () -> ridingEntity.toString());
     }
 
     /**
@@ -2605,7 +2578,7 @@ public abstract class Entity implements ICommandSender
 
     public void setAlwaysRenderNameTag(boolean alwaysRenderNameTag)
     {
-        dataWatcher.updateObject(3, Byte.valueOf((byte)(alwaysRenderNameTag ? 1 : 0)));
+        dataWatcher.updateObject(3, (byte) (alwaysRenderNameTag ? 1 : 0));
     }
 
     public boolean getAlwaysRenderNameTag()
@@ -2766,7 +2739,7 @@ public abstract class Entity implements ICommandSender
     /**
      * Called when client receives entity's NBTTagCompound from server.
      */
-    public void clientUpdateEntityNBT(NBTTagCompound compound)
+    public void clientUpdateEntityNBT()
     {
     }
 

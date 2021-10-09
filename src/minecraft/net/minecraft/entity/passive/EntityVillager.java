@@ -55,9 +55,9 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Tuple;
-import net.minecraft.village.MerchantRecipe;
-import net.minecraft.village.MerchantRecipeList;
-import net.minecraft.village.Village;
+import net.minecraft.world.village.MerchantRecipe;
+import net.minecraft.world.village.MerchantRecipeList;
+import net.minecraft.world.village.Village;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 

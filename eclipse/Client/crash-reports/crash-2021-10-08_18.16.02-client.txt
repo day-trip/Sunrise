@@ -1,0 +1,83 @@
+---- Minecraft Crash Report ----
+// This doesn't make any sense!
+
+Time: 10/8/21 6:16 PM
+Description: Unexpected error
+
+java.util.ConcurrentModificationException
+	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
+	at java.util.ArrayList$Itr.next(ArrayList.java:861)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectAlphaLayer(EffectRenderer.java:185)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectLayer(EffectRenderer.java:177)
+	at net.minecraft.client.particle.EffectRenderer.updateEffects(EffectRenderer.java:155)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2329)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1190)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:352)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at Start.main(Start.java:9)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
+	at java.util.ArrayList$Itr.next(ArrayList.java:861)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectAlphaLayer(EffectRenderer.java:185)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectLayer(EffectRenderer.java:177)
+	at net.minecraft.client.particle.EffectRenderer.updateEffects(EffectRenderer.java:155)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 2 total; [EntityPlayerSP['__DayTrip__'/2640, l='MpServer', x=8.15, y=72.00, z=8.87], EntityOtherPlayerMP['hendrykon'/2641, l='MpServer', x=8.13, y=83.67, z=8.84]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: 272.00,64.00,69.00 - World: (272,64,69), Chunk: (at 0,4,5 in 17,4; contains blocks 272,0,64 to 287,255,79), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 20225073 game time, 6000 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 36 total; [EntityOtherPlayerMP['plxty'/2875, l='MpServer', x=2.41, y=72.00, z=-1.00], EntityOtherPlayerMP['hendrykon'/2641, l='MpServer', x=8.13, y=83.67, z=8.84], EntityArmorStand['Armor Stand'/3098, l='MpServer', x=27.57, y=78.18, z=40.70], EntityFireworkRocket['entity.FireworksRocketEntity.name'/3105, l='MpServer', x=28.13, y=78.42, z=41.63], EntityArmorStand['§b§lLifetime Win Streak'/2084, l='MpServer', x=3.50, y=75.00, z=41.50], EntityArmorStand['§7Classic Duel'/2086, l='MpServer', x=3.50, y=74.63, z=41.50], EntityArmorStand['§e1. §6nickolqi§7 - §e2,149'/2090, l='MpServer', x=3.50, y=73.78, z=41.50], EntityArmorStand['§e2. §6Divzer§7 - §e2,129'/2092, l='MpServer', x=3.50, y=73.44, z=41.50], EntityArmorStand['§e3. §6Seniorless§7 - §e2,050'/2094, l='MpServer', x=3.50, y=73.06, z=41.50], EntityArmorStand['§e4. §bJien§7 - §e1,719'/2096, l='MpServer', x=3.50, y=72.69, z=41.50], EntityArmorStand['§e5. §bmaazie§7 - §e1,700'/2098, l='MpServer', x=3.50, y=72.31, z=41.50], EntityArmorStand['§e6. §bOritatamu§7 - §e1,663'/2100, l='MpServer', x=3.50, y=71.94, z=41.50], EntityArmorStand['§e7. §aMonogyny§7 - §e1,657'/2102, l='MpServer', x=3.50, y=71.56, z=41.50], EntityArmorStand['§e8. §bARKONYXSLAYER§7 - §e1,567'/2104, l='MpServer', x=3.50, y=71.22, z=41.50], EntityOtherPlayerMP['plxty'/2875, l='MpServer', x=2.31, y=72.00, z=-0.44], EntityArmorStand['§e9. §blaeolovesurmom§7 - §e1,422'/2106, l='MpServer', x=3.50, y=70.84, z=41.50], EntityArmorStand['§e10. §6ilyRyyhm§7 - §e1,331'/2108, l='MpServer', x=3.50, y=70.47, z=41.50], EntityArmorStand['§e§l428,276. §7§l__DayTrip__§7 - §e§l5'/2110, l='MpServer', x=3.50, y=70.09, z=41.50], EntityArmorStand['§6§lClick to toggle!'/2112, l='MpServer', x=3.50, y=69.66, z=41.50], EntityArmorStand['§a§lLifetime §r§7Daily'/2114, l='MpServer', x=3.50, y=69.28, z=41.50], EntityOtherPlayerMP['plxty'/2875, l='MpServer', x=12.91, y=74.28, z=11.81], EntityPlayerSP['__DayTrip__'/2640, l='MpServer', x=8.15, y=72.00, z=8.87], EntityOtherPlayerMP['hendrykon'/2641, l='MpServer', x=8.13, y=83.67, z=8.84], EntityArmorStand['§b§lWeekly Solo Win/Loss'/2148, l='MpServer', x=-2.50, y=74.50, z=41.50], EntityArmorStand['§7Classic Duel'/2150, l='MpServer', x=-2.50, y=74.13, z=41.50], EntityArmorStand['§e1. §aParkePlayz§r§e [500]§7 - §e2,216'/2154, l='MpServer', x=-2.50, y=73.28, z=41.50], EntityArmorStand['§e2. §boInsidious§r§e [500]§7 - §e1,721'/2156, l='MpServer', x=-2.50, y=72.94, z=41.50], EntityArmorStand['§e3. §6Ch5ru§r§e [STUPID]§7 - §e1,516'/2158, l='MpServer', x=-2.50, y=72.56, z=41.50], EntityArmorStand['§e4. §b_NotSimp§r§2 [IT✖LY]§7 - §e1,203'/2160, l='MpServer', x=-2.50, y=72.19, z=41.50], EntityArmorStand['§e5. §aRupert§r§e [500]§7 - §e1,159'/2162, l='MpServer', x=-2.50, y=71.81, z=41.50], EntityArmorStand['§e6. §6_xiS§r§6 [HYDRA]§7 - §e1,099'/2164, l='MpServer', x=-2.50, y=71.44, z=41.50], EntityArmorStand['§e7. §6Suzuyas§r§2 [SHANK]§7 - §e901'/2166, l='MpServer', x=-2.50, y=71.06, z=41.50], EntityArmorStand['§e8. §6tbhRod§r§3 [WOUND]§7 - §e857'/2168, l='MpServer', x=-2.50, y=70.72, z=41.50], EntityArmorStand['§e9. §6vvh§r§e [16]§7 - §e850'/2170, l='MpServer', x=-2.50, y=70.34, z=41.50], EntityArmorStand['§e10. §6Envisioner§r§3 [INSITE✿]§7 - §e827'/2172, l='MpServer', x=-2.50, y=69.97, z=41.50], EntityArmorStand['§e§l97,179. §7§l__DayTrip__§7 - §e§l-40'/2174, l='MpServer', x=-2.50, y=69.59, z=41.50]]
+	Retry entities: 0 total; []
+	Server brand: Hypixel BungeeCord (1.0.57) <- vanilla
+	Server type: Non-integrated multiplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:380)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2764)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:382)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at Start.main(Start.java:9)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.8
+	Operating System: Windows 8.1 (amd64) version 6.3
+	Java Version: 1.8.0_282, AdoptOpenJDK
+	Java VM Version: Eclipse OpenJ9 VM (JRE 1.8.0 Windows 8.1 amd64-64-Bit Compressed References 20210120_972 (JIT enabled, AOT enabled)
+OpenJ9   - 345e1b09e
+OMR      - 741e94ea8
+JCL      - ab07c6a8fd based on jdk8u282-b08), Eclipse OpenJ9
+	Memory: 111368872 bytes (106 MB) / 258473984 bytes (246 MB) up to 17160339456 bytes (16365 MB)
+	JVM Flags: 3 total; -Xoptionsfile=C:\Users\Jai Giri\.jdks\adopt-openj9-1.8.0_282\jre\bin\compressedrefs\options.default -Xlockword:mode=default,noLockword=java/lang/String,noLockword=java/util/MapEntry,noLockword=java/util/HashMap$Entry,noLockword=org/apache/harmony/luni/util/ModifiedMap$Entry,noLockword=java/util/Hashtable$Entry,noLockword=java/lang/invoke/MethodType,noLockword=java/lang/invoke/MethodHandle,noLockword=java/lang/invoke/CollectHandle,noLockword=java/lang/invoke/ConstructorHandle,noLockword=java/lang/invoke/ConvertHandle,noLockword=java/lang/invoke/ArgumentConversionHandle,noLockword=java/lang/invoke/AsTypeHandle,noLockword=java/lang/invoke/ExplicitCastHandle,noLockword=java/lang/invoke/FilterReturnHandle,noLockword=java/lang/invoke/DirectHandle,noLockword=java/lang/invoke/ReceiverBoundHandle,noLockword=java/lang/invoke/DynamicInvokerHandle,noLockword=java/lang/invoke/FieldHandle,noLockword=java/lang/invoke/FieldGetterHandle,noLockword=java/lang/invoke/FieldSetterHandle,noLockword=java/lang/invoke/StaticFieldGetterHandle,noLockword=java/lang/invoke/StaticFieldSetterHandle,noLockword=java/lang/invoke/IndirectHandle,noLockword=java/lang/invoke/InterfaceHandle,noLockword=java/lang/invoke/VirtualHandle,noLockword=java/lang/invoke/PrimitiveHandle,noLockword=java/lang/invoke/InvokeExactHandle,noLockword=java/lang/invoke/InvokeGenericHandle,noLockword=java/lang/invoke/VarargsCollectorHandle,noLockword=java/lang/invoke/ThunkTuple -Xjcl:jclse29
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: NVS 300/PCIe/SSE2 GL version 3.3.0, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: ~~ERROR~~ NullPointerException: null
+	Profiler Position: N/A (disabled)
+	CPU: 12x Intel(R) Xeon(R) CPU E5-1660 0 @ 3.30GHz

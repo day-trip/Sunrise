@@ -18,7 +18,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBanner;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.tileentity.TileEntityBanner;
+import net.minecraft.block.tileentity.TileEntityBanner;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;

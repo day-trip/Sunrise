@@ -121,7 +121,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient
     {
         if (!this.networkManager.isLocalChannel())
         {
-            this.networkManager.setCompressionTreshold(packetIn.getCompressionTreshold());
+            this.networkManager.setCompressionThreshold(packetIn.getCompressionthreshold());
         }
     }
 }

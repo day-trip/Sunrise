@@ -5,26 +5,26 @@ import org.lwjgl.opengl.GL11;
 
 public class GlStateManager
 {
-    private static GlStateManager.AlphaState alphaState = new GlStateManager.AlphaState();
-    private static GlStateManager.BooleanState lightingState = new GlStateManager.BooleanState(2896);
-    private static GlStateManager.BooleanState[] lightState = new GlStateManager.BooleanState[8];
-    private static GlStateManager.ColorMaterialState colorMaterialState = new GlStateManager.ColorMaterialState();
-    private static GlStateManager.BlendState blendState = new GlStateManager.BlendState();
-    private static GlStateManager.DepthState depthState = new GlStateManager.DepthState();
-    private static GlStateManager.FogState fogState = new GlStateManager.FogState();
-    private static GlStateManager.CullState cullState = new GlStateManager.CullState();
-    private static GlStateManager.PolygonOffsetState polygonOffsetState = new GlStateManager.PolygonOffsetState();
-    private static GlStateManager.ColorLogicState colorLogicState = new GlStateManager.ColorLogicState();
-    private static GlStateManager.TexGenState texGenState = new GlStateManager.TexGenState();
-    private static GlStateManager.ClearState clearState = new GlStateManager.ClearState();
-    private static GlStateManager.StencilState stencilState = new GlStateManager.StencilState();
-    private static GlStateManager.BooleanState normalizeState = new GlStateManager.BooleanState(2977);
-    private static int activeTextureUnit = 0;
-    private static GlStateManager.TextureState[] textureState = new GlStateManager.TextureState[8];
+    private static final GlStateManager.AlphaState alphaState = new GlStateManager.AlphaState();
+    private static final GlStateManager.BooleanState lightingState = new GlStateManager.BooleanState(2896);
+    private static final GlStateManager.BooleanState[] lightState = new GlStateManager.BooleanState[8];
+    private static final GlStateManager.ColorMaterialState colorMaterialState = new GlStateManager.ColorMaterialState();
+    private static final GlStateManager.BlendState blendState = new GlStateManager.BlendState();
+    private static final GlStateManager.DepthState depthState = new GlStateManager.DepthState();
+    private static final GlStateManager.FogState fogState = new GlStateManager.FogState();
+    private static final GlStateManager.CullState cullState = new GlStateManager.CullState();
+    private static final GlStateManager.PolygonOffsetState polygonOffsetState = new GlStateManager.PolygonOffsetState();
+    private static final GlStateManager.ColorLogicState colorLogicState = new GlStateManager.ColorLogicState();
+    private static final GlStateManager.TexGenState texGenState = new GlStateManager.TexGenState();
+    private static final GlStateManager.ClearState clearState = new GlStateManager.ClearState();
+    private static final GlStateManager.StencilState stencilState = new GlStateManager.StencilState();
+    private static final GlStateManager.BooleanState normalizeState = new GlStateManager.BooleanState(2977);
+    private static int activeTextureUnit;
+    private static final GlStateManager.TextureState[] textureState = new GlStateManager.TextureState[8];
     private static int activeShadeModel = 7425;
-    private static GlStateManager.BooleanState rescaleNormalState = new GlStateManager.BooleanState(32826);
-    private static GlStateManager.ColorMask colorMaskState = new GlStateManager.ColorMask();
-    private static GlStateManager.Color colorState = new GlStateManager.Color();
+    private static final GlStateManager.BooleanState rescaleNormalState = new GlStateManager.BooleanState(32826);
+    private static final GlStateManager.ColorMask colorMaskState = new GlStateManager.ColorMask();
+    private static final GlStateManager.Color colorState = new GlStateManager.Color();
 
     public static void pushAttrib()
     {
@@ -465,6 +465,14 @@ public class GlStateManager
         GL11.glScalef(x, y, z);
     }
 
+    public static void scale(float size) {
+        GL11.glScalef(size, size, size);
+    }
+
+    public static void scale(double size) {
+        GL11.glScaled(size, size, size);
+    }
+
     public static void scale(double x, double y, double z)
     {
         GL11.glScaled(x, y, z);
@@ -533,9 +541,9 @@ public class GlStateManager
 
         private AlphaState()
         {
-            this.field_179208_a = new GlStateManager.BooleanState(3008);
-            this.func = 519;
-            this.ref = -1.0F;
+            field_179208_a = new GlStateManager.BooleanState(3008);
+            func = 519;
+            ref = -1.0F;
         }
     }
 
@@ -549,47 +557,47 @@ public class GlStateManager
 
         private BlendState()
         {
-            this.field_179213_a = new GlStateManager.BooleanState(3042);
-            this.srcFactor = 1;
-            this.dstFactor = 0;
-            this.srcFactorAlpha = 1;
-            this.dstFactorAlpha = 0;
+            field_179213_a = new GlStateManager.BooleanState(3042);
+            srcFactor = 1;
+            dstFactor = 0;
+            srcFactorAlpha = 1;
+            dstFactorAlpha = 0;
         }
     }
 
     static class BooleanState
     {
         private final int capability;
-        private boolean currentState = false;
+        private boolean currentState;
 
         public BooleanState(int capabilityIn)
         {
-            this.capability = capabilityIn;
+            capability = capabilityIn;
         }
 
         public void setDisabled()
         {
-            this.setState(false);
+            setState(false);
         }
 
         public void setEnabled()
         {
-            this.setState(true);
+            setState(true);
         }
 
         public void setState(boolean state)
         {
-            if (state != this.currentState)
+            if (state != currentState)
             {
-                this.currentState = state;
+                currentState = state;
 
                 if (state)
                 {
-                    GL11.glEnable(this.capability);
+                    GL11.glEnable(capability);
                 }
                 else
                 {
-                    GL11.glDisable(this.capability);
+                    GL11.glDisable(capability);
                 }
             }
         }
@@ -603,9 +611,9 @@ public class GlStateManager
 
         private ClearState()
         {
-            this.field_179205_a = 1.0D;
-            this.field_179203_b = new GlStateManager.Color(0.0F, 0.0F, 0.0F, 0.0F);
-            this.field_179204_c = 0;
+            field_179205_a = 1.0D;
+            field_179203_b = new GlStateManager.Color(0.0F, 0.0F, 0.0F, 0.0F);
+            field_179204_c = 0;
         }
     }
 
@@ -622,10 +630,10 @@ public class GlStateManager
 
         public Color(float redIn, float greenIn, float blueIn, float alphaIn)
         {
-            this.red = redIn;
-            this.green = greenIn;
-            this.blue = blueIn;
-            this.alpha = alphaIn;
+            red = redIn;
+            green = greenIn;
+            blue = blueIn;
+            alpha = alphaIn;
         }
     }
 
@@ -636,8 +644,8 @@ public class GlStateManager
 
         private ColorLogicState()
         {
-            this.field_179197_a = new GlStateManager.BooleanState(3058);
-            this.field_179196_b = 5379;
+            field_179197_a = new GlStateManager.BooleanState(3058);
+            field_179196_b = 5379;
         }
     }
 
@@ -650,10 +658,10 @@ public class GlStateManager
 
         private ColorMask()
         {
-            this.red = true;
-            this.green = true;
-            this.blue = true;
-            this.alpha = true;
+            red = true;
+            green = true;
+            blue = true;
+            alpha = true;
         }
     }
 
@@ -665,9 +673,9 @@ public class GlStateManager
 
         private ColorMaterialState()
         {
-            this.field_179191_a = new GlStateManager.BooleanState(2903);
-            this.field_179189_b = 1032;
-            this.field_179190_c = 5634;
+            field_179191_a = new GlStateManager.BooleanState(2903);
+            field_179189_b = 1032;
+            field_179190_c = 5634;
         }
     }
 
@@ -678,8 +686,8 @@ public class GlStateManager
 
         private CullState()
         {
-            this.field_179054_a = new GlStateManager.BooleanState(2884);
-            this.field_179053_b = 1029;
+            field_179054_a = new GlStateManager.BooleanState(2884);
+            field_179053_b = 1029;
         }
     }
 
@@ -691,9 +699,9 @@ public class GlStateManager
 
         private DepthState()
         {
-            this.depthTest = new GlStateManager.BooleanState(2929);
-            this.maskEnabled = true;
-            this.depthFunc = 513;
+            depthTest = new GlStateManager.BooleanState(2929);
+            maskEnabled = true;
+            depthFunc = 513;
         }
     }
 
@@ -707,11 +715,11 @@ public class GlStateManager
 
         private FogState()
         {
-            this.field_179049_a = new GlStateManager.BooleanState(2912);
-            this.field_179047_b = 2048;
-            this.field_179048_c = 1.0F;
-            this.field_179045_d = 0.0F;
-            this.field_179046_e = 1.0F;
+            field_179049_a = new GlStateManager.BooleanState(2912);
+            field_179047_b = 2048;
+            field_179048_c = 1.0F;
+            field_179045_d = 0.0F;
+            field_179046_e = 1.0F;
         }
     }
 
@@ -724,10 +732,10 @@ public class GlStateManager
 
         private PolygonOffsetState()
         {
-            this.field_179044_a = new GlStateManager.BooleanState(32823);
-            this.field_179042_b = new GlStateManager.BooleanState(10754);
-            this.field_179043_c = 0.0F;
-            this.field_179041_d = 0.0F;
+            field_179044_a = new GlStateManager.BooleanState(32823);
+            field_179042_b = new GlStateManager.BooleanState(10754);
+            field_179043_c = 0.0F;
+            field_179041_d = 0.0F;
         }
     }
 
@@ -739,9 +747,9 @@ public class GlStateManager
 
         private StencilFunc()
         {
-            this.field_179081_a = 519;
-            this.field_179079_b = 0;
-            this.field_179080_c = -1;
+            field_179081_a = 519;
+            field_179079_b = 0;
+            field_179080_c = -1;
         }
     }
 
@@ -755,20 +763,20 @@ public class GlStateManager
 
         private StencilState()
         {
-            this.field_179078_a = new GlStateManager.StencilFunc();
-            this.field_179076_b = -1;
-            this.field_179077_c = 7680;
-            this.field_179074_d = 7680;
-            this.field_179075_e = 7680;
+            field_179078_a = new GlStateManager.StencilFunc();
+            field_179076_b = -1;
+            field_179077_c = 7680;
+            field_179074_d = 7680;
+            field_179075_e = 7680;
         }
     }
 
-    public static enum TexGen
+    public enum TexGen
     {
         S,
         T,
         R,
-        Q;
+        Q
     }
 
     static class TexGenCoord
@@ -779,8 +787,8 @@ public class GlStateManager
 
         public TexGenCoord(int p_i46254_1_, int p_i46254_2_)
         {
-            this.field_179065_b = p_i46254_1_;
-            this.field_179067_a = new GlStateManager.BooleanState(p_i46254_2_);
+            field_179065_b = p_i46254_1_;
+            field_179067_a = new GlStateManager.BooleanState(p_i46254_2_);
         }
     }
 
@@ -793,10 +801,10 @@ public class GlStateManager
 
         private TexGenState()
         {
-            this.field_179064_a = new GlStateManager.TexGenCoord(8192, 3168);
-            this.field_179062_b = new GlStateManager.TexGenCoord(8193, 3169);
-            this.field_179063_c = new GlStateManager.TexGenCoord(8194, 3170);
-            this.field_179061_d = new GlStateManager.TexGenCoord(8195, 3171);
+            field_179064_a = new GlStateManager.TexGenCoord(8192, 3168);
+            field_179062_b = new GlStateManager.TexGenCoord(8193, 3169);
+            field_179063_c = new GlStateManager.TexGenCoord(8194, 3170);
+            field_179061_d = new GlStateManager.TexGenCoord(8195, 3171);
         }
     }
 
@@ -807,8 +815,8 @@ public class GlStateManager
 
         private TextureState()
         {
-            this.texture2DState = new GlStateManager.BooleanState(3553);
-            this.textureName = 0;
+            texture2DState = new GlStateManager.BooleanState(3553);
+            textureName = 0;
         }
     }
 }

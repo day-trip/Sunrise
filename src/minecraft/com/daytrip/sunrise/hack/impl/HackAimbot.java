@@ -1,6 +1,6 @@
 package com.daytrip.sunrise.hack.impl;
 
-import com.daytrip.shared.CommonMath;
+import com.daytrip.shared.math.CommonMath;
 import com.daytrip.shared.ExtendedReach;
 import com.daytrip.shared.event.Event;
 import com.daytrip.shared.event.impl.EventClickMouse;
@@ -31,7 +31,7 @@ public class HackAimbot extends Hack {
         }
         if(event instanceof EventClickMouse) {
             if(((EventClickMouse) event).getButton() == 2) {
-                ExtendedReach reach = new ExtendedReach(null, 25, minecraft.thePlayer);
+                ExtendedReach reach = new ExtendedReach(null, 50, minecraft.thePlayer);
                 reach.calculateMouseOver();
                 if(reach.objectMouseOver.entityHit instanceof EntityLivingBase) {
                     target = (EntityLivingBase) reach.objectMouseOver.entityHit;

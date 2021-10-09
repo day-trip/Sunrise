@@ -211,7 +211,7 @@ public class BlockTripWire extends Block
         {
             for (Entity entity : list)
             {
-                if (!entity.doesEntityNotTriggerPressurePlate())
+                if (entity.doesEntityTriggerPressurePlate())
                 {
                     flag1 = true;
                     break;

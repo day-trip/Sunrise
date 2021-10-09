@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.dispenser.IBlockSource;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 

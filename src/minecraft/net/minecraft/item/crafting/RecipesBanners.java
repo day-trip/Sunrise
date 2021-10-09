@@ -7,7 +7,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntityBanner;
+import net.minecraft.block.tileentity.TileEntityBanner;
 import net.minecraft.world.World;
 
 public class RecipesBanners

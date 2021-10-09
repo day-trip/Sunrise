@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntityEnderChest;
+import net.minecraft.block.tileentity.TileEntityEnderChest;
 
 public class InventoryEnderChest extends InventoryBasic
 {

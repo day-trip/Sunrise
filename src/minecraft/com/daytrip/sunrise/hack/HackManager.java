@@ -1,6 +1,7 @@
 package com.daytrip.sunrise.hack;
 
 import com.daytrip.shared.event.EventBus;
+import com.daytrip.shared.event.impl.EventKeypress;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -33,11 +34,12 @@ public class HackManager {
         return hacks.size();
     }
 
-    public static void keyPress(int key) {
-        if(Keyboard.isKeyDown(key)) {
+    public static void keyPress(EventKeypress event) {
+        if(Keyboard.isKeyDown(event.getKey())) {
             for(Hack hack : hacks.values()) {
-                if(hack.getKey() == key) {
+                if(hack.getKey() == event.getKey()) {
                     hack.toggle();
+                    event.setCancelled(true);
                 }
             }
         }

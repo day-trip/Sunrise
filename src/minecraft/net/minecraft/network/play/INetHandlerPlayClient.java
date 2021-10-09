@@ -285,7 +285,7 @@ public interface INetHandlerPlayClient extends INetHandler
     /**
      * Locally eliminates the entities. Invoked by the server when the items are in fact destroyed, or the player is no
      * longer registered as required to monitor them. The latter  happens when distance between the player and item
-     * increases beyond a certain treshold (typically the viewing distance)
+     * increases beyond a certain threshold (typically the viewing distance)
      */
     void handleDestroyEntities(S13PacketDestroyEntities packetIn);
 

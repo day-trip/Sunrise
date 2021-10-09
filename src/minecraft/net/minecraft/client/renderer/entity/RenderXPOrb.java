@@ -16,8 +16,8 @@ public class RenderXPOrb extends Render<EntityXPOrb>
     public RenderXPOrb(RenderManager renderManagerIn)
     {
         super(renderManagerIn);
-        this.shadowSize = 0.15F;
-        this.shadowOpaque = 0.75F;
+        shadowSize = 0.15F;
+        shadowOpaque = 0.75F;
     }
 
     /**
@@ -30,11 +30,11 @@ public class RenderXPOrb extends Render<EntityXPOrb>
     {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         int i = entity.getTextureByXP();
-        float f = (float)(i % 4 * 16 + 0) / 64.0F;
+        float f = (float)(i % 4 * 16) / 64.0F;
         float f1 = (float)(i % 4 * 16 + 16) / 64.0F;
-        float f2 = (float)(i / 4 * 16 + 0) / 64.0F;
+        float f2 = (float)(i / 4 * 16) / 64.0F;
         float f3 = (float)(i / 4 * 16 + 16) / 64.0F;
         float f4 = 1.0F;
         float f5 = 0.5F;
@@ -42,24 +42,24 @@ public class RenderXPOrb extends Render<EntityXPOrb>
         int j = entity.getBrightnessForRender(partialTicks);
         int k = j % 65536;
         int l = j / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)k / 1.0F, (float)l / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k, (float) l);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f8 = 255.0F;
         float f9 = ((float)entity.xpColor + partialTicks) / 2.0F;
         l = (int)((MathHelper.sin(f9 + 0.0F) + 1.0F) * 0.5F * 255.0F);
         int i1 = 255;
         int j1 = (int)((MathHelper.sin(f9 + 4.1887903F) + 1.0F) * 0.1F * 255.0F);
-        GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         float f7 = 0.3F;
         GlStateManager.scale(0.3F, 0.3F, 0.3F);
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-        worldrenderer.pos((double)(0.0F - f5), (double)(0.0F - f6), 0.0D).tex((double)f, (double)f3).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos((double)(f4 - f5), (double)(0.0F - f6), 0.0D).tex((double)f1, (double)f3).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos((double)(f4 - f5), (double)(1.0F - f6), 0.0D).tex((double)f1, (double)f2).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos((double)(0.0F - f5), (double)(1.0F - f6), 0.0D).tex((double)f, (double)f2).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(f4 - f5, 1.0F - f6, 0.0D).tex(f1, f2).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(0.0F - f5, 1.0F - f6, 0.0D).tex(f, f2).color(l, 255, j1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
         tessellator.draw();
         GlStateManager.disableBlend();
         GlStateManager.disableRescaleNormal();

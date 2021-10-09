@@ -7,15 +7,15 @@ import net.minecraft.network.login.INetHandlerLoginClient;
 
 public class S03PacketEnableCompression implements Packet<INetHandlerLoginClient>
 {
-    private int compressionTreshold;
+    private int compressionthreshold;
 
     public S03PacketEnableCompression()
     {
     }
 
-    public S03PacketEnableCompression(int compressionTresholdIn)
+    public S03PacketEnableCompression(int compressionthresholdIn)
     {
-        this.compressionTreshold = compressionTresholdIn;
+        this.compressionthreshold = compressionthresholdIn;
     }
 
     /**
@@ -23,7 +23,7 @@ public class S03PacketEnableCompression implements Packet<INetHandlerLoginClient
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.compressionTreshold = buf.readVarIntFromBuffer();
+        this.compressionthreshold = buf.readVarIntFromBuffer();
     }
 
     /**
@@ -31,7 +31,7 @@ public class S03PacketEnableCompression implements Packet<INetHandlerLoginClient
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeVarIntToBuffer(this.compressionTreshold);
+        buf.writeVarIntToBuffer(this.compressionthreshold);
     }
 
     /**
@@ -42,8 +42,8 @@ public class S03PacketEnableCompression implements Packet<INetHandlerLoginClient
         handler.handleEnableCompression(this);
     }
 
-    public int getCompressionTreshold()
+    public int getCompressionthreshold()
     {
-        return this.compressionTreshold;
+        return this.compressionthreshold;
     }
 }

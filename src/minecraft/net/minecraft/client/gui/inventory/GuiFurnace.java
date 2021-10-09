@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.block.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiFurnace extends GuiContainer

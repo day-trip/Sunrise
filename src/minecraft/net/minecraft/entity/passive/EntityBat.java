@@ -205,9 +205,9 @@ public class EntityBat extends EntityAmbientCreature
     /**
      * Return whether this entity should NOT trigger a pressure plate or a tripwire.
      */
-    public boolean doesEntityNotTriggerPressurePlate()
+    public boolean doesEntityTriggerPressurePlate()
     {
-        return true;
+        return false;
     }
 
     /**

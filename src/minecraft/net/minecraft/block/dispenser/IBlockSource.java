@@ -1,6 +1,6 @@
 package net.minecraft.block.dispenser;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 
 public interface IBlockSource extends ILocatableSource

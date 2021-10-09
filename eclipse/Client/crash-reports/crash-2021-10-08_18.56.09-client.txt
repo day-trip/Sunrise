@@ -1,0 +1,83 @@
+---- Minecraft Crash Report ----
+// You're mean.
+
+Time: 10/8/21 6:56 PM
+Description: Unexpected error
+
+java.util.ConcurrentModificationException
+	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
+	at java.util.ArrayList$Itr.next(ArrayList.java:861)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectAlphaLayer(EffectRenderer.java:185)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectLayer(EffectRenderer.java:177)
+	at net.minecraft.client.particle.EffectRenderer.updateEffects(EffectRenderer.java:155)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2329)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1190)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:352)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at Start.main(Start.java:9)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
+	at java.util.ArrayList$Itr.next(ArrayList.java:861)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectAlphaLayer(EffectRenderer.java:185)
+	at net.minecraft.client.particle.EffectRenderer.updateEffectLayer(EffectRenderer.java:177)
+	at net.minecraft.client.particle.EffectRenderer.updateEffects(EffectRenderer.java:155)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 3 total; [EntityPlayerSP['__DayTrip__'/2873, l='MpServer', x=29.93, y=67.00, z=7.27], EntityOtherPlayerMP['Yoshiwarn123'/2994, l='MpServer', x=29.91, y=80.27, z=7.25], EntityOtherPlayerMP['L0gick'/3272, l='MpServer', x=32.22, y=67.00, z=7.84]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: 32.00,67.00,7.00 - World: (32,67,7), Chunk: (at 0,4,7 in 2,0; contains blocks 32,0,0 to 47,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 23171693 game time, 6000 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 9 total; [EntityOtherPlayerMP['L0gick'/3272, l='MpServer', x=0.50, y=65.00, z=35.41], EntitySquid['Squid'/3743, l='MpServer', x=30.47, y=81.77, z=7.31], EntityFireworkRocket['entity.FireworksRocketEntity.name'/3744, l='MpServer', x=30.44, y=81.88, z=7.28], EntityPlayerSP['__DayTrip__'/2873, l='MpServer', x=29.93, y=67.00, z=7.27], EntityOtherPlayerMP['L0gick'/3272, l='MpServer', x=0.50, y=65.75, z=34.38], EntityOtherPlayerMP['L0gick'/3272, l='MpServer', x=0.50, y=66.22, z=33.69], EntityOtherPlayerMP['Yoshiwarn123'/2994, l='MpServer', x=29.91, y=80.27, z=7.25], EntityOtherPlayerMP['L0gick'/3272, l='MpServer', x=32.22, y=67.00, z=7.84], EntityOtherPlayerMP['Yoshiwarn123'/2994, l='MpServer', x=29.91, y=80.27, z=7.25]]
+	Retry entities: 0 total; []
+	Server brand: Hypixel BungeeCord (1.0.57) <- vanilla
+	Server type: Non-integrated multiplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:380)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2764)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:382)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at Start.main(Start.java:9)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.8
+	Operating System: Windows 8.1 (amd64) version 6.3
+	Java Version: 1.8.0_282, AdoptOpenJDK
+	Java VM Version: Eclipse OpenJ9 VM (JRE 1.8.0 Windows 8.1 amd64-64-Bit Compressed References 20210120_972 (JIT enabled, AOT enabled)
+OpenJ9   - 345e1b09e
+OMR      - 741e94ea8
+JCL      - ab07c6a8fd based on jdk8u282-b08), Eclipse OpenJ9
+	Memory: 170253088 bytes (162 MB) / 331808768 bytes (316 MB) up to 17160339456 bytes (16365 MB)
+	JVM Flags: 3 total; -Xoptionsfile=C:\Users\Jai Giri\.jdks\adopt-openj9-1.8.0_282\jre\bin\compressedrefs\options.default -Xlockword:mode=default,noLockword=java/lang/String,noLockword=java/util/MapEntry,noLockword=java/util/HashMap$Entry,noLockword=org/apache/harmony/luni/util/ModifiedMap$Entry,noLockword=java/util/Hashtable$Entry,noLockword=java/lang/invoke/MethodType,noLockword=java/lang/invoke/MethodHandle,noLockword=java/lang/invoke/CollectHandle,noLockword=java/lang/invoke/ConstructorHandle,noLockword=java/lang/invoke/ConvertHandle,noLockword=java/lang/invoke/ArgumentConversionHandle,noLockword=java/lang/invoke/AsTypeHandle,noLockword=java/lang/invoke/ExplicitCastHandle,noLockword=java/lang/invoke/FilterReturnHandle,noLockword=java/lang/invoke/DirectHandle,noLockword=java/lang/invoke/ReceiverBoundHandle,noLockword=java/lang/invoke/DynamicInvokerHandle,noLockword=java/lang/invoke/FieldHandle,noLockword=java/lang/invoke/FieldGetterHandle,noLockword=java/lang/invoke/FieldSetterHandle,noLockword=java/lang/invoke/StaticFieldGetterHandle,noLockword=java/lang/invoke/StaticFieldSetterHandle,noLockword=java/lang/invoke/IndirectHandle,noLockword=java/lang/invoke/InterfaceHandle,noLockword=java/lang/invoke/VirtualHandle,noLockword=java/lang/invoke/PrimitiveHandle,noLockword=java/lang/invoke/InvokeExactHandle,noLockword=java/lang/invoke/InvokeGenericHandle,noLockword=java/lang/invoke/VarargsCollectorHandle,noLockword=java/lang/invoke/ThunkTuple -Xjcl:jclse29
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: NVS 300/PCIe/SSE2 GL version 3.3.0, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: ~~ERROR~~ NullPointerException: null
+	Profiler Position: N/A (disabled)
+	CPU: 12x Intel(R) Xeon(R) CPU E5-1660 0 @ 3.30GHz

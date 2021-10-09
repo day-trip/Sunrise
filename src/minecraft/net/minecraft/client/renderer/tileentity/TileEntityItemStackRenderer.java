@@ -9,10 +9,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tileentity.TileEntityBanner;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityEnderChest;
-import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.block.tileentity.TileEntityBanner;
+import net.minecraft.block.tileentity.TileEntityChest;
+import net.minecraft.block.tileentity.TileEntityEnderChest;
+import net.minecraft.block.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 
 public class TileEntityItemStackRenderer

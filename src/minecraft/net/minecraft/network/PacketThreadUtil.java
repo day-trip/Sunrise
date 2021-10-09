@@ -9,7 +9,7 @@ public class PacketThreadUtil
         if (!threadListener.isCallingFromMinecraftThread())
         {
             threadListener.addScheduledTask(() -> packet.processPacket(handler));
-            throw ThreadQuickExitException.field_179886_a;
+            throw ThreadQuickExitException.instance;
         }
     }
 }

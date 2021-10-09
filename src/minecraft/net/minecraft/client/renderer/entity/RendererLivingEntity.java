@@ -1,8 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
 import com.daytrip.shared.event.impl.EventRenderBrightnessBuffer;
-import com.daytrip.sunrise.SunriseClient;
-import com.daytrip.sunrise.hack.impl.HackAutoFighter;
 import com.google.common.collect.Lists;
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -250,7 +248,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     protected void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_)
     {
         boolean flag = !entitylivingbaseIn.isInvisible();
-        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
+        boolean flag1 = !flag && entitylivingbaseIn.isVisibleToPlayer(Minecraft.getMinecraft().thePlayer);
 
         if (flag || flag1)
         {
@@ -611,7 +609,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
         }
 
-        return Minecraft.isGuiEnabled() && entity != renderManager.livingPlayer && !entity.isInvisibleToPlayer(entityplayersp) && entity.riddenByEntity == null;
+        return Minecraft.isGuiEnabled() && entity != renderManager.livingPlayer && entity.isVisibleToPlayer(entityplayersp) && entity.riddenByEntity == null;
     }
 
     public void setRenderOutlines(boolean renderOutlinesIn)

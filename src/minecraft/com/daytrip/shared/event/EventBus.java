@@ -40,6 +40,7 @@ public class EventBus {
 
      */
 
+    /*
     private static  <T> boolean contains(T[] arr, T toCheckValue) {
         for (T element : arr) {
             if (element == toCheckValue) {
@@ -48,6 +49,8 @@ public class EventBus {
         }
         return false;
     }
+
+     */
 
     public static void post(Event event) throws Exception {
         for(EventListener listener : listeners) {

@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer;
 
 import com.daytrip.shared.event.impl.EventProcessMouse;
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
@@ -28,8 +27,8 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.client.shader.ShaderLinkHelper;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.profiler.crash.CrashReport;
+import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -1106,12 +1105,11 @@ public class EntityRenderer implements IResourceManagerReloadListener
             int j1 = scaledresolution.getScaledHeight();
             int k1 = Mouse.getX() * i1 / mc.displayWidth;
             int l1 = j1 - Mouse.getY() * j1 / mc.displayHeight - 1;
-            int i2 = mc.gameSettings.limitFramerate;
 
             if (mc.theWorld != null)
             {
                 mc.mcProfiler.startSection("level");
-                int j = Math.min(Minecraft.getDebugFPS(), i2);
+                int j = Math.min(Minecraft.getDebugFPS(), mc.gameSettings.limitFramerate);
                 j = Math.max(j, 60);
                 long k = System.nanoTime() - p_181560_2_;
                 long l = Math.max((long)(1000000000 / j / 4) - k, 0L);
@@ -1174,7 +1172,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         }
     }
 
-    public void renderStreamIndicator(float partialTicks)
+    public void renderStreamIndicator()
     {
         setupOverlayRendering();
         mc.ingameGUI.renderStreamIndicator(new ScaledResolution(mc));
@@ -1183,37 +1181,30 @@ public class EntityRenderer implements IResourceManagerReloadListener
     private boolean isDrawBlockOutline()
     {
         boolean drawBlockOutline = true;
-        if (!drawBlockOutline)
-        {
-            return false;
-        }
-        else
-        {
-            Entity entity = mc.getRenderViewEntity();
-            boolean flag = entity instanceof EntityPlayer && !mc.gameSettings.hideGUI;
+        Entity entity = mc.getRenderViewEntity();
+        boolean flag = entity instanceof EntityPlayer && !mc.gameSettings.hideGUI;
 
-            if (flag && !((EntityPlayer)entity).capabilities.allowEdit)
+        if (flag && !((EntityPlayer)entity).capabilities.allowEdit)
+        {
+            ItemStack itemstack = ((EntityPlayer)entity).getCurrentEquippedItem();
+
+            if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
             {
-                ItemStack itemstack = ((EntityPlayer)entity).getCurrentEquippedItem();
+                BlockPos blockpos = mc.objectMouseOver.getBlockPos();
+                Block block = mc.theWorld.getBlockState(blockpos).getBlock();
 
-                if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+                if (mc.playerController.getCurrentGameType() == WorldSettings.GameType.SPECTATOR)
                 {
-                    BlockPos blockpos = mc.objectMouseOver.getBlockPos();
-                    Block block = mc.theWorld.getBlockState(blockpos).getBlock();
-
-                    if (mc.playerController.getCurrentGameType() == WorldSettings.GameType.SPECTATOR)
-                    {
-                        flag = block.hasTileEntity() && mc.theWorld.getTileEntity(blockpos) instanceof IInventory;
-                    }
-                    else
-                    {
-                        flag = itemstack != null && (itemstack.canDestroy(block) || itemstack.canPlaceOn(block));
-                    }
+                    flag = block.hasTileEntity() && mc.theWorld.getTileEntity(blockpos) instanceof IInventory;
+                }
+                else
+                {
+                    flag = itemstack != null && (itemstack.canDestroy(block) || itemstack.canPlaceOn(block));
                 }
             }
-
-            return flag;
         }
+
+        return flag;
     }
 
     private void renderWorldDirections(float partialTicks)

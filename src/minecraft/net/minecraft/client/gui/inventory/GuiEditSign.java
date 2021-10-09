@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.C12PacketUpdateSign;
-import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.block.tileentity.TileEntitySign;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ChatComponentText;
 import org.lwjgl.input.Keyboard;

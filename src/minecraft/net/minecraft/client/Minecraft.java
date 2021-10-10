@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import com.daytrip.shared.math.CommonMath;
 import com.daytrip.sunrise.gui.LoadingManager;
 import com.daytrip.sunrise.SunriseClient;
 import com.daytrip.shared.event.Event;
@@ -956,10 +957,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         GlStateManager.enableTexture2D();
     }
 
-    public static float lerp(float point1, float point2, float alpha) {
-        return point1 + alpha * (point2 - point1);
-    }
-
     private void drawLoadingBar(float progress) {
         ScaledResolution scaledresolution = new ScaledResolution(this);
         int k = scaledresolution.getScaledWidth();
@@ -986,7 +983,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
             int height = 13;
             int xPos = k / 2 - width / 2;
             int yPos = l - l / 6;
-            float scaledProgress = lerp(0, width, progress);
+            float scaledProgress = CommonMath.lerp(0, width, progress);
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
             worldrenderer.pos(xPos, yPos, 0.0D).color(128, 128, 128, 255).endVertex();

@@ -134,7 +134,8 @@ public class BotAutoFighter extends Hack {
         }
         if(event instanceof EventPlayerDamaged) {
             if(((EventPlayerDamaged) event).player == minecraft.thePlayer) {
-                //minecraft.thePlayer.jump();
+                // Some sources say this reduces KB, others don't
+                //TimerManager.registerTimer(new TickTimer(tickTimer -> minecraft.thePlayer.jump(), 3, false));
             }
         }
         if(event instanceof EventEntityAttackedByPlayer) {
@@ -217,7 +218,7 @@ public class BotAutoFighter extends Hack {
                 minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
                 minecraft.playerController.syncCurrentPlayItem();
 
-                if(!minecraft.thePlayer.isSprinting()) {
+                if(!minecraft.thePlayer.isSprinting() && canMove) {
                     minecraft.thePlayer.setSprinting(true);
                 }
 
@@ -230,10 +231,9 @@ public class BotAutoFighter extends Hack {
                     e.printStackTrace();
                 }
 
+                if(hitCounter == 1) {
+                    // Is block hitting worth it?
 
-                if(hitCounter > 3) {
-                    System.out.println("Da hit counter was greater than 3!");
-                    hitCounter = 0;
                     EventClickMouse eventRightClickMouse = new EventClickMouse();
                     eventRightClickMouse.setButton(1);
                     eventRightClickMouse.setCustomFromTarget(id);
@@ -242,10 +242,16 @@ public class BotAutoFighter extends Hack {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+
+                if(hitCounter > 3) {
+                    System.out.println("Da hit counter was greater than 3!");
+                    hitCounter = 0;
+
                     stopMoving();
                     canMove = false;
-                    canSword = false;
-                    TimerManager.registerTimer(new TickTimer(tickTimer12 -> canSword = true, 3, false));
+                    //canSword = false;
+                    //TimerManager.registerTimer(new TickTimer(tickTimer1 -> canSword = true, 3, false));
                     TimerManager.registerTimer(new TickTimer(tickTimer1 -> {
                         canMove = true;
                         startMoving();
@@ -310,7 +316,7 @@ public class BotAutoFighter extends Hack {
     private void approachTarget() {
         if(settingManager.<SettingBoolean>getSetting("approach_target").getValue()) {
             if(canMove) {
-                if(distanceToTarget < 1) {
+                if(distanceToTarget < 0.5) {
                     minecraft.thePlayer.movementInput.moveForward = -1;
                 } else {
                     if(distanceToTarget > 2.5) {

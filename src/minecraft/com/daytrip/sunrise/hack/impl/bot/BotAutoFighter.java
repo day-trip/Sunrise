@@ -1,17 +1,19 @@
 package com.daytrip.sunrise.hack.impl.bot;
 
-import com.daytrip.sunrise.util.minecraft.ExtendedReach;
 import com.daytrip.sunrise.event.Event;
 import com.daytrip.sunrise.event.impl.*;
-import com.daytrip.sunrise.util.math.ArrayGrid;
-import com.daytrip.sunrise.util.math.CommonMath;
-import com.daytrip.sunrise.util.math.Vec2;
-import com.daytrip.sunrise.util.timer.TickTimer;
-import com.daytrip.sunrise.util.timer.TimerManager;
 import com.daytrip.sunrise.hack.Hack;
 import com.daytrip.sunrise.hack.pathfinding.PathFinder;
 import com.daytrip.sunrise.hack.pathfinding.Point;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
+import com.daytrip.sunrise.hack.task.Task;
+import com.daytrip.sunrise.hack.task.TaskManager;
+import com.daytrip.sunrise.util.math.ArrayGrid;
+import com.daytrip.sunrise.util.math.CommonMath;
+import com.daytrip.sunrise.util.math.Vec2;
+import com.daytrip.sunrise.util.minecraft.ExtendedReach;
+import com.daytrip.sunrise.util.timer.TickTimer;
+import com.daytrip.sunrise.util.timer.TimerManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,26 +42,23 @@ public class BotAutoFighter extends Hack {
     private double distanceToTarget;
 
     // Whether or not to automatically navigate
-    private boolean autoNavigate;
+    private boolean autoNavigate = true;
+
+    private final TaskManager taskManager = new TaskManager();
 
     // The timers
-    private TickTimer attackTimer;
     private TickTimer rodTimer;
-    private TickTimer strafeTimer;
     private TickTimer cameraInterpolationTimer;
 
     // Whether or not the bot can melee
     private boolean canSword = true;
     // The amount of hits left until the bot has to rod the target
     private int mustRodCounter;
-    // The amount of times the bot hit the target
-    private int hitCounter;
 
     // Whether or not the bot can approach the target
     private boolean canMove = true;
 
     private String strafe = "left";
-    private int strafeTicks;
     private int targetStrafeTicks;
 
     private boolean lockAim;
@@ -141,14 +140,9 @@ public class BotAutoFighter extends Hack {
         if(event instanceof EventEntityAttackedByPlayer) {
             if(minecraft.inWorld() && target != null) {
                 if(((EventEntityAttackedByPlayer) event).getAttacker() == minecraft.thePlayer && ((EventEntityAttackedByPlayer) event).getTarget() == target) {
-                    /*
-                    System.out.println("Da hit counter has incremented!");
-                    hitCounter++;
-
-                     */
                     if(canMove) {
                         canMove = false;
-                        TimerManager.registerTimer(new TickTimer(tickTimer -> {
+                        TimerManager.registerTimer(new TickTimer(() -> {
                             canMove = true;
                             startMoving();
                         }, 5, false));
@@ -157,43 +151,28 @@ public class BotAutoFighter extends Hack {
             }
         }
         if(event instanceof EventTick && target != null && minecraft.inWorld()) {
-            if(!target.isEntityAlive()) {
-                // Don't do anything if the target died
-                loseTarget();
-                return;
-            }
-
-            // Get the distance to the target
-            distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
+            taskManager.tick();
 
             //navigation();
             //pathFinderNavigation();
 
-            autoNavigate = true;
+            if(!lockAim) {
+                aimOnTarget();
+            } else {
+                CommonMath.updateValues(minecraft.thePlayer, new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()));
+                minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
+                minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+            }
 
-            if(autoNavigate) {
-                if(!lockAim) {
-                    aimOnTarget();
-                } else {
-                    CommonMath.updateValues(minecraft.thePlayer, new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()));
-                    minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
-                    minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
-                }
+            //minecraft.thePlayer.movementInput.jump = false;
+            //minecraft.thePlayer.setJumping(false);
+            minecraft.thePlayer.movementInput.sneak = false;
+            minecraft.thePlayer.setSneaking(false);
 
-                //minecraft.thePlayer.movementInput.jump = false;
-                //minecraft.thePlayer.setJumping(false);
-                minecraft.thePlayer.movementInput.sneak = false;
-                minecraft.thePlayer.setSneaking(false);
-
-                approachTarget();
-                strafeTarget();
-
-                if(distanceToTarget < 6) {
-                    rodTimer.reset();
-                    attackTimer.update();
-                } else {
-                    rodTimer.update();
-                }
+            if(distanceToTarget < 6) {
+                rodTimer.reset();
+            } else {
+                rodTimer.update();
             }
         }
     }
@@ -207,13 +186,9 @@ public class BotAutoFighter extends Hack {
     private void loseTarget() {
         target = null;
 
-        attackTimer = null;
         rodTimer = null;
-        strafeTimer = null;
         cameraInterpolationTimer = null;
 
-        strafeTicks = 0;
-        hitCounter = 0;
         mustRodCounter = 0;
 
         stopMoving();
@@ -222,30 +197,89 @@ public class BotAutoFighter extends Hack {
     private void pickTarget(EntityLivingBase target) {
         this.target = target;
         CommonMath.updateValues(minecraft.thePlayer, target);
-        System.out.println("i-was-here#1");
-        attackTimer = new TickTimer(tickTimer -> {
-            if(canSword) {
-                minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
-                minecraft.playerController.syncCurrentPlayItem();
 
-                if(!minecraft.thePlayer.isSprinting() && canMove) {
-                    minecraft.thePlayer.setSprinting(true);
-                }
-
-                EventClickMouse eventClickMouse = new EventClickMouse();
-                eventClickMouse.setButton(0);
-                eventClickMouse.setCustomFromTarget(id);
-                try {
-                    eventClickMouse.post();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 1, true);
-
-        rodTimer = new TickTimer(tickTimer -> rod(10), 15, true);
+        rodTimer = new TickTimer(() -> rod(10), 15, true);
 
         cameraInterpolationTimer = TickTimer.createNoAction(5 - 1, true); // 5 - 1 because of > instead of >=
+
+        taskManager.registerTask(0, new Task()
+                .withName("PVP Module: Dead Check")
+                .executeIf(() -> true)
+                .onTick(() -> {
+                    if(target.isDead || target.getHealth() <= 0.0F) {
+                        loseTarget();
+                        taskManager.endChain();
+                    }
+                })
+        );
+
+        taskManager.registerTask(0, new Task()
+                .withName("PVP Module: Basic Math Update")
+                .executeIf(() -> true)
+                .onInit(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
+                .onTick(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
+        );
+
+        taskManager.registerTask(1, new Task()
+                .withName("PVP Module: Sword")
+                .executeIf(() -> canSword)
+                .callEvery(() -> 1, () -> {
+                    minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
+                    minecraft.playerController.syncCurrentPlayItem();
+
+                    if(!minecraft.thePlayer.isSprinting() && canMove) {
+                        minecraft.thePlayer.setSprinting(true);
+                    }
+
+                    EventClickMouse eventClickMouse = new EventClickMouse();
+                    eventClickMouse.setButton(0);
+                    eventClickMouse.setCustomFromTarget(id);
+                    try {
+                        eventClickMouse.post();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+
+
+        taskManager.registerTask(2, new Task()
+                .withName("PVP Module: Approach Target")
+                .executeIf(() -> settingManager.<SettingBoolean>getSetting("approach_target").getValue() && canMove)
+                .onTick(() -> {
+                   if(distanceToTarget < 0.5) {
+                       minecraft.thePlayer.movementInput.moveForward = -1;
+                   } else {
+                       if(distanceToTarget > 2.5) {
+                           startMoving();
+                       } else {
+                           stopMoving();
+                       }
+                   }
+               })
+        );
+
+        taskManager.registerTask(2, new Task()
+                .withName("PVP Module: Strafe Target")
+                .executeIf(() -> settingManager.<SettingBoolean>getSetting("strafe").getValue() && distanceToTarget > 2.5 && distanceToTarget < 10)
+                .whenCannotExecute(() -> minecraft.thePlayer.movementInput.moveStrafe = 0)
+                .onInit(() -> targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15))
+                .callEvery(() -> targetStrafeTicks, () -> {
+                    targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
+                    if(strafe.equals("left")) {
+                        strafe = "right";
+                    } else {
+                        strafe = "left";
+                    }
+                }).nextInterval(() -> targetStrafeTicks)
+                .onTick(() -> {
+                    if(strafe.equals("left")) {
+                        minecraft.thePlayer.movementInput.moveStrafe = -1;
+                    } else {
+                        minecraft.thePlayer.movementInput.moveStrafe = 1;
+                    }
+                })
+        );
     }
 
     @Override
@@ -269,7 +303,7 @@ public class BotAutoFighter extends Hack {
             e.printStackTrace();
         }
 
-        TimerManager.registerTimer(new TickTimer(tickTimer -> {
+        TimerManager.registerTimer(new TickTimer(() -> {
             minecraft.thePlayer.inventory.currentItem = inventoryRodSlot;
             minecraft.playerController.syncCurrentPlayItem();
 
@@ -284,48 +318,6 @@ public class BotAutoFighter extends Hack {
 
             canSword = true;
         }, castTimeTicks, false));
-    }
-
-    private void approachTarget() {
-        if(settingManager.<SettingBoolean>getSetting("approach_target").getValue()) {
-            if(canMove) {
-                if(distanceToTarget < 0.5) {
-                    minecraft.thePlayer.movementInput.moveForward = -1;
-                } else {
-                    if(distanceToTarget > 2.5) {
-                        startMoving();
-                    } else {
-                        stopMoving();
-                    }
-                }
-            }
-        }
-    }
-
-    private void strafeTarget() {
-        if(settingManager.<SettingBoolean>getSetting("strafe").getValue()) {
-            if(distanceToTarget > 2.5 && distanceToTarget < 10) {
-                if(strafeTicks > targetStrafeTicks) {
-                    strafeTicks = 0;
-                    targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
-                    minecraft.thePlayer.movementInput.moveStrafe = 0;
-                    if(strafe.equals("left")) {
-                        strafe = "right";
-                    } else {
-                        strafe = "left";
-                    }
-                } else {
-                    strafeTicks++;
-                    if(strafe.equals("left")) {
-                        minecraft.thePlayer.movementInput.moveStrafe = -1;
-                    } else {
-                        minecraft.thePlayer.movementInput.moveStrafe = 1;
-                    }
-                }
-            } else {
-                minecraft.thePlayer.movementInput.moveStrafe = 0;
-            }
-        }
     }
 
     private void aimOnTarget() {
@@ -515,7 +507,9 @@ public class BotAutoFighter extends Hack {
 
     private void startMoving() {
         if(!autoNavigate) return;
-        minecraft.thePlayer.setSprinting(true);
+        if(!minecraft.thePlayer.isSprinting()) {
+            minecraft.thePlayer.setSprinting(true);
+        }
         minecraft.thePlayer.movementInput.moveForward = 1;
     }
 
@@ -527,7 +521,9 @@ public class BotAutoFighter extends Hack {
 
     private void startMoving(boolean b) {
         if(!b) return;
-        minecraft.thePlayer.setSprinting(true);
+        if(!minecraft.thePlayer.isSprinting()) {
+            minecraft.thePlayer.setSprinting(true);
+        }
         minecraft.thePlayer.movementInput.moveForward = 1;
     }
 

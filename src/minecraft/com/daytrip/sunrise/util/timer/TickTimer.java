@@ -1,7 +1,11 @@
 package com.daytrip.sunrise.util.timer;
 
+import com.daytrip.sunrise.hack.task.ActionCallable;
+
+import java.util.concurrent.Callable;
+
 public class TickTimer {
-    private final TimerAction action;
+    private final ActionCallable action;
 
     private int targetTicks;
     private int currentTicks;
@@ -10,7 +14,9 @@ public class TickTimer {
 
     private final boolean repeating;
 
-    public TickTimer(TimerAction action, int targetTicks, boolean repeating) {
+    private Callable<Integer> nextInterval;
+
+    public TickTimer(ActionCallable action, int targetTicks, boolean repeating) {
         this.action = action;
         this.targetTicks = targetTicks;
         this.repeating = repeating;
@@ -20,8 +26,15 @@ public class TickTimer {
     public void update() {
         if(canRun) {
             if(currentTicks > targetTicks) {
-                action.onTimerFinish(this);
+                action.call();
                 if(repeating) {
+                    if(nextInterval != null) {
+                        try {
+                            targetTicks = nextInterval.call();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                     reset();
                 } else {
                     stop();
@@ -31,6 +44,10 @@ public class TickTimer {
                 currentTicks++;
             }
         }
+    }
+
+    public void setNextInterval(Callable<Integer> nextInterval) {
+        this.nextInterval = nextInterval;
     }
 
     public void reset() {
@@ -57,7 +74,7 @@ public class TickTimer {
         return targetTicks;
     }
 
-    public TimerAction getAction() {
+    public ActionCallable getAction() {
         return action;
     }
 
@@ -66,7 +83,7 @@ public class TickTimer {
     }
 
     public static TickTimer createNoAction(int targetTicks, boolean repeating) {
-        return new TickTimer(tickTimer -> doNothing(), targetTicks, repeating);
+        return new TickTimer(TickTimer::doNothing, targetTicks, repeating);
     }
 
     private static void doNothing() {

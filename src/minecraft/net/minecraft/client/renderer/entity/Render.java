@@ -22,7 +22,6 @@ import org.lwjgl.opengl.GL11;
 
 public abstract class Render<T extends Entity>
 {
-    private static final ResourceLocation shadowTextures = new ResourceLocation("textures/misc/shadow.png");
     protected final RenderManager renderManager;
     protected float shadowSize;
 
@@ -168,7 +167,7 @@ public abstract class Render<T extends Entity>
     {
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
-        renderManager.renderEngine.bindTexture(shadowTextures);
+        renderManager.renderEngine.bindTexture(new ResourceLocation("textures/misc/shadow.png"));
         World world = getWorldFromRenderManager();
         GlStateManager.depthMask(false);
         float f = shadowSize;

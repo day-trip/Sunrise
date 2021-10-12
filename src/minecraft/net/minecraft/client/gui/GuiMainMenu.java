@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import com.daytrip.shared.math.CommonMath;
+import com.daytrip.sunrise.util.math.CommonMath;
 import com.daytrip.sunrise.gui.button.GuiIconButtonClose;
 import com.daytrip.sunrise.gui.button.GuiIconButtonSettings;
 import net.minecraft.client.renderer.GlStateManager;

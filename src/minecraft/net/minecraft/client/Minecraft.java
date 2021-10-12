@@ -1,12 +1,12 @@
 package net.minecraft.client;
 
-import com.daytrip.shared.math.CommonMath;
+import com.daytrip.sunrise.util.math.CommonMath;
 import com.daytrip.sunrise.gui.LoadingManager;
 import com.daytrip.sunrise.SunriseClient;
-import com.daytrip.shared.event.Event;
-import com.daytrip.shared.event.EventBus;
-import com.daytrip.shared.event.EventListener;
-import com.daytrip.shared.event.impl.*;
+import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.EventBus;
+import com.daytrip.sunrise.event.EventListener;
+import com.daytrip.sunrise.event.impl.*;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;

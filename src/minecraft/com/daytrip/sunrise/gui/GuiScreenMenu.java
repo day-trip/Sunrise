@@ -1,6 +1,6 @@
 package com.daytrip.sunrise.gui;
 
-import com.daytrip.shared.gui.util.Rectangle;
+import com.daytrip.sunrise.gui.util.Rectangle;
 import com.daytrip.sunrise.hack.Hack;
 import com.daytrip.sunrise.hack.HackManager;
 import net.minecraft.client.gui.GuiButton;

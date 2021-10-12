@@ -1,10 +1,8 @@
 package com.daytrip.sunrise.hack.impl.bot;
 
-import com.daytrip.shared.event.Event;
+import com.daytrip.sunrise.event.Event;
 import com.daytrip.sunrise.hack.Hack;
 import org.lwjgl.input.Keyboard;
-
-import java.lang.annotation.Annotation;
 
 public class BotAutoMiner extends Hack {
     public BotAutoMiner() {

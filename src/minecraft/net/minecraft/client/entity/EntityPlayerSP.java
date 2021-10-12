@@ -1,6 +1,6 @@
 package net.minecraft.client.entity;
 
-import com.daytrip.shared.event.impl.EventPlayerDamaged;
+import com.daytrip.sunrise.event.impl.EventPlayerDamaged;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;

@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import com.daytrip.shared.event.impl.EventRenderHud;
+import com.daytrip.sunrise.event.impl.EventRenderHud;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
@@ -17,7 +17,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

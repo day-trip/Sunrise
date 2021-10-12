@@ -7,8 +7,8 @@ Description: Unexpected error
 java.lang.NullPointerException: Unexpected error
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.newNav(HackAutoFighter.java:329)
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.onEvent(HackAutoFighter.java:130)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:57)
-	at com.daytrip.shared.event.Event.post(Event.java:28)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:57)
+	at com.daytrip.sunrise.event.Event.post(Event.java:28)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1941)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1182)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:354)
@@ -23,8 +23,8 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Stacktrace:
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.newNav(HackAutoFighter.java:329)
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.onEvent(HackAutoFighter.java:130)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:57)
-	at com.daytrip.shared.event.Event.post(Event.java:28)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:57)
+	at com.daytrip.sunrise.event.Event.post(Event.java:28)
 
 -- Affected level --
 Details:

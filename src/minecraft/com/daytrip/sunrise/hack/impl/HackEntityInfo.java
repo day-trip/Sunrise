@@ -1,7 +1,7 @@
 package com.daytrip.sunrise.hack.impl;
 
-import com.daytrip.shared.event.Event;
-import com.daytrip.shared.event.impl.EventRenderHud;
+import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.impl.EventRenderHud;
 import com.daytrip.sunrise.hack.Hack;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
 import net.minecraft.client.gui.ScaledResolution;

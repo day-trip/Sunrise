@@ -7,8 +7,8 @@ Description: Initializing game
 java.util.ConcurrentModificationException
 	at java.util.AbstractList$Itr.checkForComodification(AbstractList.java:372)
 	at java.util.AbstractList$Itr.next(AbstractList.java:343)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java from InputFileObject:14)
-	at com.daytrip.shared.event.Event.post(Event.java from InputFileObject:15)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java from InputFileObject:14)
+	at com.daytrip.sunrise.event.Event.post(Event.java from InputFileObject:15)
 	at net.minecraft.client.Minecraft.run(Minecraft.java from InputFileObject:329)
 	at net.minecraft.client.main.Main.main(Main.java from InputFileObject:110)
 	at Start.main(Start.java from InputFileObject:9)
@@ -21,8 +21,8 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Stacktrace:
 	at java.util.AbstractList$Itr.checkForComodification(AbstractList.java:372)
 	at java.util.AbstractList$Itr.next(AbstractList.java:343)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java from InputFileObject:14)
-	at com.daytrip.shared.event.Event.post(Event.java from InputFileObject:15)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java from InputFileObject:14)
+	at com.daytrip.sunrise.event.Event.post(Event.java from InputFileObject:15)
 
 -- Initialization --
 Details:

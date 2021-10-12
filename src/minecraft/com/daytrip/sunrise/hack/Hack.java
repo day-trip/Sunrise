@@ -1,17 +1,13 @@
 package com.daytrip.sunrise.hack;
 
-import com.daytrip.shared.event.Event;
-import com.daytrip.shared.event.EventListener;
-import com.daytrip.sunrise.hack.setting.Setting;
+import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.EventListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.input.Keyboard;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Hack implements EventListener {
     protected final Minecraft minecraft;

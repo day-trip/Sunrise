@@ -747,7 +747,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
         }
 
-        return String.format("C: %d/%d %sD: %d, %s", Integer.valueOf(j), Integer.valueOf(i), mc.renderChunksMany ? "(s) " : "", Integer.valueOf(renderDistanceChunks), renderDispatcher.getDebugInfo());
+        return String.format("C: %d/%d %sD: %d, %s", j, i, mc.renderChunksMany ? "(s) " : "", renderDistanceChunks, renderDispatcher.getDebugInfo());
     }
 
     /**
@@ -817,7 +817,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             if (renderchunk != null)
             {
                 boolean flag2 = false;
-                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation3 = new RenderGlobal.ContainerLocalRenderInformation(renderchunk, null, 0);
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation3 = new ContainerLocalRenderInformation(renderchunk, null, 0);
                 Set<EnumFacing> set1 = getVisibleFacings(blockpos1);
 
                 if (set1.size() == 1)
@@ -860,7 +860,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         if (renderchunk1 != null && camera.isBoundingBoxInFrustum(renderchunk1.boundingBox))
                         {
                             renderchunk1.setFrameIndex(frameCount);
-                            queue.add(new RenderGlobal.ContainerLocalRenderInformation(renderchunk1, null, 0));
+                            queue.add(new ContainerLocalRenderInformation(renderchunk1, null, 0));
                         }
                     }
                 }
@@ -880,7 +880,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                     if ((!flag1 || !renderglobal$containerlocalrenderinformation1.setFacing.contains(enumfacing1.getOpposite())) && (!flag1 || enumfacing2 == null || renderchunk3.getCompiledChunk().isVisible(enumfacing2.getOpposite(), enumfacing1)) && renderchunk2 != null && renderchunk2.setFrameIndex(frameCount) && camera.isBoundingBoxInFrustum(renderchunk2.boundingBox))
                     {
-                        RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = new RenderGlobal.ContainerLocalRenderInformation(renderchunk2, enumfacing1, renderglobal$containerlocalrenderinformation1.counter + 1);
+                        RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = new ContainerLocalRenderInformation(renderchunk2, enumfacing1, renderglobal$containerlocalrenderinformation1.counter + 1);
                         renderglobal$containerlocalrenderinformation.setFacing.addAll(renderglobal$containerlocalrenderinformation1.setFacing);
                         renderglobal$containerlocalrenderinformation.setFacing.add(enumfacing1);
                         queue.add(renderglobal$containerlocalrenderinformation);
@@ -1294,8 +1294,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             int i = theWorld.getMoonPhase();
             int k = i % 4;
             int i1 = i / 4 % 2;
-            float f22 = (float)(k + 0) / 4.0F;
-            float f23 = (float)(i1 + 0) / 2.0F;
+            float f22 = (float)(k) / 4.0F;
+            float f23 = (float)(i1) / 2.0F;
             float f24 = (float)(k + 1) / 4.0F;
             float f14 = (float)(i1 + 1) / 2.0F;
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -1355,9 +1355,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
 
                 GlStateManager.popMatrix();
-                float f18 = 1.0F;
                 float f19 = -((float)(d0 + 65.0D));
-                float f20 = -1.0F;
                 worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
                 worldrenderer.pos(-1.0D, f19, 1.0D).color(0, 0, 0, 255).endVertex();
                 worldrenderer.pos(1.0D, f19, 1.0D).color(0, 0, 0, 255).endVertex();
@@ -1412,8 +1410,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             {
                 GlStateManager.disableCull();
                 float f = (float)(mc.getRenderViewEntity().lastTickPosY + (mc.getRenderViewEntity().posY - mc.getRenderViewEntity().lastTickPosY) * (double)partialTicks);
-                int i = 32;
-                int j = 8;
                 Tessellator tessellator = Tessellator.getInstance();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 renderEngine.bindTexture(locationCloudsPng);
@@ -1434,7 +1430,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     f3 = f6;
                 }
 
-                float f10 = 4.8828125E-4F;
                 double d2 = (float) cloudTickCounter + partialTicks;
                 double d0 = mc.getRenderViewEntity().prevPosX + (mc.getRenderViewEntity().posX - mc.getRenderViewEntity().prevPosX) * (double)partialTicks + d2 * 0.029999999329447746D;
                 double d1 = mc.getRenderViewEntity().prevPosZ + (mc.getRenderViewEntity().posZ - mc.getRenderViewEntity().prevPosZ) * (double)partialTicks;
@@ -1451,10 +1446,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 {
                     for (int j1 = -256; j1 < 256; j1 += 32)
                     {
-                        worldrenderer.pos(i1 + 0, f7, j1 + 32).tex((float)(i1 + 0) * 4.8828125E-4F + f8, (float)(j1 + 32) * 4.8828125E-4F + f9).color(f1, f2, f3, 0.8F).endVertex();
+                        worldrenderer.pos(i1, f7, j1 + 32).tex((float)(i1) * 4.8828125E-4F + f8, (float)(j1 + 32) * 4.8828125E-4F + f9).color(f1, f2, f3, 0.8F).endVertex();
                         worldrenderer.pos(i1 + 32, f7, j1 + 32).tex((float)(i1 + 32) * 4.8828125E-4F + f8, (float)(j1 + 32) * 4.8828125E-4F + f9).color(f1, f2, f3, 0.8F).endVertex();
-                        worldrenderer.pos(i1 + 32, f7, j1 + 0).tex((float)(i1 + 32) * 4.8828125E-4F + f8, (float)(j1 + 0) * 4.8828125E-4F + f9).color(f1, f2, f3, 0.8F).endVertex();
-                        worldrenderer.pos(i1 + 0, f7, j1 + 0).tex((float)(i1 + 0) * 4.8828125E-4F + f8, (float)(j1 + 0) * 4.8828125E-4F + f9).color(f1, f2, f3, 0.8F).endVertex();
+                        worldrenderer.pos(i1 + 32, f7, j1).tex((float)(i1 + 32) * 4.8828125E-4F + f8, (float)(j1) * 4.8828125E-4F + f9).color(f1, f2, f3, 0.8F).endVertex();
+                        worldrenderer.pos(i1, f7, j1).tex((float)(i1) * 4.8828125E-4F + f8, (float)(j1) * 4.8828125E-4F + f9).color(f1, f2, f3, 0.8F).endVertex();
                     }
                 }
 
@@ -1469,7 +1464,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     /**
      * Checks if the given position is to be rendered with cloud fog
      */
-    public boolean hasCloudFog(double x, double y, double z, float partialTicks)
+    public boolean hasCloudFog()
     {
         return false;
     }
@@ -1480,8 +1475,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         float f = (float)(mc.getRenderViewEntity().lastTickPosY + (mc.getRenderViewEntity().posY - mc.getRenderViewEntity().lastTickPosY) * (double)partialTicks);
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        float f1 = 12.0F;
-        float f2 = 4.0F;
         double d0 = (float) cloudTickCounter + partialTicks;
         double d1 = (mc.getRenderViewEntity().prevPosX + (mc.getRenderViewEntity().posX - mc.getRenderViewEntity().prevPosX) * (double)partialTicks + d0 * 0.029999999329447746D) / 12.0D;
         double d2 = (mc.getRenderViewEntity().prevPosZ + (mc.getRenderViewEntity().posZ - mc.getRenderViewEntity().prevPosZ) * (double)partialTicks) / 12.0D + 0.33000001311302185D;
@@ -1517,14 +1510,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         float f13 = f4 * 0.8F;
         float f14 = f5 * 0.8F;
         float f15 = f6 * 0.8F;
-        float f16 = 0.00390625F;
         float f17 = (float)MathHelper.floor_double(d1) * 0.00390625F;
         float f18 = (float)MathHelper.floor_double(d2) * 0.00390625F;
         float f19 = (float)(d1 - (double)MathHelper.floor_double(d1));
         float f20 = (float)(d2 - (double)MathHelper.floor_double(d2));
-        int k = 8;
-        int l = 4;
-        float f21 = 9.765625E-4F;
         GlStateManager.scale(12.0F, 1.0F, 12.0F);
 
         for (int i1 = 0; i1 < 2; ++i1)
@@ -1689,9 +1678,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.enableAlpha();
             GlStateManager.disableCull();
             float f3 = (float)(Minecraft.getSystemTime() % 3000L) / 3000.0F;
-            float f4 = 0.0F;
-            float f5 = 0.0F;
-            float f6 = 128.0F;
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.setTranslation(-d2, -d3, -d4);
             double d5 = Math.max(MathHelper.floor_double(d4 - d0), worldborder.minZ());
@@ -2269,7 +2255,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 int j1 = Items.potionitem.getColorFromDamage(p_180439_4_);
                 float f = (float)(j1 >> 16 & 255) / 255.0F;
                 float f1 = (float)(j1 >> 8 & 255) / 255.0F;
-                float f2 = (float)(j1 >> 0 & 255) / 255.0F;
+                float f2 = (float)(j1 & 255) / 255.0F;
                 EnumParticleTypes enumparticletypes = EnumParticleTypes.SPELL;
 
                 if (Items.potionitem.isEffectInstant(p_180439_4_))
@@ -2336,12 +2322,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     {
         if (progress >= 0 && progress < 10)
         {
-            DestroyBlockProgress destroyblockprogress = damagedBlocks.get(Integer.valueOf(breakerId));
+            DestroyBlockProgress destroyblockprogress = damagedBlocks.get(breakerId);
 
             if (destroyblockprogress == null || destroyblockprogress.getPosition().getX() != pos.getX() || destroyblockprogress.getPosition().getY() != pos.getY() || destroyblockprogress.getPosition().getZ() != pos.getZ())
             {
                 destroyblockprogress = new DestroyBlockProgress(breakerId, pos);
-                damagedBlocks.put(Integer.valueOf(breakerId), destroyblockprogress);
+                damagedBlocks.put(breakerId, destroyblockprogress);
             }
 
             destroyblockprogress.setPartialBlockDamage(progress);
@@ -2349,7 +2335,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
         else
         {
-            damagedBlocks.remove(Integer.valueOf(breakerId));
+            damagedBlocks.remove(breakerId);
         }
     }
 
@@ -2367,7 +2353,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
-    class ContainerLocalRenderInformation
+    static class ContainerLocalRenderInformation
     {
         final RenderChunk renderChunk;
         final EnumFacing facing;

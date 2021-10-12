@@ -1,14 +1,13 @@
 package com.daytrip.sunrise;
 
-import com.daytrip.shared.LoginManager;
-import com.daytrip.shared.event.Event;
-import com.daytrip.shared.event.EventBus;
-import com.daytrip.shared.event.EventListener;
-import com.daytrip.shared.event.impl.EventClickMouse;
-import com.daytrip.shared.event.impl.EventGamePreInit;
-import com.daytrip.shared.event.impl.EventKeypress;
-import com.daytrip.shared.event.impl.EventRegisterListeners;
-import com.daytrip.shared.timer.TimerManager;
+import com.daytrip.sunrise.util.LoginManager;
+import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.EventBus;
+import com.daytrip.sunrise.event.EventListener;
+import com.daytrip.sunrise.event.impl.EventGamePreInit;
+import com.daytrip.sunrise.event.impl.EventKeypress;
+import com.daytrip.sunrise.event.impl.EventRegisterListeners;
+import com.daytrip.sunrise.util.timer.TimerManager;
 import com.daytrip.sunrise.gui.GuiScreenMenu;
 import com.daytrip.sunrise.hack.HackManager;
 import com.daytrip.sunrise.hack.SunriseGUI;
@@ -18,8 +17,6 @@ import com.daytrip.sunrise.hack.impl.bot.BotAutoMiner;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import org.lwjgl.input.Keyboard;
 

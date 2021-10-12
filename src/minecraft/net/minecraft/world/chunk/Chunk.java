@@ -1,6 +1,6 @@
 package net.minecraft.world.chunk;
 
-import com.daytrip.shared.event.impl.EventChunkLoad;
+import com.daytrip.sunrise.event.impl.EventChunkLoad;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;

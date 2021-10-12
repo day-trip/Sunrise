@@ -6,8 +6,8 @@ Description: Unexpected error
 
 java.lang.NullPointerException: Unexpected error
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.onEvent(HackAutoAim.java:38)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:19)
-	at com.daytrip.shared.event.Event.post(Event.java:15)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:19)
+	at com.daytrip.sunrise.event.Event.post(Event.java:15)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1691)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1073)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:373)

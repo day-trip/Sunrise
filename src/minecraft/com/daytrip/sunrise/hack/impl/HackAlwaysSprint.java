@@ -1,7 +1,7 @@
 package com.daytrip.sunrise.hack.impl;
 
-import com.daytrip.shared.event.Event;
-import com.daytrip.shared.event.impl.EventTick;
+import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.impl.EventTick;
 import com.daytrip.sunrise.hack.Hack;
 import org.lwjgl.input.Keyboard;
 

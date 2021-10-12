@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer;
 
-import com.daytrip.shared.event.impl.EventProcessMouse;
+import com.daytrip.sunrise.event.impl.EventProcessMouse;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
@@ -704,7 +704,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * (double)partialTicks;
         d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * (double)partialTicks + (double)f;
         d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double)partialTicks;
-        cloudFog = mc.renderGlobal.hasCloudFog(d0, d1, d2, partialTicks);
+        cloudFog = mc.renderGlobal.hasCloudFog();
     }
 
     /**
@@ -1880,12 +1880,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
     private void setupFog(int p_78468_1_, float partialTicks)
     {
         Entity entity = mc.getRenderViewEntity();
-        boolean flag = false;
-
-        if (entity instanceof EntityPlayer)
-        {
-            flag = ((EntityPlayer)entity).capabilities.isCreativeMode;
-        }
 
         GL11.glFog(GL11.GL_FOG_COLOR, setFogColorBuffer(fogColorRed, fogColorGreen, fogColorBlue, 1.0F));
         GL11.glNormal3f(0.0F, -1.0F, 0.0F);
@@ -1951,13 +1945,12 @@ public class EntityRenderer implements IResourceManagerReloadListener
             if (p_78468_1_ == -1)
             {
                 GlStateManager.setFogStart(0.0F);
-                GlStateManager.setFogEnd(f);
             }
             else
             {
                 GlStateManager.setFogStart(f * 0.75F);
-                GlStateManager.setFogEnd(f);
             }
+            GlStateManager.setFogEnd(f);
 
             if (GLContext.getCapabilities().GL_NV_fog_distance)
             {

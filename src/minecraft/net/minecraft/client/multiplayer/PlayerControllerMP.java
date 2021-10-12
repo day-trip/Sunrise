@@ -1,6 +1,6 @@
 package net.minecraft.client.multiplayer;
 
-import com.daytrip.shared.event.impl.EventEntityAttackedByPlayer;
+import com.daytrip.sunrise.event.impl.EventEntityAttackedByPlayer;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

@@ -10,8 +10,8 @@ java.lang.NullPointerException: Initializing game
 	at net.minecraft.client.Minecraft.drawSplashScreen(Minecraft.java:1023)
 	at net.minecraft.client.Minecraft.preInit(Minecraft.java:529)
 	at net.minecraft.client.Minecraft.onEvent(Minecraft.java:419)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:18)
-	at com.daytrip.shared.event.Event.post(Event.java:28)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:18)
+	at com.daytrip.sunrise.event.Event.post(Event.java:28)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:349)
 	at net.minecraft.client.main.Main.main(Main.java:110)
 	at Start.main(Start.java:9)
@@ -27,8 +27,8 @@ Stacktrace:
 	at net.minecraft.client.Minecraft.drawSplashScreen(Minecraft.java:1023)
 	at net.minecraft.client.Minecraft.preInit(Minecraft.java:529)
 	at net.minecraft.client.Minecraft.onEvent(Minecraft.java:419)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:18)
-	at com.daytrip.shared.event.Event.post(Event.java:28)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:18)
+	at com.daytrip.sunrise.event.Event.post(Event.java:28)
 
 -- Initialization --
 Details:

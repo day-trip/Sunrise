@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import com.daytrip.shared.event.impl.EventUpdateMovementInput;
+import com.daytrip.sunrise.event.impl.EventUpdateMovementInput;
 import net.minecraft.client.settings.GameSettings;
 
 public class MovementInputFromOptions extends MovementInput

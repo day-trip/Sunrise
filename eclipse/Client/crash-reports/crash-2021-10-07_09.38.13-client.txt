@@ -5,12 +5,12 @@ Time: 10/7/21 9:38 AM
 Description: Unexpected error
 
 java.lang.NullPointerException: Unexpected error
-	at com.daytrip.shared.math.CommonMath.mergeAsColumns(CommonMath.java:187)
-	at com.daytrip.shared.math.ArrayGrid.build(ArrayGrid.java:20)
+	at com.daytrip.sunrise.util.math.CommonMath.mergeAsColumns(CommonMath.java:187)
+	at com.daytrip.sunrise.util.math.ArrayGrid.build(ArrayGrid.java:20)
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.pathFinderNavigation(HackAutoFighter.java:385)
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.onEvent(HackAutoFighter.java:136)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:60)
-	at com.daytrip.shared.event.Event.post(Event.java:28)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:60)
+	at com.daytrip.sunrise.event.Event.post(Event.java:28)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1941)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1182)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:354)
@@ -23,12 +23,12 @@ A detailed walkthrough of the error, its code path and all known details is as f
 
 -- Head --
 Stacktrace:
-	at com.daytrip.shared.math.CommonMath.mergeAsColumns(CommonMath.java:187)
-	at com.daytrip.shared.math.ArrayGrid.build(ArrayGrid.java:20)
+	at com.daytrip.sunrise.util.math.CommonMath.mergeAsColumns(CommonMath.java:187)
+	at com.daytrip.sunrise.util.math.ArrayGrid.build(ArrayGrid.java:20)
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.pathFinderNavigation(HackAutoFighter.java:385)
 	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.onEvent(HackAutoFighter.java:136)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:60)
-	at com.daytrip.shared.event.Event.post(Event.java:28)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:60)
+	at com.daytrip.sunrise.event.Event.post(Event.java:28)
 
 -- Affected level --
 Details:

@@ -1,6 +1,6 @@
 package net.minecraft.entity;
 
-import com.daytrip.shared.event.impl.EventEntityDeath;
+import com.daytrip.sunrise.event.impl.EventEntityDeath;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;

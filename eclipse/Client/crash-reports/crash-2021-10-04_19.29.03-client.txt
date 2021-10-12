@@ -13,7 +13,7 @@ java.lang.NoClassDefFoundError: javassist.bytecode.ClassFile
 	at org.reflections.Reflections.<init>(Reflections.java:129)
 	at org.reflections.Reflections.<init>(Reflections.java:170)
 	at org.reflections.Reflections.<init>(Reflections.java:143)
-	at com.daytrip.shared.event.EventBus.initBus(EventBus.java:17)
+	at com.daytrip.sunrise.event.EventBus.initBus(EventBus.java:17)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:324)
 	at net.minecraft.client.main.Main.main(Main.java:109)
 	at Start.main(Start.java:9)
@@ -39,7 +39,7 @@ Stacktrace:
 	at org.reflections.Reflections.<init>(Reflections.java:129)
 	at org.reflections.Reflections.<init>(Reflections.java:170)
 	at org.reflections.Reflections.<init>(Reflections.java:143)
-	at com.daytrip.shared.event.EventBus.initBus(EventBus.java:17)
+	at com.daytrip.sunrise.event.EventBus.initBus(EventBus.java:17)
 
 -- Initialization --
 Details:

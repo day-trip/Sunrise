@@ -30,7 +30,6 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderer
 {
     private static final ResourceLocation RES_MAP_BACKGROUND = new ResourceLocation("textures/map/map_background.png");
-    private static final ResourceLocation RES_UNDERWATER_OVERLAY = new ResourceLocation("textures/misc/underwater.png");
 
     /** A reference to the Minecraft object. */
     private final Minecraft mc;
@@ -43,9 +42,6 @@ public class ItemRenderer
     private float prevEquippedProgress;
     private final RenderManager renderManager;
     private final RenderItem itemRenderer;
-
-    /** The index of the currently held item (0-8, or -1 if not yet updated) */
-    private int equippedItemSlot = -1;
 
     public ItemRenderer(Minecraft mcIn)
     {
@@ -315,13 +311,13 @@ public class ItemRenderer
     public void renderItemInFirstPerson(float partialTicks)
     {
         float f = 1.0F - (prevEquippedProgress + (equippedProgress - prevEquippedProgress) * partialTicks);
-        AbstractClientPlayer abstractclientplayer = mc.thePlayer;
-        float f1 = abstractclientplayer.getSwingProgress(partialTicks);
-        float f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
-        float f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
+        EntityPlayerSP entityPlayerSP = mc.thePlayer;
+        float f1 = entityPlayerSP.getSwingProgress(partialTicks);
+        float f2 = entityPlayerSP.prevRotationPitch + (entityPlayerSP.rotationPitch - entityPlayerSP.prevRotationPitch) * partialTicks;
+        float f3 = entityPlayerSP.prevRotationYaw + (entityPlayerSP.rotationYaw - entityPlayerSP.prevRotationYaw) * partialTicks;
         func_178101_a(f2, f3);
-        func_178109_a(abstractclientplayer);
-        func_178110_a((EntityPlayerSP)abstractclientplayer, partialTicks);
+        func_178109_a(entityPlayerSP);
+        func_178110_a(entityPlayerSP, partialTicks);
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
 
@@ -329,9 +325,9 @@ public class ItemRenderer
         {
             if (itemToRender.getItem() == Items.filled_map)
             {
-                renderItemMap(abstractclientplayer, f2, f, f1);
+                renderItemMap(entityPlayerSP, f2, f, f1);
             }
-            else if (abstractclientplayer.getItemInUseCount() > 0)
+            else if (entityPlayerSP.getItemInUseCount() > 0)
             {
                 EnumAction enumaction = itemToRender.getItemUseAction();
 
@@ -343,7 +339,7 @@ public class ItemRenderer
 
                     case EAT:
                     case DRINK:
-                        func_178104_a(abstractclientplayer, partialTicks);
+                        func_178104_a(entityPlayerSP, partialTicks);
                         transformFirstPersonItem(f, 0.0F);
                         break;
 
@@ -354,7 +350,7 @@ public class ItemRenderer
 
                     case BOW:
                         transformFirstPersonItem(f, 0.0F);
-                        func_178098_a(partialTicks, abstractclientplayer);
+                        func_178098_a(partialTicks, entityPlayerSP);
                 }
             }
             else
@@ -363,11 +359,11 @@ public class ItemRenderer
                 transformFirstPersonItem(f, f1);
             }
 
-            renderItem(abstractclientplayer, itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
+            renderItem(entityPlayerSP, itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
         }
-        else if (!abstractclientplayer.isInvisible())
+        else if (!entityPlayerSP.isInvisible())
         {
-            func_178095_a(abstractclientplayer, f, f1);
+            func_178095_a(entityPlayerSP, f, f1);
         }
 
         GlStateManager.popMatrix();
@@ -403,7 +399,7 @@ public class ItemRenderer
 
             if (iblockstate.getBlock().getRenderType() != -1)
             {
-                func_178108_a(partialTicks, mc.getBlockRendererDispatcher().getBlockModelShapes().getTexture(iblockstate));
+                func_178108_a(mc.getBlockRendererDispatcher().getBlockModelShapes().getTexture(iblockstate));
             }
         }
 
@@ -423,23 +419,17 @@ public class ItemRenderer
         GlStateManager.enableAlpha();
     }
 
-    private void func_178108_a(float p_178108_1_, TextureAtlasSprite p_178108_2_)
+    private void func_178108_a(TextureAtlasSprite sprite)
     {
         mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        float f = 0.1F;
         GlStateManager.color(0.1F, 0.1F, 0.1F, 0.5F);
         GlStateManager.pushMatrix();
-        float f1 = -1.0F;
-        float f2 = 1.0F;
-        float f3 = -1.0F;
-        float f4 = 1.0F;
-        float f5 = -0.5F;
-        float f6 = p_178108_2_.getMinU();
-        float f7 = p_178108_2_.getMaxU();
-        float f8 = p_178108_2_.getMinV();
-        float f9 = p_178108_2_.getMaxV();
+        float f6 = sprite.getMinU();
+        float f7 = sprite.getMaxU();
+        float f8 = sprite.getMinV();
+        float f9 = sprite.getMaxV();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex(f7, f9).endVertex();
         worldrenderer.pos(1.0D, -1.0D, -0.5D).tex(f6, f9).endVertex();
@@ -454,37 +444,21 @@ public class ItemRenderer
      * Renders a texture that warps around based on the direction the player is looking. Texture needs to be bound
      * before being called. Used for the water overlay. Args: parialTickTime
      */
-    private void renderWaterOverlayTexture(float p_78448_1_)
+    private void renderWaterOverlayTexture(float partialTicks)
     {
-        mc.getTextureManager().bindTexture(RES_UNDERWATER_OVERLAY);
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        float f = mc.thePlayer.getBrightness(p_78448_1_);
+        float f = mc.thePlayer.getBrightness(partialTicks);
         GlStateManager.color(f, f, f, 0.5F);
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.pushMatrix();
-        float f1 = 4.0F;
-        float f2 = -1.0F;
-        float f3 = 1.0F;
-        float f4 = -1.0F;
-        float f5 = 1.0F;
-        float f6 = -0.5F;
-        float f7 = -mc.thePlayer.rotationYaw / 64.0F;
-        float f8 = mc.thePlayer.rotationPitch / 64.0F;
-        /*
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex(4.0F + f7, 4.0F + f8).endVertex();
-        worldrenderer.pos(1.0D, -1.0D, -0.5D).tex(0.0F + f7, 4.0F + f8).endVertex();
-        worldrenderer.pos(1.0D, 1.0D, -0.5D).tex(0.0F + f7, 0.0F + f8).endVertex();
-        worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex(4.0F + f7, 0.0F + f8).endVertex();
 
-         */
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        worldrenderer.pos(-1.0D, -1.0D, -0.5D).color(0.0f, 0.0f, 0.9f, 0.5f).endVertex();
-        worldrenderer.pos(1.0D, -1.0D, -0.5D).color(0.0f, 0.0f, 0.9f, 0.5f).endVertex();
-        worldrenderer.pos(1.0D, 1.0D, -0.5D).color(0.0f, 0.0f, 0.9f, 0.5f).endVertex();
-        worldrenderer.pos(-1.0D, 1.0D, -0.5D).color(0.0f, 0.0f, 0.9f, 0.5f).endVertex();
+        worldrenderer.pos(-1.0D, -1.0D, -0.5D).color(0.0f, 0.0f, 1.0f, 0.5f).endVertex();
+        worldrenderer.pos(1.0D, -1.0D, -0.5D).color(0.0f, 0.0f, 1.0f, 0.5f).endVertex();
+        worldrenderer.pos(1.0D, 1.0D, -0.5D).color(0.0f, 0.0f, 1.0f, 0.5f).endVertex();
+        worldrenderer.pos(-1.0D, 1.0D, -0.5D).color(0.0f, 0.0f, 1.0f, 0.5f).endVertex();
         tessellator.draw();
 
         GlStateManager.popMatrix();
@@ -495,8 +469,9 @@ public class ItemRenderer
     /**
      * Renders the fire on the screen for first person mode. Arg: partialTickTime
      */
-    private void renderFireInFirstPerson(float p_78442_1_)
+    private void renderFireInFirstPerson(float partialTicks)
     {
+
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.9F);
@@ -561,7 +536,6 @@ public class ItemRenderer
         if (equippedProgress < 0.1F)
         {
             itemToRender = itemstack;
-            equippedItemSlot = entityplayer.inventory.currentItem;
         }
     }
 

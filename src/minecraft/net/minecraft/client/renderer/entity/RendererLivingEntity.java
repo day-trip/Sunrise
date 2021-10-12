@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import com.daytrip.shared.event.impl.EventRenderBrightnessBuffer;
+import com.daytrip.sunrise.event.impl.EventRenderBrightnessBuffer;
 import com.google.common.collect.Lists;
 import java.nio.FloatBuffer;
 import java.util.List;

@@ -1,13 +1,13 @@
 package com.daytrip.sunrise.hack.impl.bot;
 
-import com.daytrip.shared.ExtendedReach;
-import com.daytrip.shared.event.Event;
-import com.daytrip.shared.event.impl.*;
-import com.daytrip.shared.math.ArrayGrid;
-import com.daytrip.shared.math.CommonMath;
-import com.daytrip.shared.math.Vec2;
-import com.daytrip.shared.timer.TickTimer;
-import com.daytrip.shared.timer.TimerManager;
+import com.daytrip.sunrise.util.minecraft.ExtendedReach;
+import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.impl.*;
+import com.daytrip.sunrise.util.math.ArrayGrid;
+import com.daytrip.sunrise.util.math.CommonMath;
+import com.daytrip.sunrise.util.math.Vec2;
+import com.daytrip.sunrise.util.timer.TickTimer;
+import com.daytrip.sunrise.util.timer.TimerManager;
 import com.daytrip.sunrise.hack.Hack;
 import com.daytrip.sunrise.hack.pathfinding.PathFinder;
 import com.daytrip.sunrise.hack.pathfinding.Point;

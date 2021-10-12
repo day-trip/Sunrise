@@ -9,8 +9,8 @@ java.lang.NullPointerException: Unexpected error
 	at com.daytrip.sunrise.hack.Hack.setEnabled(Hack.java:39)
 	at com.daytrip.sunrise.hack.Hack.toggle(Hack.java:51)
 	at com.daytrip.sunrise.SunriseClient.onEvent(SunriseClient.java:30)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:18)
-	at com.daytrip.shared.event.Event.post(Event.java:27)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:18)
+	at com.daytrip.sunrise.event.Event.post(Event.java:27)
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2032)
 	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1079)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:372)
@@ -27,8 +27,8 @@ Stacktrace:
 	at com.daytrip.sunrise.hack.Hack.setEnabled(Hack.java:39)
 	at com.daytrip.sunrise.hack.Hack.toggle(Hack.java:51)
 	at com.daytrip.sunrise.SunriseClient.onEvent(SunriseClient.java:30)
-	at com.daytrip.shared.event.EventBus.post(EventBus.java:18)
-	at com.daytrip.shared.event.Event.post(Event.java:27)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:18)
+	at com.daytrip.sunrise.event.Event.post(Event.java:27)
 
 -- Affected level --
 Details:

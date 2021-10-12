@@ -26,7 +26,6 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry
 {
     private static final Logger logger = LogManager.getLogger();
     private static final ThreadPoolExecutor field_148302_b = new ScheduledThreadPoolExecutor(5, (new ThreadFactoryBuilder()).setNameFormat("Server Pinger #%d").setDaemon(true).build());
-    private static final ResourceLocation UNKNOWN_SERVER = new ResourceLocation("textures/misc/unknown_server.png");
     private static final ResourceLocation SERVER_SELECTION_BUTTONS = new ResourceLocation("textures/gui/server_selection.png");
     private final GuiMultiplayer field_148303_c;
     private final Minecraft mc;
@@ -53,24 +52,20 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry
             field_148301_e.pingToServer = -2L;
             field_148301_e.serverMOTD = "";
             field_148301_e.populationInfo = "";
-            field_148302_b.submit(new Runnable()
-            {
-                public void run()
+            field_148302_b.submit(() -> {
+                try
                 {
-                    try
-                    {
-                        field_148303_c.getOldServerPinger().ping(field_148301_e);
-                    }
-                    catch (UnknownHostException var2)
-                    {
-                        field_148301_e.pingToServer = -1L;
-                        field_148301_e.serverMOTD = EnumChatFormatting.DARK_RED + "Can't resolve hostname";
-                    }
-                    catch (Exception var3)
-                    {
-                        field_148301_e.pingToServer = -1L;
-                        field_148301_e.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
-                    }
+                    field_148303_c.getOldServerPinger().ping(field_148301_e);
+                }
+                catch (UnknownHostException var2)
+                {
+                    field_148301_e.pingToServer = -1L;
+                    field_148301_e.serverMOTD = EnumChatFormatting.DARK_RED + "Can't resolve hostname";
+                }
+                catch (Exception var3)
+                {
+                    field_148301_e.pingToServer = -1L;
+                    field_148301_e.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
                 }
             });
         }
@@ -140,7 +135,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry
         else
         {
             k = 1;
-            l = (int)(Minecraft.getSystemTime() / 100L + (long)(slotIndex * 2) & 7L);
+            l = (int)(Minecraft.getSystemTime() / 100L + (slotIndex * 2L) & 7L);
 
             if (l > 4)
             {
@@ -167,7 +162,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry
         }
         else
         {
-            func_178012_a(x, y, UNKNOWN_SERVER);
+            func_178012_a(x, y, new ResourceLocation("textures/misc/unknown.png"));
         }
 
         int i1 = mouseX - x;

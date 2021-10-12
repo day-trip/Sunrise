@@ -1,7 +1,7 @@
 package com.daytrip.sunrise.hack;
 
-import com.daytrip.shared.event.EventBus;
-import com.daytrip.shared.event.impl.EventKeypress;
+import com.daytrip.sunrise.event.EventBus;
+import com.daytrip.sunrise.event.impl.EventKeypress;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;

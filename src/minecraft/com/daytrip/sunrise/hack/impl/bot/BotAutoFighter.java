@@ -141,8 +141,18 @@ public class BotAutoFighter extends Hack {
         if(event instanceof EventEntityAttackedByPlayer) {
             if(minecraft.inWorld() && target != null) {
                 if(((EventEntityAttackedByPlayer) event).getAttacker() == minecraft.thePlayer && ((EventEntityAttackedByPlayer) event).getTarget() == target) {
+                    /*
                     System.out.println("Da hit counter has incremented!");
                     hitCounter++;
+
+                     */
+                    if(canMove) {
+                        canMove = false;
+                        TimerManager.registerTimer(new TickTimer(tickTimer -> {
+                            canMove = true;
+                            startMoving();
+                        }, 5, false));
+                    }
                 }
             }
         }
@@ -230,43 +240,6 @@ public class BotAutoFighter extends Hack {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                if(hitCounter == 1) {
-                    // Is block hitting worth it?
-
-                    EventClickMouse eventRightClickMouse = new EventClickMouse();
-                    eventRightClickMouse.setButton(1);
-                    eventRightClickMouse.setCustomFromTarget(id);
-                    try {
-                        eventRightClickMouse.post();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if(hitCounter > 3) {
-                    System.out.println("Da hit counter was greater than 3!");
-                    hitCounter = 0;
-
-                    stopMoving();
-                    canMove = false;
-                    //canSword = false;
-                    //TimerManager.registerTimer(new TickTimer(tickTimer1 -> canSword = true, 3, false));
-                    TimerManager.registerTimer(new TickTimer(tickTimer1 -> {
-                        canMove = true;
-                        startMoving();
-                    }, 6, false));
-                }
-
-                /*
-                if(mustRodCounter > 30 && target.isSprinting() & distanceToTarget > 4) {
-                    mustRodCounter = 0;
-                    rod(7);
-                } else {
-                    mustRodCounter++;
-                }
-
-                 */
             }
         }, 1, true);
 
@@ -278,7 +251,7 @@ public class BotAutoFighter extends Hack {
     @Override
     protected void enable() {
         super.enable();
-        targetStrafeTicks = 25 + minecraft.theWorld.rand.nextInt(5);
+        targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
     }
 
     private void rod(int castTimeTicks) {
@@ -334,7 +307,7 @@ public class BotAutoFighter extends Hack {
             if(distanceToTarget > 2.5 && distanceToTarget < 10) {
                 if(strafeTicks > targetStrafeTicks) {
                     strafeTicks = 0;
-                    targetStrafeTicks = 25 + minecraft.theWorld.rand.nextInt(5);
+                    targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
                     minecraft.thePlayer.movementInput.moveStrafe = 0;
                     if(strafe.equals("left")) {
                         strafe = "right";

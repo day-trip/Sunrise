@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="jna-platform-5.9.0">
+  <library name="JNA">
     <CLASSES>
       <root url="jar://$MCP_LOC$/jars/alljar/jna-platform-5.9.0.jar!/" />
     </CLASSES>

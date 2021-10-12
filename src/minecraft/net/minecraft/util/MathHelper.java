@@ -42,7 +42,7 @@ public class MathHelper
 
     public static float sqrt_float(float value)
     {
-        return (float)Math.sqrt((double)value);
+        return (float)Math.sqrt(value);
     }
 
     public static float sqrt_double(double value)
@@ -85,11 +85,6 @@ public class MathHelper
         return value < (double)i ? i - 1L : i;
     }
 
-    public static int func_154353_e(double value)
-    {
-        return (int)(value >= 0.0D ? value : -value + 1.0D);
-    }
-
     public static float abs(float value)
     {
         return value >= 0.0F ? value : -value;
@@ -121,7 +116,7 @@ public class MathHelper
      */
     public static int clamp_int(int num, int min, int max)
     {
-        return num < min ? min : (num > max ? max : num);
+        return num < min ? min : (Math.min(num, max));
     }
 
     /**
@@ -130,12 +125,12 @@ public class MathHelper
      */
     public static float clamp_float(float num, float min, float max)
     {
-        return num < min ? min : (num > max ? max : num);
+        return num < min ? min : (Math.min(num, max));
     }
 
     public static double clamp_double(double num, double min, double max)
     {
-        return num < min ? min : (num > max ? max : num);
+        return num < min ? min : (Math.min(num, max));
     }
 
     public static double denormalizeClamp(double p_151238_0_, double p_151238_2_, double p_151238_4_)
@@ -158,7 +153,7 @@ public class MathHelper
             p_76132_2_ = -p_76132_2_;
         }
 
-        return p_76132_0_ > p_76132_2_ ? p_76132_0_ : p_76132_2_;
+        return Math.max(p_76132_0_, p_76132_2_);
     }
 
     /**
@@ -371,8 +366,8 @@ public class MathHelper
         int j = (p_180188_1_ & 16711680) >> 16;
         int k = (p_180188_0_ & 65280) >> 8;
         int l = (p_180188_1_ & 65280) >> 8;
-        int i1 = (p_180188_0_ & 255) >> 0;
-        int j1 = (p_180188_1_ & 255) >> 0;
+        int i1 = (p_180188_0_ & 255);
+        int j1 = (p_180188_1_ & 255);
         int k1 = (int)((float)i * (float)j / 255.0F);
         int l1 = (int)((float)k * (float)l / 255.0F);
         int i2 = (int)((float)i1 * (float)j1 / 255.0F);
@@ -391,7 +386,7 @@ public class MathHelper
 
     public static long getCoordinateRandom(int x, int y, int z)
     {
-        long i = (long)(x * 3129871) ^ (long)z * 116129781L ^ (long)y;
+        long i = (x * 3129871L) ^ (long)z * 116129781L ^ (long)y;
         i = i * i * 42317861L + i * 11L;
         return i;
     }

@@ -1485,7 +1485,7 @@ public abstract class Entity implements ICommandSender
     {
         Vec3 vec3 = getPositionEyes(partialTicks);
         Vec3 vec31 = getLook(partialTicks);
-        Vec3 vec32 = vec3.addVector(vec31.xCoord * blockReachDistance, vec31.yCoord * blockReachDistance, vec31.zCoord * blockReachDistance);
+        Vec3 vec32 = vec3.add(vec31.xCoord * blockReachDistance, vec31.yCoord * blockReachDistance, vec31.zCoord * blockReachDistance);
         return worldObj.rayTraceBlocks(vec3, vec32, false, false, true);
     }
 
@@ -2758,5 +2758,9 @@ public abstract class Entity implements ICommandSender
         }
 
         EnchantmentHelper.applyArthropodEnchantments(entityLivingBaseIn, entityIn);
+    }
+
+    public Vec3 getMotionVector() {
+        return new Vec3(motionX, motionY, motionZ);
     }
 }

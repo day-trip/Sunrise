@@ -102,7 +102,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian>
             GlStateManager.translate((float)x, (float)y + f4, (float)z);
             Vec3 vec3 = this.func_177110_a(entitylivingbase, (double)entitylivingbase.height * 0.5D, partialTicks);
             Vec3 vec31 = this.func_177110_a(entity, (double)f4, partialTicks);
-            Vec3 vec32 = vec3.subtract(vec31);
+            Vec3 vec32 = vec3.subtractVector(vec31);
             double d0 = vec32.lengthVector() + 1.0D;
             vec32 = vec32.normalize();
             float f5 = (float)Math.acos(vec32.yCoord);

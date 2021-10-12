@@ -166,14 +166,14 @@ public abstract class BlockLiquid extends Block
                     if (j >= 0)
                     {
                         int k = j - (i - 8);
-                        vec3 = vec3.addVector((double)((blockpos.getX() - pos.getX()) * k), (double)((blockpos.getY() - pos.getY()) * k), (double)((blockpos.getZ() - pos.getZ()) * k));
+                        vec3 = vec3.add((double)((blockpos.getX() - pos.getX()) * k), (double)((blockpos.getY() - pos.getY()) * k), (double)((blockpos.getZ() - pos.getZ()) * k));
                     }
                 }
             }
             else if (j >= 0)
             {
                 int l = j - i;
-                vec3 = vec3.addVector((double)((blockpos.getX() - pos.getX()) * l), (double)((blockpos.getY() - pos.getY()) * l), (double)((blockpos.getZ() - pos.getZ()) * l));
+                vec3 = vec3.add((double)((blockpos.getX() - pos.getX()) * l), (double)((blockpos.getY() - pos.getY()) * l), (double)((blockpos.getZ() - pos.getZ()) * l));
             }
         }
 
@@ -185,7 +185,7 @@ public abstract class BlockLiquid extends Block
 
                 if (this.isBlockSolid(worldIn, blockpos1, enumfacing1) || this.isBlockSolid(worldIn, blockpos1.up(), enumfacing1))
                 {
-                    vec3 = vec3.normalize().addVector(0.0D, -6.0D, 0.0D);
+                    vec3 = vec3.normalize().add(0.0D, -6.0D, 0.0D);
                     break;
                 }
             }
@@ -196,7 +196,7 @@ public abstract class BlockLiquid extends Block
 
     public Vec3 modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3 motion)
     {
-        return motion.add(this.getFlowVector(worldIn, pos));
+        return motion.addVector(this.getFlowVector(worldIn, pos));
     }
 
     /**

@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="Natives">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+      <root url="file://$MCP_LOC$/jars/alljar/dll" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>

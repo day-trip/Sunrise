@@ -1008,7 +1008,7 @@ public abstract class EntityLivingBase extends Entity
             Vec3 vec31 = new Vec3(((double) rand.nextFloat() - 0.5D) * 0.3D, d0, 0.6D);
             vec31 = vec31.rotatePitch(-rotationPitch * (float)Math.PI / 180.0F);
             vec31 = vec31.rotateYaw(-rotationYaw * (float)Math.PI / 180.0F);
-            vec31 = vec31.addVector(posX, posY + (double) getEyeHeight(), posZ);
+            vec31 = vec31.add(posX, posY + (double) getEyeHeight(), posZ);
             worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(stack.getItem()));
         }
     }

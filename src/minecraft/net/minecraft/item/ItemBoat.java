@@ -41,7 +41,7 @@ public class ItemBoat extends Item
         float f7 = f4 * f5;
         float f8 = f3 * f5;
         double d3 = 5.0D;
-        Vec3 vec31 = vec3.addVector((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
+        Vec3 vec31 = vec3.add((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
         MovingObjectPosition movingobjectposition = worldIn.rayTraceBlocks(vec3, vec31, true);
 
         if (movingobjectposition == null)

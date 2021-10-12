@@ -2023,20 +2023,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while adding particle");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being added");
-            crashreportcategory.addCrashSection("ID", Integer.valueOf(particleID));
+            crashreportcategory.addCrashSection("ID", particleID);
 
             if (p_180442_15_ != null)
             {
                 crashreportcategory.addCrashSection("Parameters", p_180442_15_);
             }
 
-            crashreportcategory.addCrashSectionCallable("Position", new Callable<String>()
-            {
-                public String call() throws Exception
-                {
-                    return CrashReportCategory.getCoordinateInfo(xCoord, yCoord, zCoord);
-                }
-            });
+            crashreportcategory.addCrashSectionCallable("Position", () -> CrashReportCategory.getCoordinateInfo(xCoord, yCoord, zCoord));
             throw new ReportedException(crashreport);
         }
     }
@@ -2067,7 +2061,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
             else
             {
-                double d3 = 16.0D;
                 return d0 * d0 + d1 * d1 + d2 * d2 > 256.0D ? null : (i > 1 ? null : mc.effectRenderer.spawnEffectParticle(p_174974_1_, p_174974_3_, p_174974_5_, p_174974_7_, p_174974_9_, p_174974_11_, p_174974_13_, p_174974_15_));
             }
         }

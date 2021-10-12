@@ -74,6 +74,9 @@
         </autoDetectTypes>
       </configuration>
     </facet>
+    <facet type="Python" name="Python">
+      <configuration sdkName="Python 3.9" />
+    </facet>
   </component>
   <component name="McpModuleSettings">
     <option name="srgType" value="SRG" />
@@ -399,7 +402,18 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="dll" level="project" />
-    <orderEntry type="library" name="jna-platform-5.9.0" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/annotations-20.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="FlexJson" level="project" />
+    <orderEntry type="library" name="JNA" level="project" />
+    <orderEntry type="library" name="Natives" level="project" />
+    <orderEntry type="library" name="Python 3.9 interpreter library" level="application" />
   </component>
 </module>

@@ -6,6 +6,11 @@ public class Vec2 implements Cloneable {
     private int x;
     private int z;
 
+    public Vec2() {
+        x = 0;
+        z = 0;
+    }
+
     public Vec2(int x, int z) {
         this.x = x;
         this.z = z;

@@ -48,8 +48,8 @@ public class HackAimbot extends Hack {
 
             Vec3 vec3 = target.getPositionVector();
 
-            vec3.addVector(0, target.height / 4, 0);
-            vec3.addVector(0, minecraft.thePlayer.getDistanceToEntity(target), 0);
+            vec3.add(0, target.height / 4, 0);
+            vec3.add(0, minecraft.thePlayer.getDistanceToEntity(target), 0);
 
             CommonMath.updateValues(minecraft.thePlayer, target, vec3);
             //minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), lerpTicks / 20));

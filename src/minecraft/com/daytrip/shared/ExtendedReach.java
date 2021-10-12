@@ -60,7 +60,7 @@ public class ExtendedReach
                 }
 
                 Vec3 vec3d1 = requestingEntity.getLook(1.0F);
-                Vec3 vec3d2 = vec3d.addVector(vec3d1.xCoord * d0, vec3d1.yCoord * d0, vec3d1.zCoord * d0);
+                Vec3 vec3d2 = vec3d.add(vec3d1.xCoord * d0, vec3d1.yCoord * d0, vec3d1.zCoord * d0);
                 Vec3 vec3d3 = null;
                 List<Entity> list = minecraft.theWorld.getEntitiesInAABBexcluding(requestingEntity, requestingEntity.getEntityBoundingBox().expand(vec3d1.xCoord * d0, vec3d1.yCoord * d0, vec3d1.zCoord * d0).expand(1.0D, 1.0D, 1.0D), Entity::canBeCollidedWith);
                 double d2 = d1; // d1 is either range or distance between ray trace and eye position

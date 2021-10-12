@@ -33,6 +33,18 @@ public class Vec3
         zCoord = z;
     }
 
+    public Vec3(double a)
+    {
+        if (a == -0.0D)
+        {
+            a = 0.0D;
+        }
+
+        xCoord = a;
+        yCoord = a;
+        zCoord = a;
+    }
+
     public Vec3(Vec3i p_i46377_1_)
     {
         this(p_i46377_1_.getX(), p_i46377_1_.getY(), p_i46377_1_.getZ());
@@ -60,36 +72,50 @@ public class Vec3
         return xCoord * vec.xCoord + yCoord * vec.yCoord + zCoord * vec.zCoord;
     }
 
-    /**
-     * Returns a new vector with the result of this vector x the specified vector.
-     */
     public Vec3 crossProduct(Vec3 vec)
     {
         return new Vec3(yCoord * vec.zCoord - zCoord * vec.yCoord, zCoord * vec.xCoord - xCoord * vec.zCoord, xCoord * vec.yCoord - yCoord * vec.xCoord);
     }
 
-    public Vec3 subtract(Vec3 vec)
+    public Vec3 addVector(Vec3 vec)
+    {
+        return add(vec.xCoord, vec.yCoord, vec.zCoord);
+    }
+
+    public Vec3 add(double x, double y, double z)
+    {
+        return new Vec3(xCoord + x, yCoord + y, zCoord + z);
+    }
+
+    public Vec3 subtractVector(Vec3 vec)
     {
         return subtract(vec.xCoord, vec.yCoord, vec.zCoord);
     }
 
     public Vec3 subtract(double x, double y, double z)
     {
-        return addVector(-x, -y, -z);
+        return add(-x, -y, -z);
     }
 
-    public Vec3 add(Vec3 vec)
+
+    public Vec3 multiplyVector(Vec3 vec)
     {
-        return addVector(vec.xCoord, vec.yCoord, vec.zCoord);
+        return multiply(vec.xCoord, vec.yCoord, vec.zCoord);
     }
 
-    /**
-     * Adds the specified x,y,z vector components to this vector and returns the resulting vector. Does not change this
-     * vector.
-     */
-    public Vec3 addVector(double x, double y, double z)
+    public Vec3 multiply(double x, double y, double z)
     {
-        return new Vec3(xCoord + x, yCoord + y, zCoord + z);
+        return new Vec3(xCoord * x, yCoord * y, zCoord * z);
+    }
+
+    public Vec3 divideVector(Vec3 vec)
+    {
+        return divide(vec.xCoord, vec.yCoord, vec.zCoord);
+    }
+
+    public Vec3 divide(double x, double y, double z)
+    {
+        return new Vec3(xCoord / x, yCoord / y, zCoord / z);
     }
 
     /**
@@ -185,9 +211,13 @@ public class Vec3
         }
     }
 
-    public String toString()
-    {
-        return "(" + xCoord + ", " + yCoord + ", " + zCoord + ")";
+    @Override
+    public String toString() {
+        return "Vec3{" +
+                "xCoord=" + xCoord +
+                ", yCoord=" + yCoord +
+                ", zCoord=" + zCoord +
+                '}';
     }
 
     public Vec3 rotatePitch(float pitch)

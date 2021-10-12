@@ -65,7 +65,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T>
             x += vec3.xCoord - d0;
             y += (vec31.yCoord + vec32.yCoord) / 2.0D - d1;
             z += vec3.zCoord - d2;
-            Vec3 vec33 = vec32.addVector(-vec31.xCoord, -vec31.yCoord, -vec31.zCoord);
+            Vec3 vec33 = vec32.add(-vec31.xCoord, -vec31.yCoord, -vec31.zCoord);
 
             if (vec33.lengthVector() != 0.0D)
             {

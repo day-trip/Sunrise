@@ -678,8 +678,8 @@ public class Block
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end)
     {
         setBlockBoundsBasedOnState(worldIn, pos);
-        start = start.addVector(-pos.getX(), -pos.getY(), -pos.getZ());
-        end = end.addVector(-pos.getX(), -pos.getY(), -pos.getZ());
+        start = start.add(-pos.getX(), -pos.getY(), -pos.getZ());
+        end = end.add(-pos.getX(), -pos.getY(), -pos.getZ());
         Vec3 vec3 = start.getIntermediateWithXValue(end, minX);
         Vec3 vec31 = start.getIntermediateWithXValue(end, maxX);
         Vec3 vec32 = start.getIntermediateWithYValue(end, minY);
@@ -787,7 +787,7 @@ public class Block
                 enumfacing = EnumFacing.SOUTH;
             }
 
-            return new MovingObjectPosition(vec36.addVector(pos.getX(), pos.getY(), pos.getZ()), enumfacing, pos);
+            return new MovingObjectPosition(vec36.add(pos.getX(), pos.getY(), pos.getZ()), enumfacing, pos);
         }
     }
 

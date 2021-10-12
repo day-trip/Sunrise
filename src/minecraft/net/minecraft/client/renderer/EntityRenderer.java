@@ -426,7 +426,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 }
 
                 Vec3 vec31 = entity.getLook(partialTicks);
-                Vec3 vec32 = vec3.addVector(vec31.xCoord * reach, vec31.yCoord * reach, vec31.zCoord * reach);
+                Vec3 vec32 = vec3.add(vec31.xCoord * reach, vec31.yCoord * reach, vec31.zCoord * reach);
                 Entity pointedEntity = null;
                 Vec3 vec33 = null;
                 float f = 1.0F;

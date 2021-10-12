@@ -1110,9 +1110,8 @@ public abstract class World implements IBlockAccess
 
     public void playRecord(BlockPos pos, String name)
     {
-        for (int i = 0; i < worldAccesses.size(); ++i)
-        {
-            worldAccesses.get(i).playRecord(name, pos);
+        for (IWorldAccess worldAccess : worldAccesses) {
+            worldAccess.playRecord(name, pos);
         }
     }
 
@@ -1128,9 +1127,8 @@ public abstract class World implements IBlockAccess
 
     private void spawnParticle(int particleID, boolean p_175720_2_, double xCood, double yCoord, double zCoord, double xOffset, double yOffset, double zOffset, int... p_175720_15_)
     {
-        for (int i = 0; i < worldAccesses.size(); ++i)
-        {
-            worldAccesses.get(i).spawnParticle(particleID, p_175720_2_, xCood, yCoord, zCoord, xOffset, yOffset, zOffset, p_175720_15_);
+        for (IWorldAccess worldAccess : worldAccesses) {
+            worldAccess.spawnParticle(particleID, p_175720_2_, xCood, yCoord, zCoord, xOffset, yOffset, zOffset, p_175720_15_);
         }
     }
 

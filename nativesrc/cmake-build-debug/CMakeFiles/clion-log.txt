@@ -1,0 +1,4 @@
+C:\WINDOWS\system32\wsl.exe --distribution Ubuntu --exec /bin/sh -c "export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd '/mnt/c/Users/Jai Giri/Documents/PVPClient/nativesrc/cmake-build-debug' && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' '/mnt/c/Users/Jai Giri/Documents/PVPClient/nativesrc'; sleep 0.001"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/Jai Giri/Documents/PVPClient/nativesrc/cmake-build-debug

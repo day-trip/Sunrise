@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/nativesrc.dir/com_daytrip_shared_math_SunriseMath.cpp.o  -o nativesrc 

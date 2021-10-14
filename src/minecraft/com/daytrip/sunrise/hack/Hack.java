@@ -2,6 +2,7 @@ package com.daytrip.sunrise.hack;
 
 import com.daytrip.sunrise.event.Event;
 import com.daytrip.sunrise.event.EventListener;
+import com.daytrip.sunrise.hack.task.TaskManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatComponentText;
@@ -19,6 +20,8 @@ public class Hack implements EventListener {
 
     protected boolean isEnabled;
 
+    protected final TaskManager taskManager;
+
     protected HackSettingManager settingManager = new HackSettingManager();
 
     public Hack(int key, String name, String id) {
@@ -26,6 +29,12 @@ public class Hack implements EventListener {
         this.key = key;
         this.name = name;
         this.id = id;
+        taskManager = new TaskManager();
+        registerTasks();
+    }
+
+    protected void registerTasks() {
+
     }
 
     public void onEvent(Event event) throws Exception {

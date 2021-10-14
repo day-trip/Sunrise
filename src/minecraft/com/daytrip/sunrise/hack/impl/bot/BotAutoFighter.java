@@ -44,8 +44,6 @@ public class BotAutoFighter extends Hack {
     // Whether or not to automatically navigate
     private boolean autoNavigate = true;
 
-    private final TaskManager taskManager = new TaskManager();
-
     // The timers
     private TickTimer rodTimer;
     private TickTimer cameraInterpolationTimer;
@@ -70,6 +68,131 @@ public class BotAutoFighter extends Hack {
         settingManager.addSetting(new SettingBoolean("Move Towards Target", "approach_target", true));
         settingManager.addSetting(new SettingBoolean("Aim Lock", "aim_lock", true));
         settingManager.addSetting(new SettingBoolean("Interpolate Aim", "interpolate", true));
+    }
+
+    @Override
+    protected void registerTasks() {
+        taskManager.registerTask(0, new Task()
+                .withName("PVP Module: Dead Check")
+                .executeIf(() -> true)
+                .onTick(() -> {
+                    if(target.isDead || target.getHealth() <= 0.0F) {
+                        loseTarget();
+                    }
+                })
+        );
+
+        taskManager.registerTask(0, new Task()
+                .withName("PVP Module: Basic Math Update")
+                .executeIf(() -> true)
+                .onInit(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
+                .onTick(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
+        );
+
+        taskManager.registerTask(0, new Task()
+                .withName("PVP Module: No crouch")
+                .onTick(() -> {
+                    minecraft.thePlayer.movementInput.sneak = false;
+                    minecraft.thePlayer.setSneaking(false);
+                })
+        );
+
+        taskManager.registerTask(1, new Task()
+                .withName("PVP Module: Aim")
+                .executeIf(() -> true)
+                .onInit(() -> CommonMath.updateValues(minecraft.thePlayer, target))
+                .onTick(() -> {
+                    if(!lockAim) {
+                        if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
+                            CommonMath.updateValues(minecraft.thePlayer, target);
+
+                            if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
+                                cameraInterpolationTimer.update();
+
+                                float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
+                                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), progress));
+                                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), progress));
+                            } else {
+                                minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
+                                minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+                            }
+                        }
+                    } else {
+                        CommonMath.updateValues(minecraft.thePlayer, new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()));
+                        minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
+                        minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+                    }
+                })
+        );
+
+        taskManager.registerTask(1, new Task()
+                .withName("PVP Module: Sword")
+                .executeIf(() -> canSword && distanceToTarget < 6)
+                .callEvery(() -> 1, () -> {
+                    rodTimer.reset();
+
+                    minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
+                    minecraft.playerController.syncCurrentPlayItem();
+
+                    if(!minecraft.thePlayer.isSprinting() && canMove) {
+                        minecraft.thePlayer.setSprinting(true);
+                    }
+
+                    EventClickMouse eventClickMouse = new EventClickMouse();
+                    eventClickMouse.setButton(0);
+                    eventClickMouse.setCustomFromTarget(id);
+                    try {
+                        eventClickMouse.post();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+
+
+        taskManager.registerTask(2, new Task()
+                .withName("PVP Module: Approach Target")
+                .executeIf(() -> settingManager.<SettingBoolean>getSetting("approach_target").getValue() && canMove)
+                .onTick(() -> {
+                    if(distanceToTarget < 0.5) {
+                        minecraft.thePlayer.movementInput.moveForward = -1;
+                    } else {
+                        if(distanceToTarget > 2.5) {
+                            startMoving();
+                        } else {
+                            stopMoving();
+                        }
+                    }
+                })
+        );
+
+        taskManager.registerTask(2, new Task()
+                .withName("PVP Module: Strafe Target")
+                .executeIf(() -> settingManager.<SettingBoolean>getSetting("strafe").getValue() && distanceToTarget > 2.5 && distanceToTarget < 10)
+                .whenCannotExecute(() -> minecraft.thePlayer.movementInput.moveStrafe = 0)
+                .onInit(() -> targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15))
+                .callEvery(() -> targetStrafeTicks, () -> {
+                    targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
+                    if(strafe.equals("left")) {
+                        strafe = "right";
+                    } else {
+                        strafe = "left";
+                    }
+                }).nextInterval(() -> targetStrafeTicks)
+                .onTick(() -> {
+                    if(strafe.equals("left")) {
+                        minecraft.thePlayer.movementInput.moveStrafe = -1;
+                    } else {
+                        minecraft.thePlayer.movementInput.moveStrafe = 1;
+                    }
+                })
+        );
+
+        taskManager.registerTask(3, new Task()
+                .withName("PVP Module: Rod Target")
+                .executeIf(() -> distanceToTarget > 6)
+                .onTick(() -> rodTimer.update())
+        );
     }
 
     @Override
@@ -155,25 +278,6 @@ public class BotAutoFighter extends Hack {
 
             //navigation();
             //pathFinderNavigation();
-
-            if(!lockAim) {
-                aimOnTarget();
-            } else {
-                CommonMath.updateValues(minecraft.thePlayer, new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()));
-                minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
-                minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
-            }
-
-            //minecraft.thePlayer.movementInput.jump = false;
-            //minecraft.thePlayer.setJumping(false);
-            minecraft.thePlayer.movementInput.sneak = false;
-            minecraft.thePlayer.setSneaking(false);
-
-            if(distanceToTarget < 6) {
-                rodTimer.reset();
-            } else {
-                rodTimer.update();
-            }
         }
     }
 
@@ -184,6 +288,8 @@ public class BotAutoFighter extends Hack {
     }
 
     private void loseTarget() {
+        taskManager.endChain();
+
         target = null;
 
         rodTimer = null;
@@ -196,90 +302,12 @@ public class BotAutoFighter extends Hack {
 
     private void pickTarget(EntityLivingBase target) {
         this.target = target;
-        CommonMath.updateValues(minecraft.thePlayer, target);
 
         rodTimer = new TickTimer(() -> rod(10), 15, true);
 
         cameraInterpolationTimer = TickTimer.createNoAction(5 - 1, true); // 5 - 1 because of > instead of >=
 
-        taskManager.registerTask(0, new Task()
-                .withName("PVP Module: Dead Check")
-                .executeIf(() -> true)
-                .onTick(() -> {
-                    if(target.isDead || target.getHealth() <= 0.0F) {
-                        loseTarget();
-                        taskManager.endChain();
-                    }
-                })
-        );
-
-        taskManager.registerTask(0, new Task()
-                .withName("PVP Module: Basic Math Update")
-                .executeIf(() -> true)
-                .onInit(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
-                .onTick(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
-        );
-
-        taskManager.registerTask(1, new Task()
-                .withName("PVP Module: Sword")
-                .executeIf(() -> canSword)
-                .callEvery(() -> 1, () -> {
-                    minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
-                    minecraft.playerController.syncCurrentPlayItem();
-
-                    if(!minecraft.thePlayer.isSprinting() && canMove) {
-                        minecraft.thePlayer.setSprinting(true);
-                    }
-
-                    EventClickMouse eventClickMouse = new EventClickMouse();
-                    eventClickMouse.setButton(0);
-                    eventClickMouse.setCustomFromTarget(id);
-                    try {
-                        eventClickMouse.post();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                })
-        );
-
-
-        taskManager.registerTask(2, new Task()
-                .withName("PVP Module: Approach Target")
-                .executeIf(() -> settingManager.<SettingBoolean>getSetting("approach_target").getValue() && canMove)
-                .onTick(() -> {
-                   if(distanceToTarget < 0.5) {
-                       minecraft.thePlayer.movementInput.moveForward = -1;
-                   } else {
-                       if(distanceToTarget > 2.5) {
-                           startMoving();
-                       } else {
-                           stopMoving();
-                       }
-                   }
-               })
-        );
-
-        taskManager.registerTask(2, new Task()
-                .withName("PVP Module: Strafe Target")
-                .executeIf(() -> settingManager.<SettingBoolean>getSetting("strafe").getValue() && distanceToTarget > 2.5 && distanceToTarget < 10)
-                .whenCannotExecute(() -> minecraft.thePlayer.movementInput.moveStrafe = 0)
-                .onInit(() -> targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15))
-                .callEvery(() -> targetStrafeTicks, () -> {
-                    targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
-                    if(strafe.equals("left")) {
-                        strafe = "right";
-                    } else {
-                        strafe = "left";
-                    }
-                }).nextInterval(() -> targetStrafeTicks)
-                .onTick(() -> {
-                    if(strafe.equals("left")) {
-                        minecraft.thePlayer.movementInput.moveStrafe = -1;
-                    } else {
-                        minecraft.thePlayer.movementInput.moveStrafe = 1;
-                    }
-                })
-        );
+        taskManager.start();
     }
 
     @Override
@@ -318,23 +346,6 @@ public class BotAutoFighter extends Hack {
 
             canSword = true;
         }, castTimeTicks, false));
-    }
-
-    private void aimOnTarget() {
-        if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
-            CommonMath.updateValues(minecraft.thePlayer, target);
-
-            if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
-                cameraInterpolationTimer.update();
-
-                float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
-                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), progress));
-                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), progress));
-            } else {
-                minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
-                minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
-            }
-        }
     }
 
     private final Map<Vec2, int[][]> pathDataMap = new HashMap<>();

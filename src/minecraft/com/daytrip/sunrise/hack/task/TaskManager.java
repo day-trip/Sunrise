@@ -1,8 +1,5 @@
 package com.daytrip.sunrise.hack.task;
 
-import net.minecraft.client.Minecraft;
-
-import javax.tools.JavaCompiler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +8,7 @@ import java.util.TreeMap;
 public class TaskManager {
     private final Map<Integer, List<ITask>> tasksByPriority = new TreeMap<>();
 
-    private boolean canContinue = true;
-
-    private boolean a;
+    private boolean canContinue;
 
     public TaskManager() {
 
@@ -28,7 +23,6 @@ public class TaskManager {
     public void registerTask(int priority, ITask task) {
         tasksByPriority.computeIfAbsent(priority, integer -> new ArrayList<>());
         tasksByPriority.get(priority).add(task);
-        task.init();
     }
 
     public void tick() {
@@ -37,9 +31,6 @@ public class TaskManager {
                 if(!canContinue)  {
                     return;
                 }
-                if(!a) {
-                    Minecraft.logger.info(task.toString());
-                }
                 if(task.canExecute()) {
                     task.tick();
                 } else {
@@ -47,10 +38,18 @@ public class TaskManager {
                 }
             }
         }
-        if(!a) a = true;
     }
 
     public void endChain() {
         canContinue = false;
+    }
+
+    public void start() {
+        for(List<ITask> tasks : tasksByPriority.values()) {
+            for (ITask task : tasks) {
+                task.init();
+            }
+        }
+        canContinue = true;
     }
 }

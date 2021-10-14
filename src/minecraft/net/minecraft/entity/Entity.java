@@ -2763,4 +2763,8 @@ public abstract class Entity implements ICommandSender
     public Vec3 getMotionVector() {
         return new Vec3(motionX, motionY, motionZ);
     }
+
+    public Vec3 getPosVec() {
+        return new Vec3(posX, posY, posZ);
+    }
 }

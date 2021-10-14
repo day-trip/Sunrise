@@ -1,5 +1,7 @@
 package net.minecraft.entity.player;
 
+import com.daytrip.sunrise.event.EventExceptionWrapper;
+import com.daytrip.sunrise.event.impl.EventPlayerDamaged;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
@@ -1050,6 +1052,12 @@ public abstract class EntityPlayer extends EntityLivingBase
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
+        EventPlayerDamaged eventPlayerDamaged = new EventPlayerDamaged();
+        eventPlayerDamaged.player = this;
+        eventPlayerDamaged.damageSource = source;
+        eventPlayerDamaged.amount = amount;
+        EventExceptionWrapper.post(eventPlayerDamaged);
+
         if (isEntityInvulnerable(source))
         {
             return false;

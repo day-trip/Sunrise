@@ -1,12 +1,17 @@
 package net.minecraft.client;
 
-import com.daytrip.sunrise.util.math.CommonMath;
+import com.daytrip.sunrise.event.impl.init.EventGameInit;
+import com.daytrip.sunrise.event.impl.init.EventGamePostInit;
+import com.daytrip.sunrise.event.impl.init.EventGamePreInit;
+import com.daytrip.sunrise.event.impl.input.EventClickMouse;
+import com.daytrip.sunrise.event.impl.input.EventKeypress;
 import com.daytrip.sunrise.gui.LoadingManager;
 import com.daytrip.sunrise.SunriseClient;
 import com.daytrip.sunrise.event.Event;
 import com.daytrip.sunrise.event.EventBus;
 import com.daytrip.sunrise.event.EventListener;
 import com.daytrip.sunrise.event.impl.*;
+import com.daytrip.sunrise.util.math.Interpolation;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -983,7 +988,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
             int height = 13;
             int xPos = k / 2 - width / 2;
             int yPos = l - l / 6;
-            float scaledProgress = CommonMath.lerp(0, width, progress);
+            float scaledProgress = Interpolation.linearInterpolate(0, width, progress);
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
             worldrenderer.pos(xPos, yPos, 0.0D).color(128, 128, 128, 255).endVertex();

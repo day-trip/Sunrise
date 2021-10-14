@@ -1,10 +1,9 @@
 package com.daytrip.sunrise.hack.impl;
 
-import com.daytrip.sunrise.util.math.CommonMath;
 import com.daytrip.sunrise.util.minecraft.ExtendedReach;
 import com.daytrip.sunrise.event.Event;
-import com.daytrip.sunrise.event.impl.EventClickMouse;
-import com.daytrip.sunrise.event.impl.EventProcessMouse;
+import com.daytrip.sunrise.event.impl.input.EventClickMouse;
+import com.daytrip.sunrise.event.impl.input.EventProcessMouse;
 import com.daytrip.sunrise.event.impl.EventTick;
 import com.daytrip.sunrise.hack.Hack;
 import net.minecraft.entity.EntityLivingBase;
@@ -51,11 +50,11 @@ public class HackAimbot extends Hack {
             vec3.add(0, target.height / 4, 0);
             vec3.add(0, minecraft.thePlayer.getDistanceToEntity(target), 0);
 
-            CommonMath.updateValues(minecraft.thePlayer, target, vec3);
-            //minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), lerpTicks / 20));
-            //minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), lerpTicks / 20));
-            minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
-            minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+            //CommonMath.updateValues(minecraft.thePlayer, target, vec3);
+            //minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), lerpTicks / 20));
+            //minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), lerpTicks / 20));
+            minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
+            minecraft.thePlayer.rotationPitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
 
             if(target.getHealth() <= 0.0F) {
                 target = null;

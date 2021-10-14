@@ -321,15 +321,6 @@ public class EntityPlayerSP extends AbstractClientPlayer
         if (!isEntityInvulnerable(damageSrc))
         {
             setHealth(getHealth() - damageAmount);
-            EventPlayerDamaged eventPlayerDamaged = new EventPlayerDamaged();
-            eventPlayerDamaged.player = this;
-            eventPlayerDamaged.damageSource = damageSrc;
-            eventPlayerDamaged.amount = damageAmount;
-            try {
-                eventPlayerDamaged.post();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 

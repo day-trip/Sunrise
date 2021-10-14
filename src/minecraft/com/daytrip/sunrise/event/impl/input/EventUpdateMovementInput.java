@@ -1,4 +1,4 @@
-package com.daytrip.sunrise.event.impl;
+package com.daytrip.sunrise.event.impl.input;
 
 import com.daytrip.sunrise.event.Event;
 import net.minecraft.util.MovementInput;

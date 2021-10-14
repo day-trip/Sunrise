@@ -706,7 +706,7 @@ public class WorldInfo
     }
 
     /**
-     * Returns the border lerp time
+     * Returns the border linearInterpolate time
      */
     public long getBorderLerpTime()
     {
@@ -714,7 +714,7 @@ public class WorldInfo
     }
 
     /**
-     * Sets the border lerp time
+     * Sets the border linearInterpolate time
      */
     public void setBorderLerpTime(long time)
     {
@@ -722,7 +722,7 @@ public class WorldInfo
     }
 
     /**
-     * Returns the border lerp target
+     * Returns the border linearInterpolate target
      */
     public double getBorderLerpTarget()
     {
@@ -730,7 +730,7 @@ public class WorldInfo
     }
 
     /**
-     * Sets the border lerp target
+     * Sets the border linearInterpolate target
      */
     public void setBorderLerpTarget(double lerpSize)
     {

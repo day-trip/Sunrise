@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer;
 
-import com.daytrip.sunrise.event.impl.EventProcessMouse;
+import com.daytrip.sunrise.event.impl.input.EventProcessMouse;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;

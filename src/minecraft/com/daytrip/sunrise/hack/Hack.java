@@ -3,6 +3,7 @@ package com.daytrip.sunrise.hack;
 import com.daytrip.sunrise.event.Event;
 import com.daytrip.sunrise.event.EventListener;
 import com.daytrip.sunrise.hack.task.TaskManager;
+import com.daytrip.sunrise.util.math.AsyncHackMath;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatComponentText;
@@ -22,6 +23,8 @@ public class Hack implements EventListener {
 
     protected final TaskManager taskManager;
 
+    protected final AsyncHackMath math;
+
     protected HackSettingManager settingManager = new HackSettingManager();
 
     public Hack(int key, String name, String id) {
@@ -29,11 +32,21 @@ public class Hack implements EventListener {
         this.key = key;
         this.name = name;
         this.id = id;
+        math = new AsyncHackMath();
         taskManager = new TaskManager();
+        registerAll();
+    }
+
+    private void registerAll() {
+        registerSettings();
         registerTasks();
     }
 
     protected void registerTasks() {
+
+    }
+
+    protected void registerSettings() {
 
     }
 

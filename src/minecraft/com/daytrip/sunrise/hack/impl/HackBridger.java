@@ -1,9 +1,9 @@
 package com.daytrip.sunrise.hack.impl;
 
 import com.daytrip.sunrise.event.Event;
-import com.daytrip.sunrise.event.impl.EventProcessMouse;
+import com.daytrip.sunrise.event.impl.input.EventProcessMouse;
 import com.daytrip.sunrise.event.impl.EventTick;
-import com.daytrip.sunrise.event.impl.EventUpdateMovementInput;
+import com.daytrip.sunrise.event.impl.input.EventUpdateMovementInput;
 import com.daytrip.sunrise.hack.Hack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;

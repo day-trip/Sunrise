@@ -17,19 +17,19 @@ public class ArrayGrid {
         int[][] finalArray;
 
         int[][] arrayTop;
-        arrayTop = CommonMath.mergeAsColumns(grid.get(0, 0), grid.get(1, 0));
-        arrayTop = CommonMath.mergeAsColumns(arrayTop, grid.get(2, 0));
+        arrayTop = ArrayMath.mergeAsColumns(grid.get(0, 0), grid.get(1, 0));
+        arrayTop = ArrayMath.mergeAsColumns(arrayTop, grid.get(2, 0));
 
         int[][] arrayMiddle;
-        arrayMiddle = CommonMath.mergeAsColumns(grid.get(0, 1), grid.get(1, 1));
-        arrayMiddle = CommonMath.mergeAsColumns(arrayMiddle, grid.get(2, 1));
+        arrayMiddle = ArrayMath.mergeAsColumns(grid.get(0, 1), grid.get(1, 1));
+        arrayMiddle = ArrayMath.mergeAsColumns(arrayMiddle, grid.get(2, 1));
 
         int[][] arrayBottom;
-        arrayBottom = CommonMath.mergeAsColumns(grid.get(0, 2), grid.get(1, 2));
-        arrayBottom = CommonMath.mergeAsColumns(arrayBottom, grid.get(2, 2));
+        arrayBottom = ArrayMath.mergeAsColumns(grid.get(0, 2), grid.get(1, 2));
+        arrayBottom = ArrayMath.mergeAsColumns(arrayBottom, grid.get(2, 2));
 
-        finalArray = CommonMath.mergeAsRows(arrayTop, arrayMiddle);
-        finalArray = CommonMath.mergeAsRows(finalArray, arrayBottom);
+        finalArray = ArrayMath.mergeAsRows(arrayTop, arrayMiddle);
+        finalArray = ArrayMath.mergeAsRows(finalArray, arrayBottom);
 
         return finalArray;
     }

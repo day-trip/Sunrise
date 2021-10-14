@@ -1,24 +1,28 @@
 package com.daytrip.sunrise.hack.impl.bot;
 
 import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.EventExceptionWrapper;
 import com.daytrip.sunrise.event.impl.*;
+import com.daytrip.sunrise.event.impl.input.EventClickMouse;
+import com.daytrip.sunrise.event.impl.input.EventKeypress;
+import com.daytrip.sunrise.event.impl.input.EventProcessMouse;
+import com.daytrip.sunrise.event.impl.input.EventUpdateMovementInput;
 import com.daytrip.sunrise.hack.Hack;
 import com.daytrip.sunrise.hack.pathfinding.PathFinder;
 import com.daytrip.sunrise.hack.pathfinding.Point;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
 import com.daytrip.sunrise.hack.task.Task;
-import com.daytrip.sunrise.hack.task.TaskManager;
-import com.daytrip.sunrise.util.math.ArrayGrid;
-import com.daytrip.sunrise.util.math.CommonMath;
-import com.daytrip.sunrise.util.math.Vec2;
+import com.daytrip.sunrise.util.math.*;
 import com.daytrip.sunrise.util.minecraft.ExtendedReach;
 import com.daytrip.sunrise.util.timer.TickTimer;
 import com.daytrip.sunrise.util.timer.TimerManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.input.Keyboard;
@@ -64,6 +68,10 @@ public class BotAutoFighter extends Hack {
 
     public BotAutoFighter() {
         super(Keyboard.KEY_P, "Auto Fighter", "auto_fighter");
+    }
+
+    @Override
+    protected void registerSettings() {
         settingManager.addSetting(new SettingBoolean("Strafe", "strafe", true));
         settingManager.addSetting(new SettingBoolean("Move Towards Target", "approach_target", true));
         settingManager.addSetting(new SettingBoolean("Aim Lock", "aim_lock", true));
@@ -100,27 +108,29 @@ public class BotAutoFighter extends Hack {
         taskManager.registerTask(1, new Task()
                 .withName("PVP Module: Aim")
                 .executeIf(() -> true)
-                .onInit(() -> CommonMath.updateValues(minecraft.thePlayer, target))
                 .onTick(() -> {
                     if(!lockAim) {
                         if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
-                            CommonMath.updateValues(minecraft.thePlayer, target);
+                            float yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
+                            float pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
 
                             if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
                                 cameraInterpolationTimer.update();
 
                                 float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
-                                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), progress));
-                                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.lerpAngle((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), progress));
+                                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(Interpolation.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(yaw), progress));
+                                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(Interpolation.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(pitch), progress));
                             } else {
-                                minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
-                                minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+                                minecraft.thePlayer.rotationYaw = yaw;
+                                minecraft.thePlayer.rotationPitch = pitch;
                             }
                         }
                     } else {
-                        CommonMath.updateValues(minecraft.thePlayer, new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()));
-                        minecraft.thePlayer.rotationYaw = CommonMath.yawToFaceEntity();
-                        minecraft.thePlayer.rotationPitch = CommonMath.pitchToFaceEntity();
+                        float yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()), 0);
+                        float pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()), 0);
+
+                        minecraft.thePlayer.rotationYaw = yaw;
+                        minecraft.thePlayer.rotationPitch = pitch;
                     }
                 })
         );
@@ -255,14 +265,36 @@ public class BotAutoFighter extends Hack {
             }
         }
         if(event instanceof EventPlayerDamaged) {
-            if(((EventPlayerDamaged) event).player == minecraft.thePlayer) {
-                // Some sources say this reduces KB, others don't
-                //TimerManager.registerTimer(new TickTimer(tickTimer -> minecraft.thePlayer.jump(), 3, false));
+            System.out.println("Who was damaged?");
+            System.out.println("WHO!");
+            System.out.println(((EventPlayerDamaged) event).player.getName() + " was!");
+
+            if(((EventPlayerDamaged) event).damageSource instanceof EntityDamageSourceIndirect) {
+                EntityDamageSourceIndirect sourceIndirect = (EntityDamageSourceIndirect) ((EventPlayerDamaged) event).damageSource;
+                if(sourceIndirect.getEntity() == target || sourceIndirect.getEntity() == minecraft.thePlayer) {
+                    startMoving();
+                }
             }
+
+            /*if(((EventPlayerDamaged) event).player == minecraft.thePlayer) {
+                // Some sources say this reduces KB, others don't
+                TimerManager.registerTimer(new TickTimer(tickTimer -> minecraft.thePlayer.jump(), 3, false));
+            }*/
         }
         if(event instanceof EventEntityAttackedByPlayer) {
             if(minecraft.inWorld() && target != null) {
                 if(((EventEntityAttackedByPlayer) event).getAttacker() == minecraft.thePlayer && ((EventEntityAttackedByPlayer) event).getTarget() == target) {
+                    if(target instanceof EntityPlayerMP) {
+                        EntityPlayerMP entityPlayerMP = (EntityPlayerMP) target;
+                        int rt = minecraft.getNetHandler().getPlayerInfo(minecraft.thePlayer.getUniqueID()).getResponseTime();
+                        // Handle the laggy players
+                        if(entityPlayerMP.ping > rt && entityPlayerMP.ping - rt > 30) {
+                            EventClickMouse eventClickMouse = new EventClickMouse();
+                            eventClickMouse.setButton(1);
+                            eventClickMouse.setCustomFromTarget(id);
+                            EventExceptionWrapper.post(eventClickMouse);
+                        }
+                    }
                     if(canMove) {
                         canMove = false;
                         TimerManager.registerTimer(new TickTimer(() -> {
@@ -303,7 +335,7 @@ public class BotAutoFighter extends Hack {
     private void pickTarget(EntityLivingBase target) {
         this.target = target;
 
-        rodTimer = new TickTimer(() -> rod(10), 15, true);
+        rodTimer = new TickTimer(() -> rod(15), 18, true);
 
         cameraInterpolationTimer = TickTimer.createNoAction(5 - 1, true); // 5 - 1 because of > instead of >=
 
@@ -373,7 +405,7 @@ public class BotAutoFighter extends Hack {
                     }
                 }
             }
-            CommonMath.printNeat(pathData);
+            ArrayMath.printNeat(pathData);
             return pathData;
         });
     }
@@ -474,7 +506,7 @@ public class BotAutoFighter extends Hack {
 
         if(dangerBlocks.contains(predictedBlock.getBlock()) || dangerBlocks.contains(predictedBlockDown.getBlock()) || (predictedBlockGround.getBlock() != Blocks.water && predictedLocation.down().getY() - groundBlock.getY() > 13)) {
             if(autoNavigate) {
-                stopMoving(true);
+                //stopMoving(true);
                 minecraft.thePlayer.movementInput.moveStrafe = 0;
                 minecraft.thePlayer.setJumping(false);
             }
@@ -512,29 +544,13 @@ public class BotAutoFighter extends Hack {
 
     private void stopMoving() {
         if(!autoNavigate) return;
-        minecraft.thePlayer.setSprinting(false);
+        stopSprinting();
         minecraft.thePlayer.movementInput.moveForward = 0;
     }
 
     private void startMoving() {
         if(!autoNavigate) return;
-        if(!minecraft.thePlayer.isSprinting()) {
-            minecraft.thePlayer.setSprinting(true);
-        }
-        minecraft.thePlayer.movementInput.moveForward = 1;
-    }
-
-    private void stopMoving(boolean b) {
-        if(!b) return;
-        minecraft.thePlayer.setSprinting(false);
-        minecraft.thePlayer.movementInput.moveForward = 0;
-    }
-
-    private void startMoving(boolean b) {
-        if(!b) return;
-        if(!minecraft.thePlayer.isSprinting()) {
-            minecraft.thePlayer.setSprinting(true);
-        }
+        startSprinting();
         minecraft.thePlayer.movementInput.moveForward = 1;
     }
 
@@ -545,10 +561,15 @@ public class BotAutoFighter extends Hack {
         }
     }
 
-    private void jump(boolean b) {
-        if(!b) return;
-        if(minecraft.thePlayer.onGround) {
-            minecraft.thePlayer.jump();
+    private void startSprinting() {
+        if(!minecraft.thePlayer.isSprinting()) {
+            minecraft.thePlayer.setSprinting(true); // Will update network and get caught by anti-cheat; don't call unless necessary
+        }
+    }
+
+    private void stopSprinting() {
+        if(minecraft.thePlayer.isSprinting()) {
+            minecraft.thePlayer.setSprinting(false); // Will update network and get caught by anti-cheat; don't call unless necessary
         }
     }
 

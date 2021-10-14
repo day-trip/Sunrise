@@ -288,7 +288,7 @@ public class EntityFishHook extends Entity
             {
                 if (movingobjectposition.entityHit != null)
                 {
-                    if (movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, angler), 0.0F))
+                    if (movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, angler), 0.0F)) // Very important line; useful for hacks
                     {
                         caughtEntity = movingobjectposition.entityHit;
                     }

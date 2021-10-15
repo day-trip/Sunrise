@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Jackson">
+    <CLASSES>
+      <root url="jar://$MCP_LOC$/jars/alljar/jackson-core-2.13.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MCP_LOC$/jars/alljar/jackson-core-2.13.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MCP_LOC$/jars/alljar/jackson-core-2.13.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

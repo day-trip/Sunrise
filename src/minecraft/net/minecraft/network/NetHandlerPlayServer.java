@@ -7,6 +7,7 @@ import com.google.common.util.concurrent.Futures;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.server.CommandBlockLogic;
+import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.profiler.crash.CrashReport;
 import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
@@ -112,7 +113,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
             --itemDropThreshold;
         }
 
-        if (playerEntity.getLastActiveTime() > 0L && serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - playerEntity.getLastActiveTime() > (long)(serverController.getMaxPlayerIdleMinutes() * 1000 * 60))
+        if (playerEntity.getLastActiveTime() > 0L && serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - playerEntity.getLastActiveTime() > (serverController.getMaxPlayerIdleMinutes() * 1000L * 60L))
         {
             kickPlayerFromServer("You have been idle for too long!");
         }
@@ -657,7 +658,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
         }
     }
 
-    public void sendPacket(Packet packetIn)
+    public void sendPacket(Packet<INetHandlerPlayClient> packetIn)
     {
         if (packetIn instanceof S02PacketChat)
         {
@@ -1043,7 +1044,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
             else if (flag && flag2 && flag3 && itemDropThreshold < 200)
             {
                 itemDropThreshold += 20;
-                EntityItem entityitem = playerEntity.dropPlayerItemWithRandomChoice(itemstack, true);
+                EntityItem entityitem = playerEntity.dropPlayerItemWithRandomChoice(itemstack);
 
                 if (entityitem != null)
                 {

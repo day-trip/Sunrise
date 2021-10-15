@@ -1,24 +1,13 @@
 package net.minecraft.entity;
 
 import com.daytrip.sunrise.event.impl.EventEntityDeath;
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.BaseAttributeMap;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.ai.attributes.ServersideAttributeMap;
+import net.minecraft.entity.ai.attributes.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityWolf;
@@ -29,11 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagShort;
+import net.minecraft.nbt.*;
 import net.minecraft.network.play.server.S04PacketEntityEquipment;
 import net.minecraft.network.play.server.S0BPacketAnimation;
 import net.minecraft.network.play.server.S0DPacketCollectItem;
@@ -41,16 +26,11 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.scoreboard.Team;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.CombatTracker;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+
+import java.util.*;
 
 public abstract class EntityLivingBase extends Entity
 {
@@ -141,7 +121,6 @@ public abstract class EntityLivingBase extends Entity
      * Damage taken in the last hit. Mobs are resistant to damage less than this for a short time after taking damage.
      */
     protected float lastDamage;
-    protected DamageSource lastDamageSource;
 
     /** used to check whether entity is jumping. */
     protected boolean isJumping;
@@ -212,10 +191,10 @@ public abstract class EntityLivingBase extends Entity
 
     protected void entityInit()
     {
-        dataWatcher.addObject(7, Integer.valueOf(0));
-        dataWatcher.addObject(8, Byte.valueOf((byte)0));
-        dataWatcher.addObject(9, Byte.valueOf((byte)0));
-        dataWatcher.addObject(6, Float.valueOf(1.0F));
+        dataWatcher.addObject(7, 0);
+        dataWatcher.addObject(8, (byte) 0);
+        dataWatcher.addObject(9, (byte) 0);
+        dataWatcher.addObject(6, 1.0F);
     }
 
     protected void applyEntityAttributes()
@@ -576,7 +555,7 @@ public abstract class EntityLivingBase extends Entity
 
                 if (potioneffect != null)
                 {
-                    activePotionsMap.put(Integer.valueOf(potioneffect.getPotionID()), potioneffect);
+                    activePotionsMap.put(potioneffect.getPotionID(), potioneffect);
                 }
             }
         }
@@ -646,7 +625,7 @@ public abstract class EntityLivingBase extends Entity
 
         if (i > 0)
         {
-            boolean flag = false;
+            boolean flag;
 
             if (!isInvisible())
             {
@@ -662,11 +641,11 @@ public abstract class EntityLivingBase extends Entity
                 flag &= rand.nextInt(5) == 0;
             }
 
-            if (flag && i > 0)
+            if (flag)
             {
                 double d0 = (double)(i >> 16 & 255) / 255.0D;
                 double d1 = (double)(i >> 8 & 255) / 255.0D;
-                double d2 = (double)(i >> 0 & 255) / 255.0D;
+                double d2 = (double)(i & 255) / 255.0D;
                 worldObj.spawnParticle(flag1 ? EnumParticleTypes.SPELL_MOB_AMBIENT : EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
             }
         }
@@ -686,8 +665,8 @@ public abstract class EntityLivingBase extends Entity
         else
         {
             int i = PotionHelper.calcPotionLiquidColor(activePotionsMap.values());
-            dataWatcher.updateObject(8, Byte.valueOf((byte)(PotionHelper.getAreAmbient(activePotionsMap.values()) ? 1 : 0)));
-            dataWatcher.updateObject(7, Integer.valueOf(i));
+            dataWatcher.updateObject(8, (byte) (PotionHelper.getAreAmbient(activePotionsMap.values()) ? 1 : 0));
+            dataWatcher.updateObject(7, i);
             setInvisible(isPotionActive(Potion.invisibility.id));
         }
     }
@@ -697,8 +676,8 @@ public abstract class EntityLivingBase extends Entity
      */
     protected void resetPotionEffectMetadata()
     {
-        dataWatcher.updateObject(8, Byte.valueOf((byte)0));
-        dataWatcher.updateObject(7, Integer.valueOf(0));
+        dataWatcher.updateObject(8, (byte) 0);
+        dataWatcher.updateObject(7, 0);
     }
 
     public void clearActivePotions()
@@ -725,12 +704,12 @@ public abstract class EntityLivingBase extends Entity
 
     public boolean isPotionActive(int potionId)
     {
-        return activePotionsMap.containsKey(Integer.valueOf(potionId));
+        return activePotionsMap.containsKey(potionId);
     }
 
     public boolean isPotionActive(Potion potionIn)
     {
-        return activePotionsMap.containsKey(Integer.valueOf(potionIn.id));
+        return activePotionsMap.containsKey(potionIn.id);
     }
 
     /**
@@ -738,7 +717,7 @@ public abstract class EntityLivingBase extends Entity
      */
     public PotionEffect getActivePotionEffect(Potion potionIn)
     {
-        return activePotionsMap.get(Integer.valueOf(potionIn.id));
+        return activePotionsMap.get(potionIn.id);
     }
 
     /**
@@ -748,14 +727,14 @@ public abstract class EntityLivingBase extends Entity
     {
         if (isPotionApplicable(potioneffectIn))
         {
-            if (activePotionsMap.containsKey(Integer.valueOf(potioneffectIn.getPotionID())))
+            if (activePotionsMap.containsKey(potioneffectIn.getPotionID()))
             {
-                activePotionsMap.get(Integer.valueOf(potioneffectIn.getPotionID())).combine(potioneffectIn);
-                onChangedPotionEffect(activePotionsMap.get(Integer.valueOf(potioneffectIn.getPotionID())), true);
+                activePotionsMap.get(potioneffectIn.getPotionID()).combine(potioneffectIn);
+                onChangedPotionEffect(activePotionsMap.get(potioneffectIn.getPotionID()), true);
             }
             else
             {
-                activePotionsMap.put(Integer.valueOf(potioneffectIn.getPotionID()), potioneffectIn);
+                activePotionsMap.put(potioneffectIn.getPotionID(), potioneffectIn);
                 onNewPotionEffect(potioneffectIn);
             }
         }
@@ -786,7 +765,7 @@ public abstract class EntityLivingBase extends Entity
      */
     public void removePotionEffectClient(int potionId)
     {
-        activePotionsMap.remove(Integer.valueOf(potionId));
+        activePotionsMap.remove(potionId);
     }
 
     /**
@@ -794,7 +773,7 @@ public abstract class EntityLivingBase extends Entity
      */
     public void removePotionEffect(int potionId)
     {
-        PotionEffect potioneffect = activePotionsMap.remove(Integer.valueOf(potionId));
+        PotionEffect potioneffect = activePotionsMap.remove(potionId);
 
         if (potioneffect != null)
         {
@@ -958,7 +937,7 @@ public abstract class EntityLivingBase extends Entity
                         }
 
                         attackedAtYaw = (float)(MathHelper.func_181159_b(d0, d1) * 180.0D / Math.PI - (double) rotationYaw);
-                        knockBack(entity, amount, d1, d0);
+                        knockBack(d1, d0);
                     }
                     else
                     {
@@ -1077,7 +1056,7 @@ public abstract class EntityLivingBase extends Entity
     /**
      * knocks back this entity
      */
-    public void knockBack(Entity entityIn, float p_70653_2_, double p_70653_3_, double p_70653_5_)
+    public void knockBack(double p_70653_3_, double p_70653_5_)
     {
         if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue())
         {
@@ -1257,7 +1236,7 @@ public abstract class EntityLivingBase extends Entity
                     k = 20;
                 }
 
-                if (k > 0 && k <= 20)
+                if (k > 0)
                 {
                     int l = 25 - k;
                     float f1 = damage * (float)l;
@@ -1321,7 +1300,7 @@ public abstract class EntityLivingBase extends Entity
      */
     public final void setArrowCountInEntity(int count)
     {
-        dataWatcher.updateObject(9, Byte.valueOf((byte)count));
+        dataWatcher.updateObject(9, (byte) count);
     }
 
     /**
@@ -1330,7 +1309,7 @@ public abstract class EntityLivingBase extends Entity
      */
     private int getArmSwingAnimationEnd()
     {
-        return isPotionActive(Potion.digSpeed) ? 6 - (1 + getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1 : (isPotionActive(Potion.digSlowdown) ? 6 + (1 + getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2 : 6);
+        return isPotionActive(Potion.digSpeed) ? 6 - (1 + getActivePotionEffect(Potion.digSpeed).getAmplifier()) : (isPotionActive(Potion.digSlowdown) ? 6 + (1 + getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2 : 6);
     }
 
     /**
@@ -1714,7 +1693,7 @@ public abstract class EntityLivingBase extends Entity
                 if (f3 > 0.0F)
                 {
                     f1 += (0.54600006F - f1) * f3 / 3.0F;
-                    f2 += (getAIMoveSpeed() * 1.0F - f2) * f3 / 3.0F;
+                    f2 += (getAIMoveSpeed() - f2) * f3 / 3.0F;
                 }
 
                 moveFlying(strafe, forward, f2);
@@ -2046,19 +2025,11 @@ public abstract class EntityLivingBase extends Entity
 
     protected void collideWithNearbyEntities()
     {
-        List<Entity> list = worldObj.getEntitiesInAABBexcluding(this, getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D), Predicates.and (EntitySelectors.NOT_SPECTATING, new Predicate<Entity>()
-        {
-            public boolean apply(Entity p_apply_1_)
-            {
-                return p_apply_1_.canBePushed();
-            }
-        }));
+        List<Entity> list = worldObj.getEntitiesInAABBexcluding(this, getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D), Predicates.and (EntitySelectors.NOT_SPECTATING, Entity::canBePushed));
 
         if (!list.isEmpty())
         {
-            for (int i = 0; i < list.size(); ++i)
-            {
-                Entity entity = list.get(i);
+            for (Entity entity : list) {
                 collideWithEntity(entity);
             }
         }

@@ -1,7 +1,8 @@
 package net.minecraft.item;
 
-import com.google.common.base.Function;
 import net.minecraft.block.Block;
+
+import java.util.function.Function;
 
 public class ItemMultiTexture extends ItemBlock
 {
@@ -11,27 +12,23 @@ public class ItemMultiTexture extends ItemBlock
     public ItemMultiTexture(Block block, Block block2, Function<ItemStack, String> nameFunction)
     {
         super(block);
-        this.theBlock = block2;
+        theBlock = block2;
         this.nameFunction = nameFunction;
-        this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        setMaxDamage(0);
+        setHasSubtypes(true);
     }
 
-    public ItemMultiTexture(Block block, Block block2, final String[] namesByMeta)
+    public ItemMultiTexture(Block block, Block block2, String[] namesByMeta)
     {
-        this(block, block2, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
+        this(block, block2, p_apply_1_ -> {
+            int i = p_apply_1_.getMetadata();
+
+            if (i < 0 || i >= namesByMeta.length)
             {
-                int i = p_apply_1_.getMetadata();
-
-                if (i < 0 || i >= namesByMeta.length)
-                {
-                    i = 0;
-                }
-
-                return namesByMeta[i];
+                i = 0;
             }
+
+            return namesByMeta[i];
         });
     }
 
@@ -50,6 +47,6 @@ public class ItemMultiTexture extends ItemBlock
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        return super.getUnlocalizedName() + "." + (String)this.nameFunction.apply(stack);
+        return getUnlocalizedName() + "." + nameFunction.apply(stack);
     }
 }

@@ -1,6 +1,5 @@
 package net.minecraft.client.entity;
 
-import com.daytrip.sunrise.event.impl.EventPlayerDamaged;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -276,11 +275,10 @@ public class EntityPlayerSP extends AbstractClientPlayer
     /**
      * Called when player presses the drop item key
      */
-    public EntityItem dropOneItem(boolean dropAll)
+    public void dropOneItem(boolean dropAll)
     {
         C07PacketPlayerDigging.Action c07packetplayerdigging$action = dropAll ? C07PacketPlayerDigging.Action.DROP_ALL_ITEMS : C07PacketPlayerDigging.Action.DROP_ITEM;
         sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, EnumFacing.DOWN));
-        return null;
     }
 
     /**

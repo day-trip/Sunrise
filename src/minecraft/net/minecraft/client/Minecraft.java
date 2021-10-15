@@ -1,5 +1,8 @@
 package net.minecraft.client;
 
+import com.daytrip.sunrise.event.*;
+import com.daytrip.sunrise.event.Event;
+import com.daytrip.sunrise.event.EventListener;
 import com.daytrip.sunrise.event.impl.init.EventGameInit;
 import com.daytrip.sunrise.event.impl.init.EventGamePostInit;
 import com.daytrip.sunrise.event.impl.init.EventGamePreInit;
@@ -7,9 +10,6 @@ import com.daytrip.sunrise.event.impl.input.EventClickMouse;
 import com.daytrip.sunrise.event.impl.input.EventKeypress;
 import com.daytrip.sunrise.gui.LoadingManager;
 import com.daytrip.sunrise.SunriseClient;
-import com.daytrip.sunrise.event.Event;
-import com.daytrip.sunrise.event.EventBus;
-import com.daytrip.sunrise.event.EventListener;
 import com.daytrip.sunrise.event.impl.*;
 import com.daytrip.sunrise.util.math.Interpolation;
 import com.google.common.collect.*;
@@ -325,7 +325,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
 
         try
         {
-            //EventBus.initBus();
+            EventBus.initBus();
 
             EventBus.registerListener(new SunriseClient());
 
@@ -403,13 +403,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
     @Override
     public void onEvent(Event event) throws Exception {
         if(event instanceof EventGamePreInit) {
-            preInit();
+            //preInit();
         }
         if(event instanceof EventGameInit) {
-            init();
+            //init();
         }
         if(event instanceof EventGamePostInit) {
-            postInit();
+            //postInit();
         }
         if(event instanceof EventClickMouse) {
             if(((EventClickMouse) event).getButton() == 0) {
@@ -423,12 +423,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
             }
         }
         if(event instanceof EventKeypress) {
-            logger.info(((EventKeypress) event).getKey());
             keyPress(((EventKeypress) event).getKey());
         }
     }
 
-    private void postInit() {
+
+    @EventHandler
+    private void postInit(EventGamePostInit eventGamePostInit) {
         checkGLError("Post startup");
         ingameGUI = new GuiIngame(this);
         LoadingManager.next();
@@ -464,7 +465,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         renderGlobal.makeEntityOutlineShader();
     }
 
-    private void init() {
+
+    @EventHandler
+    private void init(EventGameInit eventGameInit) {
         checkGLError("Startup");
         textureMapBlocks = new TextureMap("textures");
         textureMapBlocks.setMipmapLevels(gameSettings.mipmapLevels);
@@ -504,7 +507,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         drawSplashScreen();
     }
 
-    private void preInit() throws LWJGLException {
+    @EventIgnores
+    public boolean ignores(Event event) {
+        return false;
+    }
+
+    @EventHandler
+    public void preInit(EventGamePreInit event) throws LWJGLException {
         LoadingManager.setTotal(28);
         gameSettings = new GameSettings(this, mcDataDir);
         LoadingManager.next();

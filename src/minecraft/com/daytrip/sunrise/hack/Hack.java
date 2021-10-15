@@ -152,11 +152,6 @@ public class Hack implements EventListener {
         this.name = name;
     }
 
-    @Override
-    public String getListenerName() {
-        return name;
-    }
-
     public String getId() {
         return id;
     }

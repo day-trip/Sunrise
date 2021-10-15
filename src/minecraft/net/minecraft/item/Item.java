@@ -1,27 +1,9 @@
 package net.minecraft.item;
 
-import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockPrismarine;
-import net.minecraft.block.BlockRedSandstone;
-import net.minecraft.block.BlockSand;
-import net.minecraft.block.BlockSandStone;
-import net.minecraft.block.BlockSilverfish;
-import net.minecraft.block.BlockStone;
-import net.minecraft.block.BlockStoneBrick;
-import net.minecraft.block.BlockWall;
-import net.minecraft.inventory.creativetab.CreativeTabs;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -31,18 +13,17 @@ import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.creativetab.CreativeTabs;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionHelper;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.RegistryNamespaced;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class Item
 {
@@ -509,82 +490,28 @@ public class Item
 
     public static void registerItems()
     {
-        registerItemBlock(Blocks.stone, (new ItemMultiTexture(Blocks.stone, Blocks.stone, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("stone"));
+        registerItemBlock(Blocks.stone, (new ItemMultiTexture(Blocks.stone, Blocks.stone, p_apply_1_ -> BlockStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("stone"));
         registerItemBlock(Blocks.grass, new ItemColored(Blocks.grass, false));
-        registerItemBlock(Blocks.dirt, (new ItemMultiTexture(Blocks.dirt, Blocks.dirt, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockDirt.DirtType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("dirt"));
+        registerItemBlock(Blocks.dirt, (new ItemMultiTexture(Blocks.dirt, Blocks.dirt, p_apply_1_ -> BlockDirt.DirtType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("dirt"));
         registerItemBlock(Blocks.cobblestone);
-        registerItemBlock(Blocks.planks, (new ItemMultiTexture(Blocks.planks, Blocks.planks, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("wood"));
-        registerItemBlock(Blocks.sapling, (new ItemMultiTexture(Blocks.sapling, Blocks.sapling, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("sapling"));
+        registerItemBlock(Blocks.planks, (new ItemMultiTexture(Blocks.planks, Blocks.planks, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("wood"));
+        registerItemBlock(Blocks.sapling, (new ItemMultiTexture(Blocks.sapling, Blocks.sapling, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sapling"));
         registerItemBlock(Blocks.bedrock);
-        registerItemBlock(Blocks.sand, (new ItemMultiTexture(Blocks.sand, Blocks.sand, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockSand.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("sand"));
+        registerItemBlock(Blocks.sand, (new ItemMultiTexture(Blocks.sand, Blocks.sand, p_apply_1_ -> BlockSand.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sand"));
         registerItemBlock(Blocks.gravel);
         registerItemBlock(Blocks.gold_ore);
         registerItemBlock(Blocks.iron_ore);
         registerItemBlock(Blocks.coal_ore);
-        registerItemBlock(Blocks.log, (new ItemMultiTexture(Blocks.log, Blocks.log, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("log"));
-        registerItemBlock(Blocks.log2, (new ItemMultiTexture(Blocks.log2, Blocks.log2, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata() + 4).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("log"));
+        registerItemBlock(Blocks.log, (new ItemMultiTexture(Blocks.log, Blocks.log, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("log"));
+        registerItemBlock(Blocks.log2, (new ItemMultiTexture(Blocks.log2, Blocks.log2, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata() + 4).getUnlocalizedName())).setUnlocalizedName("log"));
         registerItemBlock(Blocks.leaves, (new ItemLeaves(Blocks.leaves)).setUnlocalizedName("leaves"));
         registerItemBlock(Blocks.leaves2, (new ItemLeaves(Blocks.leaves2)).setUnlocalizedName("leaves"));
-        registerItemBlock(Blocks.sponge, (new ItemMultiTexture(Blocks.sponge, Blocks.sponge, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return (p_apply_1_.getMetadata() & 1) == 1 ? "wet" : "dry";
-            }
-        })).setUnlocalizedName("sponge"));
+        registerItemBlock(Blocks.sponge, (new ItemMultiTexture(Blocks.sponge, Blocks.sponge, p_apply_1_ -> (p_apply_1_.getMetadata() & 1) == 1 ? "wet" : "dry")).setUnlocalizedName("sponge"));
         registerItemBlock(Blocks.glass);
         registerItemBlock(Blocks.lapis_ore);
         registerItemBlock(Blocks.lapis_block);
         registerItemBlock(Blocks.dispenser);
-        registerItemBlock(Blocks.sandstone, (new ItemMultiTexture(Blocks.sandstone, Blocks.sandstone, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockSandStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("sandStone"));
+        registerItemBlock(Blocks.sandstone, (new ItemMultiTexture(Blocks.sandstone, Blocks.sandstone, p_apply_1_ -> BlockSandStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sandStone"));
         registerItemBlock(Blocks.noteblock);
         registerItemBlock(Blocks.golden_rail);
         registerItemBlock(Blocks.detector_rail);
@@ -594,20 +521,8 @@ public class Item
         registerItemBlock(Blocks.deadbush);
         registerItemBlock(Blocks.piston, new ItemPiston(Blocks.piston));
         registerItemBlock(Blocks.wool, (new ItemCloth(Blocks.wool)).setUnlocalizedName("cloth"));
-        registerItemBlock(Blocks.yellow_flower, (new ItemMultiTexture(Blocks.yellow_flower, Blocks.yellow_flower, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.YELLOW, p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("flower"));
-        registerItemBlock(Blocks.red_flower, (new ItemMultiTexture(Blocks.red_flower, Blocks.red_flower, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.RED, p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("rose"));
+        registerItemBlock(Blocks.yellow_flower, (new ItemMultiTexture(Blocks.yellow_flower, Blocks.yellow_flower, p_apply_1_ -> BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.YELLOW, p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("flower"));
+        registerItemBlock(Blocks.red_flower, (new ItemMultiTexture(Blocks.red_flower, Blocks.red_flower, p_apply_1_ -> BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.RED, p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("rose"));
         registerItemBlock(Blocks.brown_mushroom);
         registerItemBlock(Blocks.red_mushroom);
         registerItemBlock(Blocks.gold_block);
@@ -655,20 +570,8 @@ public class Item
         registerItemBlock(Blocks.glowstone);
         registerItemBlock(Blocks.lit_pumpkin);
         registerItemBlock(Blocks.trapdoor);
-        registerItemBlock(Blocks.monster_egg, (new ItemMultiTexture(Blocks.monster_egg, Blocks.monster_egg, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockSilverfish.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("monsterStoneEgg"));
-        registerItemBlock(Blocks.stonebrick, (new ItemMultiTexture(Blocks.stonebrick, Blocks.stonebrick, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockStoneBrick.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("stonebricksmooth"));
+        registerItemBlock(Blocks.monster_egg, (new ItemMultiTexture(Blocks.monster_egg, Blocks.monster_egg, p_apply_1_ -> BlockSilverfish.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("monsterStoneEgg"));
+        registerItemBlock(Blocks.stonebrick, (new ItemMultiTexture(Blocks.stonebrick, Blocks.stonebrick, p_apply_1_ -> BlockStoneBrick.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("stonebricksmooth"));
         registerItemBlock(Blocks.brown_mushroom_block);
         registerItemBlock(Blocks.red_mushroom_block);
         registerItemBlock(Blocks.iron_bars);
@@ -704,13 +607,7 @@ public class Item
         registerItemBlock(Blocks.jungle_stairs);
         registerItemBlock(Blocks.command_block);
         registerItemBlock(Blocks.beacon);
-        registerItemBlock(Blocks.cobblestone_wall, (new ItemMultiTexture(Blocks.cobblestone_wall, Blocks.cobblestone_wall, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockWall.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("cobbleWall"));
+        registerItemBlock(Blocks.cobblestone_wall, (new ItemMultiTexture(Blocks.cobblestone_wall, Blocks.cobblestone_wall, p_apply_1_ -> BlockWall.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("cobbleWall"));
         registerItemBlock(Blocks.wooden_button);
         registerItemBlock(Blocks.anvil, (new ItemAnvilBlock(Blocks.anvil)).setUnlocalizedName("anvil"));
         registerItemBlock(Blocks.trapped_chest);
@@ -735,35 +632,17 @@ public class Item
         registerItemBlock(Blocks.acacia_stairs);
         registerItemBlock(Blocks.dark_oak_stairs);
         registerItemBlock(Blocks.slime_block);
-        registerItemBlock(Blocks.double_plant, (new ItemDoublePlant(Blocks.double_plant, Blocks.double_plant, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockDoublePlant.EnumPlantType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("doublePlant"));
+        registerItemBlock(Blocks.double_plant, (new ItemDoublePlant(Blocks.double_plant, Blocks.double_plant, p_apply_1_ -> BlockDoublePlant.EnumPlantType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("doublePlant"));
         registerItemBlock(Blocks.stained_glass, (new ItemCloth(Blocks.stained_glass)).setUnlocalizedName("stainedGlass"));
         registerItemBlock(Blocks.stained_glass_pane, (new ItemCloth(Blocks.stained_glass_pane)).setUnlocalizedName("stainedGlassPane"));
-        registerItemBlock(Blocks.prismarine, (new ItemMultiTexture(Blocks.prismarine, Blocks.prismarine, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockPrismarine.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("prismarine"));
+        registerItemBlock(Blocks.prismarine, (new ItemMultiTexture(Blocks.prismarine, Blocks.prismarine, p_apply_1_ -> BlockPrismarine.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("prismarine"));
         registerItemBlock(Blocks.sea_lantern);
-        registerItemBlock(Blocks.red_sandstone, (new ItemMultiTexture(Blocks.red_sandstone, Blocks.red_sandstone, new Function<ItemStack, String>()
-        {
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockRedSandstone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName("redSandStone"));
+        registerItemBlock(Blocks.red_sandstone, (new ItemMultiTexture(Blocks.red_sandstone, Blocks.red_sandstone, p_apply_1_ -> BlockRedSandstone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("redSandStone"));
         registerItemBlock(Blocks.red_sandstone_stairs);
         registerItemBlock(Blocks.stone_slab2, (new ItemSlab(Blocks.stone_slab2, Blocks.stone_slab2, Blocks.double_stone_slab2)).setUnlocalizedName("stoneSlab2"));
-        registerItem(256, "iron_shovel", (new ItemSpade(Item.ToolMaterial.IRON)).setUnlocalizedName("shovelIron"));
-        registerItem(257, "iron_pickaxe", (new ItemPickaxe(Item.ToolMaterial.IRON)).setUnlocalizedName("pickaxeIron"));
-        registerItem(258, "iron_axe", (new ItemAxe(Item.ToolMaterial.IRON)).setUnlocalizedName("hatchetIron"));
+        registerItem(256, "iron_shovel", (new ItemSpade(ToolMaterial.IRON)).setUnlocalizedName("shovelIron"));
+        registerItem(257, "iron_pickaxe", (new ItemPickaxe(ToolMaterial.IRON)).setUnlocalizedName("pickaxeIron"));
+        registerItem(258, "iron_axe", (new ItemAxe(ToolMaterial.IRON)).setUnlocalizedName("hatchetIron"));
         registerItem(259, "flint_and_steel", (new ItemFlintAndSteel()).setUnlocalizedName("flintAndSteel"));
         registerItem(260, "apple", (new ItemFood(4, 0.3F, false)).setUnlocalizedName("apple"));
         registerItem(261, "bow", (new ItemBow()).setUnlocalizedName("bow"));
@@ -772,34 +651,34 @@ public class Item
         registerItem(264, "diamond", (new Item()).setUnlocalizedName("diamond").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(265, "iron_ingot", (new Item()).setUnlocalizedName("ingotIron").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(266, "gold_ingot", (new Item()).setUnlocalizedName("ingotGold").setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(267, "iron_sword", (new ItemSword(Item.ToolMaterial.IRON)).setUnlocalizedName("swordIron"));
-        registerItem(268, "wooden_sword", (new ItemSword(Item.ToolMaterial.WOOD)).setUnlocalizedName("swordWood"));
-        registerItem(269, "wooden_shovel", (new ItemSpade(Item.ToolMaterial.WOOD)).setUnlocalizedName("shovelWood"));
-        registerItem(270, "wooden_pickaxe", (new ItemPickaxe(Item.ToolMaterial.WOOD)).setUnlocalizedName("pickaxeWood"));
-        registerItem(271, "wooden_axe", (new ItemAxe(Item.ToolMaterial.WOOD)).setUnlocalizedName("hatchetWood"));
-        registerItem(272, "stone_sword", (new ItemSword(Item.ToolMaterial.STONE)).setUnlocalizedName("swordStone"));
-        registerItem(273, "stone_shovel", (new ItemSpade(Item.ToolMaterial.STONE)).setUnlocalizedName("shovelStone"));
-        registerItem(274, "stone_pickaxe", (new ItemPickaxe(Item.ToolMaterial.STONE)).setUnlocalizedName("pickaxeStone"));
-        registerItem(275, "stone_axe", (new ItemAxe(Item.ToolMaterial.STONE)).setUnlocalizedName("hatchetStone"));
-        registerItem(276, "diamond_sword", (new ItemSword(Item.ToolMaterial.EMERALD)).setUnlocalizedName("swordDiamond"));
-        registerItem(277, "diamond_shovel", (new ItemSpade(Item.ToolMaterial.EMERALD)).setUnlocalizedName("shovelDiamond"));
-        registerItem(278, "diamond_pickaxe", (new ItemPickaxe(Item.ToolMaterial.EMERALD)).setUnlocalizedName("pickaxeDiamond"));
-        registerItem(279, "diamond_axe", (new ItemAxe(Item.ToolMaterial.EMERALD)).setUnlocalizedName("hatchetDiamond"));
+        registerItem(267, "iron_sword", (new ItemSword(ToolMaterial.IRON)).setUnlocalizedName("swordIron"));
+        registerItem(268, "wooden_sword", (new ItemSword(ToolMaterial.WOOD)).setUnlocalizedName("swordWood"));
+        registerItem(269, "wooden_shovel", (new ItemSpade(ToolMaterial.WOOD)).setUnlocalizedName("shovelWood"));
+        registerItem(270, "wooden_pickaxe", (new ItemPickaxe(ToolMaterial.WOOD)).setUnlocalizedName("pickaxeWood"));
+        registerItem(271, "wooden_axe", (new ItemAxe(ToolMaterial.WOOD)).setUnlocalizedName("hatchetWood"));
+        registerItem(272, "stone_sword", (new ItemSword(ToolMaterial.STONE)).setUnlocalizedName("swordStone"));
+        registerItem(273, "stone_shovel", (new ItemSpade(ToolMaterial.STONE)).setUnlocalizedName("shovelStone"));
+        registerItem(274, "stone_pickaxe", (new ItemPickaxe(ToolMaterial.STONE)).setUnlocalizedName("pickaxeStone"));
+        registerItem(275, "stone_axe", (new ItemAxe(ToolMaterial.STONE)).setUnlocalizedName("hatchetStone"));
+        registerItem(276, "diamond_sword", (new ItemSword(ToolMaterial.EMERALD)).setUnlocalizedName("swordDiamond"));
+        registerItem(277, "diamond_shovel", (new ItemSpade(ToolMaterial.EMERALD)).setUnlocalizedName("shovelDiamond"));
+        registerItem(278, "diamond_pickaxe", (new ItemPickaxe(ToolMaterial.EMERALD)).setUnlocalizedName("pickaxeDiamond"));
+        registerItem(279, "diamond_axe", (new ItemAxe(ToolMaterial.EMERALD)).setUnlocalizedName("hatchetDiamond"));
         registerItem(280, "stick", (new Item()).setFull3D().setUnlocalizedName("stick").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(281, "bowl", (new Item()).setUnlocalizedName("bowl").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(282, "mushroom_stew", (new ItemSoup(6)).setUnlocalizedName("mushroomStew"));
-        registerItem(283, "golden_sword", (new ItemSword(Item.ToolMaterial.GOLD)).setUnlocalizedName("swordGold"));
-        registerItem(284, "golden_shovel", (new ItemSpade(Item.ToolMaterial.GOLD)).setUnlocalizedName("shovelGold"));
-        registerItem(285, "golden_pickaxe", (new ItemPickaxe(Item.ToolMaterial.GOLD)).setUnlocalizedName("pickaxeGold"));
-        registerItem(286, "golden_axe", (new ItemAxe(Item.ToolMaterial.GOLD)).setUnlocalizedName("hatchetGold"));
+        registerItem(283, "golden_sword", (new ItemSword(ToolMaterial.GOLD)).setUnlocalizedName("swordGold"));
+        registerItem(284, "golden_shovel", (new ItemSpade(ToolMaterial.GOLD)).setUnlocalizedName("shovelGold"));
+        registerItem(285, "golden_pickaxe", (new ItemPickaxe(ToolMaterial.GOLD)).setUnlocalizedName("pickaxeGold"));
+        registerItem(286, "golden_axe", (new ItemAxe(ToolMaterial.GOLD)).setUnlocalizedName("hatchetGold"));
         registerItem(287, "string", (new ItemReed(Blocks.tripwire)).setUnlocalizedName("string").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(288, "feather", (new Item()).setUnlocalizedName("feather").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(289, "gunpowder", (new Item()).setUnlocalizedName("sulphur").setPotionEffect(PotionHelper.gunpowderEffect).setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(290, "wooden_hoe", (new ItemHoe(Item.ToolMaterial.WOOD)).setUnlocalizedName("hoeWood"));
-        registerItem(291, "stone_hoe", (new ItemHoe(Item.ToolMaterial.STONE)).setUnlocalizedName("hoeStone"));
-        registerItem(292, "iron_hoe", (new ItemHoe(Item.ToolMaterial.IRON)).setUnlocalizedName("hoeIron"));
-        registerItem(293, "diamond_hoe", (new ItemHoe(Item.ToolMaterial.EMERALD)).setUnlocalizedName("hoeDiamond"));
-        registerItem(294, "golden_hoe", (new ItemHoe(Item.ToolMaterial.GOLD)).setUnlocalizedName("hoeGold"));
+        registerItem(290, "wooden_hoe", (new ItemHoe(ToolMaterial.WOOD)).setUnlocalizedName("hoeWood"));
+        registerItem(291, "stone_hoe", (new ItemHoe(ToolMaterial.STONE)).setUnlocalizedName("hoeStone"));
+        registerItem(292, "iron_hoe", (new ItemHoe(ToolMaterial.IRON)).setUnlocalizedName("hoeIron"));
+        registerItem(293, "diamond_hoe", (new ItemHoe(ToolMaterial.EMERALD)).setUnlocalizedName("hoeDiamond"));
+        registerItem(294, "golden_hoe", (new ItemHoe(ToolMaterial.GOLD)).setUnlocalizedName("hoeGold"));
         registerItem(295, "wheat_seeds", (new ItemSeeds(Blocks.wheat, Blocks.farmland)).setUnlocalizedName("seeds"));
         registerItem(296, "wheat", (new Item()).setUnlocalizedName("wheat").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(297, "bread", (new ItemFood(5, 0.6F, false)).setUnlocalizedName("bread"));

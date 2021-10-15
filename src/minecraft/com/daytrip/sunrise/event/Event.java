@@ -1,11 +1,7 @@
 package com.daytrip.sunrise.event;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public class Event {
     private boolean cancelled;
-    private final List<String> excludes = new CopyOnWriteArrayList<>();
     private String customFromTarget = "";
 
     public boolean isCancelled() {
@@ -14,14 +10,6 @@ public class Event {
 
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
-    }
-
-    public void addExcludes(String name) {
-        excludes.add(name);
-    }
-
-    public boolean isExcluded(String name) {
-        return excludes.contains(name);
     }
 
     public void post() throws Exception {

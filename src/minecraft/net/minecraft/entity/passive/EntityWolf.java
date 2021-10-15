@@ -624,7 +624,7 @@ public class EntityWolf extends EntityTameable
                 }
             }
 
-            return p_142018_1_ instanceof EntityPlayer && p_142018_2_ instanceof EntityPlayer && !((EntityPlayer)p_142018_2_).canAttackPlayer((EntityPlayer)p_142018_1_) ? false : !(p_142018_1_ instanceof EntityHorse) || !((EntityHorse)p_142018_1_).isTame();
+            return p_142018_1_ instanceof EntityPlayer && p_142018_2_ instanceof EntityPlayer && ((EntityPlayer) p_142018_2_).cannotAttackPlayer((EntityPlayer) p_142018_1_) ? false : !(p_142018_1_ instanceof EntityHorse) || !((EntityHorse)p_142018_1_).isTame();
         }
         else
         {

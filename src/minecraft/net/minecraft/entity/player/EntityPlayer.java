@@ -1,7 +1,7 @@
 package net.minecraft.entity.player;
 
-import com.daytrip.sunrise.event.EventExceptionWrapper;
 import com.daytrip.sunrise.event.impl.EventPlayerDamaged;
+import com.daytrip.sunrise.util.Wrappers;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
@@ -32,7 +32,6 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.init.Blocks;
@@ -77,7 +76,6 @@ import net.minecraft.world.LockCode;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 
-@SuppressWarnings("incomplete-switch")
 public abstract class EntityPlayer extends EntityLivingBase
 {
     /** Inventory of the player */
@@ -162,7 +160,6 @@ public abstract class EntityPlayer extends EntityLivingBase
      * This field starts off equal to getMaxItemUseDuration and is decremented on each tick
      */
     private int itemInUseCount;
-    protected float speedOnGround = 0.1F;
     protected float speedInAir = 0.02F;
     private int lastXPSound;
 
@@ -198,10 +195,10 @@ public abstract class EntityPlayer extends EntityLivingBase
     protected void entityInit()
     {
         super.entityInit();
-        dataWatcher.addObject(16, Byte.valueOf((byte)0));
-        dataWatcher.addObject(17, Float.valueOf(0.0F));
-        dataWatcher.addObject(18, Integer.valueOf(0));
-        dataWatcher.addObject(10, Byte.valueOf((byte)0));
+        dataWatcher.addObject(16, (byte) 0);
+        dataWatcher.addObject(17, 0.0F);
+        dataWatcher.addObject(18, 0);
+        dataWatcher.addObject(10, (byte) 0);
     }
 
     /**
@@ -403,7 +400,6 @@ public abstract class EntityPlayer extends EntityLivingBase
             }
         }
 
-        int i = 29999999;
         double d3 = MathHelper.clamp_double(posX, -2.9999999E7D, 2.9999999E7D);
         double d4 = MathHelper.clamp_double(posZ, -2.9999999E7D, 2.9999999E7D);
 
@@ -657,7 +653,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         if (getHealth() > 0.0F && !isSpectator())
         {
-            AxisAlignedBB axisalignedbb = null;
+            AxisAlignedBB axisalignedbb;
 
             if (ridingEntity != null && !ridingEntity.isDead)
             {
@@ -670,12 +666,8 @@ public abstract class EntityPlayer extends EntityLivingBase
 
             List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, axisalignedbb);
 
-            for (int i = 0; i < list.size(); ++i)
-            {
-                Entity entity = list.get(i);
-
-                if (!entity.isDead)
-                {
+            for (Entity entity : list) {
+                if (!entity.isDead) {
                     collideWithPlayer(entity);
                 }
             }
@@ -697,7 +689,7 @@ public abstract class EntityPlayer extends EntityLivingBase
      */
     public void setScore(int p_85040_1_)
     {
-        dataWatcher.updateObject(18, Integer.valueOf(p_85040_1_));
+        dataWatcher.updateObject(18, p_85040_1_);
     }
 
     /**
@@ -822,15 +814,15 @@ public abstract class EntityPlayer extends EntityLivingBase
     /**
      * Called when player presses the drop item key
      */
-    public EntityItem dropOneItem(boolean dropAll)
+    public void dropOneItem(boolean dropAll)
     {
-        return dropItem(inventory.decrStackSize(inventory.currentItem, dropAll && inventory.getCurrentItem() != null ? inventory.getCurrentItem().stackSize : 1), false, true);
+        dropItem(inventory.decrStackSize(inventory.currentItem, dropAll && inventory.getCurrentItem() != null ? inventory.getCurrentItem().stackSize : 1), false, true);
     }
 
     /**
      * Args: itemstack, flag
      */
-    public EntityItem dropPlayerItemWithRandomChoice(ItemStack itemStackIn, boolean unused)
+    public EntityItem dropPlayerItemWithRandomChoice(ItemStack itemStackIn)
     {
         return dropItem(itemStackIn, false, false);
     }
@@ -921,7 +913,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         if (isPotionActive(Potion.digSlowdown))
         {
-            float f1 = 1.0F;
+            float f1;
 
             switch (getActivePotionEffect(Potion.digSlowdown).getAmplifier())
             {
@@ -1056,16 +1048,18 @@ public abstract class EntityPlayer extends EntityLivingBase
         eventPlayerDamaged.player = this;
         eventPlayerDamaged.damageSource = source;
         eventPlayerDamaged.amount = amount;
-        EventExceptionWrapper.post(eventPlayerDamaged);
+        Wrappers.post(eventPlayerDamaged);
 
         if (isEntityInvulnerable(source))
         {
             return false;
         }
+
         else if (capabilities.disableDamage && !source.canHarmInCreative())
         {
             return false;
         }
+
         else
         {
             entityAge = 0;
@@ -1103,26 +1097,17 @@ public abstract class EntityPlayer extends EntityLivingBase
                 {
                     return false;
                 }
-                else
-                {
-                    Entity entity = source.getEntity();
 
-                    if (entity instanceof EntityArrow && ((EntityArrow)entity).shootingEntity != null)
-                    {
-                        entity = ((EntityArrow)entity).shootingEntity;
-                    }
-
-                    return super.attackEntityFrom(source, amount);
-                }
+                return super.attackEntityFrom(source, amount);
             }
         }
     }
 
-    public boolean canAttackPlayer(EntityPlayer other)
+    public boolean cannotAttackPlayer(EntityPlayer other)
     {
         Team team = getTeam();
         Team team1 = other.getTeam();
-        return team == null || (!team.isSameTeam(team1) || team.getAllowFriendlyFire());
+        return team != null && (team.isSameTeam(team1) && !team.getAllowFriendlyFire());
     }
 
     protected void damageArmor(float p_70675_1_)
@@ -1318,7 +1303,7 @@ public abstract class EntityPlayer extends EntityLivingBase
             {
                 float f = (float) getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
                 int i = 0;
-                float f1 = 0.0F;
+                float f1;
 
                 if (targetEntity instanceof EntityLivingBase)
                 {
@@ -1619,7 +1604,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         if (playerLocation != null && iblockstate.getBlock() == Blocks.bed)
         {
-            worldObj.setBlockState(playerLocation, iblockstate.withProperty(BlockBed.OCCUPIED, Boolean.valueOf(false)), 4);
+            worldObj.setBlockState(playerLocation, iblockstate.withProperty(BlockBed.OCCUPIED, Boolean.FALSE), 4);
             BlockPos blockpos = BlockBed.getSafeExitLocation(worldObj, playerLocation, 0);
 
             if (blockpos == null)
@@ -1973,7 +1958,7 @@ public abstract class EntityPlayer extends EntityLivingBase
             triggerAchievement(AchievementList.killEnemy);
         }
 
-        EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(Integer.valueOf(EntityList.getEntityID(entityLivingIn)));
+        EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(EntityList.getEntityID(entityLivingIn));
 
         if (entitylist$entityegginfo != null)
         {
@@ -2156,7 +2141,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         else
         {
             int i = experienceLevel * 7;
-            return i > 100 ? 100 : i;
+            return Math.min(i, 100);
         }
     }
 
@@ -2203,7 +2188,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         xpSeed = oldPlayer.xpSeed;
         theInventoryEnderChest = oldPlayer.theInventoryEnderChest;
-        getDataWatcher().updateObject(10, Byte.valueOf(oldPlayer.getDataWatcher().getWatchableObjectByte(10)));
+        getDataWatcher().updateObject(10, oldPlayer.getDataWatcher().getWatchableObjectByte(10));
     }
 
     /**
@@ -2287,7 +2272,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         else
         {
             Team team = getTeam();
-            return team != null && player != null && player.getTeam() == team && team.getSeeFriendlyInvisiblesEnabled();
+            return team != null && player.getTeam() == team && team.getSeeFriendlyInvisiblesEnabled();
         }
     }
 
@@ -2355,7 +2340,7 @@ public abstract class EntityPlayer extends EntityLivingBase
             amount = 0.0F;
         }
 
-        getDataWatcher().updateObject(17, Float.valueOf(amount));
+        getDataWatcher().updateObject(17, amount);
     }
 
     public float getAbsorptionAmount()

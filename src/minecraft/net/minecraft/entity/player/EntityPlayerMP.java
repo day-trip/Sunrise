@@ -562,7 +562,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
                 {
                     Entity entity = source.getEntity();
 
-                    if (entity instanceof EntityPlayer && !canAttackPlayer((EntityPlayer)entity))
+                    if (entity instanceof EntityPlayer && cannotAttackPlayer((EntityPlayer) entity))
                     {
                         return false;
                     }
@@ -571,7 +571,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
                     {
                         EntityArrow entityarrow = (EntityArrow)entity;
 
-                        if (entityarrow.shootingEntity instanceof EntityPlayer && !canAttackPlayer((EntityPlayer)entityarrow.shootingEntity))
+                        if (entityarrow.shootingEntity instanceof EntityPlayer && cannotAttackPlayer((EntityPlayer) entityarrow.shootingEntity))
                         {
                             return false;
                         }
@@ -583,9 +583,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         }
     }
 
-    public boolean canAttackPlayer(EntityPlayer other)
+    public boolean cannotAttackPlayer(EntityPlayer other)
     {
-        return canPlayersAttack() && super.canAttackPlayer(other);
+        return !canPlayersAttack() || super.cannotAttackPlayer(other);
     }
 
     /**

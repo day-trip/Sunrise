@@ -6,8 +6,4 @@ public interface EventListener {
     default boolean ignore(Event event) {
         return false;
     }
-
-    default String getListenerName() {
-        return "minecraft";
-    }
 }

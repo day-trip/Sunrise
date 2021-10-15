@@ -43,9 +43,4 @@ public class SunriseGUI implements EventListener {
             });
         }
     }
-
-    @Override
-    public String getListenerName() {
-        return "sunrisegui";
-    }
 }

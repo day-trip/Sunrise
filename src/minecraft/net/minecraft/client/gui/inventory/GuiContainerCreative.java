@@ -96,7 +96,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
             {
                 if (clickedButton == 0)
                 {
-                    mc.thePlayer.dropPlayerItemWithRandomChoice(inventoryplayer1.getItemStack(), true);
+                    mc.thePlayer.dropPlayerItemWithRandomChoice(inventoryplayer1.getItemStack());
                     mc.playerController.sendPacketDropItem(inventoryplayer1.getItemStack());
                     inventoryplayer1.setItemStack(null);
                 }
@@ -104,7 +104,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                 if (clickedButton == 1)
                 {
                     ItemStack itemstack5 = inventoryplayer1.getItemStack().splitStack(1);
-                    mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack5, true);
+                    mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack5);
                     mc.playerController.sendPacketDropItem(itemstack5);
 
                     if (inventoryplayer1.getItemStack().stackSize == 0)
@@ -130,12 +130,12 @@ public class GuiContainerCreative extends InventoryEffectRenderer
             else if (clickType == 4 && slotIn != null && slotIn.getHasStack())
             {
                 ItemStack itemstack = slotIn.decrStackSize(clickedButton == 0 ? 1 : slotIn.getStack().getMaxStackSize());
-                mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack, true);
+                mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack);
                 mc.playerController.sendPacketDropItem(itemstack);
             }
             else if (clickType == 4 && mc.thePlayer.inventory.getItemStack() != null)
             {
-                mc.thePlayer.dropPlayerItemWithRandomChoice(mc.thePlayer.inventory.getItemStack(), true);
+                mc.thePlayer.dropPlayerItemWithRandomChoice(mc.thePlayer.inventory.getItemStack());
                 mc.playerController.sendPacketDropItem(mc.thePlayer.inventory.getItemStack());
                 mc.thePlayer.inventory.setItemStack(null);
             }
@@ -182,7 +182,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                 {
                     ItemStack itemstack3 = itemstack2.copy();
                     itemstack3.stackSize = clickedButton == 0 ? 1 : itemstack3.getMaxStackSize();
-                    mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack3, true);
+                    mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack3);
                     mc.playerController.sendPacketDropItem(itemstack3);
                 }
 

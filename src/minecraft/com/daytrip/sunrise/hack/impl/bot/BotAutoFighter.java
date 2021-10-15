@@ -1,8 +1,13 @@
 package com.daytrip.sunrise.hack.impl.bot;
 
+import com.daytrip.sunrise.HackAPI;
 import com.daytrip.sunrise.event.Event;
-import com.daytrip.sunrise.event.EventExceptionWrapper;
-import com.daytrip.sunrise.event.impl.*;
+import com.daytrip.sunrise.event.EventHandler;
+import com.daytrip.sunrise.event.EventIgnores;
+import com.daytrip.sunrise.event.impl.EventEntityAttackedByPlayer;
+import com.daytrip.sunrise.event.impl.EventPlayerDamaged;
+import com.daytrip.sunrise.event.impl.EventRenderBrightnessBuffer;
+import com.daytrip.sunrise.event.impl.EventTick;
 import com.daytrip.sunrise.event.impl.input.EventClickMouse;
 import com.daytrip.sunrise.event.impl.input.EventKeypress;
 import com.daytrip.sunrise.event.impl.input.EventProcessMouse;
@@ -12,14 +17,17 @@ import com.daytrip.sunrise.hack.pathfinding.PathFinder;
 import com.daytrip.sunrise.hack.pathfinding.Point;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
 import com.daytrip.sunrise.hack.task.Task;
-import com.daytrip.sunrise.util.math.*;
+import com.daytrip.sunrise.util.math.ArrayGrid;
+import com.daytrip.sunrise.util.math.ArrayMath;
+import com.daytrip.sunrise.util.math.Interpolation;
+import com.daytrip.sunrise.util.math.Vec2;
 import com.daytrip.sunrise.util.minecraft.ExtendedReach;
 import com.daytrip.sunrise.util.timer.TickTimer;
 import com.daytrip.sunrise.util.timer.TimerManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -27,10 +35,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.input.Keyboard;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BotAutoFighter extends Hack {
     // Dangerous blocks to avoid while navigating
@@ -45,6 +50,9 @@ public class BotAutoFighter extends Hack {
     // The distance to the target
     private double distanceToTarget;
 
+    private float yaw;
+    private float pitch;
+
     // Whether or not to automatically navigate
     private boolean autoNavigate = true;
 
@@ -57,6 +65,8 @@ public class BotAutoFighter extends Hack {
     // The amount of hits left until the bot has to rod the target
     private int mustRodCounter;
 
+    private boolean isRodding;
+
     // Whether or not the bot can approach the target
     private boolean canMove = true;
 
@@ -68,6 +78,16 @@ public class BotAutoFighter extends Hack {
 
     public BotAutoFighter() {
         super(Keyboard.KEY_P, "Auto Fighter", "auto_fighter");
+    }
+
+    @EventHandler
+    public void onTick(EventTick eventTick) {
+        System.out.println(eventTick.getClass().getSimpleName());
+    }
+
+    @EventIgnores
+    public boolean ignores(Event event) {
+        return false;
     }
 
     @Override
@@ -93,8 +113,17 @@ public class BotAutoFighter extends Hack {
         taskManager.registerTask(0, new Task()
                 .withName("PVP Module: Basic Math Update")
                 .executeIf(() -> true)
-                .onInit(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
-                .onTick(() -> distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer))
+                .onInit(() -> {
+                    distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
+                    yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
+                    pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
+                })
+                .onTick(() -> {
+                    Vec3 vec3 = target.getPositionVector();
+                    distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
+                    yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
+                    pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
+                })
         );
 
         taskManager.registerTask(0, new Task()
@@ -111,9 +140,6 @@ public class BotAutoFighter extends Hack {
                 .onTick(() -> {
                     if(!lockAim) {
                         if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
-                            float yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
-                            float pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
-
                             if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
                                 cameraInterpolationTimer.update();
 
@@ -138,7 +164,9 @@ public class BotAutoFighter extends Hack {
         taskManager.registerTask(1, new Task()
                 .withName("PVP Module: Sword")
                 .executeIf(() -> canSword && distanceToTarget < 6)
-                .callEvery(() -> 1, () -> {
+                .whenCannotExecute(() -> isRodding = true)
+                .callEvery(() -> 2, () -> {
+                    isRodding = false;
                     rodTimer.reset();
 
                     minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
@@ -148,13 +176,13 @@ public class BotAutoFighter extends Hack {
                         minecraft.thePlayer.setSprinting(true);
                     }
 
-                    EventClickMouse eventClickMouse = new EventClickMouse();
-                    eventClickMouse.setButton(0);
-                    eventClickMouse.setCustomFromTarget(id);
-                    try {
-                        eventClickMouse.post();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    float yawDist = (float) Math.atan2(Math.sin(yaw - minecraft.thePlayer.rotationYaw), Math.cos(yaw - minecraft.thePlayer.rotationYaw));
+                    System.out.println(yawDist);
+                    if(yawDist < 15) {
+                        HackAPI.leftClick(id);
+                        if(new Random().nextInt(100) > 50) {
+                            HackAPI.leftClick(id);
+                        }
                     }
                 })
         );
@@ -168,9 +196,9 @@ public class BotAutoFighter extends Hack {
                         minecraft.thePlayer.movementInput.moveForward = -1;
                     } else {
                         if(distanceToTarget > 2.5) {
-                            startMoving();
+                            HackAPI.startMovingAndSprinting();
                         } else {
-                            stopMoving();
+                            HackAPI.stopMoving();
                         }
                     }
                 })
@@ -260,7 +288,7 @@ public class BotAutoFighter extends Hack {
                 }
                 if(((EventKeypress) event).getKey() == Keyboard.KEY_SPACE) {
                     // Allow user to override jumping
-                    jump();
+                    HackAPI.jump();
                 }
             }
         }
@@ -272,9 +300,10 @@ public class BotAutoFighter extends Hack {
             if(((EventPlayerDamaged) event).damageSource instanceof EntityDamageSourceIndirect) {
                 EntityDamageSourceIndirect sourceIndirect = (EntityDamageSourceIndirect) ((EventPlayerDamaged) event).damageSource;
                 if(sourceIndirect.getEntity() == target || sourceIndirect.getEntity() == minecraft.thePlayer) {
-                    startMoving();
+                    HackAPI.startMovingAndSprinting();
                 }
             }
+
 
             /*if(((EventPlayerDamaged) event).player == minecraft.thePlayer) {
                 // Some sources say this reduces KB, others don't
@@ -284,22 +313,16 @@ public class BotAutoFighter extends Hack {
         if(event instanceof EventEntityAttackedByPlayer) {
             if(minecraft.inWorld() && target != null) {
                 if(((EventEntityAttackedByPlayer) event).getAttacker() == minecraft.thePlayer && ((EventEntityAttackedByPlayer) event).getTarget() == target) {
-                    if(target instanceof EntityPlayerMP) {
-                        EntityPlayerMP entityPlayerMP = (EntityPlayerMP) target;
-                        int rt = minecraft.getNetHandler().getPlayerInfo(minecraft.thePlayer.getUniqueID()).getResponseTime();
-                        // Handle the laggy players
-                        if(entityPlayerMP.ping > rt && entityPlayerMP.ping - rt > 30) {
-                            EventClickMouse eventClickMouse = new EventClickMouse();
-                            eventClickMouse.setButton(1);
-                            eventClickMouse.setCustomFromTarget(id);
-                            EventExceptionWrapper.post(eventClickMouse);
+                    if(target instanceof EntityPlayer) {
+                        if(HackAPI.getPingForPlayer((EntityPlayer) target) > 65) {
+                            HackAPI.rightClick(id);
                         }
                     }
                     if(canMove) {
                         canMove = false;
                         TimerManager.registerTimer(new TickTimer(() -> {
                             canMove = true;
-                            startMoving();
+                            HackAPI.startMovingAndSprinting();
                         }, 5, false));
                     }
                 }
@@ -326,10 +349,9 @@ public class BotAutoFighter extends Hack {
 
         rodTimer = null;
         cameraInterpolationTimer = null;
-
         mustRodCounter = 0;
 
-        stopMoving();
+        HackAPI.stopMoving();
     }
 
     private void pickTarget(EntityLivingBase target) {
@@ -350,31 +372,12 @@ public class BotAutoFighter extends Hack {
 
     private void rod(int castTimeTicks) {
         canSword = false;
-
-        minecraft.thePlayer.inventory.currentItem = inventoryRodSlot;
-        minecraft.playerController.syncCurrentPlayItem();
-
-        EventClickMouse eventRightClickMouse = new EventClickMouse();
-        eventRightClickMouse.setButton(1);
-        eventRightClickMouse.setCustomFromTarget(id);
-        try {
-            eventRightClickMouse.post();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        HackAPI.changeInventorySlotAndUpdate(inventoryRodSlot);
+        HackAPI.rightClick(id);
 
         TimerManager.registerTimer(new TickTimer(() -> {
-            minecraft.thePlayer.inventory.currentItem = inventoryRodSlot;
-            minecraft.playerController.syncCurrentPlayItem();
-
-            EventClickMouse eventRightClickMouse1 = new EventClickMouse();
-            eventRightClickMouse1.setButton(1);
-            eventRightClickMouse1.setCustomFromTarget(id);
-            try {
-                eventRightClickMouse1.post();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            HackAPI.changeInventorySlotAndUpdate(inventoryRodSlot);
+            HackAPI.rightClick(id);
 
             canSword = true;
         }, castTimeTicks, false));
@@ -540,37 +543,6 @@ public class BotAutoFighter extends Hack {
             return 1.3;
         }
         return 4.317;
-    }
-
-    private void stopMoving() {
-        if(!autoNavigate) return;
-        stopSprinting();
-        minecraft.thePlayer.movementInput.moveForward = 0;
-    }
-
-    private void startMoving() {
-        if(!autoNavigate) return;
-        startSprinting();
-        minecraft.thePlayer.movementInput.moveForward = 1;
-    }
-
-    private void jump() {
-        if(!autoNavigate) return;
-        if(minecraft.thePlayer.onGround) {
-            minecraft.thePlayer.jump();
-        }
-    }
-
-    private void startSprinting() {
-        if(!minecraft.thePlayer.isSprinting()) {
-            minecraft.thePlayer.setSprinting(true); // Will update network and get caught by anti-cheat; don't call unless necessary
-        }
-    }
-
-    private void stopSprinting() {
-        if(minecraft.thePlayer.isSprinting()) {
-            minecraft.thePlayer.setSprinting(false); // Will update network and get caught by anti-cheat; don't call unless necessary
-        }
     }
 
     public EntityLivingBase getTarget() {

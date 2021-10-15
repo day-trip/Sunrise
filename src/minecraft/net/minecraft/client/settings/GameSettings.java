@@ -140,7 +140,7 @@ public class GameSettings
     public KeyBinding keyBindCommand = new KeyBinding("key.command", 53, "key.categories.multiplayer");
     public KeyBinding keyBindScreenshot = new KeyBinding("key.screenshot", 60, "key.categories.misc");
     public KeyBinding keyBindTogglePerspective = new KeyBinding("key.togglePerspective", 63, "key.categories.misc");
-    public KeyBinding keyBindSmoothCamera = new KeyBinding("key.smoothCamera", 0, "key.categories.misc");
+    public KeyBinding keyBindSmoothCamera = new KeyBinding("key.smoothCamera", Keyboard.KEY_NUMPAD7, "key.categories.misc");
     public KeyBinding keyBindFullscreen = new KeyBinding("key.fullscreen", 87, "key.categories.misc");
     public KeyBinding keyBindSpectatorOutlines = new KeyBinding("key.spectatorOutlines", 0, "key.categories.misc");
     public KeyBinding keyBindStreamStartStop = new KeyBinding("key.streamStartStop", 64, "key.categories.stream");

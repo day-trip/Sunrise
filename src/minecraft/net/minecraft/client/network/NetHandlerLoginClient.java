@@ -37,71 +37,65 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient
 
     public NetHandlerLoginClient(NetworkManager p_i45059_1_, Minecraft mcIn, GuiScreen p_i45059_3_)
     {
-        this.networkManager = p_i45059_1_;
-        this.mc = mcIn;
-        this.previousGuiScreen = p_i45059_3_;
+        networkManager = p_i45059_1_;
+        mc = mcIn;
+        previousGuiScreen = p_i45059_3_;
     }
 
     public void handleEncryptionRequest(S01PacketEncryptionRequest packetIn)
     {
-        final SecretKey secretkey = CryptManager.createNewSharedKey();
+        SecretKey secretkey = CryptManager.createNewSharedKey();
         String s = packetIn.getServerId();
         PublicKey publickey = packetIn.getPublicKey();
         String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);
 
-        if (this.mc.getCurrentServerData() != null && this.mc.getCurrentServerData().func_181041_d())
+        if (mc.getCurrentServerData() != null && mc.getCurrentServerData().func_181041_d())
         {
             try
             {
-                this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
+                getSessionService().joinServer(mc.getSession().getProfile(), mc.getSession().getToken(), s1);
             }
             catch (AuthenticationException var10)
             {
-                logger.warn("Couldn\'t connect to auth servers but will continue to join LAN");
+                logger.warn("Couldn't connect to auth servers but will continue to join LAN");
             }
         }
         else
         {
             try
             {
-                this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
+                getSessionService().joinServer(mc.getSession().getProfile(), mc.getSession().getToken(), s1);
             }
             catch (AuthenticationUnavailableException var7)
             {
-                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new Object[] {new ChatComponentTranslation("disconnect.loginFailedInfo.serversUnavailable", new Object[0])}));
+                networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new ChatComponentTranslation("disconnect.loginFailedInfo.serversUnavailable")));
                 return;
             }
             catch (InvalidCredentialsException var8)
             {
-                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new Object[] {new ChatComponentTranslation("disconnect.loginFailedInfo.invalidSession", new Object[0])}));
+                networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new ChatComponentTranslation("disconnect.loginFailedInfo.invalidSession")));
                 return;
             }
             catch (AuthenticationException authenticationexception)
             {
-                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new Object[] {authenticationexception.getMessage()}));
+                networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", authenticationexception.getMessage()));
                 return;
             }
         }
 
-        this.networkManager.sendPacket(new C01PacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), new GenericFutureListener < Future <? super Void >> ()
-        {
-            public void operationComplete(Future <? super Void > p_operationComplete_1_) throws Exception
-            {
-                NetHandlerLoginClient.this.networkManager.enableEncryption(secretkey);
-            }
-        }, new GenericFutureListener[0]);
+        networkManager.sendPacket(new C01PacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), p_operationComplete_1_ -> networkManager.enableEncryption(secretkey));
     }
 
     private MinecraftSessionService getSessionService()
     {
-        return this.mc.getSessionService();
+        return mc.getSessionService();
     }
 
     public void handleLoginSuccess(S02PacketLoginSuccess packetIn)
     {
-        this.gameProfile = packetIn.getProfile();
-        this.networkManager.setConnectionState(EnumConnectionState.PLAY);
-        this.networkManager.setNetHandler(new NetHandlerPlayClient(this.mc, this.previousGuiScreen, this.networkManager, this.gameProfile));
+        gameProfile = packetIn.getProfile();
+        networkManager.setConnectionState(EnumConnectionState.PLAY);
+        networkManager.setNetHandler(new NetHandlerPlayClient(mc, previousGuiScreen, networkManager, gameProfile));
     }
 
     /**
@@ -109,19 +103,19 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient
      */
     public void onDisconnect(IChatComponent reason)
     {
-        this.mc.displayGuiScreen(new GuiDisconnected(this.previousGuiScreen, "connect.failed", reason));
+        mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", reason));
     }
 
     public void handleDisconnect(S00PacketDisconnect packetIn)
     {
-        this.networkManager.closeChannel(packetIn.func_149603_c());
+        networkManager.closeChannel(packetIn.func_149603_c());
     }
 
     public void handleEnableCompression(S03PacketEnableCompression packetIn)
     {
-        if (!this.networkManager.isLocalChannel())
+        if (!networkManager.isLocalChannel())
         {
-            this.networkManager.setCompressionThreshold(packetIn.getCompressionthreshold());
+            networkManager.setCompressionThreshold(packetIn.getCompressionthreshold());
         }
     }
 }

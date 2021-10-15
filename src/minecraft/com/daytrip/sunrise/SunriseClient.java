@@ -29,6 +29,7 @@ public class SunriseClient implements EventListener {
             LoginManager.applyUser(LoginManager.login("malaworld@gmail.com", "JaiAvi10:14"));
         }
         if(event instanceof EventRegisterListeners) {
+            HackAPI.minecraft = minecraft;
             EventBus.registerListener(new TimerManager());
             registerHacks();
             EventBus.registerListener(new SunriseGUI());
@@ -62,8 +63,7 @@ public class SunriseClient implements EventListener {
         HackManager.addHack(new HackBridger());
     }
 
-    @Override
-    public String getListenerName() {
-        return "sunrise";
+    public static void main(String[] args) {
+        System.out.println(Math.sqrt((5-10)*(5-10)));
     }
 }

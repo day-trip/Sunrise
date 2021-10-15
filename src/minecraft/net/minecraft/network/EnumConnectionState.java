@@ -249,9 +249,9 @@ public enum EnumConnectionState
     private static final int field_181136_e = -1;
     private static final int field_181137_f = 2;
     private static final EnumConnectionState[] STATES_BY_ID = new EnumConnectionState[field_181137_f - field_181136_e + 1];
-    private static final Map < Class <? extends Packet > , EnumConnectionState > STATES_BY_CLASS = Maps.newHashMap();
+    private static final Map < Class <? extends Packet<? extends INetHandler> > , EnumConnectionState > STATES_BY_CLASS = Maps.newHashMap();
     private final int id;
-    private final Map < EnumPacketDirection, BiMap < Integer, Class <? extends Packet >>> directionMaps;
+    private final Map < EnumPacketDirection, BiMap < Integer, Class <? extends Packet<? extends INetHandler> >>> directionMaps;
 
     EnumConnectionState(int protocolId)
     {
@@ -259,9 +259,9 @@ public enum EnumConnectionState
         id = protocolId;
     }
 
-    protected void registerPacket(EnumPacketDirection direction, Class <? extends Packet > packetClass)
+    protected void registerPacket(EnumPacketDirection direction, Class <? extends Packet<? extends INetHandler> > packetClass)
     {
-        BiMap<Integer, Class<? extends Packet>> bimap = directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
+        BiMap<Integer, Class<? extends Packet<? extends INetHandler>>> bimap = directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
 
         if (bimap.containsValue(packetClass))
         {
@@ -275,13 +275,13 @@ public enum EnumConnectionState
         }
     }
 
-    public Integer getPacketId(EnumPacketDirection direction, Packet packetIn)
+    public Integer getPacketId(EnumPacketDirection direction, Packet<? extends INetHandler> packetIn)
     {
-        return (Integer)((BiMap) directionMaps.get(direction)).inverse().get(packetIn.getClass());
+        return directionMaps.get(direction).inverse().get(packetIn.getClass());
     }
 
-    public Packet getPacket(EnumPacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException {
-        Class <? extends Packet > oclass = (Class)((BiMap) directionMaps.get(direction)).get(Integer.valueOf(packetId));
+    public Packet<? extends INetHandler> getPacket(EnumPacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException {
+        Class <? extends Packet<? extends INetHandler> > oclass = directionMaps.get(direction).get(packetId);
         return oclass == null ? null : oclass.newInstance();
     }
 
@@ -295,7 +295,7 @@ public enum EnumConnectionState
         return stateId >= field_181136_e && stateId <= field_181137_f ? STATES_BY_ID[stateId - field_181136_e] : null;
     }
 
-    public static EnumConnectionState getFromPacket(Packet packetIn)
+    public static EnumConnectionState getFromPacket(Packet<? extends INetHandler> packetIn)
     {
         return STATES_BY_CLASS.get(packetIn.getClass());
     }
@@ -314,7 +314,7 @@ public enum EnumConnectionState
 
             for (EnumPacketDirection enumpacketdirection : enumconnectionstate.directionMaps.keySet())
             {
-                for (Class <? extends Packet > oclass : (enumconnectionstate.directionMaps.get(enumpacketdirection)).values())
+                for (Class <? extends Packet<? extends INetHandler> > oclass : (enumconnectionstate.directionMaps.get(enumpacketdirection)).values())
                 {
                     if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != enumconnectionstate)
                     {

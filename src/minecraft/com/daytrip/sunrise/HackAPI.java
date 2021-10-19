@@ -58,4 +58,8 @@ public class HackAPI {
     public static int getPingForPlayer(EntityPlayer player) {
         return minecraft.getNetHandler().getPlayerInfo(player.getUniqueID()).getResponseTime();
     }
+
+    public static void moveTo(int x, int z) {
+
+    }
 }

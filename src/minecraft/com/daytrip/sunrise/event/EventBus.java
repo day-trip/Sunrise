@@ -17,11 +17,11 @@ public class EventBus {
         }
     }
 
-    public static void registerListenerr(EventListener listener) {
+    public static void registerListener(EventListener listener) {
         listeners.add(listener);
     }
     
-    public static void registerListener(Object object) {
+    public static void registerListenerr(Object object) {
         //System.out.println(1);
         int i = 0;
         for(Method method : object.getClass().getMethods()) {
@@ -61,7 +61,7 @@ public class EventBus {
     }
      
 
-    public static void postt(Event event) throws Exception {
+    public static void post(Event event) throws Exception {
         for(EventListener listener : listeners) {
             if(listener.ignore(event)) {
                 continue;
@@ -73,7 +73,7 @@ public class EventBus {
         }
     }
 
-    public static void post(Event event) throws Exception {
+    public static void postt(Event event) throws Exception {
         System.out.println(event.getClass().getSimpleName());
         for(Map.Entry<Object, Method> methodEntry : invokes.get(event.getClass())) {
             if(ignoresMethods.containsKey(methodEntry.getKey())) {

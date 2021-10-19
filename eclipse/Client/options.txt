@@ -16,7 +16,7 @@ ao:0
 renderClouds:false
 resourcePacks:[]
 incompatibleResourcePacks:[]
-lastServer:server.jcc.lol:25565
+lastServer:minemen.club
 lang:en_US
 chatVisibility:0
 chatColors:true

@@ -209,13 +209,7 @@ public class ResourcePackRepository
             GuiScreenWorking guiscreenworking = new GuiScreenWorking();
             Map<String, String> map = Minecraft.getSessionInfo();
             Minecraft minecraft = Minecraft.getMinecraft();
-            Futures.getUnchecked(minecraft.addScheduledTask(new Runnable()
-            {
-                public void run()
-                {
-                    minecraft.displayGuiScreen(guiscreenworking);
-                }
-            }));
+            Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(guiscreenworking)));
             SettableFuture<Object> settablefuture = SettableFuture.create();
             field_177322_i = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
             Futures.addCallback(field_177322_i, new FutureCallback<Object>()
@@ -242,7 +236,7 @@ public class ResourcePackRepository
     private void func_183028_i()
     {
         List<File> list = Lists.newArrayList(FileUtils.listFiles(dirServerResourcepacks, TrueFileFilter.TRUE, null));
-        Collections.sort(list, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+        list.sort(LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         int i = 0;
 
         for (File file1 : list)

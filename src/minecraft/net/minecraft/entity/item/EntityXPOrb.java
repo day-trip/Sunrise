@@ -178,9 +178,9 @@ public class EntityXPOrb extends Entity
      * Will deal the specified amount of damage to the entity if the entity isn't immune to fire damage. Args:
      * amountDamage
      */
-    protected void dealFireDamage(int amount)
+    protected void dealFireDamage()
     {
-        this.attackEntityFrom(DamageSource.inFire, (float)amount);
+        this.attackEntityFrom(DamageSource.inFire, (float) 1);
     }
 
     /**

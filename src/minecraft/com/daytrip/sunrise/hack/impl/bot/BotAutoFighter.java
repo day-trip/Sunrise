@@ -16,11 +16,9 @@ import com.daytrip.sunrise.hack.Hack;
 import com.daytrip.sunrise.hack.pathfinding.PathFinder;
 import com.daytrip.sunrise.hack.pathfinding.Point;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
+import com.daytrip.sunrise.hack.task.ActionCallable;
 import com.daytrip.sunrise.hack.task.Task;
-import com.daytrip.sunrise.util.math.ArrayGrid;
-import com.daytrip.sunrise.util.math.ArrayMath;
-import com.daytrip.sunrise.util.math.Interpolation;
-import com.daytrip.sunrise.util.math.Vec2;
+import com.daytrip.sunrise.util.math.*;
 import com.daytrip.sunrise.util.minecraft.ExtendedReach;
 import com.daytrip.sunrise.util.timer.TickTimer;
 import com.daytrip.sunrise.util.timer.TimerManager;
@@ -31,11 +29,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.MouseHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.input.Keyboard;
+import org.omg.IOP.TAG_INTERNET_IOP;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 public class BotAutoFighter extends Hack {
     // Dangerous blocks to avoid while navigating
@@ -115,12 +116,14 @@ public class BotAutoFighter extends Hack {
                 .executeIf(() -> true)
                 .onInit(() -> {
                     distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
+
                     yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
                     pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), target.getPositionVector(), (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
                 })
                 .onTick(() -> {
-                    Vec3 vec3 = target.getPositionVector();
                     distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
+
+                    Vec3 vec3 = target.getPositionVector();
                     yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
                     pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
                 })
@@ -144,8 +147,8 @@ public class BotAutoFighter extends Hack {
                                 cameraInterpolationTimer.update();
 
                                 float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
-                                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(Interpolation.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(yaw), progress));
-                                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(Interpolation.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(pitch), progress));
+                                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(yaw), progress));
+                                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(pitch), progress));
                             } else {
                                 minecraft.thePlayer.rotationYaw = yaw;
                                 minecraft.thePlayer.rotationPitch = pitch;
@@ -163,26 +166,21 @@ public class BotAutoFighter extends Hack {
 
         taskManager.registerTask(1, new Task()
                 .withName("PVP Module: Sword")
-                .executeIf(() -> canSword && distanceToTarget < 6)
-                .whenCannotExecute(() -> isRodding = true)
-                .callEvery(() -> 2, () -> {
-                    isRodding = false;
+                .executeIf(() -> canSword && distanceToTarget < 6 && Math.atan2(Math.sin(yaw - minecraft.thePlayer.rotationYaw), Math.cos(yaw - minecraft.thePlayer.rotationYaw)) < 25)
+                .callEvery(() -> 1, () -> {
                     rodTimer.reset();
 
-                    minecraft.thePlayer.inventory.currentItem = inventorySwordSlot;
-                    minecraft.playerController.syncCurrentPlayItem();
-
-                    if(!minecraft.thePlayer.isSprinting() && canMove) {
-                        minecraft.thePlayer.setSprinting(true);
+                    if(canMove) {
+                        HackAPI.startSprinting();
                     }
 
-                    float yawDist = (float) Math.atan2(Math.sin(yaw - minecraft.thePlayer.rotationYaw), Math.cos(yaw - minecraft.thePlayer.rotationYaw));
-                    System.out.println(yawDist);
-                    if(yawDist < 15) {
+                    if(RandomMath.getRandomBoolean(0.3f)) { // Accounts for people randomly changing slots
+                        HackAPI.changeInventorySlotAndUpdate(inventorySwordSlot);
+                    }
+
+                    if(RandomMath.getRandomBoolean(0.7f)) { // About 14 cps
+                        HackAPI.changeInventorySlotAndUpdate(inventorySwordSlot);
                         HackAPI.leftClick(id);
-                        if(new Random().nextInt(100) > 50) {
-                            HackAPI.leftClick(id);
-                        }
                     }
                 })
         );
@@ -208,9 +206,9 @@ public class BotAutoFighter extends Hack {
                 .withName("PVP Module: Strafe Target")
                 .executeIf(() -> settingManager.<SettingBoolean>getSetting("strafe").getValue() && distanceToTarget > 2.5 && distanceToTarget < 10)
                 .whenCannotExecute(() -> minecraft.thePlayer.movementInput.moveStrafe = 0)
-                .onInit(() -> targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15))
+                .onInit(() -> targetStrafeTicks = 10 + RandomMath.random.nextInt(15))
                 .callEvery(() -> targetStrafeTicks, () -> {
-                    targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
+                    targetStrafeTicks = 10 + RandomMath.random.nextInt(15);
                     if(strafe.equals("left")) {
                         strafe = "right";
                     } else {
@@ -229,7 +227,11 @@ public class BotAutoFighter extends Hack {
         taskManager.registerTask(3, new Task()
                 .withName("PVP Module: Rod Target")
                 .executeIf(() -> distanceToTarget > 6)
-                .onTick(() -> rodTimer.update())
+                .whenCannotExecute(() -> isRodding = false)
+                .onTick(() -> {
+                    isRodding = true;
+                    rodTimer.update();
+                })
         );
     }
 
@@ -293,9 +295,9 @@ public class BotAutoFighter extends Hack {
             }
         }
         if(event instanceof EventPlayerDamaged) {
-            System.out.println("Who was damaged?");
-            System.out.println("WHO!");
-            System.out.println(((EventPlayerDamaged) event).player.getName() + " was!");
+            System.out.println("Me: Who was damaged?");
+            System.out.println("Everyone else: WHO!");
+            System.out.println("Me: " + ((EventPlayerDamaged) event).player.getName() + " was!");
 
             if(((EventPlayerDamaged) event).damageSource instanceof EntityDamageSourceIndirect) {
                 EntityDamageSourceIndirect sourceIndirect = (EntityDamageSourceIndirect) ((EventPlayerDamaged) event).damageSource;
@@ -331,9 +333,83 @@ public class BotAutoFighter extends Hack {
         if(event instanceof EventTick && target != null && minecraft.inWorld()) {
             taskManager.tick();
 
+            /*HackAPI.stopSprinting();
+
+            int x2 = minecraft.thePlayer.getPosition().getX();
+            int z2 = minecraft.thePlayer.getPosition().getZ();
+            int x1 = target.getPosition().getX();
+            int z1 = target.getPosition().getZ();
+
+            float xx1 = (float) target.posX;
+            float zz1 = (float) target.posZ;
+
+            int xD = x2 - x1;
+            int zD = z2 - z1;
+
+            double distance = Math.sqrt(zD * zD + xD * xD);
+
+            if(distance > 4) {
+                int focusAxis = Math.abs(xD / zD);
+
+                minecraft.thePlayer.movementInput.moveForward = 1;
+                minecraft.thePlayer.movementInput.moveStrafe = 0;
+
+                if(focusAxis >= 1) {
+                    if(isSafe(x1, z1 + func1(z2 > z1) - func1(z1 > z2))) {
+                        //HackAPI.moveTo(x1, z1 + func1(z2 > z1) - func1(z1 > z2));
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1, target.posY, zz1 + func1(z2 > z1) - func1(z1 > z2)), 0);
+                    }
+                    else if(isSafe(x1 + func1(x2 > x1) - func1(x1 > x2), z1)) {
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1 + func1(x2 > x1) - func1(x1 > x2), target.posY, zz1), 0);
+                    }
+                    else if(isSafe(x1 - func1(x2 > x1) + func1(x1 > x2), z1)) {
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1 - func1(x2 > x1) + func1(x1 > x2), target.posY, zz1), 0);
+                    }
+                    else {
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1, target.posY, zz1 - func1(z2 > z1) + func1(z1 > z2)), 0);
+                    }
+                } else {
+                    if(isSafe(x1 + func1(x2 > x1) - func1(x1 > x2), z1)) {
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1 + func1(x2 > x1) - func1(x1 > x2), target.posY, zz1), 0);
+                    }
+                    else if(isSafe(x1, z1 + func1(z2 > z1) - func1(z1 > z2))) {
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1, target.posY, zz1 + func1(z2 > z1) - func1(z1 > z2)), 0);
+                    }
+                    else if(isSafe(x1, z1 - func1(z2 > z1) + func1(z1 > z2))) {
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1, target.posY, zz1 - func1(z2 > z1) + func1(z1 > z2)), 0);
+                    }
+                    else {
+                        minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1 - func1(x2 > x1) + func1(x1 > x2), target.posY, zz1), 0);
+                    }
+                }
+            }*/
+
             //navigation();
             //pathFinderNavigation();
         }
+    }
+
+
+    private int func1(boolean b) {
+        return b ? 1 : -1;
+    }
+
+    private boolean isSafe(int x, int z) {
+        List<Block> dB = Arrays.asList(DANGER_BLOCKS);
+        if(dB.contains(minecraft.theWorld.getBlockState(new BlockPos(x, minecraft.thePlayer.getPosition().getY(), z)).getBlock())) {
+            //System.out.println(false);
+            return false;
+        }
+        if(dB.contains(minecraft.theWorld.getBlockState(new BlockPos(x, minecraft.thePlayer.getPosition().getY() - 1, z)).getBlock())) {
+            //System.out.println(false);
+            return false;
+        }
+        if(dB.contains(minecraft.theWorld.getBlockState(new BlockPos(x, minecraft.thePlayer.getPosition().getY() - 2, z)).getBlock())) {
+            //System.out.println(false);
+            return false;
+        }
+        //System.out.println(true);
+        return true;
     }
 
     @Override
@@ -357,7 +433,7 @@ public class BotAutoFighter extends Hack {
     private void pickTarget(EntityLivingBase target) {
         this.target = target;
 
-        rodTimer = new TickTimer(() -> rod(15), 18, true);
+        rodTimer = new TickTimer(() -> rod(() -> 15), 18, true);
 
         cameraInterpolationTimer = TickTimer.createNoAction(5 - 1, true); // 5 - 1 because of > instead of >=
 
@@ -367,10 +443,10 @@ public class BotAutoFighter extends Hack {
     @Override
     protected void enable() {
         super.enable();
-        targetStrafeTicks = 10 + minecraft.theWorld.rand.nextInt(15);
+        targetStrafeTicks = 10 + RandomMath.random.nextInt(15);
     }
 
-    private void rod(int castTimeTicks) {
+    private void rod(Supplier<Integer> castTimeTicks) {
         canSword = false;
         HackAPI.changeInventorySlotAndUpdate(inventoryRodSlot);
         HackAPI.rightClick(id);
@@ -380,7 +456,7 @@ public class BotAutoFighter extends Hack {
             HackAPI.rightClick(id);
 
             canSword = true;
-        }, castTimeTicks, false));
+        }, castTimeTicks.get(), false));
     }
 
     private final Map<Vec2, int[][]> pathDataMap = new HashMap<>();

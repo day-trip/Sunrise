@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import com.daytrip.sunrise.gui.button.GuiIconButtonClose;
 import com.daytrip.sunrise.gui.button.GuiIconButtonSettings;
-import com.daytrip.sunrise.util.math.Interpolation;
+import com.daytrip.sunrise.util.math.InterpolationMath;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -90,7 +90,7 @@ public class GuiMainMenu extends GuiScreen {
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(775, 769, 1, 0);
         GlStateManager.enableAlpha();
-        drawModalRectWithCustomSizedTexture(width / 2 - 100, (int) Interpolation.linearInterpolate(0, height / 2f + 500f, startTicks / 30f), 0, 0, 200, 200, 200, 200);
+        drawModalRectWithCustomSizedTexture(width / 2 - 100, (int) InterpolationMath.linearInterpolate(0, height / 2f + 500f, startTicks / 30f), 0, 0, 200, 200, 200, 200);
         GlStateManager.disableAlpha();
         GlStateManager.disableBlend();
 

@@ -27,17 +27,17 @@ public class MathHelper
     /**
      * sin looked up in a table
      */
-    public static float sin(float p_76126_0_)
+    public static float sin(float a)
     {
-        return SIN_TABLE[(int)(p_76126_0_ * 10430.378F) & 65535];
+        return SIN_TABLE[(int)(a * 10430.378F) & 65535];
     }
 
     /**
      * cos looked up in the sin table with the appropriate offset
      */
-    public static float cos(float value)
+    public static float cos(float a)
     {
-        return SIN_TABLE[(int)(value * 10430.378F + 16384.0F) & 65535];
+        return SIN_TABLE[(int)(a * 10430.378F + 16384.0F) & 65535];
     }
 
     public static float sqrt_float(float value)

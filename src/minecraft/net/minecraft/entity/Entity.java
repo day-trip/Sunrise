@@ -281,7 +281,9 @@ public abstract class Entity implements ICommandSender
         entityInit();
     }
 
-    protected abstract void entityInit();
+    protected void entityInit() {
+
+    }
 
     public DataWatcher getDataWatcher()
     {
@@ -854,7 +856,7 @@ public abstract class Entity implements ICommandSender
                     d13 = 0.0D;
                 }
 
-                if (block1 != null && onGround)
+                if (onGround)
                 {
                     block1.onEntityCollidedWithBlock(worldObj, blockpos, this);
                 }
@@ -898,7 +900,7 @@ public abstract class Entity implements ICommandSender
 
             if (worldObj.isFlammableWithin(getEntityBoundingBox().contract(0.001D, 0.001D, 0.001D)))
             {
-                dealFireDamage(1);
+                dealFireDamage();
 
                 if (!flag2)
                 {
@@ -1057,11 +1059,11 @@ public abstract class Entity implements ICommandSender
      * Will deal the specified amount of damage to the entity if the entity isn't immune to fire damage. Args:
      * amountDamage
      */
-    protected void dealFireDamage(int amount)
+    protected void dealFireDamage()
     {
         if (!isImmuneToFire)
         {
-            attackEntityFrom(DamageSource.inFire, (float)amount);
+            attackEntityFrom(DamageSource.inFire, 1f);
         }
     }
 
@@ -1193,8 +1195,7 @@ public abstract class Entity implements ICommandSender
         {
             float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
             float f1 = (float)(blockpos.getY() + 1) - f;
-            boolean flag = d0 < (double)f1;
-            return (flag || !(this instanceof EntityPlayer)) && flag;
+            return d0 < (double)f1;
         }
         else
         {
@@ -1519,14 +1520,14 @@ public abstract class Entity implements ICommandSender
         double d1 = posY - y;
         double d2 = posZ - z;
         double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-        return isInRangeToRenderDist(d3);
+        return isInRangeToRender(d3);
     }
 
     /**
      * Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
      * length * 64 * renderDistanceWeight Args: distance
      */
-    public boolean isInRangeToRenderDist(double distance)
+    public boolean isInRangeToRender(double distance)
     {
         double d0 = getEntityBoundingBox().getAverageEdgeLength();
 
@@ -1816,19 +1817,19 @@ public abstract class Entity implements ICommandSender
         }
         else
         {
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+            BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i)
             {
-                int j = MathHelper.floor_double(posY + (double)(((float)((i >> 0) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
+                int j = MathHelper.floor_double(posY + (double)(((float)((i) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
                 int k = MathHelper.floor_double(posX + (double)(((float)((i >> 1) % 2) - 0.5F) * width * 0.8F));
                 int l = MathHelper.floor_double(posZ + (double)(((float)((i >> 2) % 2) - 0.5F) * width * 0.8F));
 
-                if (blockpos$mutableblockpos.getX() != k || blockpos$mutableblockpos.getY() != j || blockpos$mutableblockpos.getZ() != l)
+                if (mutableBlockPos.getX() != k || mutableBlockPos.getY() != j || mutableBlockPos.getZ() != l)
                 {
-                    blockpos$mutableblockpos.func_181079_c(k, j, l);
+                    mutableBlockPos.func_181079_c(k, j, l);
 
-                    if (worldObj.getBlockState(blockpos$mutableblockpos).getBlock().isVisuallyOpaque())
+                    if (worldObj.getBlockState(mutableBlockPos).getBlock().isVisuallyOpaque())
                     {
                         return true;
                     }
@@ -1876,10 +1877,6 @@ public abstract class Entity implements ICommandSender
             {
                 ridingEntity.updateRiderPosition();
                 entityRiderYawDelta += ridingEntity.rotationYaw - ridingEntity.prevRotationYaw;
-
-                for (entityRiderPitchDelta += ridingEntity.rotationPitch - ridingEntity.prevRotationPitch; entityRiderYawDelta >= 180.0D; entityRiderYawDelta -= 360.0D)
-                {
-                }
 
                 while (entityRiderYawDelta < -180.0D)
                 {
@@ -1975,14 +1972,11 @@ public abstract class Entity implements ICommandSender
                 ridingEntity.riddenByEntity = null;
             }
 
-            if (entityIn != null)
+            for (Entity entity = entityIn.ridingEntity; entity != null; entity = entity.ridingEntity)
             {
-                for (Entity entity = entityIn.ridingEntity; entity != null; entity = entity.ridingEntity)
+                if (entity == this)
                 {
-                    if (entity == this)
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
 
@@ -2275,7 +2269,6 @@ public abstract class Entity implements ICommandSender
 
             if (!worldObj.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
             {
-                d3 = 1.0D - d2;
                 i = 5;
             }
 
@@ -2762,9 +2755,5 @@ public abstract class Entity implements ICommandSender
 
     public Vec3 getMotionVector() {
         return new Vec3(motionX, motionY, motionZ);
-    }
-
-    public Vec3 getPosVec() {
-        return new Vec3(posX, posY, posZ);
     }
 }

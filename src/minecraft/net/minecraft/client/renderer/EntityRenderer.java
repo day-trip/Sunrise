@@ -93,21 +93,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
     /** Third person distance temp */
     private float thirdPersonDistanceTemp = 4.0F;
 
-    /** Smooth cam yaw */
-    private float smoothCamYaw;
-
-    /** Smooth cam pitch */
-    private float smoothCamPitch;
-
-    /** Smooth cam filter X */
-    private float smoothCamFilterX;
-
-    /** Smooth cam filter Y */
-    private float smoothCamFilterY;
-
-    /** Smooth cam partial ticks */
-    private float smoothCamPartialTicks;
-
     /** FOV modifier hand */
     private float fovModifierHand;
 
@@ -325,16 +310,9 @@ public class EntityRenderer implements IResourceManagerReloadListener
         {
             float f = mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float f1 = f * f * f * 8.0F;
-            smoothCamFilterX = mouseFilterXAxis.smooth(smoothCamYaw, 0.05F * f1);
-            smoothCamFilterY = mouseFilterYAxis.smooth(smoothCamPitch, 0.05F * f1);
-            smoothCamPartialTicks = 0.0F;
-            smoothCamYaw = 0.0F;
-            smoothCamPitch = 0.0F;
         }
         else
         {
-            smoothCamFilterX = 0.0F;
-            smoothCamFilterY = 0.0F;
             mouseFilterXAxis.reset();
             mouseFilterYAxis.reset();
         }
@@ -701,9 +679,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
         }
 
         GlStateManager.translate(0.0F, -f, 0.0F);
-        d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * (double)partialTicks;
-        d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * (double)partialTicks + (double)f;
-        d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double)partialTicks;
         cloudFog = mc.renderGlobal.hasCloudFog();
     }
 
@@ -720,13 +695,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
         if (mc.gameSettings.anaglyph)
         {
             GlStateManager.translate((float)(-(pass * 2 - 1)) * f, 0.0F, 0.0F);
-        }
-
-        double cameraZoom = 1.0D;
-        if (cameraZoom != 1.0D)
-        {
-            GlStateManager.translate((float) cameraYaw, (float)(-cameraPitch), 0.0F);
-            GlStateManager.scale(cameraZoom, cameraZoom, 1.0D);
         }
 
         Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * MathHelper.SQRT_2);
@@ -881,7 +849,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
     {
         torchFlickerDX = (float)((double) torchFlickerDX + (Math.random() - Math.random()) * Math.random() * Math.random());
         torchFlickerDX = (float)((double) torchFlickerDX * 0.9D);
-        torchFlickerX += (torchFlickerDX - torchFlickerX) * 1.0F;
+        torchFlickerX += (torchFlickerDX - torchFlickerX);
         lightmapUpdateNeeded = true;
     }
 
@@ -1077,20 +1045,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
             eventProcessMouse.post();
 
             if(!eventProcessMouse.isCancelled()) {
-                if (mc.gameSettings.smoothCamera)
-                {
-                    smoothCamYaw += dX;
-                    smoothCamPitch += dY;
-                    float f4 = p_181560_1_ - smoothCamPartialTicks;
-                    smoothCamPartialTicks = p_181560_1_;
-                    dX = smoothCamFilterX * f4;
-                    dY = smoothCamFilterY * f4;
-                }
-                else
-                {
-                    smoothCamYaw = 0.0F;
-                    smoothCamPitch = 0.0F;
-                }
                 mc.thePlayer.setAngles(eventProcessMouse.getdX(), eventProcessMouse.getdY() * (float)eventProcessMouse.getInvert());
             }
         }
@@ -1164,8 +1118,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
                     CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
                     CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
                     crashreportcategory.addCrashSectionCallable("Screen name", () -> mc.currentScreen.getClass().getCanonicalName());
-                    crashreportcategory.addCrashSectionCallable("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", Integer.valueOf(k1), Integer.valueOf(l1), Integer.valueOf(Mouse.getX()), Integer.valueOf(Mouse.getY())));
-                    crashreportcategory.addCrashSectionCallable("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", Integer.valueOf(scaledresolution.getScaledWidth()), Integer.valueOf(scaledresolution.getScaledHeight()), Integer.valueOf(mc.displayWidth), Integer.valueOf(mc.displayHeight), Integer.valueOf(scaledresolution.getScaleFactor())));
+                    crashreportcategory.addCrashSectionCallable("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
+                    crashreportcategory.addCrashSectionCallable("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), mc.displayWidth, mc.displayHeight, scaledresolution.getScaleFactor()));
                     throw new ReportedException(crashreport);
                 }
             }
@@ -1180,7 +1134,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
     private boolean isDrawBlockOutline()
     {
-        boolean drawBlockOutline = true;
         Entity entity = mc.getRenderViewEntity();
         boolean flag = entity instanceof EntityPlayer && !mc.gameSettings.hideGUI;
 
@@ -1425,12 +1378,9 @@ public class EntityRenderer implements IResourceManagerReloadListener
         mc.mcProfiler.endStartSection("hand");
 
         boolean renderHand = true;
-        if (renderHand)
-        {
-            GlStateManager.clear(256);
-            renderHand(partialTicks, pass);
-            renderWorldDirections(partialTicks);
-        }
+        GlStateManager.clear(256);
+        renderHand(partialTicks, pass);
+        renderWorldDirections(partialTicks);
     }
 
     private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass)
@@ -1599,16 +1549,11 @@ public class EntityRenderer implements IResourceManagerReloadListener
                             l2 = j2;
                         }
 
-                        int i3 = j2;
-
-                        if (j2 < l)
-                        {
-                            i3 = l;
-                        }
+                        int i3 = Math.max(j2, l);
 
                         if (k2 != l2)
                         {
-                            random.setSeed(l1 * l1 * 3121 + l1 * 45238971 ^ k1 * k1 * 418711 + k1 * 13761);
+                            random.setSeed((long) l1 * l1 * 3121 + l1 * 45238971L ^ (long) k1 * k1 * 418711 + k1 * 13761L);
                             blockpos$mutableblockpos.func_181079_c(l1, k2, k1);
                             float f2 = biomegenbase.getFloatTemperature(blockpos$mutableblockpos);
 

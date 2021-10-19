@@ -6,6 +6,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * For doing asynchronous math (mostly used by hacks)
+ */
 public class AsyncHackMath {
     private final ExecutorService yawExecutor = Executors.newSingleThreadExecutor();
     private final ExecutorService pitchExecutor = Executors.newSingleThreadExecutor();

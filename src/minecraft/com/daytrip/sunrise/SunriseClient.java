@@ -15,10 +15,13 @@ import com.daytrip.sunrise.hack.impl.*;
 import com.daytrip.sunrise.hack.impl.bot.BotAutoFighter;
 import com.daytrip.sunrise.hack.impl.bot.BotAutoMiner;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.main.Main;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import org.lwjgl.input.Keyboard;
+
+import java.util.Arrays;
 
 public class SunriseClient implements EventListener {
     @Override
@@ -63,7 +66,15 @@ public class SunriseClient implements EventListener {
         HackManager.addHack(new HackBridger());
     }
 
-    public static void main(String[] args) {
-        System.out.println(Math.sqrt((5-10)*(5-10)));
+    public static void main(String[] args)
+    {
+        Main.main(concat(new String[] {"--version", "mcp", "--accessToken", "0", "--assetsDir", "assets", "--assetIndex", "1.8", "--userProperties", "{}"}, args));
+    }
+
+    public static <T> T[] concat(T[] first, T[] second)
+    {
+        T[] result = Arrays.copyOf(first, first.length + second.length);
+        System.arraycopy(second, 0, result, first.length, second.length);
+        return result;
     }
 }

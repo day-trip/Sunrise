@@ -97,22 +97,14 @@ public class EntityFishHook extends Entity
         posY -= 0.10000000149011612D;
         posZ -= MathHelper.sin(rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
         setPosition(posX, posY, posZ);
-        float f = 0.4F;
-        motionX = -MathHelper.sin(rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * f;
-        motionZ = MathHelper.cos(rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * f;
-        motionY = -MathHelper.sin(rotationPitch / 180.0F * (float)Math.PI) * f;
-        handleHookCasting(motionX, motionY, motionZ, 1.5F, 1.0F);
-    }
-
-    protected void entityInit()
-    {
+        castHook();
     }
 
     /**
      * Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
      * length * 64 * renderDistanceWeight Args: distance
      */
-    public boolean isInRangeToRenderDist(double distance)
+    public boolean isInRangeToRender(double distance)
     {
         double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
 
@@ -125,24 +117,45 @@ public class EntityFishHook extends Entity
         return distance < d0 * d0;
     }
 
-    public void handleHookCasting(double p_146035_1_, double p_146035_3_, double p_146035_5_, float p_146035_7_, float p_146035_8_)
+    public void castHook()
     {
-        float f = MathHelper.sqrt_double(p_146035_1_ * p_146035_1_ + p_146035_3_ * p_146035_3_ + p_146035_5_ * p_146035_5_);
-        p_146035_1_ = p_146035_1_ / (double)f;
-        p_146035_3_ = p_146035_3_ / (double)f;
-        p_146035_5_ = p_146035_5_ / (double)f;
-        p_146035_1_ = p_146035_1_ + rand.nextGaussian() * 0.007499999832361937D * (double)p_146035_8_;
-        p_146035_3_ = p_146035_3_ + rand.nextGaussian() * 0.007499999832361937D * (double)p_146035_8_;
-        p_146035_5_ = p_146035_5_ + rand.nextGaussian() * 0.007499999832361937D * (double)p_146035_8_;
-        p_146035_1_ = p_146035_1_ * (double)p_146035_7_;
-        p_146035_3_ = p_146035_3_ * (double)p_146035_7_;
-        p_146035_5_ = p_146035_5_ * (double)p_146035_7_;
-        motionX = p_146035_1_;
-        motionY = p_146035_3_;
-        motionZ = p_146035_5_;
-        float f1 = MathHelper.sqrt_double(p_146035_1_ * p_146035_1_ + p_146035_5_ * p_146035_5_);
-        prevRotationYaw = rotationYaw = (float)(MathHelper.func_181159_b(p_146035_1_, p_146035_5_) * 180.0D / Math.PI);
-        prevRotationPitch = rotationPitch = (float)(MathHelper.func_181159_b(p_146035_3_, f1) * 180.0D / Math.PI);
+        float a = rotationYaw / 180.0F * (float)Math.PI;
+
+        motionX = -MathHelper.sin(a) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * 0.4F;
+        motionZ = MathHelper.cos(a) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * 0.4F;
+        motionY = -MathHelper.sin(a) * 0.4F;
+
+        // Creates new motion values so the main ones aren't ruined
+        double motX = motionX;
+        double motY = motionY;
+        double motZ = motionZ;
+
+        // Gets length of motion values
+        double motionLength = MathHelper.sqrt_double(motX * motX + motY * motY + motZ * motZ);
+        // Divides all motion values by the length
+        motX /= motionLength;
+        motY /= motionLength;
+        motZ /= motionLength;
+        // Randomizes all motion values slightly (this can be predicted)
+        motX += rand.nextGaussian() * 0.007499999832361937D;
+        motY += rand.nextGaussian() * 0.007499999832361937D;
+        motZ += rand.nextGaussian() * 0.007499999832361937D;
+        // Increases the amount of motion
+        motX *= 1.5f;
+        motY *= 1.5f;
+        motZ *= 1.5f;
+        // Applies these motion values to the main ones
+        motionX = motX;
+        motionY = motY;
+        motionZ = motZ;
+
+        // Gets the length of just the motion x and motion z
+        float motionXZLength = MathHelper.sqrt_double(motX * motX + motZ * motZ);
+        // Sets the rotation yaw and pitch
+        prevRotationYaw = rotationYaw = (float)(MathHelper.func_181159_b(motX, motZ) * 180.0F / Math.PI); // TODO: What does that function even do?
+        prevRotationPitch = rotationPitch = (float)(MathHelper.func_181159_b(motY, motionXZLength) * 180.0F / Math.PI); // TODO: What does that function even do?
+
+        // Sets not in ground (because the rod was just launched; it can't be in the ground)
         ticksInGround = 0;
     }
 

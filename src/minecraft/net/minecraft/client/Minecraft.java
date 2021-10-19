@@ -11,7 +11,7 @@ import com.daytrip.sunrise.event.impl.input.EventKeypress;
 import com.daytrip.sunrise.gui.LoadingManager;
 import com.daytrip.sunrise.SunriseClient;
 import com.daytrip.sunrise.event.impl.*;
-import com.daytrip.sunrise.util.math.Interpolation;
+import com.daytrip.sunrise.util.math.InterpolationMath;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -403,27 +403,36 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
     @Override
     public void onEvent(Event event) throws Exception {
         if(event instanceof EventGamePreInit) {
-            //preInit();
+            preInit((EventGamePreInit) event);
         }
         if(event instanceof EventGameInit) {
-            //init();
+            init((EventGameInit) event);
         }
         if(event instanceof EventGamePostInit) {
-            //postInit();
+            postInit((EventGamePostInit) event);
         }
         if(event instanceof EventClickMouse) {
-            if(((EventClickMouse) event).getButton() == 0) {
-                clickMouse();
-            }
-            if(((EventClickMouse) event).getButton() == 1) {
-                rightClickMouse();
-            }
-            if(((EventClickMouse) event).getButton() == 2) {
-                middleClickMouse();
-            }
+            clickMouseEvent((EventClickMouse) event);
         }
         if(event instanceof EventKeypress) {
-            keyPress(((EventKeypress) event).getKey());
+            keyPress((EventKeypress) event);
+        }
+    }
+
+    @EventHandler
+    private void clickMouseEvent(EventClickMouse eventClickMouse) {
+        try {
+            if(eventClickMouse.getButton() == 0) {
+                clickMouse();
+            }
+            else if(eventClickMouse.getButton() == 1) {
+                rightClickMouse();
+            }
+            else if(eventClickMouse.getButton() == 2) {
+                middleClickMouse();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -997,7 +1006,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
             int height = 13;
             int xPos = k / 2 - width / 2;
             int yPos = l - l / 6;
-            float scaledProgress = Interpolation.linearInterpolate(0, width, progress);
+            float scaledProgress = InterpolationMath.linearInterpolate(0, width, progress);
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
             worldrenderer.pos(xPos, yPos, 0.0D).color(128, 128, 128, 255).endVertex();
@@ -1805,7 +1814,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         return mcMusicTicker;
     }
 
-    private void keyPress(int k) throws Exception {
+    @EventHandler
+    private void keyPress(EventKeypress eventKeypress) throws Exception {
+        int k = eventKeypress.getKey();
+
         dispatchKeypresses();
 
         if (Keyboard.getEventKeyState())
@@ -3297,7 +3309,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
 
 
     /*
-    Custom code from PVPer client
+        (C) Sunrise Client & MCP & Mojang AB 2021. DO NOT DISTRIBUTE!
      */
 
     public boolean inWorld() {

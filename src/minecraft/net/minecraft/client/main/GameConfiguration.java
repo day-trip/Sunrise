@@ -15,11 +15,11 @@ public class GameConfiguration
 
     public GameConfiguration(GameConfiguration.UserInformation userInfoIn, GameConfiguration.DisplayInformation displayInfoIn, GameConfiguration.FolderInformation folderInfoIn, GameConfiguration.GameInformation gameInfoIn, GameConfiguration.ServerInformation serverInfoIn)
     {
-        this.userInfo = userInfoIn;
-        this.displayInfo = displayInfoIn;
-        this.folderInfo = folderInfoIn;
-        this.gameInfo = gameInfoIn;
-        this.serverInfo = serverInfoIn;
+        userInfo = userInfoIn;
+        displayInfo = displayInfoIn;
+        folderInfo = folderInfoIn;
+        gameInfo = gameInfoIn;
+        serverInfo = serverInfoIn;
     }
 
     public static class DisplayInformation
@@ -31,10 +31,10 @@ public class GameConfiguration
 
         public DisplayInformation(int widthIn, int heightIn, boolean fullscreenIn, boolean checkGlErrorsIn)
         {
-            this.width = widthIn;
-            this.height = heightIn;
-            this.fullscreen = fullscreenIn;
-            this.checkGlErrors = checkGlErrorsIn;
+            width = widthIn;
+            height = heightIn;
+            fullscreen = fullscreenIn;
+            checkGlErrors = checkGlErrorsIn;
         }
     }
 
@@ -47,10 +47,10 @@ public class GameConfiguration
 
         public FolderInformation(File mcDataDirIn, File resourcePacksDirIn, File assetsDirIn, String assetIndexIn)
         {
-            this.mcDataDir = mcDataDirIn;
-            this.resourcePacksDir = resourcePacksDirIn;
-            this.assetsDir = assetsDirIn;
-            this.assetIndex = assetIndexIn;
+            mcDataDir = mcDataDirIn;
+            resourcePacksDir = resourcePacksDirIn;
+            assetsDir = assetsDirIn;
+            assetIndex = assetIndexIn;
         }
     }
 
@@ -60,7 +60,7 @@ public class GameConfiguration
 
         public GameInformation(String versionIn)
         {
-            this.version = versionIn;
+            version = versionIn;
         }
     }
 
@@ -71,8 +71,8 @@ public class GameConfiguration
 
         public ServerInformation(String serverNameIn, int serverPortIn)
         {
-            this.serverName = serverNameIn;
-            this.serverPort = serverPortIn;
+            serverName = serverNameIn;
+            serverPort = serverPortIn;
         }
     }
 
@@ -85,10 +85,10 @@ public class GameConfiguration
 
         public UserInformation(Session p_i46375_1_, PropertyMap p_i46375_2_, PropertyMap p_i46375_3_, Proxy p_i46375_4_)
         {
-            this.session = p_i46375_1_;
-            this.userProperties = p_i46375_2_;
-            this.field_181172_c = p_i46375_3_;
-            this.proxy = p_i46375_4_;
+            session = p_i46375_1_;
+            userProperties = p_i46375_2_;
+            field_181172_c = p_i46375_3_;
+            proxy = p_i46375_4_;
         }
     }
 }

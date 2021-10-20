@@ -37,7 +37,12 @@ public class Hack implements EventListener {
         registerAll();
     }
 
+    protected void init() {
+
+    }
+
     private void registerAll() {
+        init();
         registerSettings();
         registerTasks();
     }

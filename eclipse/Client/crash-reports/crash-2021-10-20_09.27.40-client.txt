@@ -1,0 +1,64 @@
+---- Minecraft Crash Report ----
+// You should try our sister game, Minceraft!
+
+Time: 10/20/21 9:27 AM
+Description: Initializing game
+
+java.lang.NullPointerException: Initializing game
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.registerTasks(BotAutoFighter.java:212)
+	at com.daytrip.sunrise.hack.Hack.registerAll(Hack.java:42)
+	at com.daytrip.sunrise.hack.Hack.<init>(Hack.java:37)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.<init>(BotAutoFighter.java:85)
+	at com.daytrip.sunrise.SunriseClient.registerHacks(SunriseClient.java:56)
+	at com.daytrip.sunrise.SunriseClient.onEvent(SunriseClient.java:37)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:69)
+	at com.daytrip.sunrise.event.Event.post(Event.java:16)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:332)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at com.daytrip.sunrise.SunriseClient.main(SunriseClient.java:71)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.registerTasks(BotAutoFighter.java:212)
+	at com.daytrip.sunrise.hack.Hack.registerAll(Hack.java:42)
+	at com.daytrip.sunrise.hack.Hack.<init>(Hack.java:37)
+	at com.daytrip.sunrise.hack.impl.bot.BotAutoFighter.<init>(BotAutoFighter.java:85)
+	at com.daytrip.sunrise.SunriseClient.registerHacks(SunriseClient.java:56)
+	at com.daytrip.sunrise.SunriseClient.onEvent(SunriseClient.java:37)
+	at com.daytrip.sunrise.event.EventBus.post(EventBus.java:69)
+	at com.daytrip.sunrise.event.Event.post(Event.java:16)
+
+-- Initialization --
+Details:
+Stacktrace:
+	at net.minecraft.client.Minecraft.run(Minecraft.java:332)
+	at net.minecraft.client.main.Main.main(Main.java:109)
+	at com.daytrip.sunrise.SunriseClient.main(SunriseClient.java:71)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.8
+	Operating System: Windows 8.1 (amd64) version 6.3
+	Java Version: 1.8.0_282, AdoptOpenJDK
+	Java VM Version: Eclipse OpenJ9 VM (JRE 1.8.0 Windows 8.1 amd64-64-Bit Compressed References 20210120_972 (JIT enabled, AOT enabled)
+OpenJ9   - 345e1b09e
+OMR      - 741e94ea8
+JCL      - ab07c6a8fd based on jdk8u282-b08), Eclipse OpenJ9
+	Memory: 10058032 bytes (9 MB) / 58130432 bytes (55 MB) up to 17160339456 bytes (16365 MB)
+	JVM Flags: 3 total; -Xoptionsfile=C:\Users\Jai Giri\.jdks\adopt-openj9-1.8.0_282\jre\bin\compressedrefs\options.default -Xlockword:mode=default,noLockword=java/lang/String,noLockword=java/util/MapEntry,noLockword=java/util/HashMap$Entry,noLockword=org/apache/harmony/luni/util/ModifiedMap$Entry,noLockword=java/util/Hashtable$Entry,noLockword=java/lang/invoke/MethodType,noLockword=java/lang/invoke/MethodHandle,noLockword=java/lang/invoke/CollectHandle,noLockword=java/lang/invoke/ConstructorHandle,noLockword=java/lang/invoke/ConvertHandle,noLockword=java/lang/invoke/ArgumentConversionHandle,noLockword=java/lang/invoke/AsTypeHandle,noLockword=java/lang/invoke/ExplicitCastHandle,noLockword=java/lang/invoke/FilterReturnHandle,noLockword=java/lang/invoke/DirectHandle,noLockword=java/lang/invoke/ReceiverBoundHandle,noLockword=java/lang/invoke/DynamicInvokerHandle,noLockword=java/lang/invoke/FieldHandle,noLockword=java/lang/invoke/FieldGetterHandle,noLockword=java/lang/invoke/FieldSetterHandle,noLockword=java/lang/invoke/StaticFieldGetterHandle,noLockword=java/lang/invoke/StaticFieldSetterHandle,noLockword=java/lang/invoke/IndirectHandle,noLockword=java/lang/invoke/InterfaceHandle,noLockword=java/lang/invoke/VirtualHandle,noLockword=java/lang/invoke/PrimitiveHandle,noLockword=java/lang/invoke/InvokeExactHandle,noLockword=java/lang/invoke/InvokeGenericHandle,noLockword=java/lang/invoke/VarargsCollectorHandle,noLockword=java/lang/invoke/ThunkTuple -Xjcl:jclse29
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	GL Caps: 
+	Using VBOs: ~~ERROR~~ NullPointerException: null
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: ~~ERROR~~ NullPointerException: null
+	Current Language: ~~ERROR~~ NullPointerException: null
+	Profiler Position: N/A (disabled)
+	CPU: <unknown>

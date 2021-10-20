@@ -26,7 +26,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class SkinManager
 {
-    private static final ExecutorService THREAD_POOL = new ThreadPoolExecutor(0, 2, 1L, TimeUnit.MINUTES, new LinkedBlockingQueue());
+    private static final ExecutorService THREAD_POOL = new ThreadPoolExecutor(0, 2, 1L, TimeUnit.MINUTES, new LinkedBlockingQueue<>());
     private final TextureManager textureManager;
     private final File skinCacheDir;
     private final MinecraftSessionService sessionService;

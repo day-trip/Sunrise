@@ -150,7 +150,7 @@ public abstract class EntityAITarget extends EntityAIBase
         {
             return false;
         }
-        else if (!attacker.canAttackClass(target.getClass()))
+        else if (attacker.cannotAttackClass(target.getClass()))
         {
             return false;
         }

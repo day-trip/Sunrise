@@ -1345,18 +1345,18 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     public void handleCombatEvent(S42PacketCombatEvent packetIn)
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, gameController);
-        Entity entity = clientWorldController.getEntityByID(packetIn.field_179775_c);
+        Entity entity = clientWorldController.getEntityByID(packetIn.targetEntityID);
         EntityLivingBase entitylivingbase = entity instanceof EntityLivingBase ? (EntityLivingBase)entity : null;
 
         if (packetIn.eventType == S42PacketCombatEvent.Event.END_COMBAT)
         {
-            long i = 1000L * packetIn.field_179772_d / 20;
+            long i = 1000L * packetIn.ticksExisted / 20;
             MetadataCombat metadatacombat = new MetadataCombat(gameController.thePlayer, entitylivingbase);
             gameController.getTwitchStream().func_176026_a(metadatacombat, -i, 0L);
         }
         else if (packetIn.eventType == S42PacketCombatEvent.Event.ENTITY_DIED)
         {
-            Entity entity1 = clientWorldController.getEntityByID(packetIn.field_179774_b);
+            Entity entity1 = clientWorldController.getEntityByID(packetIn.attackerEntityID);
 
             if (entity1 instanceof EntityPlayer)
             {

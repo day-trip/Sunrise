@@ -148,9 +148,9 @@ public class EntityIronGolem extends EntityGolem
     /**
      * Returns true if this entity can attack entities of the specified class.
      */
-    public boolean canAttackClass(Class <? extends EntityLivingBase > cls)
+    public boolean cannotAttackClass(Class <? extends EntityLivingBase > cls)
     {
-        return (!isPlayerCreated() || !EntityPlayer.class.isAssignableFrom(cls)) && (cls != EntityCreeper.class && super.canAttackClass(cls));
+        return (isPlayerCreated() && EntityPlayer.class.isAssignableFrom(cls)) || (cls == EntityCreeper.class || super.cannotAttackClass(cls));
     }
 
     /**

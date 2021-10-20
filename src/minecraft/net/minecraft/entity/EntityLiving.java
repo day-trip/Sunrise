@@ -155,9 +155,9 @@ public abstract class EntityLiving extends EntityLivingBase
     /**
      * Returns true if this entity can attack entities of the specified class.
      */
-    public boolean canAttackClass(Class <? extends EntityLivingBase > cls)
+    public boolean cannotAttackClass(Class <? extends EntityLivingBase > cls)
     {
-        return cls != EntityGhast.class;
+        return cls == EntityGhast.class;
     }
 
     /**
@@ -171,7 +171,7 @@ public abstract class EntityLiving extends EntityLivingBase
     protected void entityInit()
     {
         super.entityInit();
-        dataWatcher.addObject(15, Byte.valueOf((byte)0));
+        dataWatcher.addObject(15, (byte) 0);
     }
 
     /**
@@ -337,13 +337,11 @@ public abstract class EntityLiving extends EntityLivingBase
         tagCompound.setBoolean("PersistenceRequired", persistenceRequired);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < equipment.length; ++i)
-        {
+        for (ItemStack itemStack : equipment) {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            if (equipment[i] != null)
-            {
-                equipment[i].writeToNBT(nbttagcompound);
+            if (itemStack != null) {
+                itemStack.writeToNBT(nbttagcompound);
             }
 
             nbttaglist.appendTag(nbttagcompound);
@@ -352,9 +350,8 @@ public abstract class EntityLiving extends EntityLivingBase
         tagCompound.setTag("Equipment", nbttaglist);
         NBTTagList nbttaglist1 = new NBTTagList();
 
-        for (int j = 0; j < equipmentDropChances.length; ++j)
-        {
-            nbttaglist1.appendTag(new NBTTagFloat(equipmentDropChances[j]));
+        for (float equipmentDropChance : equipmentDropChances) {
+            nbttaglist1.appendTag(new NBTTagFloat(equipmentDropChance));
         }
 
         tagCompound.setTag("DropChances", nbttaglist1);
@@ -489,7 +486,7 @@ public abstract class EntityLiving extends EntityLivingBase
                     {
                         flag = true;
                     }
-                    else if (itemstack.getItem() instanceof ItemSword && itemstack1.getItem() instanceof ItemSword)
+                    else if (itemstack.getItem() instanceof ItemSword)
                     {
                         ItemSword itemsword = (ItemSword)itemstack.getItem();
                         ItemSword itemsword1 = (ItemSword)itemstack1.getItem();
@@ -516,7 +513,7 @@ public abstract class EntityLiving extends EntityLivingBase
                 {
                     flag = true;
                 }
-                else if (itemstack.getItem() instanceof ItemArmor && itemstack1.getItem() instanceof ItemArmor)
+                else if (itemstack.getItem() instanceof ItemArmor)
                 {
                     ItemArmor itemarmor = (ItemArmor)itemstack.getItem();
                     ItemArmor itemarmor1 = (ItemArmor)itemstack1.getItem();
@@ -649,7 +646,7 @@ public abstract class EntityLiving extends EntityLivingBase
     }
 
     /**
-     * The speed it takes to move the entityliving's rotationPitch through the faceEntity method. This is only currently
+     * The speed it takes to move the EntityLiving's rotationPitch through the faceEntity method. This is only currently
      * use in wolves.
      */
     public int getVerticalFaceSpeed()

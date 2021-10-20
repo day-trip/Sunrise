@@ -10,13 +10,13 @@ bobView:false
 anaglyph3d:false
 maxFps:260
 fboEnable:true
-difficulty:2
+difficulty:1
 fancyGraphics:false
 ao:0
 renderClouds:false
 resourcePacks:[]
 incompatibleResourcePacks:[]
-lastServer:minemen.club
+lastServer:pvp.land
 lang:en_US
 chatVisibility:0
 chatColors:true

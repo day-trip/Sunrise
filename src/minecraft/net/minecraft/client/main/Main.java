@@ -25,16 +25,16 @@ public class Main
         optionparser.allowsUnrecognizedOptions();
         optionparser.accepts("fullscreen");
         optionparser.accepts("checkGlErrors");
-        OptionSpec<String> optionspec = optionparser.accepts("server").withRequiredArg();
-        OptionSpec<Integer> optionspec1 = optionparser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(25565);
-        OptionSpec<File> optionspec2 = optionparser.accepts("gameDir").withRequiredArg().ofType(File.class).defaultsTo(new File("."));
-        OptionSpec<File> optionspec3 = optionparser.accepts("assetsDir").withRequiredArg().ofType(File.class);
-        OptionSpec<File> optionspec4 = optionparser.accepts("resourcePackDir").withRequiredArg().ofType(File.class);
+        OptionSpec<String> optionServerLocation = optionparser.accepts("server").withRequiredArg();
+        OptionSpec<Integer> optionServerPort = optionparser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(25565);
+        OptionSpec<File> optionGameDirectory = optionparser.accepts("gameDir").withRequiredArg().ofType(File.class).defaultsTo(new File("."));
+        OptionSpec<File> optionAssetsDirectory = optionparser.accepts("assetsDir").withRequiredArg().ofType(File.class);
+        OptionSpec<File> optionResourcePackDirectory = optionparser.accepts("resourcePackDir").withRequiredArg().ofType(File.class);
         OptionSpec<String> optionspec5 = optionparser.accepts("proxyHost").withRequiredArg();
         OptionSpec<Integer> optionspec6 = optionparser.accepts("proxyPort").withRequiredArg().defaultsTo("8080").ofType(Integer.class);
         OptionSpec<String> optionspec7 = optionparser.accepts("proxyUser").withRequiredArg();
         OptionSpec<String> optionspec8 = optionparser.accepts("proxyPass").withRequiredArg();
-        OptionSpec<String> optionspec9 = optionparser.accepts("username").withRequiredArg().defaultsTo("Player" + Minecraft.getSystemTime() % 1000L);
+        OptionSpec<String> optionPlayerName = optionparser.accepts("username").withRequiredArg().defaultsTo("Player" + Minecraft.getSystemTime() % 1000L);
         OptionSpec<String> optionspec10 = optionparser.accepts("uuid").withRequiredArg();
         OptionSpec<String> optionspec11 = optionparser.accepts("accessToken").withRequiredArg().required();
         OptionSpec<String> optionspec12 = optionparser.accepts("version").withRequiredArg().required();
@@ -89,14 +89,14 @@ public class Main
         Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer()).create();
         PropertyMap propertymap = gson.fromJson(optionset.valueOf(optionspec15), PropertyMap.class);
         PropertyMap propertymap1 = gson.fromJson(optionset.valueOf(optionspec16), PropertyMap.class);
-        File file1 = optionset.valueOf(optionspec2);
-        File file2 = optionset.has(optionspec3) ? optionset.valueOf(optionspec3) : new File(file1, "assets/");
-        File file3 = optionset.has(optionspec4) ? optionset.valueOf(optionspec4) : new File(file1, "resourcepacks/");
-        String s4 = optionset.has(optionspec10) ? optionspec10.value(optionset) : optionspec9.value(optionset);
+        File file1 = optionset.valueOf(optionGameDirectory);
+        File file2 = optionset.has(optionAssetsDirectory) ? optionset.valueOf(optionAssetsDirectory) : new File(file1, "assets/");
+        File file3 = optionset.has(optionResourcePackDirectory) ? optionset.valueOf(optionResourcePackDirectory) : new File(file1, "resourcepacks/");
+        String s4 = optionset.has(optionspec10) ? optionspec10.value(optionset) : optionPlayerName.value(optionset);
         String s5 = optionset.has(optionspec17) ? optionspec17.value(optionset) : null;
-        String s6 = optionset.valueOf(optionspec);
-        Integer integer = optionset.valueOf(optionspec1);
-        Session session = new Session(optionspec9.value(optionset), s4, optionspec11.value(optionset), optionspec18.value(optionset));
+        String s6 = optionset.valueOf(optionServerLocation);
+        Integer integer = optionset.valueOf(optionServerPort);
+        Session session = new Session(optionPlayerName.value(optionset), s4, optionspec11.value(optionset), optionspec18.value(optionset));
         GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new GameConfiguration.DisplayInformation(i, j, flag, flag1), new GameConfiguration.FolderInformation(file1, file3, file2, s5), new GameConfiguration.GameInformation(s3), new GameConfiguration.ServerInformation(s6, integer));
         Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread")
         {

@@ -16,7 +16,6 @@ import com.daytrip.sunrise.hack.Hack;
 import com.daytrip.sunrise.hack.pathfinding.PathFinder;
 import com.daytrip.sunrise.hack.pathfinding.Point;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
-import com.daytrip.sunrise.hack.task.ActionCallable;
 import com.daytrip.sunrise.hack.task.Task;
 import com.daytrip.sunrise.util.math.*;
 import com.daytrip.sunrise.util.minecraft.ExtendedReach;
@@ -29,18 +28,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.MouseHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.input.Keyboard;
-import org.omg.IOP.TAG_INTERNET_IOP;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class BotAutoFighter extends Hack {
     // Dangerous blocks to avoid while navigating
-    private final Block[] DANGER_BLOCKS = { Blocks.fire, Blocks.lava, Blocks.flowing_lava, Blocks.water, Blocks.flowing_water, Blocks.soul_sand, Blocks.web };
+    public static final Block[] DANGER_BLOCKS = { Blocks.fire, Blocks.lava, Blocks.flowing_lava, Blocks.water, Blocks.flowing_water, Blocks.soul_sand, Blocks.web };
 
     // Hotbar slots TODO: make customizable
     private static final int inventorySwordSlot = 0;
@@ -52,6 +52,7 @@ public class BotAutoFighter extends Hack {
     private double distanceToTarget;
 
     private float yaw;
+    private float prevYaw;
     private float pitch;
 
     // Whether or not to automatically navigate
@@ -72,13 +73,24 @@ public class BotAutoFighter extends Hack {
     private boolean canMove = true;
 
     private String strafe = "left";
-    private int targetStrafeTicks;
+    private RandomMath.RandomInteger targetStrafeTicks;
 
     private boolean lockAim;
     private BlockPos aimLockPos;
 
+    private int hitCounter;
+    private RandomMath.RandomInteger targetHitCounter;
+    private RandomMath.RandomInteger targetWTapTicks;
+
     public BotAutoFighter() {
         super(Keyboard.KEY_P, "Auto Fighter", "auto_fighter");
+    }
+
+    @Override
+    protected void init() {
+        targetStrafeTicks = new RandomMath.RandomInteger(9, 18, true);
+        targetHitCounter = new RandomMath.RandomInteger(1, 4, true);
+        targetWTapTicks = new RandomMath.RandomInteger(2, 5, true);
     }
 
     @EventHandler
@@ -124,6 +136,18 @@ public class BotAutoFighter extends Hack {
                     distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
 
                     Vec3 vec3 = target.getPositionVector();
+                    if(isRodding) {
+                        /*double x = minecraft.thePlayer.posX - target.posX;
+                        double y = minecraft.thePlayer.posY - target.posY;
+                        double z = minecraft.thePlayer.posZ - target.posZ;
+                        double len = Math.sqrt(x * x + y * y + x * z);
+                        x /= len;
+                        y /= len;
+                        z /= len;
+                        vec3 = vec3.addVector(target.getMotionVector().multiply(x, y, z));*/
+
+                        vec3 = vec3.add(0, distanceToTarget / 4, 0);
+                    }
                     yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
                     pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
                 })
@@ -145,10 +169,14 @@ public class BotAutoFighter extends Hack {
                         if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
                             if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
                                 cameraInterpolationTimer.update();
-
                                 float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
                                 minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(yaw), progress));
                                 minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(pitch), progress));
+
+                                if(prevYaw - yaw > 0.7) {
+                                    cameraInterpolationTimer.reset();
+                                }
+                                prevYaw = yaw;
                             } else {
                                 minecraft.thePlayer.rotationYaw = yaw;
                                 minecraft.thePlayer.rotationPitch = pitch;
@@ -167,11 +195,12 @@ public class BotAutoFighter extends Hack {
         taskManager.registerTask(1, new Task()
                 .withName("PVP Module: Sword")
                 .executeIf(() -> canSword && distanceToTarget < 6 && Math.atan2(Math.sin(yaw - minecraft.thePlayer.rotationYaw), Math.cos(yaw - minecraft.thePlayer.rotationYaw)) < 25)
-                .callEvery(() -> 1, () -> {
+                .onTick(() -> {
                     rodTimer.reset();
 
                     if(canMove) {
                         HackAPI.startSprinting();
+
                     }
 
                     if(RandomMath.getRandomBoolean(0.3f)) { // Accounts for people randomly changing slots
@@ -179,7 +208,9 @@ public class BotAutoFighter extends Hack {
                     }
 
                     if(RandomMath.getRandomBoolean(0.7f)) { // About 14 cps
-                        HackAPI.changeInventorySlotAndUpdate(inventorySwordSlot);
+                        if(RandomMath.getRandomBoolean(0.95f)) { // Sometimes you forget to use your sword
+                            HackAPI.changeInventorySlotAndUpdate(inventorySwordSlot);
+                        }
                         HackAPI.leftClick(id);
                     }
                 })
@@ -196,7 +227,7 @@ public class BotAutoFighter extends Hack {
                         if(distanceToTarget > 2.5) {
                             HackAPI.startMovingAndSprinting();
                         } else {
-                            HackAPI.stopMoving();
+                            HackAPI.stopMovingAndSprinting();
                         }
                     }
                 })
@@ -204,26 +235,28 @@ public class BotAutoFighter extends Hack {
 
         taskManager.registerTask(2, new Task()
                 .withName("PVP Module: Strafe Target")
-                .executeIf(() -> settingManager.<SettingBoolean>getSetting("strafe").getValue() && distanceToTarget > 2.5 && distanceToTarget < 10)
+                .executeIf(() -> settingManager.<SettingBoolean>getSetting("strafe").getValue() && canMove)
                 .whenCannotExecute(() -> minecraft.thePlayer.movementInput.moveStrafe = 0)
-                .onInit(() -> targetStrafeTicks = 10 + RandomMath.random.nextInt(15))
-                .callEvery(() -> targetStrafeTicks, () -> {
-                    targetStrafeTicks = 10 + RandomMath.random.nextInt(15);
+                .callEvery(() -> targetStrafeTicks.get(), () -> {
+                    targetStrafeTicks.generate();
                     if(strafe.equals("left")) {
                         strafe = "right";
                     } else {
                         strafe = "left";
                     }
-                }).nextInterval(() -> targetStrafeTicks)
+                }).nextInterval(targetStrafeTicks::get)
                 .onTick(() -> {
-                    if(strafe.equals("left")) {
-                        minecraft.thePlayer.movementInput.moveStrafe = -1;
-                    } else {
-                        minecraft.thePlayer.movementInput.moveStrafe = 1;
+                    if(distanceToTarget > 2.5 && distanceToTarget < 10) {
+                        if(strafe.equals("left")) {
+                            minecraft.thePlayer.movementInput.moveStrafe = -1;
+                        } else {
+                            minecraft.thePlayer.movementInput.moveStrafe = 1;
+                        }
                     }
                 })
         );
 
+        /*
         taskManager.registerTask(3, new Task()
                 .withName("PVP Module: Rod Target")
                 .executeIf(() -> distanceToTarget > 6)
@@ -233,6 +266,8 @@ public class BotAutoFighter extends Hack {
                     rodTimer.update();
                 })
         );
+
+         */
     }
 
     @Override
@@ -320,12 +355,23 @@ public class BotAutoFighter extends Hack {
                             HackAPI.rightClick(id);
                         }
                     }
-                    if(canMove) {
-                        canMove = false;
-                        TimerManager.registerTimer(new TickTimer(() -> {
-                            canMove = true;
-                            HackAPI.startMovingAndSprinting();
-                        }, 5, false));
+                    if(hitCounter >= targetHitCounter.get()) {
+                        hitCounter = 0;
+                        targetHitCounter.generate();
+                        if(canMove) {
+                            canMove = false;
+                            if(RandomMath.getRandomBoolean(0.35f)) {
+                                HackAPI.rightClick(id);
+                            }
+                            HackAPI.stopMovingAndSprinting();
+                            TimerManager.registerTimer(new TickTimer(() -> {
+                                targetWTapTicks.generate();
+                                canMove = true;
+                                HackAPI.startMovingAndSprinting();
+                            }, targetWTapTicks.get(), false));
+                        }
+                    } else {
+                        hitCounter++;
                     }
                 }
             }
@@ -354,7 +400,7 @@ public class BotAutoFighter extends Hack {
                 minecraft.thePlayer.movementInput.moveForward = 1;
                 minecraft.thePlayer.movementInput.moveStrafe = 0;
 
-                if(focusAxis >= 1) {
+                if(focusAxis >= 1) { // Focus Z
                     if(isSafe(x1, z1 + func1(z2 > z1) - func1(z1 > z2))) {
                         //HackAPI.moveTo(x1, z1 + func1(z2 > z1) - func1(z1 > z2));
                         minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(xx1, target.posY, zz1 + func1(z2 > z1) - func1(z1 > z2)), 0);
@@ -427,13 +473,13 @@ public class BotAutoFighter extends Hack {
         cameraInterpolationTimer = null;
         mustRodCounter = 0;
 
-        HackAPI.stopMoving();
+        HackAPI.stopMovingAndSprinting();
     }
 
     private void pickTarget(EntityLivingBase target) {
         this.target = target;
 
-        rodTimer = new TickTimer(() -> rod(() -> 15), 18, true);
+        rodTimer = new TickTimer(() -> rod(() -> Math.max(17, Math.min(33, (int) distanceToTarget * 5))), 45, true);
 
         cameraInterpolationTimer = TickTimer.createNoAction(5 - 1, true); // 5 - 1 because of > instead of >=
 
@@ -443,19 +489,27 @@ public class BotAutoFighter extends Hack {
     @Override
     protected void enable() {
         super.enable();
-        targetStrafeTicks = 10 + RandomMath.random.nextInt(15);
     }
 
     private void rod(Supplier<Integer> castTimeTicks) {
         canSword = false;
+        canMove = false;
+
+        HackAPI.stopMovingAndSprinting();
+
         HackAPI.changeInventorySlotAndUpdate(inventoryRodSlot);
-        HackAPI.rightClick(id);
+        TimerManager.registerTimer(new TickTimer(() -> {
+            HackAPI.changeInventorySlotAndUpdate(inventoryRodSlot);
+            HackAPI.rightClick(id);
+        }, 7, false));
 
         TimerManager.registerTimer(new TickTimer(() -> {
             HackAPI.changeInventorySlotAndUpdate(inventoryRodSlot);
             HackAPI.rightClick(id);
 
             canSword = true;
+            canMove = true;
+            HackAPI.startMovingAndSprinting();
         }, castTimeTicks.get(), false));
     }
 
@@ -585,7 +639,7 @@ public class BotAutoFighter extends Hack {
 
         if(dangerBlocks.contains(predictedBlock.getBlock()) || dangerBlocks.contains(predictedBlockDown.getBlock()) || (predictedBlockGround.getBlock() != Blocks.water && predictedLocation.down().getY() - groundBlock.getY() > 13)) {
             if(autoNavigate) {
-                //stopMoving(true);
+                //stopMovingAndSprinting(true);
                 minecraft.thePlayer.movementInput.moveStrafe = 0;
                 minecraft.thePlayer.setJumping(false);
             }

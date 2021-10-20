@@ -22,7 +22,7 @@ public class HackAPI {
         Wrappers.post(eventClickMouse);
     }
 
-    public static void stopMoving() {
+    public static void stopMovingAndSprinting() {
         stopSprinting();
         minecraft.thePlayer.movementInput.moveForward = 0;
     }

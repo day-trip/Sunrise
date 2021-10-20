@@ -223,6 +223,8 @@ public enum EnumConnectionState
             registerPacket(EnumPacketDirection.SERVERBOUND, C17PacketCustomPayload.class);
             registerPacket(EnumPacketDirection.SERVERBOUND, C18PacketSpectate.class);
             registerPacket(EnumPacketDirection.SERVERBOUND, C19PacketResourcePackStatus.class);
+
+
         }
     },
     STATUS(1)

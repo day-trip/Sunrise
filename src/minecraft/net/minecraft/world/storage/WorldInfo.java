@@ -84,7 +84,9 @@ public class WorldInfo
     private double borderDamagePerBlock = 0.2D;
     private int borderWarningDistance = 5;
     private int borderWarningTime = 15;
-    private GameRules theGameRules = new GameRules();
+    private final GameRules theGameRules = new GameRules();
+
+    public String lastCommandTyped;
 
     protected WorldInfo()
     {
@@ -240,6 +242,10 @@ public class WorldInfo
         {
             borderWarningTime = nbt.getInteger("BorderWarningTime");
         }
+
+        if(nbt.hasKey("lastCommand")) {
+            lastCommandTyped = nbt.getString("lastCommand");
+        }
     }
 
     public WorldInfo(WorldSettings settings, String name)
@@ -259,45 +265,6 @@ public class WorldInfo
         terrainType = settings.getTerrainType();
         generatorOptions = settings.getWorldName();
         allowCommands = settings.areCommandsAllowed();
-    }
-
-    public WorldInfo(WorldInfo worldInformation)
-    {
-        randomSeed = worldInformation.randomSeed;
-        terrainType = worldInformation.terrainType;
-        generatorOptions = worldInformation.generatorOptions;
-        theGameType = worldInformation.theGameType;
-        mapFeaturesEnabled = worldInformation.mapFeaturesEnabled;
-        spawnX = worldInformation.spawnX;
-        spawnY = worldInformation.spawnY;
-        spawnZ = worldInformation.spawnZ;
-        totalTime = worldInformation.totalTime;
-        worldTime = worldInformation.worldTime;
-        lastTimePlayed = worldInformation.lastTimePlayed;
-        sizeOnDisk = worldInformation.sizeOnDisk;
-        playerTag = worldInformation.playerTag;
-        dimension = worldInformation.dimension;
-        levelName = worldInformation.levelName;
-        saveVersion = worldInformation.saveVersion;
-        rainTime = worldInformation.rainTime;
-        raining = worldInformation.raining;
-        thunderTime = worldInformation.thunderTime;
-        thundering = worldInformation.thundering;
-        hardcore = worldInformation.hardcore;
-        allowCommands = worldInformation.allowCommands;
-        initialized = worldInformation.initialized;
-        theGameRules = worldInformation.theGameRules;
-        difficulty = worldInformation.difficulty;
-        difficultyLocked = worldInformation.difficultyLocked;
-        borderCenterX = worldInformation.borderCenterX;
-        borderCenterZ = worldInformation.borderCenterZ;
-        borderSize = worldInformation.borderSize;
-        borderSizeLerpTime = worldInformation.borderSizeLerpTime;
-        borderSizeLerpTarget = worldInformation.borderSizeLerpTarget;
-        borderSafeZone = worldInformation.borderSafeZone;
-        borderDamagePerBlock = worldInformation.borderDamagePerBlock;
-        borderWarningTime = worldInformation.borderWarningTime;
-        borderWarningDistance = worldInformation.borderWarningDistance;
     }
 
     /**
@@ -367,6 +334,8 @@ public class WorldInfo
         {
             nbt.setTag("Player", playerNbt);
         }
+
+        nbt.setString("lastCommand", lastCommandTyped);
     }
 
     /**
@@ -842,86 +811,34 @@ public class WorldInfo
      */
     public void addToCrashReport(CrashReportCategory category)
     {
-        category.addCrashSectionCallable("Level seed", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return String.valueOf(getSeed());
-            }
-        });
-        category.addCrashSectionCallable("Level generator", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return String.format("ID %02d - %s, ver %d. Features enabled: %b", Integer.valueOf(terrainType.getWorldTypeID()), terrainType.getWorldTypeName(), Integer.valueOf(terrainType.getGeneratorVersion()), Boolean.valueOf(mapFeaturesEnabled));
-            }
-        });
-        category.addCrashSectionCallable("Level generator options", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return generatorOptions;
-            }
-        });
-        category.addCrashSectionCallable("Level spawn location", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return CrashReportCategory.getCoordinateInfo(spawnX, spawnY, spawnZ);
-            }
-        });
-        category.addCrashSectionCallable("Level time", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return String.format("%d game time, %d day time", Long.valueOf(totalTime), Long.valueOf(worldTime));
-            }
-        });
-        category.addCrashSectionCallable("Level dimension", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return String.valueOf(dimension);
-            }
-        });
-        category.addCrashSectionCallable("Level storage version", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                String s = "Unknown?";
+        category.addCrashSectionCallable("Level seed", () -> String.valueOf(getSeed()));
+        category.addCrashSectionCallable("Level generator", () -> String.format("ID %02d - %s, ver %d. Features enabled: %b", terrainType.getWorldTypeID(), terrainType.getWorldTypeName(), terrainType.getGeneratorVersion(), mapFeaturesEnabled));
+        category.addCrashSectionCallable("Level generator options", () -> generatorOptions);
+        category.addCrashSectionCallable("Level spawn location", () -> CrashReportCategory.getCoordinateInfo(spawnX, spawnY, spawnZ));
+        category.addCrashSectionCallable("Level time", () -> String.format("%d game time, %d day time", totalTime, worldTime));
+        category.addCrashSectionCallable("Level dimension", () -> String.valueOf(dimension));
+        category.addCrashSectionCallable("Level storage version", () -> {
+            String s = "Unknown?";
 
-                try
+            try
+            {
+                switch (saveVersion)
                 {
-                    switch (saveVersion)
-                    {
-                        case 19132:
-                            s = "McRegion";
-                            break;
+                    case 19132:
+                        s = "McRegion";
+                        break;
 
-                        case 19133:
-                            s = "Anvil";
-                    }
+                    case 19133:
+                        s = "Anvil";
                 }
-                catch (Throwable var3)
-                {
-                }
+            }
+            catch (Throwable ignored)
+            {
+            }
 
-                return String.format("0x%05X - %s", Integer.valueOf(saveVersion), s);
-            }
+            return String.format("0x%05X - %s", saveVersion, s);
         });
-        category.addCrashSectionCallable("Level weather", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", Integer.valueOf(rainTime), Boolean.valueOf(raining), Integer.valueOf(thunderTime), Boolean.valueOf(thundering));
-            }
-        });
-        category.addCrashSectionCallable("Level game mode", new Callable<String>()
-        {
-            public String call() throws Exception
-            {
-                return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", theGameType.getName(), Integer.valueOf(theGameType.getID()), Boolean.valueOf(hardcore), Boolean.valueOf(allowCommands));
-            }
-        });
+        category.addCrashSectionCallable("Level weather", () -> String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", rainTime, raining, thunderTime, thundering));
+        category.addCrashSectionCallable("Level game mode", () -> String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", theGameType.getName(), theGameType.getID(), hardcore, allowCommands));
     }
 }

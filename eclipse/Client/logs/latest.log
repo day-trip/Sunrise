@@ -1,54 +1,122 @@
-[21:35:27] [Client thread/INFO]: Minecraft initialization starting!
-[21:35:27] [Client thread/ERROR]: Can't find the resource index file: assets\indexes\1.8.json
-[21:35:30] [Client thread/INFO]: Logging in with username & password
-[21:35:30] [Client thread/INFO]: LWJGL Version: 2.9.4
-[21:35:31] [Client thread/INFO]: Reloading ResourceManager: Default
-[21:35:32] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[21:35:32] [Thread-9/INFO]: Initializing LWJGL OpenAL
-[21:35:32] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[21:35:32] [Thread-9/INFO]: OpenAL initialized.
-[21:35:32] [Sound Library Loader/INFO]: Sound engine started
-[21:35:34] [Client thread/INFO]: Created: 512x512 textures-atlas
-[21:35:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:35:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:36:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:36:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:36:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:37:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:37:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:37:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:37:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:37:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:37:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:38:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:38:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:38:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:39:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:39:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:39:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:39:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:39:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:39:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:39:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
-[21:40:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[21:40:01] [Server thread/INFO]: Starting integrated minecraft server version 1.8.8
-[21:40:01] [Server thread/INFO]: Generating keypair
-[21:40:01] [Server thread/INFO]: Preparing start region for level 0
-[21:40:02] [Server thread/INFO]: Changing view distance to 4, from 10
-[21:40:02] [Server thread/INFO]: __DayTrip__[local:E:2a1fdc03] logged in with entity id 9 at (-692.1082111484842, 24.363268042942828, 892.3747714718354)
-[21:40:02] [Server thread/INFO]: __DayTrip__ joined the game
-[21:40:08] [Server thread/INFO]: Saving and pausing game...
-[21:40:08] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
-[21:40:09] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
-[21:40:09] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
-[21:40:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[21:40:10] [Server thread/INFO]: Stopping server
-[21:40:10] [Server thread/INFO]: Saving players
-[21:40:10] [Server thread/INFO]: Saving worlds
-[21:40:10] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
-[21:40:10] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
-[21:40:10] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
-[21:40:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
-[21:40:11] [Client thread/INFO]: Stopping!
-[21:40:11] [Client thread/INFO]: SoundSystem shutting down...
-[21:40:11] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[12:17:55] [Client thread/INFO]: Minecraft initialization starting!
+[12:17:55] [Client thread/ERROR]: Can't find the resource index file: assets\indexes\1.8.json
+[12:17:57] [Client thread/INFO]: Logging in with username & password
+[12:17:57] [Client thread/INFO]: LWJGL Version: 2.9.4
+[12:17:58] [Client thread/INFO]: Reloading ResourceManager: Default
+[12:17:59] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[12:17:59] [Thread-9/INFO]: Initializing LWJGL OpenAL
+[12:17:59] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[12:17:59] [Thread-9/INFO]: OpenAL initialized.
+[12:17:59] [Sound Library Loader/INFO]: Sound engine started
+[12:18:01] [Client thread/INFO]: Created: 512x512 textures-atlas
+[12:18:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[12:18:05] [Server thread/INFO]: Starting integrated minecraft server version 1.8.8
+[12:18:05] [Server thread/INFO]: Generating keypair
+[12:18:06] [Server thread/INFO]: Preparing start region for level 0
+[12:18:06] [Server thread/INFO]: Changing view distance to 2, from 10
+[12:18:06] [Server thread/INFO]: __DayTrip__[local:E:3ac615b6] logged in with entity id 10 at (-732.6943058230638, 3.236161476261519, 937.027403582174)
+[12:18:06] [Server thread/INFO]: __DayTrip__ joined the game
+[12:18:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.game.creative
+[12:18:23] [Server thread/INFO]: Saving and pausing game...
+[12:18:23] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
+[12:18:23] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
+[12:18:23] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
+[12:35:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[12:35:06] [Server thread/INFO]: Stopping server
+[12:35:06] [Server thread/INFO]: Saving players
+[12:35:06] [Server thread/INFO]: Saving worlds
+[12:35:06] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
+[12:35:06] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
+[12:35:06] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End
+[12:35:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[12:35:18] [Client thread/INFO]: Connecting to mc.hypixel.net, 25565
+[12:35:24] [Server Connector #1/ERROR]: Couldn't connect to server
+java.net.UnknownHostException: mc.hypixel.net
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1281) ~[?:1.8.0_282]
+	at java.net.InetAddress.getAllByName(InetAddress.java:1193) ~[?:1.8.0_282]
+	at java.net.InetAddress.getAllByName(InetAddress.java:1127) ~[?:1.8.0_282]
+	at java.net.InetAddress.getByName(InetAddress.java:1077) ~[?:1.8.0_282]
+	at net.minecraft.client.multiplayer.GuiConnecting$1.run(GuiConnecting.java:64) [bin/:?]
+[12:36:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:36:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:36:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:37:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:37:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:37:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:37:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:38:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:38:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:38:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:39:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:39:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:39:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.menu
+[12:39:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[12:39:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[12:39:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[12:39:48] [Server thread/INFO]: Starting integrated minecraft server version 1.8.8
+[12:39:48] [Server thread/INFO]: Generating keypair
+[12:39:48] [Server thread/INFO]: Preparing start region for level 0
+[12:39:48] [Server thread/INFO]: Changing view distance to 2, from 10
+[12:39:49] [Server thread/INFO]: __DayTrip__[local:E:afcadd27] logged in with entity id 30 at (-738.4948094626371, 9.580520356619017, 944.4545601033883)
+[12:39:49] [Server thread/INFO]: __DayTrip__ joined the game
+[12:39:49] [pool-16-thread-1/WARN]: Couldn't look up profile properties for com.mojang.authlib.GameProfile@219898bc[id=2320d55f-f169-436e-83f4-b185fd22ec9b,name=__DayTrip__,properties={},legacy=false]
+com.mojang.authlib.exceptions.AuthenticationUnavailableException: Cannot contact authentication server
+	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:71) ~[authlib-1.5.21.jar:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fillGameProfile(YggdrasilMinecraftSessionService.java:175) [authlib-1.5.21.jar:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService$1.load(YggdrasilMinecraftSessionService.java:59) [authlib-1.5.21.jar:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService$1.load(YggdrasilMinecraftSessionService.java:56) [authlib-1.5.21.jar:?]
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3524) [guava-17.0.jar:?]
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2317) [guava-17.0.jar:?]
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2280) [guava-17.0.jar:?]
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2195) [guava-17.0.jar:?]
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3934) [guava-17.0.jar:?]
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3938) [guava-17.0.jar:?]
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4821) [guava-17.0.jar:?]
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4827) [guava-17.0.jar:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fillProfileProperties(YggdrasilMinecraftSessionService.java:165) [authlib-1.5.21.jar:?]
+	at net.minecraft.client.Minecraft.func_181037_M(Minecraft.java:3045) [bin/:?]
+	at net.minecraft.client.resources.SkinManager.lambda$loadProfileTextures$1(SkinManager.java:122) [bin/:?]
+	at net.minecraft.client.resources.SkinManager$$Lambda$11/0x0000000000000000.run(Unknown Source) [bin/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_282]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [?:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_282]
+	at java.lang.Thread.run(Thread.java:823) [?:1.8.0_282]
+Caused by: java.net.UnknownHostException: sessionserver.mojang.com
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184) ~[?:1.8.0_282]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172) ~[?:1.8.0_282]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[?:1.8.0_282]
+	at java.net.Socket.connect(Socket.java:607) ~[?:1.8.0_282]
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:284) ~[?:1.8.0_282]
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:175) ~[?:1.8.0_282]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463) ~[?:1.8.0_282]
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558) ~[?:1.8.0_282]
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264) ~[?:1.8.0_282]
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367) ~[?:1.8.0_282]
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191) ~[?:1.8.0_282]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1205) ~[?:1.8.0_282]
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1056) ~[?:1.8.0_282]
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177) ~[?:1.8.0_282]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1570) ~[?:1.8.0_282]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1498) ~[?:1.8.0_282]
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:268) ~[?:1.8.0_282]
+	at com.mojang.authlib.HttpAuthenticationService.performGetRequest(HttpAuthenticationService.java:126) ~[authlib-1.5.21.jar:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:54) ~[authlib-1.5.21.jar:?]
+	... 20 more
+[12:39:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.game.creative
+[12:39:54] [Server thread/INFO]: [__DayTrip__: Object successfully summoned]
+[12:39:54] [Client thread/INFO]: [CHAT] Object successfully summoned
+[12:39:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[12:39:55] [Client thread/INFO]: [CHAT] [Sunrise Client]: Enabled hack Auto Fighter! (Keybind: P)
+[12:39:55] [Client thread/INFO]: true
+[12:39:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[12:39:56] [Server thread/INFO]: __DayTrip__ lost connection: TextComponent{text='Invalid move packet received', siblings=[], style=Style{hasParent=false, color=null, bold=null, italic=null, underlined=null, obfuscated=null, clickEvent=null, hoverEvent=null, insertion=null}}
+[12:39:56] [Server thread/INFO]: __DayTrip__ left the game
+[12:39:56] [Server thread/INFO]: Stopping singleplayer server as player logged out
+[12:39:56] [Server thread/WARN]: handleDisconnection() called twice
+[12:39:56] [Server thread/INFO]: Stopping server
+[12:39:56] [Server thread/INFO]: Saving players
+[12:39:56] [Server thread/INFO]: Saving worlds
+[12:39:56] [Server thread/INFO]: Saving chunks for level 'surperflat'/Overworld
+[12:39:56] [Server thread/INFO]: Saving chunks for level 'surperflat'/Nether
+[12:39:56] [Server thread/INFO]: Saving chunks for level 'surperflat'/The End

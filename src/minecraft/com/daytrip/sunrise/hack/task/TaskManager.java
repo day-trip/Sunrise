@@ -7,6 +7,7 @@ import java.util.TreeMap;
 
 public class TaskManager {
     private final Map<Integer, List<ITask>> tasksByPriority = new TreeMap<>();
+    private final List<ActionCallable> ends = new ArrayList<>();
 
     private boolean canContinue;
 
@@ -25,6 +26,14 @@ public class TaskManager {
         tasksByPriority.get(priority).add(task);
     }
 
+    /**
+     * Register a action to happen when the task manager stops
+     * @param onEnd an action
+     */
+    public void registerOnEnd(ActionCallable onEnd) {
+        ends.add(onEnd);
+    }
+
     public void tick() {
         for(List<ITask> tasks : tasksByPriority.values()) {
             for(ITask task : tasks) {
@@ -40,16 +49,21 @@ public class TaskManager {
         }
     }
 
-    public void endChain() {
+    public void stopAndEndLine() {
         canContinue = false;
+        for(ActionCallable end : ends) {
+            end.call();
+        }
     }
 
     public void start() {
-        for(List<ITask> tasks : tasksByPriority.values()) {
-            for (ITask task : tasks) {
-                task.init();
+        if(!canContinue) {
+            canContinue = true;
+            for(List<ITask> tasks : tasksByPriority.values()) {
+                for (ITask task : tasks) {
+                    task.init();
+                }
             }
         }
-        canContinue = true;
     }
 }

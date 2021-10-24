@@ -665,15 +665,16 @@ public class EntityRenderer implements IResourceManagerReloadListener
     /**
      * sets up projection, view effects, camera position/rotation
      */
-    private void setupCameraTransform(float partialTicks, int pass)
+    private void setupCameraTransform(float partialTicks)
     {
-        //farPlaneDistance = (float)(mc.gameSettings.renderDistanceChunks * 16);
+        farPlaneDistance = (float)(mc.gameSettings.renderDistanceChunks * 16);
 
         // More optimized rendering
-        farPlaneDistance = mc.gameSettings.renderDistanceChunks * 15.7f;
+        // Commented due to invisible sky issues
+        //farPlaneDistance = mc.gameSettings.renderDistanceChunks * 15.7f;
+
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        float f = 0.07F;
 
         Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * MathHelper.SQRT_2);
         GlStateManager.matrixMode(5888);
@@ -710,11 +711,10 @@ public class EntityRenderer implements IResourceManagerReloadListener
     /**
      * Render player hand
      */
-    private void renderHand(float partialTicks, int xOffset)
+    private void renderHand(float partialTicks)
     {
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        float f = 0.07F;
 
         Project.gluPerspective(getFOVModifier(partialTicks, false), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * 2.0F);
         GlStateManager.matrixMode(5888);
@@ -1164,7 +1164,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         updateFogColor(partialTicks);
         GlStateManager.clear(16640);
         mc.mcProfiler.endStartSection("camera");
-        setupCameraTransform(partialTicks, pass);
+        setupCameraTransform(partialTicks);
         ActiveRenderInfo.updateRenderInfo(mc.thePlayer, mc.gameSettings.thirdPersonView == 2);
         mc.mcProfiler.endStartSection("frustum");
         ClippingHelperImpl.getInstance();
@@ -1307,7 +1307,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         mc.mcProfiler.endStartSection("hand");
 
         GlStateManager.clear(256);
-        renderHand(partialTicks, pass);
+        renderHand(partialTicks);
         renderWorldDirections(partialTicks);
     }
 

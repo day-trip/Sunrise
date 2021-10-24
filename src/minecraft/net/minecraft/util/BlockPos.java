@@ -363,4 +363,8 @@ public class BlockPos extends Vec3i
             return this;
         }
     }
+
+    public Vec3 toVector() {
+        return new Vec3(getX(), getY(), getZ());
+    }
 }

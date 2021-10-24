@@ -3,7 +3,7 @@ package net.minecraft.util;
 public class MovementInput
 {
     /**
-     * The speed at which the player is strafing. Postive numbers to the left and negative to the right.
+     * The speed at which the player is strafing. Positive numbers to the left and negative to the right.
      */
     public float moveStrafe;
 
@@ -15,5 +15,26 @@ public class MovementInput
     public boolean sneak;
 
     public void updatePlayerMoveState() throws Exception {
+    }
+
+    public void stopAll() {
+        moveForward = 0;
+        moveStrafe = 0;
+    }
+
+    public void setForward() {
+        moveForward++;
+    }
+
+    public void setBackward() {
+        moveForward--;
+    }
+
+    public void setLeft() {
+        moveStrafe++;
+    }
+
+    public void setRight() {
+        moveStrafe--;
     }
 }

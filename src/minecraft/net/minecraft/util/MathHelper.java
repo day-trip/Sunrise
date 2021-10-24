@@ -544,4 +544,8 @@ public class MathHelper
             field_181164_e[j] = d1;
         }
     }
+
+    public static float angle(int x1, int x2, int z1, int z2) {
+        return (float) Math.abs(Math.atan((double) (x2 - x1) / (z2 - z1)));
+    }
 }

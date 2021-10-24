@@ -369,98 +369,66 @@ public class GuiScreen extends Gui implements GuiYesNoCallback
     /**
      * Executes the click event specified by the given chat component
      */
-    protected boolean handleComponentClick(IChatComponent p_175276_1_)
+    protected boolean handleComponentClick(IChatComponent component)
     {
-        if (p_175276_1_ == null)
-        {
-            return false;
-        }
-        else
-        {
-            ClickEvent clickevent = p_175276_1_.getChatStyle().getChatClickEvent();
+        if (component != null) {
+            ClickEvent clickevent = component.getChatStyle().getChatClickEvent();
 
-            if (isShiftKeyDown())
-            {
-                if (p_175276_1_.getChatStyle().getInsertion() != null)
-                {
-                    setText(p_175276_1_.getChatStyle().getInsertion(), false);
+            if (isShiftKeyDown()) {
+                if (component.getChatStyle().getInsertion() != null) {
+                    setText(component.getChatStyle().getInsertion(), false);
                 }
-            }
-            else if (clickevent != null)
-            {
-                if (clickevent.getAction() == ClickEvent.Action.OPEN_URL)
-                {
-                    if (!mc.gameSettings.chatLinks)
-                    {
+            } else if (clickevent != null) {
+                if (clickevent.getAction() == ClickEvent.Action.OPEN_URL) {
+                    if (!mc.gameSettings.chatLinks) {
                         return false;
                     }
 
-                    try
-                    {
+                    try {
                         URI uri = new URI(clickevent.getValue());
                         String s = uri.getScheme();
 
-                        if (s == null)
-                        {
+                        if (s == null) {
                             throw new URISyntaxException(clickevent.getValue(), "Missing protocol");
                         }
 
-                        if (!PROTOCOLS.contains(s.toLowerCase()))
-                        {
+                        if (!PROTOCOLS.contains(s.toLowerCase())) {
                             throw new URISyntaxException(clickevent.getValue(), "Unsupported protocol: " + s.toLowerCase());
                         }
 
-                        if (mc.gameSettings.chatLinksPrompt)
-                        {
+                        if (mc.gameSettings.chatLinksPrompt) {
                             clickedLinkURI = uri;
                             mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickevent.getValue(), 31102009, false));
-                        }
-                        else
-                        {
+                        } else {
                             openWebLink(uri);
                         }
-                    }
-                    catch (URISyntaxException urisyntaxexception)
-                    {
+                    } catch (URISyntaxException urisyntaxexception) {
                         LOGGER.error("Can't open url for " + clickevent, urisyntaxexception);
                     }
-                }
-                else if (clickevent.getAction() == ClickEvent.Action.OPEN_FILE)
-                {
+                } else if (clickevent.getAction() == ClickEvent.Action.OPEN_FILE) {
                     URI uri1 = (new File(clickevent.getValue())).toURI();
                     openWebLink(uri1);
-                }
-                else if (clickevent.getAction() == ClickEvent.Action.SUGGEST_COMMAND)
-                {
+                } else if (clickevent.getAction() == ClickEvent.Action.SUGGEST_COMMAND) {
                     setText(clickevent.getValue(), true);
-                }
-                else if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND)
-                {
+                } else if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
                     sendChatMessage(clickevent.getValue(), false);
-                }
-                else if (clickevent.getAction() == ClickEvent.Action.TWITCH_USER_INFO)
-                {
+                } else if (clickevent.getAction() == ClickEvent.Action.TWITCH_USER_INFO) {
                     ChatUserInfo chatuserinfo = mc.getTwitchStream().func_152926_a(clickevent.getValue());
 
-                    if (chatuserinfo != null)
-                    {
+                    if (chatuserinfo != null) {
                         mc.displayGuiScreen(new GuiTwitchUserMode(mc.getTwitchStream(), chatuserinfo));
-                    }
-                    else
-                    {
+                    } else {
                         LOGGER.error("Tried to handle twitch user but couldn't find them!");
                     }
-                }
-                else
-                {
+                } else {
                     LOGGER.error("Don't know how to handle " + clickevent);
                 }
 
                 return true;
             }
 
-            return false;
         }
+        return false;
     }
 
     public void sendChatMessage(String msg)

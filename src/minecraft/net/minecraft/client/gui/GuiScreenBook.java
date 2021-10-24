@@ -539,9 +539,9 @@ public class GuiScreenBook extends GuiScreen
     /**
      * Executes the click event specified by the given chat component
      */
-    protected boolean handleComponentClick(IChatComponent p_175276_1_)
+    protected boolean handleComponentClick(IChatComponent component)
     {
-        ClickEvent clickevent = p_175276_1_ == null ? null : p_175276_1_.getChatStyle().getChatClickEvent();
+        ClickEvent clickevent = component == null ? null : component.getChatStyle().getChatClickEvent();
 
         if (clickevent == null)
         {
@@ -570,7 +570,7 @@ public class GuiScreenBook extends GuiScreen
         }
         else
         {
-            boolean flag = super.handleComponentClick(p_175276_1_);
+            boolean flag = super.handleComponentClick(component);
 
             if (flag && clickevent.getAction() == ClickEvent.Action.RUN_COMMAND)
             {

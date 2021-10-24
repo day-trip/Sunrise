@@ -61,8 +61,8 @@ public class ActiveRenderInfo
         GLU.gluUnProject(f, f1, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
         position = new Vec3((double)OBJECTCOORDS.get(0), (double)OBJECTCOORDS.get(1), (double)OBJECTCOORDS.get(2));
         int i = p_74583_1_ ? 1 : 0;
-        float f2 = entityplayerIn.rotationPitch;
-        float f3 = entityplayerIn.rotationYaw;
+        float f2 = entityplayerIn.getRotationPitch();
+        float f3 = entityplayerIn.getRotationYaw();
         rotationX = MathHelper.cos(f3 * (float)Math.PI / 180.0F) * (float)(1 - i * 2);
         rotationZ = MathHelper.sin(f3 * (float)Math.PI / 180.0F) * (float)(1 - i * 2);
         rotationYZ = -rotationZ * MathHelper.sin(f2 * (float)Math.PI / 180.0F) * (float)(1 - i * 2);

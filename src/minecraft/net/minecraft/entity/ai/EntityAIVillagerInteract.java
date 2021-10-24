@@ -87,7 +87,7 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2
                         EntityItem entityitem = new EntityItem(this.villager.worldObj, this.villager.posX, d0, this.villager.posZ, itemstack1);
                         float f = 0.3F;
                         float f1 = this.villager.rotationYawHead;
-                        float f2 = this.villager.rotationPitch;
+                        float f2 = this.villager.getRotationPitch();
                         entityitem.motionX = (double)(-MathHelper.sin(f1 / 180.0F * (float)Math.PI) * MathHelper.cos(f2 / 180.0F * (float)Math.PI) * f);
                         entityitem.motionZ = (double)(MathHelper.cos(f1 / 180.0F * (float)Math.PI) * MathHelper.cos(f2 / 180.0F * (float)Math.PI) * f);
                         entityitem.motionY = (double)(-MathHelper.sin(f2 / 180.0F * (float)Math.PI) * f + 0.1F);

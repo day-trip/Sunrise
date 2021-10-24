@@ -53,8 +53,8 @@ public class HackAimbot extends Hack {
             //CommonMath.updateValues(minecraft.thePlayer, target, vec3);
             //minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(CommonMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(CommonMath.yawToFaceEntity()), lerpTicks / 20));
             //minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(CommonMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(CommonMath.pitchToFaceEntity()), lerpTicks / 20));
-            minecraft.thePlayer.rotationYaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
-            minecraft.thePlayer.rotationPitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2));
+            minecraft.thePlayer.setRotationYaw(math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
+            minecraft.thePlayer.setRotationPitch(math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) ((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
 
             if(target.getHealth() <= 0.0F) {
                 target = null;

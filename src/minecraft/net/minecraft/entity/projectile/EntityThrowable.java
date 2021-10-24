@@ -66,15 +66,15 @@ public abstract class EntityThrowable extends Entity implements IProjectile
         super(worldIn);
         this.thrower = throwerIn;
         this.setSize(0.25F, 0.25F);
-        this.setLocationAndAngles(throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight(), throwerIn.posZ, throwerIn.rotationYaw, throwerIn.rotationPitch);
-        this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+        this.setLocationAndAngles(throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight(), throwerIn.posZ, throwerIn.getRotationYaw(), throwerIn.getRotationPitch());
+        this.posX -= (double)(MathHelper.cos(this.getRotationYaw() / 180.0F * (float)Math.PI) * 0.16F);
         this.posY -= 0.10000000149011612D;
-        this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+        this.posZ -= (double)(MathHelper.sin(this.getRotationYaw() / 180.0F * (float)Math.PI) * 0.16F);
         this.setPosition(this.posX, this.posY, this.posZ);
         float f = 0.4F;
-        this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * f);
-        this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * f);
-        this.motionY = (double)(-MathHelper.sin((this.rotationPitch + this.getInaccuracy()) / 180.0F * (float)Math.PI) * f);
+        this.motionX = (double)(-MathHelper.sin(this.getRotationYaw() / 180.0F * (float)Math.PI) * MathHelper.cos(this.getRotationPitch() / 180.0F * (float)Math.PI) * f);
+        this.motionZ = (double)(MathHelper.cos(this.getRotationYaw() / 180.0F * (float)Math.PI) * MathHelper.cos(this.getRotationPitch() / 180.0F * (float)Math.PI) * f);
+        this.motionY = (double)(-MathHelper.sin((this.getRotationPitch() + this.getInaccuracy()) / 180.0F * (float)Math.PI) * f);
         this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, this.getVelocity(), 1.0F);
     }
 
@@ -115,8 +115,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile
         this.motionY = y;
         this.motionZ = z;
         float f1 = MathHelper.sqrt_double(x * x + z * z);
-        this.prevRotationYaw = this.rotationYaw = (float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI);
-        this.prevRotationPitch = this.rotationPitch = (float)(MathHelper.func_181159_b(y, (double)f1) * 180.0D / Math.PI);
+        this.prevRotationYaw = this.setRotationYaw((float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI));
+        this.prevRotationPitch = this.setRotationPitch((float)(MathHelper.func_181159_b(y, (double)f1) * 180.0D / Math.PI));
         this.ticksInGround = 0;
     }
 
@@ -132,8 +132,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(x * x + z * z);
-            this.prevRotationYaw = this.rotationYaw = (float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI);
-            this.prevRotationPitch = this.rotationPitch = (float)(MathHelper.func_181159_b(y, (double)f) * 180.0D / Math.PI);
+            this.prevRotationYaw = this.setRotationYaw((float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI));
+            this.prevRotationPitch = this.setRotationPitch((float)(MathHelper.func_181159_b(y, (double)f) * 180.0D / Math.PI));
         }
     }
 
@@ -241,30 +241,30 @@ public abstract class EntityThrowable extends Entity implements IProjectile
         this.posY += this.motionY;
         this.posZ += this.motionZ;
         float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-        this.rotationYaw = (float)(MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / Math.PI);
+        this.setRotationYaw((float)(MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / Math.PI));
 
-        for (this.rotationPitch = (float)(MathHelper.func_181159_b(this.motionY, (double)f1) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+        for (this.setRotationPitch((float)(MathHelper.func_181159_b(this.motionY, (double)f1) * 180.0D / Math.PI)); this.getRotationPitch() - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
         {
             ;
         }
 
-        while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
+        while (this.getRotationPitch() - this.prevRotationPitch >= 180.0F)
         {
             this.prevRotationPitch += 360.0F;
         }
 
-        while (this.rotationYaw - this.prevRotationYaw < -180.0F)
+        while (this.getRotationYaw() - this.prevRotationYaw < -180.0F)
         {
             this.prevRotationYaw -= 360.0F;
         }
 
-        while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
+        while (this.getRotationYaw() - this.prevRotationYaw >= 180.0F)
         {
             this.prevRotationYaw += 360.0F;
         }
 
-        this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-        this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+        this.setRotationPitch(this.prevRotationPitch + (this.getRotationPitch() - this.prevRotationPitch) * 0.2F);
+        this.setRotationYaw(this.prevRotationYaw + (this.getRotationYaw() - this.prevRotationYaw) * 0.2F);
         float f2 = 0.99F;
         float f3 = this.getGravityVelocity();
 

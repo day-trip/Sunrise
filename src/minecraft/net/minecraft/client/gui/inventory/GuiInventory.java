@@ -101,8 +101,8 @@ public class GuiInventory extends InventoryEffectRenderer
         GlStateManager.scale((float)(-scale), (float)scale, (float)scale);
         GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
         float f = ent.renderYawOffset;
-        float f1 = ent.rotationYaw;
-        float f2 = ent.rotationPitch;
+        float f1 = ent.getRotationYaw();
+        float f2 = ent.getRotationPitch();
         float f3 = ent.prevRotationYawHead;
         float f4 = ent.rotationYawHead;
         GlStateManager.rotate(135.0F, 0.0F, 1.0F, 0.0F);
@@ -110,10 +110,10 @@ public class GuiInventory extends InventoryEffectRenderer
         GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(-((float)Math.atan(mouseY / 40.0F)) * 20.0F, 1.0F, 0.0F, 0.0F);
         ent.renderYawOffset = (float)Math.atan(mouseX / 40.0F) * 20.0F;
-        ent.rotationYaw = (float)Math.atan(mouseX / 40.0F) * 40.0F;
-        ent.rotationPitch = -((float)Math.atan(mouseY / 40.0F)) * 20.0F;
-        ent.rotationYawHead = ent.rotationYaw;
-        ent.prevRotationYawHead = ent.rotationYaw;
+        ent.setRotationYaw((float)Math.atan(mouseX / 40.0F) * 40.0F);
+        ent.setRotationPitch(-((float)Math.atan(mouseY / 40.0F)) * 20.0F);
+        ent.rotationYawHead = ent.getRotationYaw();
+        ent.prevRotationYawHead = ent.getRotationYaw();
         GlStateManager.translate(0.0F, 0.0F, 0.0F);
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         rendermanager.setPlayerViewY(180.0F);
@@ -121,8 +121,8 @@ public class GuiInventory extends InventoryEffectRenderer
         rendermanager.renderEntityWithPosYaw(ent, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
         rendermanager.setRenderShadow(true);
         ent.renderYawOffset = f;
-        ent.rotationYaw = f1;
-        ent.rotationPitch = f2;
+        ent.setRotationYaw(f1);
+        ent.setRotationPitch(f2);
         ent.prevRotationYawHead = f3;
         ent.rotationYawHead = f4;
         GlStateManager.popMatrix();

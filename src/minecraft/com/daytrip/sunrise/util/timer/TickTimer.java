@@ -89,4 +89,12 @@ public class TickTimer {
     private static void doNothing() {
         ;
     }
+
+    public void setCurrentTicks(int currentTicks) {
+        this.currentTicks = currentTicks;
+    }
+
+    public void setTargetTicks(int targetTicks) {
+        this.targetTicks = targetTicks;
+    }
 }

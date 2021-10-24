@@ -116,8 +116,8 @@ public class EntityTrackerEntry
         this.encodedPosX = MathHelper.floor_double(trackedEntityIn.posX * 32.0D);
         this.encodedPosY = MathHelper.floor_double(trackedEntityIn.posY * 32.0D);
         this.encodedPosZ = MathHelper.floor_double(trackedEntityIn.posZ * 32.0D);
-        this.encodedRotationYaw = MathHelper.floor_float(trackedEntityIn.rotationYaw * 256.0F / 360.0F);
-        this.encodedRotationPitch = MathHelper.floor_float(trackedEntityIn.rotationPitch * 256.0F / 360.0F);
+        this.encodedRotationYaw = MathHelper.floor_float(trackedEntityIn.getRotationYaw() * 256.0F / 360.0F);
+        this.encodedRotationPitch = MathHelper.floor_float(trackedEntityIn.getRotationPitch() * 256.0F / 360.0F);
         this.lastHeadMotion = MathHelper.floor_float(trackedEntityIn.getRotationYawHead() * 256.0F / 360.0F);
         this.onGround = trackedEntityIn.onGround;
     }
@@ -185,8 +185,8 @@ public class EntityTrackerEntry
                 int k = MathHelper.floor_double(this.trackedEntity.posX * 32.0D);
                 int j1 = MathHelper.floor_double(this.trackedEntity.posY * 32.0D);
                 int k1 = MathHelper.floor_double(this.trackedEntity.posZ * 32.0D);
-                int l1 = MathHelper.floor_float(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
-                int i2 = MathHelper.floor_float(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
+                int l1 = MathHelper.floor_float(this.trackedEntity.getRotationYaw() * 256.0F / 360.0F);
+                int i2 = MathHelper.floor_float(this.trackedEntity.getRotationPitch() * 256.0F / 360.0F);
                 int j2 = k - this.encodedPosX;
                 int k2 = j1 - this.encodedPosY;
                 int i = k1 - this.encodedPosZ;
@@ -263,8 +263,8 @@ public class EntityTrackerEntry
             }
             else
             {
-                int j = MathHelper.floor_float(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
-                int i1 = MathHelper.floor_float(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
+                int j = MathHelper.floor_float(this.trackedEntity.getRotationYaw() * 256.0F / 360.0F);
+                int i1 = MathHelper.floor_float(this.trackedEntity.getRotationPitch() * 256.0F / 360.0F);
                 boolean flag2 = Math.abs(j - this.encodedRotationYaw) >= 4 || Math.abs(i1 - this.encodedRotationPitch) >= 4;
 
                 if (flag2)

@@ -65,11 +65,11 @@ public class MobAppearance extends EntityFX
             float f3 = 0.05F + 0.5F * MathHelper.sin(f1 * (float)Math.PI);
             GlStateManager.color(1.0F, 1.0F, 1.0F, f3);
             GlStateManager.translate(0.0F, 1.8F, 0.0F);
-            GlStateManager.rotate(180.0F - entityIn.rotationYaw, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(60.0F - 150.0F * f1 - entityIn.rotationPitch, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(180.0F - entityIn.getRotationYaw(), 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(60.0F - 150.0F * f1 - entityIn.getRotationPitch(), 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(0.0F, -0.4F, -1.5F);
             GlStateManager.scale(f, f, f);
-            this.entity.rotationYaw = this.entity.prevRotationYaw = 0.0F;
+            this.entity.setRotationYaw(this.entity.prevRotationYaw = 0.0F);
             this.entity.rotationYawHead = this.entity.prevRotationYawHead = 0.0F;
             rendermanager.renderEntityWithPosYaw(this.entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
             GlStateManager.popMatrix();

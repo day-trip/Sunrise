@@ -26,7 +26,7 @@ public class TextureCompass extends TextureAtlasSprite
 
         if (minecraft.theWorld != null && minecraft.thePlayer != null)
         {
-            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, (double)minecraft.thePlayer.rotationYaw, false, false);
+            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, (double) minecraft.thePlayer.getRotationYaw(), false, false);
         }
         else
         {

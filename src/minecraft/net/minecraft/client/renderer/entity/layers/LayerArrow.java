@@ -50,8 +50,8 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase>
                 f1 = f1 * -1.0F;
                 f2 = f2 * -1.0F;
                 float f6 = MathHelper.sqrt_float(f * f + f2 * f2);
-                entity.prevRotationYaw = entity.rotationYaw = (float)(Math.atan2((double)f, (double)f2) * 180.0D / Math.PI);
-                entity.prevRotationPitch = entity.rotationPitch = (float)(Math.atan2((double)f1, (double)f6) * 180.0D / Math.PI);
+                entity.prevRotationYaw = entity.setRotationYaw((float)(Math.atan2((double)f, (double)f2) * 180.0D / Math.PI));
+                entity.prevRotationPitch = entity.setRotationPitch((float)(Math.atan2((double)f1, (double)f6) * 180.0D / Math.PI));
                 double d0 = 0.0D;
                 double d1 = 0.0D;
                 double d2 = 0.0D;

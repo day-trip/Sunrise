@@ -110,7 +110,7 @@ public class BlockPart
         {
             float f = JsonUtils.getFloat(p_178255_1_, "angle");
 
-            if (f != 0.0F && MathHelper.abs(f) != 22.5F && MathHelper.abs(f) != 45.0F)
+            if (f != 0.0F && Math.abs(f) != 22.5F && Math.abs(f) != 45.0F)
             {
                 throw new JsonParseException("Invalid rotation " + f + " found, only -45/-22.5/0/22.5/45 allowed");
             }

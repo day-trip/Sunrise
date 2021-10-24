@@ -182,9 +182,9 @@ public class WorldGenBigTree extends WorldGenAbstractTree
      */
     private int getGreatestDistance(BlockPos posIn)
     {
-        int i = MathHelper.abs_int(posIn.getX());
-        int j = MathHelper.abs_int(posIn.getY());
-        int k = MathHelper.abs_int(posIn.getZ());
+        int i = Math.abs(posIn.getX());
+        int j = Math.abs(posIn.getY());
+        int k = Math.abs(posIn.getZ());
         return k > i && k > j ? k : (j > i ? j : i);
     }
 

@@ -20,6 +20,7 @@ public class MathHelper
      * this number" calculations.
      */
     private static final int[] multiplyDeBruijnBitPosition;
+
     private static final double field_181163_d;
     private static final double[] field_181164_e;
     private static final double[] field_181165_f;
@@ -83,19 +84,6 @@ public class MathHelper
     {
         long i = (long)value;
         return value < (double)i ? i - 1L : i;
-    }
-
-    public static float abs(float value)
-    {
-        return value >= 0.0F ? value : -value;
-    }
-
-    /**
-     * Returns the unsigned value of an int.
-     */
-    public static int abs_int(int value)
-    {
-        return value >= 0 ? value : -value;
     }
 
     public static int ceiling_float_int(float value)
@@ -193,7 +181,7 @@ public class MathHelper
 
     public static boolean epsilonEquals(float p_180185_0_, float p_180185_1_)
     {
-        return abs(p_180185_1_ - p_180185_0_) < 1.0E-5F;
+        return Math.abs(p_180185_1_ - p_180185_0_) < 1.0E-5F;
     }
 
     public static int normalizeAngle(int p_180184_0_, int p_180184_1_)

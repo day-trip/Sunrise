@@ -492,8 +492,8 @@ public class SoundManager
     {
         if (loaded && player != null)
         {
-            float f = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * p_148615_2_;
-            float f1 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * p_148615_2_;
+            float f = player.prevRotationPitch + (player.getRotationPitch() - player.prevRotationPitch) * p_148615_2_;
+            float f1 = player.prevRotationYaw + (player.getRotationYaw() - player.prevRotationYaw) * p_148615_2_;
             double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double)p_148615_2_;
             double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double)p_148615_2_ + (double)player.getEyeHeight();
             double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double)p_148615_2_;

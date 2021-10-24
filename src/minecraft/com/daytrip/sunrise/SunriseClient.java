@@ -1,5 +1,6 @@
 package com.daytrip.sunrise;
 
+import com.daytrip.sunrise.event.impl.EventTick;
 import com.daytrip.sunrise.util.LoginManager;
 import com.daytrip.sunrise.event.Event;
 import com.daytrip.sunrise.event.EventBus;
@@ -47,6 +48,11 @@ public class SunriseClient implements EventListener {
                 System.out.println(nextPos.toString());
                 System.out.println(minecraft.theWorld.getBlockState(new BlockPos(nextPos.xCoord, nextPos.yCoord, nextPos.zCoord).down()).getBlock() == Blocks.lava);
                 System.out.println(minecraft.theWorld.getBlockState(new BlockPos(nextPos.xCoord, nextPos.yCoord, nextPos.zCoord).down()).getBlock() == Blocks.flowing_lava);
+            }
+        }
+        if(event instanceof EventTick) {
+            if(minecraft.inWorld()) {
+                System.out.println(minecraft.thePlayer.getRotationYaw());
             }
         }
     }

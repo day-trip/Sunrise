@@ -84,19 +84,19 @@ public class HackBridger extends Hack {
         super.disable();
         jumpTicks = 0;
         onAirTicks = 0;
-        minecraft.thePlayer.rotationPitch = 0;
+        minecraft.thePlayer.setRotationPitch(0);
         stopMoving();
     }
 
     @Override
     protected void enable() {
         super.enable();
-        Minecraft.logger.info("Pure Yaw" + MathHelper.wrapAngleTo180_float(minecraft.thePlayer.rotationYaw));
-        Minecraft.logger.info("Yaw" + Math.round(MathHelper.wrapAngleTo180_float(minecraft.thePlayer.rotationYaw)));
-        int closest = getClosest(possibleRotations, Math.round(MathHelper.wrapAngleTo180_float(minecraft.thePlayer.rotationYaw)));
+        Minecraft.logger.info("Pure Yaw" + MathHelper.wrapAngleTo180_float(minecraft.thePlayer.getRotationYaw()));
+        Minecraft.logger.info("Yaw" + Math.round(MathHelper.wrapAngleTo180_float(minecraft.thePlayer.getRotationYaw())));
+        int closest = getClosest(possibleRotations, Math.round(MathHelper.wrapAngleTo180_float(minecraft.thePlayer.getRotationYaw())));
         Minecraft.logger.info("Closest" + closest);
-        minecraft.thePlayer.rotationYaw = closest;
-        minecraft.thePlayer.rotationPitch = 78;
+        minecraft.thePlayer.setRotationYaw(closest);
+        minecraft.thePlayer.setRotationPitch(78);
         placeBlocks();
         startMoving();
     }

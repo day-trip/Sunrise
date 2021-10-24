@@ -657,7 +657,7 @@ public class EntityArmorStand extends EntityLivingBase
     protected float func_110146_f(float p_110146_1_, float p_110146_2_)
     {
         prevRenderYawOffset = prevRotationYaw;
-        renderYawOffset = rotationYaw;
+        renderYawOffset = getRotationYaw();
         return 0.0F;
     }
 

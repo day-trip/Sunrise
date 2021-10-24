@@ -59,8 +59,8 @@ public class RenderFish extends Render<EntityFishHook>
             float f7 = entity.angler.getSwingProgress(partialTicks);
             float f8 = MathHelper.sin(MathHelper.sqrt_float(f7) * (float)Math.PI);
             Vec3 vec3 = new Vec3(-0.36D, 0.03D, 0.35D);
-            vec3 = vec3.rotatePitch(-(entity.angler.prevRotationPitch + (entity.angler.rotationPitch - entity.angler.prevRotationPitch) * partialTicks) * (float)Math.PI / 180.0F);
-            vec3 = vec3.rotateYaw(-(entity.angler.prevRotationYaw + (entity.angler.rotationYaw - entity.angler.prevRotationYaw) * partialTicks) * (float)Math.PI / 180.0F);
+            vec3 = vec3.rotatePitch(-(entity.angler.prevRotationPitch + (entity.angler.getRotationPitch() - entity.angler.prevRotationPitch) * partialTicks) * (float)Math.PI / 180.0F);
+            vec3 = vec3.rotateYaw(-(entity.angler.prevRotationYaw + (entity.angler.getRotationYaw() - entity.angler.prevRotationYaw) * partialTicks) * (float)Math.PI / 180.0F);
             vec3 = vec3.rotateYaw(f8 * 0.5F);
             vec3 = vec3.rotatePitch(-f8 * 0.7F);
             double d0 = entity.angler.prevPosX + (entity.angler.posX - entity.angler.prevPosX) * (double)partialTicks + vec3.xCoord;

@@ -200,7 +200,7 @@ public abstract class MobSpawnerBaseLogic
                     }
 
                     entity1.readFromNBT(nbttagcompound1);
-                    entity1.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+                    entity1.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.getRotationYaw(), entity.getRotationPitch());
 
                     if (entityIn.worldObj != null && spawn)
                     {

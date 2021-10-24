@@ -36,8 +36,8 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient>
         this.x = MathHelper.floor_double(entityIn.posX * 32.0D);
         this.y = MathHelper.floor_double(entityIn.posY * 32.0D);
         this.z = MathHelper.floor_double(entityIn.posZ * 32.0D);
-        this.pitch = MathHelper.floor_float(entityIn.rotationPitch * 256.0F / 360.0F);
-        this.yaw = MathHelper.floor_float(entityIn.rotationYaw * 256.0F / 360.0F);
+        this.pitch = MathHelper.floor_float(entityIn.getRotationPitch() * 256.0F / 360.0F);
+        this.yaw = MathHelper.floor_float(entityIn.getRotationYaw() * 256.0F / 360.0F);
         this.type = typeIn;
         this.field_149020_k = p_i45166_3_;
 

@@ -112,7 +112,7 @@ public class BlockFenceGate extends BlockDirectional
         }
         else
         {
-            EnumFacing enumfacing = EnumFacing.fromAngle((double)playerIn.rotationYaw);
+            EnumFacing enumfacing = EnumFacing.fromAngle((double) playerIn.getRotationYaw());
 
             if (state.getValue(FACING) == enumfacing.getOpposite())
             {

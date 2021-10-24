@@ -61,7 +61,7 @@ public class Teleporter
                 }
             }
 
-            entityIn.setLocationAndAngles(i, j, k, entityIn.rotationYaw, 0.0F);
+            entityIn.setLocationAndAngles(i, j, k, entityIn.getRotationYaw(), 0.0F);
             entityIn.motionX = entityIn.motionY = entityIn.motionZ = 0.0D;
         }
     }
@@ -177,8 +177,8 @@ public class Teleporter
             double d4 = entityIn.motionZ;
             entityIn.motionX = d3 * (double)f + d4 * (double)f3;
             entityIn.motionZ = d3 * (double)f2 + d4 * (double)f1;
-            entityIn.rotationYaw = rotationYaw - (float)(entityIn.func_181012_aH().getOpposite().getHorizontalIndex() * 90) + (float)(blockpattern$patternhelper.getFinger().getHorizontalIndex() * 90);
-            entityIn.setLocationAndAngles(d5, d6, d7, entityIn.rotationYaw, entityIn.rotationPitch);
+            entityIn.setRotationYaw(rotationYaw - (float)(entityIn.func_181012_aH().getOpposite().getHorizontalIndex() * 90) + (float)(blockpattern$patternhelper.getFinger().getHorizontalIndex() * 90));
+            entityIn.setLocationAndAngles(d5, d6, d7, entityIn.getRotationYaw(), entityIn.getRotationPitch());
             return true;
         }
         else

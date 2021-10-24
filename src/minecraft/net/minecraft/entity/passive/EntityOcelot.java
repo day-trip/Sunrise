@@ -376,7 +376,7 @@ public class EntityOcelot extends EntityTameable
             for (int i = 0; i < 2; ++i)
             {
                 EntityOcelot entityocelot = new EntityOcelot(this.worldObj);
-                entityocelot.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+                entityocelot.setLocationAndAngles(this.posX, this.posY, this.posZ, this.getRotationYaw(), 0.0F);
                 entityocelot.setGrowingAge(-24000);
                 this.worldObj.spawnEntityInWorld(entityocelot);
             }

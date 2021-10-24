@@ -395,14 +395,14 @@ public class EntityGuardian extends EntityMob
             this.motionY += 0.5D;
             this.motionX += (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 0.4F);
             this.motionZ += (double)((this.rand.nextFloat() * 2.0F - 1.0F) * 0.4F);
-            this.rotationYaw = this.rand.nextFloat() * 360.0F;
+            this.setRotationYaw(this.rand.nextFloat() * 360.0F);
             this.onGround = false;
             this.isAirBorne = true;
         }
 
         if (this.hasTargetedEntity())
         {
-            this.rotationYaw = this.rotationYawHead;
+            this.setRotationYaw(this.rotationYawHead);
         }
 
         super.onLivingUpdate();
@@ -686,13 +686,13 @@ public class EntityGuardian extends EntityMob
                 d3 = (double)MathHelper.sqrt_double(d3);
                 d1 = d1 / d3;
                 float f = (float)(MathHelper.func_181159_b(d2, d0) * 180.0D / Math.PI) - 90.0F;
-                this.entityGuardian.rotationYaw = this.limitAngle(this.entityGuardian.rotationYaw, f, 30.0F);
-                this.entityGuardian.renderYawOffset = this.entityGuardian.rotationYaw;
+                this.entityGuardian.setRotationYaw(this.limitAngle(this.entityGuardian.getRotationYaw(), f, 30.0F));
+                this.entityGuardian.renderYawOffset = this.entityGuardian.getRotationYaw();
                 float f1 = (float)(this.speed * this.entityGuardian.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
                 this.entityGuardian.setAIMoveSpeed(this.entityGuardian.getAIMoveSpeed() + (f1 - this.entityGuardian.getAIMoveSpeed()) * 0.125F);
                 double d4 = Math.sin((double)(this.entityGuardian.ticksExisted + this.entityGuardian.getEntityId()) * 0.5D) * 0.05D;
-                double d5 = Math.cos((double)(this.entityGuardian.rotationYaw * (float)Math.PI / 180.0F));
-                double d6 = Math.sin((double)(this.entityGuardian.rotationYaw * (float)Math.PI / 180.0F));
+                double d5 = Math.cos((double)(this.entityGuardian.getRotationYaw() * (float)Math.PI / 180.0F));
+                double d6 = Math.sin((double)(this.entityGuardian.getRotationYaw() * (float)Math.PI / 180.0F));
                 this.entityGuardian.motionX += d4 * d5;
                 this.entityGuardian.motionZ += d4 * d6;
                 d4 = Math.sin((double)(this.entityGuardian.ticksExisted + this.entityGuardian.getEntityId()) * 0.75D) * 0.05D;

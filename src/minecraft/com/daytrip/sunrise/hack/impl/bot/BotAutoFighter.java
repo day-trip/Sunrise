@@ -54,6 +54,7 @@ public class BotAutoFighter extends Hack {
     private float yaw;
     private float prevYaw;
     private float pitch;
+    private double angleDistance;
 
     // Whether or not to automatically navigate
     private boolean autoNavigate = true;
@@ -150,6 +151,8 @@ public class BotAutoFighter extends Hack {
                     }
                     yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
                     pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
+
+                    angleDistance = Math.atan2(Math.sin(yaw - minecraft.thePlayer.getRotationYaw()), Math.cos(yaw - minecraft.thePlayer.getRotationYaw()));
                 })
         );
 
@@ -170,31 +173,31 @@ public class BotAutoFighter extends Hack {
                             if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
                                 cameraInterpolationTimer.update();
                                 float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
-                                minecraft.thePlayer.rotationYaw = (float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationYaw), (float) Math.toRadians(yaw), progress));
-                                minecraft.thePlayer.rotationPitch = (float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.rotationPitch), (float) Math.toRadians(pitch), progress));
+                                minecraft.thePlayer.setRotationYaw((float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.getRotationYaw()), (float) Math.toRadians(yaw), progress)));
+                                minecraft.thePlayer.setRotationPitch((float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.getRotationPitch()), (float) Math.toRadians(pitch), progress)));
 
-                                if(prevYaw - yaw > 0.7) {
+                                /*if(prevYaw - yaw > 0.7) {
                                     cameraInterpolationTimer.reset();
-                                }
+                                }*/
                                 prevYaw = yaw;
                             } else {
-                                minecraft.thePlayer.rotationYaw = yaw;
-                                minecraft.thePlayer.rotationPitch = pitch;
+                                minecraft.thePlayer.setRotationYaw(yaw);
+                                minecraft.thePlayer.setRotationPitch(pitch);
                             }
                         }
                     } else {
                         float yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()), 0);
                         float pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()), 0);
 
-                        minecraft.thePlayer.rotationYaw = yaw;
-                        minecraft.thePlayer.rotationPitch = pitch;
+                        minecraft.thePlayer.setRotationYaw(yaw);
+                        minecraft.thePlayer.setRotationPitch(pitch);
                     }
                 })
         );
 
         taskManager.registerTask(1, new Task()
                 .withName("PVP Module: Sword")
-                .executeIf(() -> canSword && distanceToTarget < 6 && Math.atan2(Math.sin(yaw - minecraft.thePlayer.rotationYaw), Math.cos(yaw - minecraft.thePlayer.rotationYaw)) < 25)
+                .executeIf(() -> canSword && distanceToTarget < 6 && angleDistance < 25)
                 .onTick(() -> {
                     rodTimer.reset();
 

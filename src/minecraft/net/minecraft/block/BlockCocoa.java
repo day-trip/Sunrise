@@ -113,7 +113,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable
      */
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
-        EnumFacing enumfacing = EnumFacing.fromAngle((double)placer.rotationYaw);
+        EnumFacing enumfacing = EnumFacing.fromAngle((double) placer.getRotationYaw());
         worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
     }
 

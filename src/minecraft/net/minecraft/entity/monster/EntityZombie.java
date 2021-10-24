@@ -568,7 +568,7 @@ public class EntityZombie extends EntityMob
                 else if ((double)this.worldObj.rand.nextFloat() < 0.05D)
                 {
                     EntityChicken entitychicken1 = new EntityChicken(this.worldObj);
-                    entitychicken1.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+                    entitychicken1.setLocationAndAngles(this.posX, this.posY, this.posZ, this.getRotationYaw(), 0.0F);
                     entitychicken1.onInitialSpawn(difficulty, (IEntityLivingData)null);
                     entitychicken1.setChickenJockey(true);
                     this.worldObj.spawnEntityInWorld(entitychicken1);

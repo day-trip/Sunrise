@@ -779,7 +779,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
         if (!worldObj.isRemote && !isDead)
         {
             EntityWitch entitywitch = new EntityWitch(worldObj);
-            entitywitch.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
+            entitywitch.setLocationAndAngles(posX, posY, posZ, getRotationYaw(), getRotationPitch());
             entitywitch.onInitialSpawn(worldObj.getDifficultyForLocation(new BlockPos(entitywitch)), null);
             entitywitch.setNoAI(isAIDisabled());
 

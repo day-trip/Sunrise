@@ -416,8 +416,8 @@ public class Item
 
     protected MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids)
     {
-        float f = playerIn.rotationPitch;
-        float f1 = playerIn.rotationYaw;
+        float f = playerIn.getRotationPitch();
+        float f1 = playerIn.getRotationYaw();
         double d0 = playerIn.posX;
         double d1 = playerIn.posY + (double)playerIn.getEyeHeight();
         double d2 = playerIn.posZ;

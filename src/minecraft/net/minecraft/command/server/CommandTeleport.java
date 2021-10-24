@@ -76,8 +76,8 @@ public class CommandTeleport extends CommandBase
                     CommandBase.CoordinateArg commandbase$coordinatearg = parseCoordinate(entity.posX, args[i], true);
                     CommandBase.CoordinateArg commandbase$coordinatearg1 = parseCoordinate(entity.posY, args[lvt_5_2_++], 0, 0, false);
                     CommandBase.CoordinateArg commandbase$coordinatearg2 = parseCoordinate(entity.posZ, args[lvt_5_2_++], true);
-                    CommandBase.CoordinateArg commandbase$coordinatearg3 = parseCoordinate((double)entity.rotationYaw, args.length > lvt_5_2_ ? args[lvt_5_2_++] : "~", false);
-                    CommandBase.CoordinateArg commandbase$coordinatearg4 = parseCoordinate((double)entity.rotationPitch, args.length > lvt_5_2_ ? args[lvt_5_2_] : "~", false);
+                    CommandBase.CoordinateArg commandbase$coordinatearg3 = parseCoordinate((double) entity.getRotationYaw(), args.length > lvt_5_2_ ? args[lvt_5_2_++] : "~", false);
+                    CommandBase.CoordinateArg commandbase$coordinatearg4 = parseCoordinate((double) entity.getRotationPitch(), args.length > lvt_5_2_ ? args[lvt_5_2_] : "~", false);
 
                     if (entity instanceof EntityPlayerMP)
                     {
@@ -164,11 +164,11 @@ public class CommandTeleport extends CommandBase
 
                     if (entity instanceof EntityPlayerMP)
                     {
-                        ((EntityPlayerMP)entity).playerNetServerHandler.setPlayerLocation(entity1.posX, entity1.posY, entity1.posZ, entity1.rotationYaw, entity1.rotationPitch);
+                        ((EntityPlayerMP)entity).playerNetServerHandler.setPlayerLocation(entity1.posX, entity1.posY, entity1.posZ, entity1.getRotationYaw(), entity1.getRotationPitch());
                     }
                     else
                     {
-                        entity.setLocationAndAngles(entity1.posX, entity1.posY, entity1.posZ, entity1.rotationYaw, entity1.rotationPitch);
+                        entity.setLocationAndAngles(entity1.posX, entity1.posY, entity1.posZ, entity1.getRotationYaw(), entity1.getRotationPitch());
                     }
 
                     notifyOperators(sender, this, "commands.tp.success", new Object[] {entity.getName(), entity1.getName()});

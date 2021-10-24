@@ -366,7 +366,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
             }
             else
             {
-                setPositionAndRotation(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+                setPositionAndRotation(entity.posX, entity.posY, entity.posZ, entity.getRotationYaw(), entity.getRotationPitch());
                 mcServer.getConfigurationManager().serverUpdateMountedMovingPlayer(this);
 
                 if (isSneaking())
@@ -669,7 +669,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         {
             Packet packet = new S0APacketUseBed(this, bedLocation);
             getServerForPlayer().getEntityTracker().sendToAllTrackingEntity(this, packet);
-            playerNetServerHandler.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
+            playerNetServerHandler.setPlayerLocation(posX, posY, posZ, getRotationYaw(), getRotationPitch());
             playerNetServerHandler.sendPacket(packet);
         }
 
@@ -690,7 +690,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
         if (playerNetServerHandler != null)
         {
-            playerNetServerHandler.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
+            playerNetServerHandler.setPlayerLocation(posX, posY, posZ, getRotationYaw(), getRotationPitch());
         }
     }
 
@@ -705,7 +705,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         if (entityIn != entity)
         {
             playerNetServerHandler.sendPacket(new S1BPacketEntityAttach(0, this, ridingEntity));
-            playerNetServerHandler.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
+            playerNetServerHandler.setPlayerLocation(posX, posY, posZ, getRotationYaw(), getRotationPitch());
         }
     }
 
@@ -1066,7 +1066,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
      */
     public void setPositionAndUpdate(double x, double y, double z)
     {
-        playerNetServerHandler.setPlayerLocation(x, y, z, rotationYaw, rotationPitch);
+        playerNetServerHandler.setPlayerLocation(x, y, z, getRotationYaw(), getRotationPitch());
     }
 
     /**

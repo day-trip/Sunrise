@@ -214,7 +214,7 @@ public class EntityRabbit extends EntityAnimal
 
     private void calculateRotationYaw(double x, double z)
     {
-        this.rotationYaw = (float)(MathHelper.func_181159_b(z - this.posZ, x - this.posX) * 180.0D / Math.PI) - 90.0F;
+        this.setRotationYaw((float)(MathHelper.func_181159_b(z - this.posZ, x - this.posX) * 180.0D / Math.PI) - 90.0F);
     }
 
     private void func_175518_cr()

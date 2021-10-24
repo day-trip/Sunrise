@@ -48,7 +48,7 @@ public class ItemDoor extends Item
             }
             else
             {
-                placeDoor(worldIn, pos, EnumFacing.fromAngle((double)playerIn.rotationYaw), this.block);
+                placeDoor(worldIn, pos, EnumFacing.fromAngle((double) playerIn.getRotationYaw()), this.block);
                 --stack.stackSize;
                 return true;
             }

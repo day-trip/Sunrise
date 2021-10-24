@@ -105,14 +105,14 @@ public class EntityArrow extends Entity implements IProjectile
         }
 
         setSize(0.5F, 0.5F);
-        setLocationAndAngles(shooter.posX, shooter.posY + (double)shooter.getEyeHeight(), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
-        posX -= MathHelper.cos(rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
+        setLocationAndAngles(shooter.posX, shooter.posY + (double)shooter.getEyeHeight(), shooter.posZ, shooter.getRotationYaw(), shooter.getRotationPitch());
+        posX -= MathHelper.cos(getRotationYaw() / 180.0F * (float)Math.PI) * 0.16F;
         posY -= 0.10000000149011612D;
-        posZ -= MathHelper.sin(rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
+        posZ -= MathHelper.sin(getRotationYaw() / 180.0F * (float)Math.PI) * 0.16F;
         setPosition(posX, posY, posZ);
-        motionX = -MathHelper.sin(rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI);
-        motionZ = MathHelper.cos(rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI);
-        motionY = -MathHelper.sin(rotationPitch / 180.0F * (float)Math.PI);
+        motionX = -MathHelper.sin(getRotationYaw() / 180.0F * (float)Math.PI) * MathHelper.cos(getRotationPitch() / 180.0F * (float)Math.PI);
+        motionZ = MathHelper.cos(getRotationYaw() / 180.0F * (float)Math.PI) * MathHelper.cos(getRotationPitch() / 180.0F * (float)Math.PI);
+        motionY = -MathHelper.sin(getRotationPitch() / 180.0F * (float)Math.PI);
         setThrowableHeading(motionX, motionY, motionZ, velocity * 1.5F, 1.0F);
     }
 
@@ -140,8 +140,8 @@ public class EntityArrow extends Entity implements IProjectile
         motionY = y;
         motionZ = z;
         float f1 = MathHelper.sqrt_double(x * x + z * z);
-        prevRotationYaw = rotationYaw = (float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI);
-        prevRotationPitch = rotationPitch = (float)(MathHelper.func_181159_b(y, f1) * 180.0D / Math.PI);
+        prevRotationYaw = setRotationYaw((float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI));
+        prevRotationPitch = setRotationPitch((float)(MathHelper.func_181159_b(y, f1) * 180.0D / Math.PI));
         ticksInGround = 0;
     }
 
@@ -163,10 +163,10 @@ public class EntityArrow extends Entity implements IProjectile
         if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(x * x + z * z);
-            prevRotationYaw = rotationYaw = (float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI);
-            prevRotationPitch = rotationPitch = (float)(MathHelper.func_181159_b(y, f) * 180.0D / Math.PI);
-            prevRotationYaw = rotationYaw;
-            setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
+            prevRotationYaw = setRotationYaw((float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI));
+            prevRotationPitch = setRotationPitch((float)(MathHelper.func_181159_b(y, f) * 180.0D / Math.PI));
+            prevRotationYaw = getRotationYaw();
+            setLocationAndAngles(posX, posY, posZ, getRotationYaw(), getRotationPitch());
             ticksInGround = 0;
         }
     }
@@ -181,8 +181,8 @@ public class EntityArrow extends Entity implements IProjectile
         if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
-            prevRotationYaw = rotationYaw = (float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI);
-            prevRotationPitch = rotationPitch = (float)(MathHelper.func_181159_b(motionY, f) * 180.0D / Math.PI);
+            prevRotationYaw = setRotationYaw((float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI));
+            prevRotationPitch = setRotationPitch((float)(MathHelper.func_181159_b(motionY, f) * 180.0D / Math.PI));
         }
 
         BlockPos blockpos = new BlockPos(xTile, yTile, zTile);
@@ -351,7 +351,7 @@ public class EntityArrow extends Entity implements IProjectile
                         motionX *= -0.10000000149011612D;
                         motionY *= -0.10000000149011612D;
                         motionZ *= -0.10000000149011612D;
-                        rotationYaw += 180.0F;
+                        setRotationYaw(getRotationYaw() + 180.0F);
                         prevRotationYaw += 180.0F;
                         ticksInAir = 0;
                     }
@@ -396,29 +396,29 @@ public class EntityArrow extends Entity implements IProjectile
             posY += motionY;
             posZ += motionZ;
             float f3 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
-            rotationYaw = (float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI);
+            setRotationYaw((float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI));
 
-            for (rotationPitch = (float)(MathHelper.func_181159_b(motionY, f3) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
+            for (setRotationPitch((float)(MathHelper.func_181159_b(motionY, f3) * 180.0D / Math.PI)); getRotationPitch() - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
             {
             }
 
-            while (rotationPitch - prevRotationPitch >= 180.0F)
+            while (getRotationPitch() - prevRotationPitch >= 180.0F)
             {
                 prevRotationPitch += 360.0F;
             }
 
-            while (rotationYaw - prevRotationYaw < -180.0F)
+            while (getRotationYaw() - prevRotationYaw < -180.0F)
             {
                 prevRotationYaw -= 360.0F;
             }
 
-            while (rotationYaw - prevRotationYaw >= 180.0F)
+            while (getRotationYaw() - prevRotationYaw >= 180.0F)
             {
                 prevRotationYaw += 360.0F;
             }
 
-            rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
-            rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
+            setRotationPitch(prevRotationPitch + (getRotationPitch() - prevRotationPitch) * 0.2F);
+            setRotationYaw(prevRotationYaw + (getRotationYaw() - prevRotationYaw) * 0.2F);
             float f4 = 0.99F;
             float f6 = 0.05F;
 

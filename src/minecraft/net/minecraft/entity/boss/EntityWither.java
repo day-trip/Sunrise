@@ -163,7 +163,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 
         if (this.motionX * this.motionX + this.motionZ * this.motionZ > 0.05000000074505806D)
         {
-            this.rotationYaw = (float)MathHelper.func_181159_b(this.motionZ, this.motionX) * (180F / (float)Math.PI) - 90.0F;
+            this.setRotationYaw((float)MathHelper.func_181159_b(this.motionZ, this.motionX) * (180F / (float)Math.PI) - 90.0F);
         }
 
         super.onLivingUpdate();

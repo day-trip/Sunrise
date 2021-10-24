@@ -75,8 +75,8 @@ public class EntityFireworkRocket extends Entity
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(x * x + z * z);
-            this.prevRotationYaw = this.rotationYaw = (float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI);
-            this.prevRotationPitch = this.rotationPitch = (float)(MathHelper.func_181159_b(y, (double)f) * 180.0D / Math.PI);
+            this.prevRotationYaw = this.setRotationYaw((float)(MathHelper.func_181159_b(x, z) * 180.0D / Math.PI));
+            this.prevRotationPitch = this.setRotationPitch((float)(MathHelper.func_181159_b(y, (double)f) * 180.0D / Math.PI));
         }
     }
 
@@ -94,30 +94,30 @@ public class EntityFireworkRocket extends Entity
         this.motionY += 0.04D;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
         float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-        this.rotationYaw = (float)(MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / Math.PI);
+        this.setRotationYaw((float)(MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / Math.PI));
 
-        for (this.rotationPitch = (float)(MathHelper.func_181159_b(this.motionY, (double)f) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+        for (this.setRotationPitch((float)(MathHelper.func_181159_b(this.motionY, (double)f) * 180.0D / Math.PI)); this.getRotationPitch() - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
         {
             ;
         }
 
-        while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
+        while (this.getRotationPitch() - this.prevRotationPitch >= 180.0F)
         {
             this.prevRotationPitch += 360.0F;
         }
 
-        while (this.rotationYaw - this.prevRotationYaw < -180.0F)
+        while (this.getRotationYaw() - this.prevRotationYaw < -180.0F)
         {
             this.prevRotationYaw -= 360.0F;
         }
 
-        while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
+        while (this.getRotationYaw() - this.prevRotationYaw >= 180.0F)
         {
             this.prevRotationYaw += 360.0F;
         }
 
-        this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-        this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+        this.setRotationPitch(this.prevRotationPitch + (this.getRotationPitch() - this.prevRotationPitch) * 0.2F);
+        this.setRotationYaw(this.prevRotationYaw + (this.getRotationYaw() - this.prevRotationYaw) * 0.2F);
 
         if (this.fireworkAge == 0 && !this.isSilent())
         {

@@ -62,7 +62,7 @@ public class EntityMoveHelper
             if (d3 >= 2.500000277905201E-7D)
             {
                 float f = (float)(MathHelper.func_181159_b(d1, d0) * 180.0D / Math.PI) - 90.0F;
-                entity.rotationYaw = limitAngle(entity.rotationYaw, f, 30.0F);
+                entity.setRotationYaw(limitAngle(entity.getRotationYaw(), f, 30.0F));
                 entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue()));
 
                 if (d2 > 0.0D && d0 * d0 + d1 * d1 < 1.0D)

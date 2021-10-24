@@ -28,8 +28,8 @@ public class ItemBoat extends Item
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
         float f = 1.0F;
-        float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) * f;
-        float f2 = playerIn.prevRotationYaw + (playerIn.rotationYaw - playerIn.prevRotationYaw) * f;
+        float f1 = playerIn.prevRotationPitch + (playerIn.getRotationPitch() - playerIn.prevRotationPitch) * f;
+        float f2 = playerIn.prevRotationYaw + (playerIn.getRotationYaw() - playerIn.prevRotationYaw) * f;
         double d0 = playerIn.prevPosX + (playerIn.posX - playerIn.prevPosX) * (double)f;
         double d1 = playerIn.prevPosY + (playerIn.posY - playerIn.prevPosY) * (double)f + (double)playerIn.getEyeHeight();
         double d2 = playerIn.prevPosZ + (playerIn.posZ - playerIn.prevPosZ) * (double)f;
@@ -87,7 +87,7 @@ public class ItemBoat extends Item
                     }
 
                     EntityBoat entityboat = new EntityBoat(worldIn, (double)((float)blockpos.getX() + 0.5F), (double)((float)blockpos.getY() + 1.0F), (double)((float)blockpos.getZ() + 0.5F));
-                    entityboat.rotationYaw = (float)(((MathHelper.floor_double((double)(playerIn.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90);
+                    entityboat.setRotationYaw((float)(((MathHelper.floor_double((double)(playerIn.getRotationYaw() * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90));
 
                     if (!worldIn.getCollidingBoundingBoxes(entityboat, entityboat.getEntityBoundingBox().expand(-0.1D, -0.1D, -0.1D)).isEmpty())
                     {

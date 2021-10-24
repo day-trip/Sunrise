@@ -163,7 +163,7 @@ public abstract class ServerConfigurationManager
         chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.YELLOW);
         this.sendChatMsg(chatcomponenttranslation);
         this.playerLoggedIn(playerIn);
-        nethandlerplayserver.setPlayerLocation(playerIn.posX, playerIn.posY, playerIn.posZ, playerIn.rotationYaw, playerIn.rotationPitch);
+        nethandlerplayserver.setPlayerLocation(playerIn.posX, playerIn.posY, playerIn.posZ, playerIn.getRotationYaw(), playerIn.getRotationPitch());
         this.updateTimeAndWeatherForPlayer(playerIn, worldserver);
 
         if (this.mcServer.getResourcePackUrl().length() > 0)
@@ -488,7 +488,7 @@ public abstract class ServerConfigurationManager
 
         entityplayermp.playerNetServerHandler.sendPacket(new S07PacketRespawn(entityplayermp.dimension, entityplayermp.worldObj.getDifficulty(), entityplayermp.worldObj.getWorldInfo().getTerrainType(), entityplayermp.theItemInWorldManager.getGameType()));
         BlockPos blockpos2 = worldserver.getSpawnPoint();
-        entityplayermp.playerNetServerHandler.setPlayerLocation(entityplayermp.posX, entityplayermp.posY, entityplayermp.posZ, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
+        entityplayermp.playerNetServerHandler.setPlayerLocation(entityplayermp.posX, entityplayermp.posY, entityplayermp.posZ, entityplayermp.getRotationYaw(), entityplayermp.getRotationPitch());
         entityplayermp.playerNetServerHandler.sendPacket(new S05PacketSpawnPosition(blockpos2));
         entityplayermp.playerNetServerHandler.sendPacket(new S1FPacketSetExperience(entityplayermp.experience, entityplayermp.experienceTotal, entityplayermp.experienceLevel));
         this.updateTimeAndWeatherForPlayer(entityplayermp, worldserver);
@@ -515,7 +515,7 @@ public abstract class ServerConfigurationManager
         playerIn.isDead = false;
         this.transferEntityToWorld(playerIn, i, worldserver, worldserver1);
         this.preparePlayer(playerIn, worldserver);
-        playerIn.playerNetServerHandler.setPlayerLocation(playerIn.posX, playerIn.posY, playerIn.posZ, playerIn.rotationYaw, playerIn.rotationPitch);
+        playerIn.playerNetServerHandler.setPlayerLocation(playerIn.posX, playerIn.posY, playerIn.posZ, playerIn.getRotationYaw(), playerIn.getRotationPitch());
         playerIn.theItemInWorldManager.setWorld(worldserver1);
         this.updateTimeAndWeatherForPlayer(playerIn, worldserver1);
         this.syncPlayerInventory(playerIn);
@@ -534,14 +534,14 @@ public abstract class ServerConfigurationManager
         double d0 = entityIn.posX;
         double d1 = entityIn.posZ;
         double d2 = 8.0D;
-        float f = entityIn.rotationYaw;
+        float f = entityIn.getRotationYaw();
         p_82448_3_.theProfiler.startSection("moving");
 
         if (entityIn.dimension == -1)
         {
             d0 = MathHelper.clamp_double(d0 / d2, p_82448_4_.getWorldBorder().minX() + 16.0D, p_82448_4_.getWorldBorder().maxX() - 16.0D);
             d1 = MathHelper.clamp_double(d1 / d2, p_82448_4_.getWorldBorder().minZ() + 16.0D, p_82448_4_.getWorldBorder().maxZ() - 16.0D);
-            entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
+            entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.getRotationYaw(), entityIn.getRotationPitch());
 
             if (entityIn.isEntityAlive())
             {
@@ -552,7 +552,7 @@ public abstract class ServerConfigurationManager
         {
             d0 = MathHelper.clamp_double(d0 * d2, p_82448_4_.getWorldBorder().minX() + 16.0D, p_82448_4_.getWorldBorder().maxX() - 16.0D);
             d1 = MathHelper.clamp_double(d1 * d2, p_82448_4_.getWorldBorder().minZ() + 16.0D, p_82448_4_.getWorldBorder().maxZ() - 16.0D);
-            entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
+            entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.getRotationYaw(), entityIn.getRotationPitch());
 
             if (entityIn.isEntityAlive())
             {
@@ -593,7 +593,7 @@ public abstract class ServerConfigurationManager
 
             if (entityIn.isEntityAlive())
             {
-                entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
+                entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.getRotationYaw(), entityIn.getRotationPitch());
                 p_82448_4_.getDefaultTeleporter().placeInPortal(entityIn, f);
                 p_82448_4_.spawnEntityInWorld(entityIn);
                 p_82448_4_.updateEntityWithOptionalForce(entityIn, false);

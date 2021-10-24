@@ -65,7 +65,7 @@ public class EntityEnderPearl extends EntityThrowable
                     {
                         EntityEndermite entityendermite = new EntityEndermite(this.worldObj);
                         entityendermite.setSpawnedByPlayer(true);
-                        entityendermite.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, entitylivingbase.rotationYaw, entitylivingbase.rotationPitch);
+                        entityendermite.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, entitylivingbase.getRotationYaw(), entitylivingbase.getRotationPitch());
                         this.worldObj.spawnEntityInWorld(entityendermite);
                     }
 

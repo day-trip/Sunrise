@@ -108,8 +108,8 @@ public class ItemRenderer
     {
         float f = entityplayerspIn.prevRenderArmPitch + (entityplayerspIn.renderArmPitch - entityplayerspIn.prevRenderArmPitch) * partialTicks;
         float f1 = entityplayerspIn.prevRenderArmYaw + (entityplayerspIn.renderArmYaw - entityplayerspIn.prevRenderArmYaw) * partialTicks;
-        GlStateManager.rotate((entityplayerspIn.rotationPitch - f) * 0.1F, 1.0F, 0.0F, 0.0F);
-        GlStateManager.rotate((entityplayerspIn.rotationYaw - f1) * 0.1F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((entityplayerspIn.getRotationPitch() - f) * 0.1F, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate((entityplayerspIn.getRotationYaw() - f1) * 0.1F, 0.0F, 1.0F, 0.0F);
     }
 
     private float func_178100_c(float p_178100_1_)
@@ -239,7 +239,7 @@ public class ItemRenderer
     {
         float f = (float)clientPlayer.getItemInUseCount() - p_178104_2_ + 1.0F;
         float f1 = f / (float) itemToRender.getMaxItemUseDuration();
-        float f2 = MathHelper.abs(MathHelper.cos(f / 4.0F * (float)Math.PI) * 0.1F);
+        float f2 = Math.abs(MathHelper.cos(f / 4.0F * (float)Math.PI) * 0.1F);
 
         if (f1 >= 0.8F)
         {
@@ -313,8 +313,8 @@ public class ItemRenderer
         float f = 1.0F - (prevEquippedProgress + (equippedProgress - prevEquippedProgress) * partialTicks);
         EntityPlayerSP entityPlayerSP = mc.thePlayer;
         float f1 = entityPlayerSP.getSwingProgress(partialTicks);
-        float f2 = entityPlayerSP.prevRotationPitch + (entityPlayerSP.rotationPitch - entityPlayerSP.prevRotationPitch) * partialTicks;
-        float f3 = entityPlayerSP.prevRotationYaw + (entityPlayerSP.rotationYaw - entityPlayerSP.prevRotationYaw) * partialTicks;
+        float f2 = entityPlayerSP.prevRotationPitch + (entityPlayerSP.getRotationPitch() - entityPlayerSP.prevRotationPitch) * partialTicks;
+        float f3 = entityPlayerSP.prevRotationYaw + (entityPlayerSP.getRotationYaw() - entityPlayerSP.prevRotationYaw) * partialTicks;
         func_178101_a(f2, f3);
         func_178109_a(entityPlayerSP);
         func_178110_a(entityPlayerSP, partialTicks);

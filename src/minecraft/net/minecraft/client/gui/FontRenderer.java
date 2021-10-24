@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.GL11;
@@ -100,7 +99,7 @@ public class FontRenderer implements IResourceManagerReloadListener
      */
     private boolean strikethroughStyle;
 
-    public FontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode)
+    public FontRenderer(ResourceLocation location, TextureManager textureManagerIn, boolean unicode)
     {
         locationFontTexture = location;
         renderEngine = textureManagerIn;
@@ -112,21 +111,11 @@ public class FontRenderer implements IResourceManagerReloadListener
             int j = (i >> 3 & 1) * 85;
             int k = (i >> 2 & 1) * 170 + j;
             int l = (i >> 1 & 1) * 170 + j;
-            int i1 = (i >> 0 & 1) * 170 + j;
+            int i1 = (i & 1) * 170 + j;
 
             if (i == 6)
             {
                 k += 85;
-            }
-
-            if (gameSettingsIn.anaglyph)
-            {
-                int j1 = (k * 30 + l * 59 + i1 * 11) / 100;
-                int k1 = (k * 30 + l * 70) / 100;
-                int l1 = (k * 30 + i1 * 70) / 100;
-                k = j1;
-                l = k1;
-                i1 = l1;
             }
 
             if (i >= 16)
@@ -186,13 +175,13 @@ public class FontRenderer implements IResourceManagerReloadListener
                 int j2 = k1 * l + i2;
                 boolean flag = true;
 
-                for (int k2 = 0; k2 < k && flag; ++k2)
+                for (int k2 = 0; k2 < k; ++k2)
                 {
                     int l2 = (l1 * l + k2) * i;
 
-                    if ((aint[j2 + l2] >> 24 & 255) != 0)
-                    {
+                    if ((aint[j2 + l2] >> 24 & 255) != 0) {
                         flag = false;
+                        break;
                     }
                 }
 
@@ -463,16 +452,11 @@ public class FontRenderer implements IResourceManagerReloadListener
                     int k = getCharWidth(c0);
                     char c1;
 
-                    while (true)
-                    {
+                    do {
                         j = fontRandom.nextInt("\u00c0\u00c1\u00c2\u00c8\u00ca\u00cb\u00cd\u00d3\u00d4\u00d5\u00da\u00df\u00e3\u00f5\u011f\u0130\u0131\u0152\u0153\u015e\u015f\u0174\u0175\u017e\u0207\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000\u00c7\u00fc\u00e9\u00e2\u00e4\u00e0\u00e5\u00e7\u00ea\u00eb\u00e8\u00ef\u00ee\u00ec\u00c4\u00c5\u00c9\u00e6\u00c6\u00f4\u00f6\u00f2\u00fb\u00f9\u00ff\u00d6\u00dc\u00f8\u00a3\u00d8\u00d7\u0192\u00e1\u00ed\u00f3\u00fa\u00f1\u00d1\u00aa\u00ba\u00bf\u00ae\u00ac\u00bd\u00bc\u00a1\u00ab\u00bb\u2591\u2592\u2593\u2502\u2524\u2561\u2562\u2556\u2555\u2563\u2551\u2557\u255d\u255c\u255b\u2510\u2514\u2534\u252c\u251c\u2500\u253c\u255e\u255f\u255a\u2554\u2569\u2566\u2560\u2550\u256c\u2567\u2568\u2564\u2565\u2559\u2558\u2552\u2553\u256b\u256a\u2518\u250c\u2588\u2584\u258c\u2590\u2580\u03b1\u03b2\u0393\u03c0\u03a3\u03c3\u03bc\u03c4\u03a6\u0398\u03a9\u03b4\u221e\u2205\u2208\u2229\u2261\u00b1\u2265\u2264\u2320\u2321\u00f7\u2248\u00b0\u2219\u00b7\u221a\u207f\u00b2\u25a0\u0000".length());
                         c1 = "\u00c0\u00c1\u00c2\u00c8\u00ca\u00cb\u00cd\u00d3\u00d4\u00d5\u00da\u00df\u00e3\u00f5\u011f\u0130\u0131\u0152\u0153\u015e\u015f\u0174\u0175\u017e\u0207\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000\u00c7\u00fc\u00e9\u00e2\u00e4\u00e0\u00e5\u00e7\u00ea\u00eb\u00e8\u00ef\u00ee\u00ec\u00c4\u00c5\u00c9\u00e6\u00c6\u00f4\u00f6\u00f2\u00fb\u00f9\u00ff\u00d6\u00dc\u00f8\u00a3\u00d8\u00d7\u0192\u00e1\u00ed\u00f3\u00fa\u00f1\u00d1\u00aa\u00ba\u00bf\u00ae\u00ac\u00bd\u00bc\u00a1\u00ab\u00bb\u2591\u2592\u2593\u2502\u2524\u2561\u2562\u2556\u2555\u2563\u2551\u2557\u255d\u255c\u255b\u2510\u2514\u2534\u252c\u251c\u2500\u253c\u255e\u255f\u255a\u2554\u2569\u2566\u2560\u2550\u256c\u2567\u2568\u2564\u2565\u2559\u2558\u2552\u2553\u256b\u256a\u2518\u250c\u2588\u2584\u258c\u2590\u2580\u03b1\u03b2\u0393\u03c0\u03a3\u03c3\u03bc\u03c4\u03a6\u0398\u03a9\u03b4\u221e\u2205\u2208\u2229\u2261\u00b1\u2265\u2264\u2320\u2321\u00f7\u2248\u00b0\u2219\u00b7\u221a\u207f\u00b2\u25a0\u0000".charAt(j);
 
-                        if (k == getCharWidth(c1))
-                        {
-                            break;
-                        }
-                    }
+                    } while (k != getCharWidth(c1));
 
                     c0 = c1;
                 }
@@ -553,7 +537,7 @@ public class FontRenderer implements IResourceManagerReloadListener
     /**
      * Render string either left or right aligned depending on bidiFlag
      */
-    private int renderStringAligned(String text, int x, int y, int p_78274_4_, int color, boolean dropShadow)
+    private void renderStringAligned(String text, int x, int y, int p_78274_4_, int color)
     {
         if (bidiFlag)
         {
@@ -561,7 +545,7 @@ public class FontRenderer implements IResourceManagerReloadListener
             x = x + p_78274_4_ - i;
         }
 
-        return renderString(text, (float)x, (float)y, color, dropShadow);
+        renderString(text, (float) x, (float) y, color, false);
     }
 
     /**
@@ -789,18 +773,18 @@ public class FontRenderer implements IResourceManagerReloadListener
         resetStyles();
         this.textColor = textColor;
         str = trimStringNewline(str);
-        renderSplitString(str, x, y, wrapWidth, false);
+        renderSplitString(str, x, y, wrapWidth);
     }
 
     /**
      * Perform actual work of rendering a multi-line string with wordwrap and with darker drop shadow color if flag is
      * set
      */
-    private void renderSplitString(String str, int x, int y, int wrapWidth, boolean addShadow)
+    private void renderSplitString(String str, int x, int y, int wrapWidth)
     {
         for (String s : listFormattedStringToWidth(str, wrapWidth))
         {
-            renderStringAligned(s, x, y, wrapWidth, textColor, addShadow);
+            renderStringAligned(s, x, y, wrapWidth, textColor);
             y += FONT_HEIGHT;
         }
     }
@@ -955,7 +939,7 @@ public class FontRenderer implements IResourceManagerReloadListener
      */
     public static String getFormatFromString(String text)
     {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         int i = -1;
         int j = text.length();
 
@@ -967,16 +951,16 @@ public class FontRenderer implements IResourceManagerReloadListener
 
                 if (isFormatColor(c0))
                 {
-                    s = "\u00a7" + c0;
+                    s = new StringBuilder("\u00a7" + c0);
                 }
                 else if (isFormatSpecial(c0))
                 {
-                    s = s + "\u00a7" + c0;
+                    s.append("\u00a7").append(c0);
                 }
             }
         }
 
-        return s;
+        return s.toString();
     }
 
     /**

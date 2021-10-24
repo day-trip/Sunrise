@@ -167,7 +167,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                 this.animTime += f10;
             }
 
-            this.rotationYaw = MathHelper.wrapAngleTo180_float(this.rotationYaw);
+            this.setRotationYaw(MathHelper.wrapAngleTo180_float(this.getRotationYaw()));
 
             if (this.isAIDisabled())
             {
@@ -179,7 +179,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                 {
                     for (int i = 0; i < this.ringBuffer.length; ++i)
                     {
-                        this.ringBuffer[i][0] = (double)this.rotationYaw;
+                        this.ringBuffer[i][0] = (double) this.getRotationYaw();
                         this.ringBuffer[i][1] = this.posY;
                     }
                 }
@@ -189,7 +189,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     this.ringBufferIndex = 0;
                 }
 
-                this.ringBuffer[this.ringBufferIndex][0] = (double)this.rotationYaw;
+                this.ringBuffer[this.ringBufferIndex][0] = (double) this.getRotationYaw();
                 this.ringBuffer[this.ringBufferIndex][1] = this.posY;
 
                 if (this.worldObj.isRemote)
@@ -199,12 +199,12 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                         double d10 = this.posX + (this.newPosX - this.posX) / (double)this.newPosRotationIncrements;
                         double d0 = this.posY + (this.newPosY - this.posY) / (double)this.newPosRotationIncrements;
                         double d1 = this.posZ + (this.newPosZ - this.posZ) / (double)this.newPosRotationIncrements;
-                        double d2 = MathHelper.wrapAngleTo180_double(this.newRotationYaw - (double)this.rotationYaw);
-                        this.rotationYaw = (float)((double)this.rotationYaw + d2 / (double)this.newPosRotationIncrements);
-                        this.rotationPitch = (float)((double)this.rotationPitch + (this.newRotationPitch - (double)this.rotationPitch) / (double)this.newPosRotationIncrements);
+                        double d2 = MathHelper.wrapAngleTo180_double(this.newRotationYaw - (double) this.getRotationYaw());
+                        this.setRotationYaw((float)((double) this.getRotationYaw() + d2 / (double)this.newPosRotationIncrements));
+                        this.setRotationPitch((float)((double) this.getRotationPitch() + (this.newRotationPitch - (double) this.getRotationPitch()) / (double)this.newPosRotationIncrements));
                         --this.newPosRotationIncrements;
                         this.setPosition(d10, d0, d1);
-                        this.setRotation(this.rotationYaw, this.rotationPitch);
+                        this.setRotation(this.getRotationYaw(), this.getRotationPitch());
                     }
                 }
                 else
@@ -245,9 +245,9 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     float f17 = 0.6F;
                     d12 = MathHelper.clamp_double(d12, (double)(-f17), (double)f17);
                     this.motionY += d12 * 0.10000000149011612D;
-                    this.rotationYaw = MathHelper.wrapAngleTo180_float(this.rotationYaw);
+                    this.setRotationYaw(MathHelper.wrapAngleTo180_float(this.getRotationYaw()));
                     double d4 = 180.0D - MathHelper.func_181159_b(d11, d13) * 180.0D / Math.PI;
-                    double d6 = MathHelper.wrapAngleTo180_double(d4 - (double)this.rotationYaw);
+                    double d6 = MathHelper.wrapAngleTo180_double(d4 - (double) this.getRotationYaw());
 
                     if (d6 > 50.0D)
                     {
@@ -260,8 +260,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     }
 
                     Vec3 vec3 = (new Vec3(this.targetX - this.posX, this.targetY - this.posY, this.targetZ - this.posZ)).normalize();
-                    double d15 = (double)(-MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F));
-                    Vec3 vec31 = (new Vec3((double)MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F), this.motionY, d15)).normalize();
+                    double d15 = (double)(-MathHelper.cos(this.getRotationYaw() * (float)Math.PI / 180.0F));
+                    Vec3 vec31 = (new Vec3((double)MathHelper.sin(this.getRotationYaw() * (float)Math.PI / 180.0F), this.motionY, d15)).normalize();
                     float f5 = ((float)vec31.dotProduct(vec3) + 0.5F) / 1.5F;
 
                     if (f5 < 0.0F)
@@ -279,7 +279,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     }
 
                     this.randomYawVelocity = (float)((double)this.randomYawVelocity + d6 * (0.699999988079071D / d9 / (double)f6));
-                    this.rotationYaw += this.randomYawVelocity * 0.1F;
+                    this.setRotationYaw(this.getRotationYaw() + this.randomYawVelocity * 0.1F);
                     float f7 = (float)(2.0D / (d9 + 1.0D));
                     float f8 = 0.06F;
                     this.moveFlying(0.0F, -1.0F, f8 * (f5 * f7 + (1.0F - f7)));
@@ -301,7 +301,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     this.motionY *= 0.9100000262260437D;
                 }
 
-                this.renderYawOffset = this.rotationYaw;
+                this.renderYawOffset = this.getRotationYaw();
                 this.dragonPartHead.width = this.dragonPartHead.height = 3.0F;
                 this.dragonPartTail1.width = this.dragonPartTail1.height = 2.0F;
                 this.dragonPartTail2.width = this.dragonPartTail2.height = 2.0F;
@@ -315,7 +315,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                 float f12 = (float)(this.getMovementOffsets(5, 1.0F)[1] - this.getMovementOffsets(10, 1.0F)[1]) * 10.0F / 180.0F * (float)Math.PI;
                 float f2 = MathHelper.cos(f12);
                 float f15 = -MathHelper.sin(f12);
-                float f3 = this.rotationYaw * (float)Math.PI / 180.0F;
+                float f3 = this.getRotationYaw() * (float)Math.PI / 180.0F;
                 float f16 = MathHelper.sin(f3);
                 float f4 = MathHelper.cos(f3);
                 this.dragonPartBody.onUpdate();
@@ -334,8 +334,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
                 double[] adouble1 = this.getMovementOffsets(5, 1.0F);
                 double[] adouble = this.getMovementOffsets(0, 1.0F);
-                float f18 = MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F - this.randomYawVelocity * 0.01F);
-                float f19 = MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F - this.randomYawVelocity * 0.01F);
+                float f18 = MathHelper.sin(this.getRotationYaw() * (float)Math.PI / 180.0F - this.randomYawVelocity * 0.01F);
+                float f19 = MathHelper.cos(this.getRotationYaw() * (float)Math.PI / 180.0F - this.randomYawVelocity * 0.01F);
                 this.dragonPartHead.onUpdate();
                 this.dragonPartHead.setLocationAndAngles(this.posX + (double)(f18 * 5.5F * f2), this.posY + (adouble[1] - adouble1[1]) * 1.0D + (double)(f15 * 5.5F), this.posZ - (double)(f19 * 5.5F * f2), 0.0F, 0.0F);
 
@@ -359,7 +359,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     }
 
                     double[] adouble2 = this.getMovementOffsets(12 + j * 2, 1.0F);
-                    float f20 = this.rotationYaw * (float)Math.PI / 180.0F + this.simplifyAngle(adouble2[0] - adouble1[0]) * (float)Math.PI / 180.0F * 1.0F;
+                    float f20 = this.getRotationYaw() * (float)Math.PI / 180.0F + this.simplifyAngle(adouble2[0] - adouble1[0]) * (float)Math.PI / 180.0F * 1.0F;
                     float f21 = MathHelper.sin(f20);
                     float f22 = MathHelper.cos(f20);
                     float f23 = 1.5F;
@@ -566,7 +566,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
             p_70965_3_ = p_70965_3_ / 4.0F + 1.0F;
         }
 
-        float f = this.rotationYaw * (float)Math.PI / 180.0F;
+        float f = this.getRotationYaw() * (float)Math.PI / 180.0F;
         float f1 = MathHelper.sin(f);
         float f2 = MathHelper.cos(f);
         this.targetX = this.posX + (double)(f1 * 5.0F) + (double)((this.rand.nextFloat() - 0.5F) * 2.0F);
@@ -649,7 +649,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         }
 
         this.moveEntity(0.0D, 0.10000000149011612D, 0.0D);
-        this.renderYawOffset = this.rotationYaw += 20.0F;
+        this.renderYawOffset = this.setRotationYaw(this.getRotationYaw() + 20.0F);
 
         if (this.deathTicks == 200 && !this.worldObj.isRemote)
         {

@@ -106,7 +106,7 @@ public class PlayerControllerMP
      */
     public void flipPlayer(EntityPlayer playerIn)
     {
-        playerIn.rotationYaw = -180.0F;
+        playerIn.setRotationYaw(-180.0F);
     }
 
     public boolean shouldDrawHUD()

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.Callable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockEnderChest;
@@ -799,12 +799,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         BlockPos blockpos1 = new BlockPos(d3, d4 + (double)viewEntity.getEyeHeight(), d5);
         RenderChunk renderchunk = viewFrustum.getRenderChunk(blockpos1);
         BlockPos blockpos = new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
-        displayListEntitiesDirty = displayListEntitiesDirty || !chunksToUpdate.isEmpty() || viewEntity.posX != lastViewEntityX || viewEntity.posY != lastViewEntityY || viewEntity.posZ != lastViewEntityZ || (double)viewEntity.rotationPitch != lastViewEntityPitch || (double)viewEntity.rotationYaw != lastViewEntityYaw;
+        displayListEntitiesDirty = displayListEntitiesDirty || !chunksToUpdate.isEmpty() || viewEntity.posX != lastViewEntityX || viewEntity.posY != lastViewEntityY || viewEntity.posZ != lastViewEntityZ || (double) viewEntity.getRotationPitch() != lastViewEntityPitch || (double) viewEntity.getRotationYaw() != lastViewEntityYaw;
         lastViewEntityX = viewEntity.posX;
         lastViewEntityY = viewEntity.posY;
         lastViewEntityZ = viewEntity.posZ;
-        lastViewEntityPitch = viewEntity.rotationPitch;
-        lastViewEntityYaw = viewEntity.rotationYaw;
+        lastViewEntityPitch = viewEntity.getRotationPitch();
+        lastViewEntityYaw = viewEntity.getRotationYaw();
         boolean flag = debugFixedClippingHelper != null;
 
         if (!flag && displayListEntitiesDirty)
@@ -928,7 +928,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private boolean isPositionInRenderChunk(BlockPos pos, RenderChunk renderChunkIn)
     {
         BlockPos blockpos = renderChunkIn.getPosition();
-        return MathHelper.abs_int(pos.getX() - blockpos.getX()) <= 16 && (MathHelper.abs_int(pos.getY() - blockpos.getY()) <= 16 && MathHelper.abs_int(pos.getZ() - blockpos.getZ()) <= 16);
+        return Math.abs(pos.getX() - blockpos.getX()) <= 16 && (Math.abs(pos.getY() - blockpos.getY()) <= 16 && Math.abs(pos.getZ() - blockpos.getZ()) <= 16);
     }
 
     private Set<EnumFacing> getVisibleFacings(BlockPos pos)
@@ -950,7 +950,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private RenderChunk func_181562_a(BlockPos p_181562_1_, RenderChunk p_181562_2_, EnumFacing p_181562_3_)
     {
         BlockPos blockpos = p_181562_2_.func_181701_a(p_181562_3_);
-        return MathHelper.abs_int(p_181562_1_.getX() - blockpos.getX()) > renderDistanceChunks * 16 ? null : (blockpos.getY() >= 0 && blockpos.getY() < 256 ? (MathHelper.abs_int(p_181562_1_.getZ() - blockpos.getZ()) > renderDistanceChunks * 16 ? null : viewFrustum.getRenderChunk(blockpos)) : null);
+        return Math.abs(p_181562_1_.getX() - blockpos.getX()) > renderDistanceChunks * 16 ? null : (blockpos.getY() >= 0 && blockpos.getY() < 256 ? (Math.abs(p_181562_1_.getZ() - blockpos.getZ()) > renderDistanceChunks * 16 ? null : viewFrustum.getRenderChunk(blockpos)) : null);
     }
 
     private void fixTerrainFrustum(double x, double y, double z)
@@ -988,8 +988,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     protected Vector3f getViewVector(Entity entityIn, double partialTicks)
     {
-        float f = (float)((double)entityIn.prevRotationPitch + (double)(entityIn.rotationPitch - entityIn.prevRotationPitch) * partialTicks);
-        float f1 = (float)((double)entityIn.prevRotationYaw + (double)(entityIn.rotationYaw - entityIn.prevRotationYaw) * partialTicks);
+        float f = (float)((double)entityIn.prevRotationPitch + (double)(entityIn.getRotationPitch() - entityIn.prevRotationPitch) * partialTicks);
+        float f1 = (float)((double)entityIn.prevRotationYaw + (double)(entityIn.getRotationYaw() - entityIn.prevRotationYaw) * partialTicks);
 
         if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2)
         {
@@ -2069,13 +2069,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
      * textures. On server worlds, removes the entity from the entity tracker.
      */
     public void onEntityRemoved(Entity entityIn)
-    {
-    }
-
-    /**
-     * Deletes all display lists
-     */
-    public void deleteAllDisplayLists()
     {
     }
 

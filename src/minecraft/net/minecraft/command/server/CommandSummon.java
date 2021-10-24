@@ -119,7 +119,7 @@ public class CommandSummon extends CommandBase
                 }
                 else
                 {
-                    entity2.setLocationAndAngles(d0, d1, d2, entity2.rotationYaw, entity2.rotationPitch);
+                    entity2.setLocationAndAngles(d0, d1, d2, entity2.getRotationYaw(), entity2.getRotationPitch());
 
                     if (!flag && entity2 instanceof EntityLiving)
                     {
@@ -135,7 +135,7 @@ public class CommandSummon extends CommandBase
 
                         if (entity1 != null)
                         {
-                            entity1.setLocationAndAngles(d0, d1, d2, entity1.rotationYaw, entity1.rotationPitch);
+                            entity1.setLocationAndAngles(d0, d1, d2, entity1.getRotationYaw(), entity1.getRotationPitch());
                             world.spawnEntityInWorld(entity1);
                             entity.mountEntity(entity1);
                         }

@@ -184,8 +184,8 @@ public abstract class EntityLivingBase extends Entity
         field_70770_ap = (float)((Math.random() + 1.0D) * 0.009999999776482582D);
         setPosition(posX, posY, posZ);
         field_70769_ao = (float)Math.random() * 12398.0F;
-        rotationYaw = (float)(Math.random() * Math.PI * 2.0D);
-        rotationYawHead = rotationYaw;
+        setRotationYaw((float)(Math.random() * Math.PI * 2.0D));
+        rotationYawHead = getRotationYaw();
         stepHeight = 0.6F;
     }
 
@@ -360,8 +360,8 @@ public abstract class EntityLivingBase extends Entity
         prevMovedDistance = movedDistance;
         prevRenderYawOffset = renderYawOffset;
         prevRotationYawHead = rotationYawHead;
-        prevRotationYaw = rotationYaw;
-        prevRotationPitch = rotationPitch;
+        prevRotationYaw = getRotationYaw();
+        prevRotationPitch = getRotationPitch();
         worldObj.theProfiler.endSection();
     }
 
@@ -936,7 +936,7 @@ public abstract class EntityLivingBase extends Entity
                             d1 = (Math.random() - Math.random()) * 0.01D;
                         }
 
-                        attackedAtYaw = (float)(MathHelper.func_181159_b(d0, d1) * 180.0D / Math.PI - (double) rotationYaw);
+                        attackedAtYaw = (float)(MathHelper.func_181159_b(d0, d1) * 180.0D / Math.PI - (double) getRotationYaw());
                         knockBack(d1, d0);
                     }
                     else
@@ -981,12 +981,12 @@ public abstract class EntityLivingBase extends Entity
         for (int i = 0; i < 5; ++i)
         {
             Vec3 vec3 = new Vec3(((double) rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-            vec3 = vec3.rotatePitch(-rotationPitch * (float)Math.PI / 180.0F);
-            vec3 = vec3.rotateYaw(-rotationYaw * (float)Math.PI / 180.0F);
+            vec3 = vec3.rotatePitch(-getRotationPitch() * (float)Math.PI / 180.0F);
+            vec3 = vec3.rotateYaw(-getRotationYaw() * (float)Math.PI / 180.0F);
             double d0 = (double)(-rand.nextFloat()) * 0.6D - 0.3D;
             Vec3 vec31 = new Vec3(((double) rand.nextFloat() - 0.5D) * 0.3D, d0, 0.6D);
-            vec31 = vec31.rotatePitch(-rotationPitch * (float)Math.PI / 180.0F);
-            vec31 = vec31.rotateYaw(-rotationYaw * (float)Math.PI / 180.0F);
+            vec31 = vec31.rotatePitch(-getRotationPitch() * (float)Math.PI / 180.0F);
+            vec31 = vec31.rotateYaw(-getRotationYaw() * (float)Math.PI / 180.0F);
             vec31 = vec31.add(posX, posY + (double) getEyeHeight(), posZ);
             worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(stack.getItem()));
         }
@@ -1551,7 +1551,7 @@ public abstract class EntityLivingBase extends Entity
 
         if (isSprinting())
         {
-            float f = rotationYaw * 0.017453292F;
+            float f = getRotationYaw() * 0.017453292F;
             motionX -= MathHelper.sin(f) * 0.2F;
             motionZ += MathHelper.cos(f) * 0.2F;
         }
@@ -1827,7 +1827,7 @@ public abstract class EntityLivingBase extends Entity
 
         if (swingProgress > 0.0F)
         {
-            f1 = rotationYaw;
+            f1 = getRotationYaw();
         }
 
         if (!onGround)
@@ -1841,12 +1841,12 @@ public abstract class EntityLivingBase extends Entity
         worldObj.theProfiler.endSection();
         worldObj.theProfiler.startSection("rangeChecks");
 
-        while (rotationYaw - prevRotationYaw < -180.0F)
+        while (getRotationYaw() - prevRotationYaw < -180.0F)
         {
             prevRotationYaw -= 360.0F;
         }
 
-        while (rotationYaw - prevRotationYaw >= 180.0F)
+        while (getRotationYaw() - prevRotationYaw >= 180.0F)
         {
             prevRotationYaw += 360.0F;
         }
@@ -1861,12 +1861,12 @@ public abstract class EntityLivingBase extends Entity
             prevRenderYawOffset += 360.0F;
         }
 
-        while (rotationPitch - prevRotationPitch < -180.0F)
+        while (getRotationPitch() - prevRotationPitch < -180.0F)
         {
             prevRotationPitch -= 360.0F;
         }
 
-        while (rotationPitch - prevRotationPitch >= 180.0F)
+        while (getRotationPitch() - prevRotationPitch >= 180.0F)
         {
             prevRotationPitch += 360.0F;
         }
@@ -1889,7 +1889,7 @@ public abstract class EntityLivingBase extends Entity
     {
         float f = MathHelper.wrapAngleTo180_float(p_110146_1_ - renderYawOffset);
         renderYawOffset += f * 0.3F;
-        float f1 = MathHelper.wrapAngleTo180_float(rotationYaw - renderYawOffset);
+        float f1 = MathHelper.wrapAngleTo180_float(getRotationYaw() - renderYawOffset);
         boolean flag = f1 < -90.0F || f1 >= 90.0F;
 
         if (f1 < -75.0F)
@@ -1902,7 +1902,7 @@ public abstract class EntityLivingBase extends Entity
             f1 = 75.0F;
         }
 
-        renderYawOffset = rotationYaw - f1;
+        renderYawOffset = getRotationYaw() - f1;
 
         if (f1 * f1 > 2500.0F)
         {
@@ -1933,12 +1933,12 @@ public abstract class EntityLivingBase extends Entity
             double d0 = posX + (newPosX - posX) / (double) newPosRotationIncrements;
             double d1 = posY + (newPosY - posY) / (double) newPosRotationIncrements;
             double d2 = posZ + (newPosZ - posZ) / (double) newPosRotationIncrements;
-            double d3 = MathHelper.wrapAngleTo180_double(newRotationYaw - (double) rotationYaw);
-            rotationYaw = (float)((double) rotationYaw + d3 / (double) newPosRotationIncrements);
-            rotationPitch = (float)((double) rotationPitch + (newRotationPitch - (double) rotationPitch) / (double) newPosRotationIncrements);
+            double d3 = MathHelper.wrapAngleTo180_double(newRotationYaw - (double) getRotationYaw());
+            setRotationYaw((float)((double) getRotationYaw() + d3 / (double) newPosRotationIncrements));
+            setRotationPitch((float)((double) getRotationPitch() + (newRotationPitch - (double) getRotationPitch()) / (double) newPosRotationIncrements));
             --newPosRotationIncrements;
             setPosition(d0, d1, d2);
-            setRotation(rotationYaw, rotationPitch);
+            setRotation(getRotationYaw(), getRotationPitch());
         }
         else if (!isServerWorld())
         {
@@ -2140,11 +2140,11 @@ public abstract class EntityLivingBase extends Entity
     {
         if (partialTicks == 1.0F)
         {
-            return getVectorForRotation(rotationPitch, rotationYawHead);
+            return getVectorForRotation(getRotationPitch(), rotationYawHead);
         }
         else
         {
-            float f = prevRotationPitch + (rotationPitch - prevRotationPitch) * partialTicks;
+            float f = prevRotationPitch + (getRotationPitch() - prevRotationPitch) * partialTicks;
             float f1 = prevRotationYawHead + (rotationYawHead - prevRotationYawHead) * partialTicks;
             return getVectorForRotation(f, f1);
         }

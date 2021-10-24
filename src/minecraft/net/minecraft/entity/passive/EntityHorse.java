@@ -985,8 +985,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
 
     private void mountTo(EntityPlayer player)
     {
-        player.rotationYaw = this.rotationYaw;
-        player.rotationPitch = this.rotationPitch;
+        player.setRotationYaw(this.getRotationYaw());
+        player.setRotationPitch(this.getRotationPitch());
         this.setEatingHaystack(false);
         this.setRearing(false);
 
@@ -1307,10 +1307,10 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
     {
         if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase && this.isHorseSaddled())
         {
-            this.prevRotationYaw = this.rotationYaw = this.riddenByEntity.rotationYaw;
-            this.rotationPitch = this.riddenByEntity.rotationPitch * 0.5F;
-            this.setRotation(this.rotationYaw, this.rotationPitch);
-            this.rotationYawHead = this.renderYawOffset = this.rotationYaw;
+            this.prevRotationYaw = this.setRotationYaw(this.riddenByEntity.getRotationYaw());
+            this.setRotationPitch(this.riddenByEntity.getRotationPitch() * 0.5F);
+            this.setRotation(this.getRotationYaw(), this.getRotationPitch());
+            this.rotationYawHead = this.renderYawOffset = this.getRotationYaw();
             strafe = ((EntityLivingBase)this.riddenByEntity).moveStrafing * 0.5F;
             forward = ((EntityLivingBase)this.riddenByEntity).moveForward;
 
@@ -1340,8 +1340,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
 
                 if (forward > 0.0F)
                 {
-                    float f = MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F);
-                    float f1 = MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F);
+                    float f = MathHelper.sin(this.getRotationYaw() * (float)Math.PI / 180.0F);
+                    float f1 = MathHelper.cos(this.getRotationYaw() * (float)Math.PI / 180.0F);
                     this.motionX += (double)(-0.4F * f * this.jumpPower);
                     this.motionZ += (double)(0.4F * f1 * this.jumpPower);
                     this.playSound("mob.horse.jump", 0.4F, 1.0F);

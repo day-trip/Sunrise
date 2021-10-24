@@ -49,7 +49,7 @@ public class EntityEgg extends EntityThrowable
             {
                 EntityChicken entitychicken = new EntityChicken(this.worldObj);
                 entitychicken.setGrowingAge(-24000);
-                entitychicken.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+                entitychicken.setLocationAndAngles(this.posX, this.posY, this.posZ, this.getRotationYaw(), 0.0F);
                 this.worldObj.spawnEntityInWorld(entitychicken);
             }
         }

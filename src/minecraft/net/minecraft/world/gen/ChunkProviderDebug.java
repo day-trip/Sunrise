@@ -76,7 +76,7 @@ public class ChunkProviderDebug implements IChunkProvider
 
             if (p_177461_0_ <= field_177462_b && p_177461_1_ <= field_181039_c)
             {
-                int i = MathHelper.abs_int(p_177461_0_ * field_177462_b + p_177461_1_);
+                int i = Math.abs(p_177461_0_ * field_177462_b + p_177461_1_);
 
                 if (i < field_177464_a.size())
                 {

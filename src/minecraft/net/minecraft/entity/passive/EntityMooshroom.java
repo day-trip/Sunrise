@@ -48,7 +48,7 @@ public class EntityMooshroom extends EntityCow
             if (!this.worldObj.isRemote)
             {
                 EntityCow entitycow = new EntityCow(this.worldObj);
-                entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+                entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.getRotationYaw(), this.getRotationPitch());
                 entitycow.setHealth(this.getHealth());
                 entitycow.renderYawOffset = this.renderYawOffset;
 

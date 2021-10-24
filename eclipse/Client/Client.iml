@@ -416,5 +416,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="tools" level="application" />
   </component>
 </module>

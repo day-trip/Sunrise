@@ -21,8 +21,8 @@ public class LayerDeadmau5Head implements LayerRenderer<AbstractClientPlayer>
 
             for (int i = 0; i < 2; ++i)
             {
-                float f = entitylivingbaseIn.prevRotationYaw + (entitylivingbaseIn.rotationYaw - entitylivingbaseIn.prevRotationYaw) * partialTicks - (entitylivingbaseIn.prevRenderYawOffset + (entitylivingbaseIn.renderYawOffset - entitylivingbaseIn.prevRenderYawOffset) * partialTicks);
-                float f1 = entitylivingbaseIn.prevRotationPitch + (entitylivingbaseIn.rotationPitch - entitylivingbaseIn.prevRotationPitch) * partialTicks;
+                float f = entitylivingbaseIn.prevRotationYaw + (entitylivingbaseIn.getRotationYaw() - entitylivingbaseIn.prevRotationYaw) * partialTicks - (entitylivingbaseIn.prevRenderYawOffset + (entitylivingbaseIn.renderYawOffset - entitylivingbaseIn.prevRenderYawOffset) * partialTicks);
+                float f1 = entitylivingbaseIn.prevRotationPitch + (entitylivingbaseIn.getRotationPitch() - entitylivingbaseIn.prevRotationPitch) * partialTicks;
                 GlStateManager.pushMatrix();
                 GlStateManager.rotate(f, 0.0F, 1.0F, 0.0F);
                 GlStateManager.rotate(f1, 1.0F, 0.0F, 0.0F);

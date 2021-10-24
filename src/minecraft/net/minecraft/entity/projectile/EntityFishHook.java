@@ -92,10 +92,10 @@ public class EntityFishHook extends Entity
         angler = fishingPlayer;
         angler.fishEntity = this;
         setSize(0.25F, 0.25F);
-        setLocationAndAngles(fishingPlayer.posX, fishingPlayer.posY + (double)fishingPlayer.getEyeHeight(), fishingPlayer.posZ, fishingPlayer.rotationYaw, fishingPlayer.rotationPitch);
-        posX -= MathHelper.cos(rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
+        setLocationAndAngles(fishingPlayer.posX, fishingPlayer.posY + (double)fishingPlayer.getEyeHeight(), fishingPlayer.posZ, fishingPlayer.getRotationYaw(), fishingPlayer.getRotationPitch());
+        posX -= MathHelper.cos(getRotationYaw() / 180.0F * (float)Math.PI) * 0.16F;
         posY -= 0.10000000149011612D;
-        posZ -= MathHelper.sin(rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
+        posZ -= MathHelper.sin(getRotationYaw() / 180.0F * (float)Math.PI) * 0.16F;
         setPosition(posX, posY, posZ);
         castHook();
     }
@@ -119,10 +119,10 @@ public class EntityFishHook extends Entity
 
     public void castHook()
     {
-        float a = rotationYaw / 180.0F * (float)Math.PI;
+        float a = getRotationYaw() / 180.0F * (float)Math.PI;
 
-        motionX = -MathHelper.sin(a) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * 0.4F;
-        motionZ = MathHelper.cos(a) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * 0.4F;
+        motionX = -MathHelper.sin(a) * MathHelper.cos(getRotationPitch() / 180.0F * (float)Math.PI) * 0.4F;
+        motionZ = MathHelper.cos(a) * MathHelper.cos(getRotationPitch() / 180.0F * (float)Math.PI) * 0.4F;
         motionY = -MathHelper.sin(a) * 0.4F;
 
         // Creates new motion values so the main ones aren't ruined
@@ -152,8 +152,8 @@ public class EntityFishHook extends Entity
         // Gets the length of just the motion x and motion z
         float motionXZLength = MathHelper.sqrt_double(motX * motX + motZ * motZ);
         // Sets the rotation yaw and pitch
-        prevRotationYaw = rotationYaw = (float)(MathHelper.func_181159_b(motX, motZ) * 180.0F / Math.PI); // TODO: What does that function even do?
-        prevRotationPitch = rotationPitch = (float)(MathHelper.func_181159_b(motY, motionXZLength) * 180.0F / Math.PI); // TODO: What does that function even do?
+        prevRotationYaw = setRotationYaw((float)(MathHelper.func_181159_b(motX, motZ) * 180.0F / Math.PI)); // TODO: What does that function even do?
+        prevRotationPitch = setRotationPitch((float)(MathHelper.func_181159_b(motY, motionXZLength) * 180.0F / Math.PI)); // TODO: What does that function even do?
 
         // Sets not in ground (because the rod was just launched; it can't be in the ground)
         ticksInGround = 0;
@@ -194,12 +194,12 @@ public class EntityFishHook extends Entity
             double d7 = posX + (fishX - posX) / (double) fishPosRotationIncrements;
             double d8 = posY + (fishY - posY) / (double) fishPosRotationIncrements;
             double d9 = posZ + (fishZ - posZ) / (double) fishPosRotationIncrements;
-            double d1 = MathHelper.wrapAngleTo180_double(fishYaw - (double) rotationYaw);
-            rotationYaw = (float)((double) rotationYaw + d1 / (double) fishPosRotationIncrements);
-            rotationPitch = (float)((double) rotationPitch + (fishPitch - (double) rotationPitch) / (double) fishPosRotationIncrements);
+            double d1 = MathHelper.wrapAngleTo180_double(fishYaw - (double) getRotationYaw());
+            setRotationYaw((float)((double) getRotationYaw() + d1 / (double) fishPosRotationIncrements));
+            setRotationPitch((float)((double) getRotationPitch() + (fishPitch - (double) getRotationPitch()) / (double) fishPosRotationIncrements));
             --fishPosRotationIncrements;
             setPosition(d7, d8, d9);
-            setRotation(rotationYaw, rotationPitch);
+            setRotation(getRotationYaw(), getRotationPitch());
         }
         else
         {
@@ -315,25 +315,25 @@ public class EntityFishHook extends Entity
             if (!inGround)
             {
                 moveEntity(motionX, motionY, motionZ);
-                rotationYaw = (float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI);
+                setRotationYaw((float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI));
 
-                while (rotationPitch - prevRotationPitch >= 180.0F)
+                while (getRotationPitch() - prevRotationPitch >= 180.0F)
                 {
                     prevRotationPitch += 360.0F;
                 }
 
-                while (rotationYaw - prevRotationYaw < -180.0F)
+                while (getRotationYaw() - prevRotationYaw < -180.0F)
                 {
                     prevRotationYaw -= 360.0F;
                 }
 
-                while (rotationYaw - prevRotationYaw >= 180.0F)
+                while (getRotationYaw() - prevRotationYaw >= 180.0F)
                 {
                     prevRotationYaw += 360.0F;
                 }
 
-                rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
-                rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
+                setRotationPitch(prevRotationPitch + (getRotationPitch() - prevRotationPitch) * 0.2F);
+                setRotationYaw(prevRotationYaw + (getRotationYaw() - prevRotationYaw) * 0.2F);
                 float f6 = 0.92F;
 
                 if (onGround || isCollidedHorizontally)

@@ -198,7 +198,7 @@ public class EntityPig extends EntityAnimal
         {
             EntityPigZombie entitypigzombie = new EntityPigZombie(this.worldObj);
             entitypigzombie.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
-            entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+            entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.getRotationYaw(), this.getRotationPitch());
             entitypigzombie.setNoAI(this.isAIDisabled());
 
             if (this.hasCustomName())

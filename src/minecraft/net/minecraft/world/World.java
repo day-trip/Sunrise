@@ -1185,10 +1185,6 @@ public abstract class World implements IBlockAccess
 
     protected void onEntityRemoved(Entity entityIn)
     {
-        for (int i = 0; i < worldAccesses.size(); ++i)
-        {
-            worldAccesses.get(i).onEntityRemoved(entityIn);
-        }
     }
 
     /**
@@ -1861,8 +1857,8 @@ public abstract class World implements IBlockAccess
             entityIn.lastTickPosX = entityIn.posX;
             entityIn.lastTickPosY = entityIn.posY;
             entityIn.lastTickPosZ = entityIn.posZ;
-            entityIn.prevRotationYaw = entityIn.rotationYaw;
-            entityIn.prevRotationPitch = entityIn.rotationPitch;
+            entityIn.prevRotationYaw = entityIn.getRotationYaw();
+            entityIn.prevRotationPitch = entityIn.getRotationPitch();
 
             if (forceUpdate && entityIn.addedToChunk)
             {
@@ -1895,14 +1891,14 @@ public abstract class World implements IBlockAccess
                 entityIn.posZ = entityIn.lastTickPosZ;
             }
 
-            if (Double.isNaN(entityIn.rotationPitch) || Double.isInfinite(entityIn.rotationPitch))
+            if (Double.isNaN(entityIn.getRotationPitch()) || Double.isInfinite(entityIn.getRotationPitch()))
             {
-                entityIn.rotationPitch = entityIn.prevRotationPitch;
+                entityIn.setRotationPitch(entityIn.prevRotationPitch);
             }
 
-            if (Double.isNaN(entityIn.rotationYaw) || Double.isInfinite(entityIn.rotationYaw))
+            if (Double.isNaN(entityIn.getRotationYaw()) || Double.isInfinite(entityIn.getRotationYaw()))
             {
-                entityIn.rotationYaw = entityIn.prevRotationYaw;
+                entityIn.setRotationYaw(entityIn.prevRotationYaw);
             }
 
             int l = MathHelper.floor_double(entityIn.posX / 16.0D);
@@ -2866,9 +2862,9 @@ public abstract class World implements IBlockAccess
 
                         if (l2 > 0)
                         {
-                            int j3 = MathHelper.abs_int(i2 - i1);
-                            int k3 = MathHelper.abs_int(j2 - j1);
-                            int l3 = MathHelper.abs_int(k2 - k1);
+                            int j3 = Math.abs(i2 - i1);
+                            int k3 = Math.abs(j2 - j1);
+                            int l3 = Math.abs(k2 - k1);
 
                             if (j3 + k3 + l3 < 17)
                             {

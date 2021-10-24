@@ -71,7 +71,6 @@ public class GuiOverlayDebug extends Gui
             {
                 int j = fontRenderer.FONT_HEIGHT;
                 int k = fontRenderer.getStringWidth(s);
-                int l = 2;
                 int i1 = 2 + j * i;
                 drawRect(1, i1 - 1, 2 + k + 1, i1 + j - 1, -1873784752);
                 fontRenderer.drawString(s, 2, i1, 14737632);
@@ -106,7 +105,7 @@ public class GuiOverlayDebug extends Gui
 
         if (isReducedDebug())
         {
-            return Lists.newArrayList("Minecraft 1.8.8 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", mc.debug, mc.renderGlobal.getDebugInfoRenders(), mc.renderGlobal.getDebugInfoEntities(), "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities(), mc.theWorld.getProviderName(), "", String.format("Chunk-relative: %d %d %d", Integer.valueOf(blockpos.getX() & 15), Integer.valueOf(blockpos.getY() & 15), Integer.valueOf(blockpos.getZ() & 15)));
+            return Lists.newArrayList("Minecraft 1.8.8 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", mc.debug, mc.renderGlobal.getDebugInfoRenders(), mc.renderGlobal.getDebugInfoEntities(), "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities(), mc.theWorld.getProviderName(), "", String.format("Chunk-relative: %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15));
         }
         else
         {
@@ -132,7 +131,7 @@ public class GuiOverlayDebug extends Gui
                     s = "Towards positive X";
             }
 
-            List<String> list = Lists.newArrayList("Minecraft 1.8.8 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", mc.debug, mc.renderGlobal.getDebugInfoRenders(), mc.renderGlobal.getDebugInfoEntities(), "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities(), mc.theWorld.getProviderName(), "", String.format("XYZ: %.3f / %.5f / %.3f", Double.valueOf(mc.getRenderViewEntity().posX), Double.valueOf(mc.getRenderViewEntity().getEntityBoundingBox().minY), Double.valueOf(mc.getRenderViewEntity().posZ)), String.format("Block: %d %d %d", Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ())), String.format("Chunk: %d %d %d in %d %d %d", Integer.valueOf(blockpos.getX() & 15), Integer.valueOf(blockpos.getY() & 15), Integer.valueOf(blockpos.getZ() & 15), Integer.valueOf(blockpos.getX() >> 4), Integer.valueOf(blockpos.getY() >> 4), Integer.valueOf(blockpos.getZ() >> 4)), String.format("Facing: %s (%s) (%.1f / %.1f)", enumfacing, s, MathHelper.wrapAngleTo180_float(entity.rotationYaw), MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
+            List<String> list = Lists.newArrayList("Minecraft 1.8.8 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", mc.debug, mc.renderGlobal.getDebugInfoRenders(), mc.renderGlobal.getDebugInfoEntities(), "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities(), mc.theWorld.getProviderName(), "", String.format("XYZ: %.3f / %.5f / %.3f", mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ), String.format("Block: %d %d %d", blockpos.getX(), blockpos.getY(), blockpos.getZ()), String.format("Chunk: %d %d %d in %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15, blockpos.getX() >> 4, blockpos.getY() >> 4, blockpos.getZ() >> 4), String.format("Facing: %s (%s) (%.1f / %.1f)", enumfacing, s, entity.getRotationYaw(), entity.getRotationPitch()));
 
             if (mc.theWorld != null && mc.theWorld.isBlockLoaded(blockpos))
             {
@@ -151,7 +150,7 @@ public class GuiOverlayDebug extends Gui
                     }
                 }
 
-                list.add(String.format("Local Difficulty: %.2f (Day %d)", Float.valueOf(difficultyinstance.getAdditionalDifficulty()), Long.valueOf(mc.theWorld.getWorldTime() / 24000L)));
+                list.add(String.format("Local Difficulty: %.2f (Day %d)", difficultyinstance.getAdditionalDifficulty(), mc.theWorld.getWorldTime() / 24000L));
             }
 
             if (mc.entityRenderer != null && mc.entityRenderer.isShaderActive())
@@ -162,7 +161,7 @@ public class GuiOverlayDebug extends Gui
             if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null)
             {
                 BlockPos blockpos1 = mc.objectMouseOver.getBlockPos();
-                list.add(String.format("Looking at: %d %d %d", Integer.valueOf(blockpos1.getX()), Integer.valueOf(blockpos1.getY()), Integer.valueOf(blockpos1.getZ())));
+                list.add(String.format("Looking at: %d %d %d", blockpos1.getX(), blockpos1.getY(), blockpos1.getZ()));
             }
 
             return list;
@@ -175,37 +174,26 @@ public class GuiOverlayDebug extends Gui
         long j = Runtime.getRuntime().totalMemory();
         long k = Runtime.getRuntime().freeMemory();
         long l = j - k;
-        List<String> list = Lists.newArrayList(String.format("Java: %s %dbit", System.getProperty("java.version"), Integer.valueOf(mc.isJava64bit() ? 64 : 32)), String.format("Mem: % 2d%% %03d/%03dMB", Long.valueOf(l * 100L / i), Long.valueOf(bytesToMb(l)), Long.valueOf(bytesToMb(i))), String.format("Allocated: % 2d%% %03dMB", Long.valueOf(j * 100L / i), Long.valueOf(bytesToMb(j))), "", String.format("CPU: %s", OpenGlHelper.func_183029_j()), "", String.format("Display: %dx%d (%s)", Integer.valueOf(Display.getWidth()), Integer.valueOf(Display.getHeight()), GL11.glGetString(GL11.GL_VENDOR)), GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION));
+        List<String> list = Lists.newArrayList(String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32), String.format("Mem: % 2d%% %03d/%03dMB", l * 100L / i, bytesToMb(l), bytesToMb(i)), String.format("Allocated: % 2d%% %03dMB", j * 100L / i, bytesToMb(j)), "", String.format("CPU: %s", OpenGlHelper.func_183029_j()), "", String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)), GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION));
 
-        if (isReducedDebug())
-        {
-            return list;
-        }
-        else
-        {
-            if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null)
-            {
+        if (!isReducedDebug()) {
+            if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
                 BlockPos blockpos = mc.objectMouseOver.getBlockPos();
                 IBlockState iblockstate = mc.theWorld.getBlockState(blockpos);
 
-                if (mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD)
-                {
+                if (mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD) {
                     iblockstate = iblockstate.getBlock().getActualState(iblockstate, mc.theWorld, blockpos);
                 }
 
                 list.add("");
                 list.add(String.valueOf(Block.blockRegistry.getNameForObject(iblockstate.getBlock())));
 
-                for (Map.Entry<IProperty, Comparable> entry : iblockstate.getProperties().entrySet())
-                {
+                for (Map.Entry<IProperty, Comparable> entry : iblockstate.getProperties().entrySet()) {
                     String s = entry.getValue().toString();
 
-                    if (entry.getValue() == Boolean.TRUE)
-                    {
+                    if (entry.getValue() == Boolean.TRUE) {
                         s = EnumChatFormatting.GREEN + s;
-                    }
-                    else if (entry.getValue() == Boolean.FALSE)
-                    {
+                    } else if (entry.getValue() == Boolean.FALSE) {
                         s = EnumChatFormatting.RED + s;
                     }
 
@@ -213,8 +201,8 @@ public class GuiOverlayDebug extends Gui
                 }
             }
 
-            return list;
         }
+        return list;
     }
 
     private void func_181554_e()
@@ -232,7 +220,7 @@ public class GuiOverlayDebug extends Gui
         while (k != j)
         {
             int i1 = frametimer.func_181748_a(along[k], 30);
-            int j1 = func_181552_c(MathHelper.clamp_int(i1, 0, 60), 0, 30, 60);
+            int j1 = func_181552_c(MathHelper.clamp_int(i1, 0, 60));
             drawVerticalLine(l, scaledresolution.getScaledHeight(), scaledresolution.getScaledHeight() - i1, j1);
             ++l;
             k = frametimer.func_181751_b(k + 1);
@@ -256,9 +244,9 @@ public class GuiOverlayDebug extends Gui
         GlStateManager.enableDepth();
     }
 
-    private int func_181552_c(int p_181552_1_, int p_181552_2_, int p_181552_3_, int p_181552_4_)
+    private int func_181552_c(int p_181552_1_)
     {
-        return p_181552_1_ < p_181552_3_ ? func_181553_a(-16711936, -256, (float)p_181552_1_ / (float)p_181552_3_) : func_181553_a(-256, -65536, (float)(p_181552_1_ - p_181552_3_) / (float)(p_181552_4_ - p_181552_3_));
+        return p_181552_1_ < 30 ? func_181553_a(-16711936, -256, (float)p_181552_1_ / (float) 30) : func_181553_a(-256, -65536, (float)(p_181552_1_ - 30) / (float)(60 - 30));
     }
 
     private int func_181553_a(int p_181553_1_, int p_181553_2_, float p_181553_3_)

@@ -676,8 +676,8 @@ public abstract class EntityLiving extends EntityLivingBase
         double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
         float f = (float)(MathHelper.func_181159_b(d2, d0) * 180.0D / Math.PI) - 90.0F;
         float f1 = (float)(-(MathHelper.func_181159_b(d1, d3) * 180.0D / Math.PI));
-        rotationPitch = updateRotation(rotationPitch, f1, p_70625_3_);
-        rotationYaw = updateRotation(rotationYaw, f, p_70625_2_);
+        setRotationPitch(updateRotation(getRotationPitch(), f1, p_70625_3_));
+        setRotationYaw(updateRotation(getRotationYaw(), f, p_70625_2_));
     }
 
     /**

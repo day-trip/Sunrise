@@ -301,7 +301,7 @@ public class BlockPistonBase extends Block
 
     public static EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn)
     {
-        if (MathHelper.abs((float)entityIn.posX - (float)clickedBlock.getX()) < 2.0F && MathHelper.abs((float)entityIn.posZ - (float)clickedBlock.getZ()) < 2.0F)
+        if (Math.abs((float)entityIn.posX - (float)clickedBlock.getX()) < 2.0F && Math.abs((float)entityIn.posZ - (float)clickedBlock.getZ()) < 2.0F)
         {
             double d0 = entityIn.posY + (double)entityIn.getEyeHeight();
 

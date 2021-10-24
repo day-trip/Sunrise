@@ -420,7 +420,7 @@ public class PlayerSelector
             {
                 public boolean apply(Entity p_apply_1_)
                 {
-                    int i1 = PlayerSelector.func_179650_a((int)Math.floor((double)p_apply_1_.rotationYaw));
+                    int i1 = PlayerSelector.func_179650_a((int)Math.floor((double) p_apply_1_.getRotationYaw()));
                     return i > j ? i1 >= i || i1 <= j : i1 >= i && i1 <= j;
                 }
             });
@@ -434,7 +434,7 @@ public class PlayerSelector
             {
                 public boolean apply(Entity p_apply_1_)
                 {
-                    int i1 = PlayerSelector.func_179650_a((int)Math.floor((double)p_apply_1_.rotationPitch));
+                    int i1 = PlayerSelector.func_179650_a((int)Math.floor((double) p_apply_1_.getRotationPitch()));
                     return k > l ? i1 >= k || i1 <= l : i1 >= k && i1 <= l;
                 }
             });

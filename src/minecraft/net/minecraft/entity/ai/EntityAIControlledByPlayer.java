@@ -69,7 +69,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase
     {
         EntityPlayer entityplayer = (EntityPlayer) thisEntity.riddenByEntity;
         EntityCreature entitycreature = (EntityCreature) thisEntity;
-        float f = MathHelper.wrapAngleTo180_float(entityplayer.rotationYaw - thisEntity.rotationYaw) * 0.5F;
+        float f = MathHelper.wrapAngleTo180_float(entityplayer.getRotationYaw() - thisEntity.getRotationYaw()) * 0.5F;
 
         if (f > 5.0F)
         {
@@ -81,7 +81,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase
             f = -5.0F;
         }
 
-        thisEntity.rotationYaw = MathHelper.wrapAngleTo180_float(thisEntity.rotationYaw + f);
+        thisEntity.setRotationYaw(MathHelper.wrapAngleTo180_float(thisEntity.getRotationYaw() + f));
 
         if (currentSpeed < maxSpeed)
         {
@@ -116,8 +116,8 @@ public class EntityAIControlledByPlayer extends EntityAIBase
         }
 
         float f3 = 0.16277136F / (f2 * f2 * f2);
-        float f4 = MathHelper.sin(entitycreature.rotationYaw * (float)Math.PI / 180.0F);
-        float f5 = MathHelper.cos(entitycreature.rotationYaw * (float)Math.PI / 180.0F);
+        float f4 = MathHelper.sin(entitycreature.getRotationYaw() * (float)Math.PI / 180.0F);
+        float f5 = MathHelper.cos(entitycreature.getRotationYaw() * (float)Math.PI / 180.0F);
         float f6 = entitycreature.getAIMoveSpeed() * f3;
         float f7 = Math.max(f1, 1.0F);
         f7 = f6 / f7;
@@ -125,7 +125,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase
         float f9 = -(f8 * f4);
         float f10 = f8 * f5;
 
-        if (MathHelper.abs(f9) > MathHelper.abs(f10))
+        if (Math.abs(f9) > Math.abs(f10))
         {
             if (f9 < 0.0F)
             {

@@ -92,11 +92,11 @@ public abstract class Entity implements ICommandSender
     public double motionZ;
 
     /** Entity rotation Yaw */
-    public float rotationYaw;
+    protected float rotationYaw;
+    public float prevRotationYaw;
 
     /** Entity rotation Pitch */
-    public float rotationPitch;
-    public float prevRotationYaw;
+    protected float rotationPitch;
     public float prevRotationPitch;
 
     /** Axis aligned bounding box. */
@@ -321,7 +321,7 @@ public abstract class Entity implements ICommandSender
             }
 
             motionX = motionY = motionZ = 0.0D;
-            rotationPitch = 0.0F;
+            setRotationPitch(0.0F);
         }
     }
 
@@ -357,8 +357,8 @@ public abstract class Entity implements ICommandSender
      */
     protected void setRotation(float yaw, float pitch)
     {
-        rotationYaw = yaw % 360.0F;
-        rotationPitch = pitch % 360.0F;
+        setRotationYaw(yaw % 360.0F);
+        setRotationPitch(pitch % 360.0F);
     }
 
     /**
@@ -380,13 +380,13 @@ public abstract class Entity implements ICommandSender
      */
     public void setAngles(float yaw, float pitch)
     {
-        float f = rotationPitch;
-        float f1 = rotationYaw;
-        rotationYaw = (float)((double) rotationYaw + (double)yaw * 0.15D);
-        rotationPitch = (float)((double) rotationPitch - (double)pitch * 0.15D);
-        rotationPitch = MathHelper.clamp_float(rotationPitch, -90.0F, 90.0F);
-        prevRotationPitch += rotationPitch - f;
-        prevRotationYaw += rotationYaw - f1;
+        float f = getRotationPitch();
+        float f1 = getRotationYaw();
+        setRotationYaw((float)((double) getRotationYaw() + (double)yaw * 0.15D));
+        setRotationPitch((float)((double) getRotationPitch() - (double)pitch * 0.15D));
+        setRotationPitch(MathHelper.clamp_float(getRotationPitch(), -90.0F, 90.0F));
+        prevRotationPitch += getRotationPitch() - f;
+        prevRotationYaw += getRotationYaw() - f1;
     }
 
     /**
@@ -413,8 +413,8 @@ public abstract class Entity implements ICommandSender
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
-        prevRotationPitch = rotationPitch;
-        prevRotationYaw = rotationYaw;
+        prevRotationPitch = getRotationPitch();
+        prevRotationYaw = getRotationYaw();
 
         if (!worldObj.isRemote && worldObj instanceof WorldServer)
         {
@@ -1227,8 +1227,8 @@ public abstract class Entity implements ICommandSender
             f = friction / f;
             strafe = strafe * f;
             forward = forward * f;
-            float f1 = MathHelper.sin(rotationYaw * (float)Math.PI / 180.0F);
-            float f2 = MathHelper.cos(rotationYaw * (float)Math.PI / 180.0F);
+            float f1 = MathHelper.sin(getRotationYaw() * (float)Math.PI / 180.0F);
+            float f2 = MathHelper.cos(getRotationYaw() * (float)Math.PI / 180.0F);
             motionX += strafe * f2 - forward * f1;
             motionZ += forward * f2 + strafe * f1;
         }
@@ -1265,8 +1265,8 @@ public abstract class Entity implements ICommandSender
         prevPosX = posX = x;
         prevPosY = posY = y;
         prevPosZ = posZ = z;
-        prevRotationYaw = rotationYaw = yaw;
-        prevRotationPitch = rotationPitch = pitch;
+        prevRotationYaw = setRotationYaw(yaw);
+        prevRotationPitch = setRotationPitch(pitch);
         double d0 = prevRotationYaw - yaw;
 
         if (d0 < -180.0D)
@@ -1296,8 +1296,8 @@ public abstract class Entity implements ICommandSender
         lastTickPosX = prevPosX = posX = x;
         lastTickPosY = prevPosY = posY = y;
         lastTickPosZ = prevPosZ = posZ = z;
-        rotationYaw = yaw;
-        rotationPitch = pitch;
+        setRotationYaw(yaw);
+        setRotationPitch(pitch);
         setPosition(posX, posY, posZ);
     }
 
@@ -1445,12 +1445,12 @@ public abstract class Entity implements ICommandSender
     {
         if (partialTicks == 1.0F)
         {
-            return getVectorForRotation(rotationPitch, rotationYaw);
+            return getVectorForRotation(getRotationPitch(), getRotationYaw());
         }
         else
         {
-            float f = prevRotationPitch + (rotationPitch - prevRotationPitch) * partialTicks;
-            float f1 = prevRotationYaw + (rotationYaw - prevRotationYaw) * partialTicks;
+            float f = prevRotationPitch + (getRotationPitch() - prevRotationPitch) * partialTicks;
+            float f1 = prevRotationYaw + (getRotationYaw() - prevRotationYaw) * partialTicks;
             return getVectorForRotation(f, f1);
         }
     }
@@ -1590,7 +1590,7 @@ public abstract class Entity implements ICommandSender
         {
             tagCompund.setTag("Pos", newDoubleNBTList(posX, posY, posZ));
             tagCompund.setTag("Motion", newDoubleNBTList(motionX, motionY, motionZ));
-            tagCompund.setTag("Rotation", newFloatNBTList(rotationYaw, rotationPitch));
+            tagCompund.setTag("Rotation", newFloatNBTList(getRotationYaw(), getRotationPitch()));
             tagCompund.setFloat("FallDistance", fallDistance);
             tagCompund.setShort("Fire", (short) fire);
             tagCompund.setShort("Air", (short) getAir());
@@ -1667,10 +1667,10 @@ public abstract class Entity implements ICommandSender
             prevPosX = lastTickPosX = posX = nbttaglist.getDoubleAt(0);
             prevPosY = lastTickPosY = posY = nbttaglist.getDoubleAt(1);
             prevPosZ = lastTickPosZ = posZ = nbttaglist.getDoubleAt(2);
-            prevRotationYaw = rotationYaw = nbttaglist2.getFloatAt(0);
-            prevRotationPitch = rotationPitch = nbttaglist2.getFloatAt(1);
-            setRotationYawHead(rotationYaw);
-            func_181013_g(rotationYaw);
+            prevRotationYaw = setRotationYaw(nbttaglist2.getFloatAt(0));
+            prevRotationPitch = setRotationPitch(nbttaglist2.getFloatAt(1));
+            setRotationYawHead(getRotationYaw());
+            func_181013_g(getRotationYaw());
             fallDistance = tagCompund.getFloat("FallDistance");
             fire = tagCompund.getShort("Fire");
             setAir(tagCompund.getShort("Air"));
@@ -1689,7 +1689,7 @@ public abstract class Entity implements ICommandSender
             }
 
             setPosition(posX, posY, posZ);
-            setRotation(rotationYaw, rotationPitch);
+            setRotation(getRotationYaw(), getRotationPitch());
 
             if (tagCompund.hasKey("CustomName", 8) && tagCompund.getString("CustomName").length() > 0)
             {
@@ -1876,7 +1876,7 @@ public abstract class Entity implements ICommandSender
             if (ridingEntity != null)
             {
                 ridingEntity.updateRiderPosition();
-                entityRiderYawDelta += ridingEntity.rotationYaw - ridingEntity.prevRotationYaw;
+                entityRiderYawDelta += ridingEntity.getRotationYaw() - ridingEntity.prevRotationYaw;
 
                 while (entityRiderYawDelta < -180.0D)
                 {
@@ -1959,7 +1959,7 @@ public abstract class Entity implements ICommandSender
         {
             if (ridingEntity != null)
             {
-                setLocationAndAngles(ridingEntity.posX, ridingEntity.getEntityBoundingBox().minY + (double) ridingEntity.height, ridingEntity.posZ, rotationYaw, rotationPitch);
+                setLocationAndAngles(ridingEntity.posX, ridingEntity.getEntityBoundingBox().minY + (double) ridingEntity.height, ridingEntity.posZ, getRotationYaw(), getRotationPitch());
                 ridingEntity.riddenByEntity = null;
             }
 
@@ -2397,7 +2397,7 @@ public abstract class Entity implements ICommandSender
      */
     public void copyLocationAndAnglesFrom(Entity entityIn)
     {
-        setLocationAndAngles(entityIn.posX, entityIn.posY, entityIn.posZ, entityIn.rotationYaw, entityIn.rotationPitch);
+        setLocationAndAngles(entityIn.posX, entityIn.posY, entityIn.posZ, entityIn.getRotationYaw(), entityIn.getRotationPitch());
     }
 
     /**
@@ -2448,7 +2448,7 @@ public abstract class Entity implements ICommandSender
                 if (i == 1 && dimensionId == 1)
                 {
                     BlockPos blockpos = worldObj.getTopSolidOrLiquidBlock(worldserver1.getSpawnPoint());
-                    entity.moveToBlockPosAndAngles(blockpos, entity.rotationYaw, entity.rotationPitch);
+                    entity.moveToBlockPosAndAngles(blockpos, entity.getRotationYaw(), entity.getRotationPitch());
                 }
 
                 worldserver1.spawnEntityInWorld(entity);
@@ -2578,7 +2578,7 @@ public abstract class Entity implements ICommandSender
      */
     public void setPositionAndUpdate(double x, double y, double z)
     {
-        setLocationAndAngles(x, y, z, rotationYaw, rotationPitch);
+        setLocationAndAngles(x, y, z, getRotationYaw(), getRotationPitch());
     }
 
     public boolean getAlwaysRenderNameTagForRender()
@@ -2592,7 +2592,7 @@ public abstract class Entity implements ICommandSender
 
     public EnumFacing getHorizontalFacing()
     {
-        return EnumFacing.getHorizontal(MathHelper.floor_double((double)(rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
+        return EnumFacing.getHorizontal(MathHelper.floor_double((double)(getRotationYaw() * 4.0F / 360.0F) + 0.5D) & 3);
     }
 
     protected HoverEvent getHoverEvent()
@@ -2755,5 +2755,39 @@ public abstract class Entity implements ICommandSender
 
     public Vec3 getMotionVector() {
         return new Vec3(motionX, motionY, motionZ);
+    }
+
+    public float getRotationYaw() {
+        return rotationYaw;
+    }
+
+    public float getRotationPitch() {
+        return rotationPitch;
+    }
+
+    /**
+     * Sets the rotation yaw of the player
+     * @param rotationYaw the angle to face in degrees
+     */
+    public float setRotationYaw(float rotationYaw) {
+        if(rotationYaw > 360) {
+            this.rotationYaw = rotationYaw - 360;
+        }
+        else if(rotationYaw < 0) {
+            this.rotationYaw = 360 - rotationYaw;
+        }
+        else {
+            this.rotationYaw = rotationYaw;
+        }
+        return this.rotationYaw;
+    }
+
+    /**
+     * Sets the rotation pitch of the player
+     * @param rotationPitch the angle to face in degrees-
+     */
+    public float setRotationPitch(float rotationPitch) {
+        this.rotationPitch = MathHelper.clamp_float(rotationPitch, -90, 90);
+        return this.rotationPitch;
     }
 }

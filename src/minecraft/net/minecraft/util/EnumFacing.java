@@ -264,7 +264,7 @@ public enum EnumFacing implements IStringSerializable
      */
     public static EnumFacing getFront(int index)
     {
-        return VALUES[MathHelper.abs_int(index % VALUES.length)];
+        return VALUES[Math.abs(index % VALUES.length)];
     }
 
     /**
@@ -272,7 +272,7 @@ public enum EnumFacing implements IStringSerializable
      */
     public static EnumFacing getHorizontal(int p_176731_0_)
     {
-        return HORIZONTALS[MathHelper.abs_int(p_176731_0_ % HORIZONTALS.length)];
+        return HORIZONTALS[Math.abs(p_176731_0_ % HORIZONTALS.length)];
     }
 
     /**

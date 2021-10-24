@@ -41,13 +41,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.block.tileentity.TileEntitySign;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MovementInput;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
@@ -172,7 +166,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             if (isRiding())
             {
-                sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(rotationYaw, rotationPitch, onGround));
+                sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(getRotationYaw(), getRotationPitch(), onGround));
                 sendQueue.addToSendQueue(new C0CPacketInput(moveStrafing, moveForward, movementInput.jump, movementInput.sneak));
             }
             else
@@ -224,8 +218,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
             double d0 = posX - lastReportedPosX;
             double d1 = getEntityBoundingBox().minY - lastReportedPosY;
             double d2 = posZ - lastReportedPosZ;
-            double d3 = rotationYaw - lastReportedYaw;
-            double d4 = rotationPitch - lastReportedPitch;
+            double d3 = getRotationYaw() - lastReportedYaw;
+            double d4 = getRotationPitch() - lastReportedPitch;
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
 
@@ -233,7 +227,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
             {
                 if (flag2 && flag3)
                 {
-                    sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(posX, getEntityBoundingBox().minY, posZ, rotationYaw, rotationPitch, onGround));
+                    sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(posX, getEntityBoundingBox().minY, posZ, getRotationYaw(), getRotationPitch(), onGround));
                 }
                 else if (flag2)
                 {
@@ -241,7 +235,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                 }
                 else if (flag3)
                 {
-                    sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(rotationYaw, rotationPitch, onGround));
+                    sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(getRotationYaw(), getRotationPitch(), onGround));
                 }
                 else
                 {
@@ -250,7 +244,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
             }
             else
             {
-                sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(motionX, -999.0D, motionZ, rotationYaw, rotationPitch, onGround));
+                sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(motionX, -999.0D, motionZ, getRotationYaw(), getRotationPitch(), onGround));
                 flag2 = false;
             }
 
@@ -266,8 +260,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             if (flag3)
             {
-                lastReportedYaw = rotationYaw;
-                lastReportedPitch = rotationPitch;
+                lastReportedYaw = getRotationYaw();
+                lastReportedPitch = getRotationPitch();
             }
         }
     }
@@ -681,8 +675,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
             isJumping = movementInput.jump;
             prevRenderArmYaw = renderArmYaw;
             prevRenderArmPitch = renderArmPitch;
-            renderArmPitch = (float)((double) renderArmPitch + (double)(rotationPitch - renderArmPitch) * 0.5D);
-            renderArmYaw = (float)((double) renderArmYaw + (double)(rotationYaw - renderArmYaw) * 0.5D);
+            renderArmPitch = (float)((double) renderArmPitch + (double)(getRotationPitch() - renderArmPitch) * 0.5D);
+            renderArmYaw = (float)((double) renderArmYaw + (double)(getRotationYaw() - renderArmYaw) * 0.5D);
         }
     }
 

@@ -180,7 +180,7 @@ public class EntitySlime extends EntityLiving implements IMob
         {
             int i = getSlimeSize();
             setSize(0.51000005F * (float)i, 0.51000005F * (float)i);
-            rotationYaw = rotationYawHead;
+            setRotationYaw(rotationYawHead);
             renderYawOffset = rotationYawHead;
 
             if (isInWater() && rand.nextInt(20) == 0)
@@ -430,7 +430,7 @@ public class EntitySlime extends EntityLiving implements IMob
         public void updateTask()
         {
             slime.faceEntity(slime.getAttackTarget(), 10.0F, 10.0F);
-            ((EntitySlime.SlimeMoveHelper) slime.getMoveHelper()).func_179920_a(slime.rotationYaw, slime.canDamagePlayer());
+            ((EntitySlime.SlimeMoveHelper) slime.getMoveHelper()).func_179920_a(slime.getRotationYaw(), slime.canDamagePlayer());
         }
     }
 
@@ -538,9 +538,9 @@ public class EntitySlime extends EntityLiving implements IMob
 
         public void onUpdateMoveHelper()
         {
-            entity.rotationYaw = limitAngle(entity.rotationYaw, field_179922_g, 30.0F);
-            entity.rotationYawHead = entity.rotationYaw;
-            entity.renderYawOffset = entity.rotationYaw;
+            entity.setRotationYaw(limitAngle(entity.getRotationYaw(), field_179922_g, 30.0F));
+            entity.rotationYawHead = entity.getRotationYaw();
+            entity.renderYawOffset = entity.getRotationYaw();
 
             if (!update)
             {

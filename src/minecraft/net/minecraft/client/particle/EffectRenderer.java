@@ -286,11 +286,11 @@ public class EffectRenderer
 
     public void renderLitParticles(Entity entityIn, float p_78872_2_)
     {
-        float f1 = MathHelper.cos(entityIn.rotationYaw * 0.017453292F);
-        float f2 = MathHelper.sin(entityIn.rotationYaw * 0.017453292F);
-        float f3 = -f2 * MathHelper.sin(entityIn.rotationPitch * 0.017453292F);
-        float f4 = f1 * MathHelper.sin(entityIn.rotationPitch * 0.017453292F);
-        float f5 = MathHelper.cos(entityIn.rotationPitch * 0.017453292F);
+        float f1 = MathHelper.cos(entityIn.getRotationYaw() * 0.017453292F);
+        float f2 = MathHelper.sin(entityIn.getRotationYaw() * 0.017453292F);
+        float f3 = -f2 * MathHelper.sin(entityIn.getRotationPitch() * 0.017453292F);
+        float f4 = f1 * MathHelper.sin(entityIn.getRotationPitch() * 0.017453292F);
+        float f5 = MathHelper.cos(entityIn.getRotationPitch() * 0.017453292F);
 
         for (int i = 0; i < 2; ++i)
         {

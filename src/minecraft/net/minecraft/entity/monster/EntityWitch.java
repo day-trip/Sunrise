@@ -252,7 +252,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
         {
             EntityPotion entitypotion = new EntityPotion(this.worldObj, this, 32732);
             double d0 = p_82196_1_.posY + (double)p_82196_1_.getEyeHeight() - 1.100000023841858D;
-            entitypotion.rotationPitch -= -20.0F;
+            entitypotion.setRotationPitch(entitypotion.getRotationPitch() - -20.0F);
             double d1 = p_82196_1_.posX + p_82196_1_.motionX - this.posX;
             double d2 = d0 - this.posY;
             double d3 = p_82196_1_.posZ + p_82196_1_.motionZ - this.posZ;

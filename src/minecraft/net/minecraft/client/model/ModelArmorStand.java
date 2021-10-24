@@ -84,7 +84,7 @@ public class ModelArmorStand extends ModelArmorStandArmor
             float f1 = (entityarmorstand.getLeftLegRotation().getY() + entityarmorstand.getRightLegRotation().getY()) / 2.0F;
             float f2 = (entityarmorstand.getLeftLegRotation().getZ() + entityarmorstand.getRightLegRotation().getZ()) / 2.0F;
             this.standBase.rotateAngleX = 0.0F;
-            this.standBase.rotateAngleY = 0.017453292F * -entityIn.rotationYaw;
+            this.standBase.rotateAngleY = 0.017453292F * -entityIn.getRotationYaw();
             this.standBase.rotateAngleZ = 0.0F;
         }
     }

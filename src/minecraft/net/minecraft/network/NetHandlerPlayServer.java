@@ -191,8 +191,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
 
                     if (playerEntity.ridingEntity != null)
                     {
-                        float f4 = playerEntity.rotationYaw;
-                        float f = playerEntity.rotationPitch;
+                        float f4 = playerEntity.getRotationYaw();
+                        float f = playerEntity.getRotationPitch();
                         playerEntity.ridingEntity.updateRiderPosition();
                         double d16 = playerEntity.posX;
                         double d17 = playerEntity.posY;
@@ -221,7 +221,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                             {
                                 Entity entity = playerEntity.ridingEntity;
                                 playerEntity.playerNetServerHandler.sendPacket(new S18PacketEntityTeleport(entity));
-                                setPlayerLocation(playerEntity.posX, playerEntity.posY, playerEntity.posZ, playerEntity.rotationYaw, playerEntity.rotationPitch);
+                                setPlayerLocation(playerEntity.posX, playerEntity.posY, playerEntity.posZ, playerEntity.getRotationYaw(), playerEntity.getRotationPitch());
                             }
 
                             playerEntity.ridingEntity.isAirBorne = true;
@@ -241,7 +241,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                     if (playerEntity.isPlayerSleeping())
                     {
                         playerEntity.onUpdateEntity();
-                        playerEntity.setPositionAndRotation(lastPosX, lastPosY, lastPosZ, playerEntity.rotationYaw, playerEntity.rotationPitch);
+                        playerEntity.setPositionAndRotation(lastPosX, lastPosY, lastPosZ, playerEntity.getRotationYaw(), playerEntity.getRotationPitch());
                         worldserver.updateEntity(playerEntity);
                         return;
                     }
@@ -253,8 +253,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                     double d8 = playerEntity.posX;
                     double d9 = playerEntity.posY;
                     double d10 = playerEntity.posZ;
-                    float f1 = playerEntity.rotationYaw;
-                    float f2 = playerEntity.rotationPitch;
+                    float f1 = playerEntity.getRotationYaw();
+                    float f2 = playerEntity.getRotationPitch();
 
                     if (packetIn.isMoving() && packetIn.getPositionY() == -999.0D)
                     {
@@ -297,7 +297,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                     if (d15 - d14 > 100.0D && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(playerEntity.getName())))
                     {
                         logger.warn(playerEntity.getName() + " moved too quickly! " + d11 + "," + d12 + "," + d13 + " (" + d11 + ", " + d12 + ", " + d13 + ")");
-                        setPlayerLocation(lastPosX, lastPosY, lastPosZ, playerEntity.rotationYaw, playerEntity.rotationPitch);
+                        setPlayerLocation(lastPosX, lastPosY, lastPosZ, playerEntity.getRotationYaw(), playerEntity.getRotationPitch());
                         return;
                     }
 
@@ -370,7 +370,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                 }
                 else if (networkTickCount - field_175090_f > 20)
                 {
-                    setPlayerLocation(lastPosX, lastPosY, lastPosZ, playerEntity.rotationYaw, playerEntity.rotationPitch);
+                    setPlayerLocation(lastPosX, lastPosY, lastPosZ, playerEntity.getRotationYaw(), playerEntity.getRotationPitch());
                 }
             }
         }
@@ -408,12 +408,12 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
 
         if (relativeSet.contains(S08PacketPlayerPosLook.EnumFlags.Y_ROT))
         {
-            f = yaw + playerEntity.rotationYaw;
+            f = yaw + playerEntity.getRotationYaw();
         }
 
         if (relativeSet.contains(S08PacketPlayerPosLook.EnumFlags.X_ROT))
         {
-            f1 = pitch + playerEntity.rotationPitch;
+            f1 = pitch + playerEntity.getRotationPitch();
         }
 
         playerEntity.setPositionAndRotation(lastPosX, lastPosY, lastPosZ, f, f1);
@@ -610,7 +610,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                     sendPacket(new S07PacketRespawn(playerEntity.dimension, worldserver1.getDifficulty(), worldserver1.getWorldInfo().getTerrainType(), playerEntity.theItemInWorldManager.getGameType()));
                     worldserver1.removePlayerEntityDangerously(playerEntity);
                     playerEntity.isDead = false;
-                    playerEntity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+                    playerEntity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.getRotationYaw(), entity.getRotationPitch());
 
                     if (playerEntity.isEntityAlive())
                     {

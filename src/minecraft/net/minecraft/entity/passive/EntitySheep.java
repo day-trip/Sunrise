@@ -167,7 +167,7 @@ public class EntitySheep extends EntityAnimal
         }
         else
         {
-            return this.sheepTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch / (180F / (float)Math.PI);
+            return this.sheepTimer > 0 ? ((float)Math.PI / 5F) : this.getRotationPitch() / (180F / (float)Math.PI);
         }
     }
 

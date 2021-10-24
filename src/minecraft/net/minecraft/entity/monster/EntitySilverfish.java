@@ -126,7 +126,7 @@ public class EntitySilverfish extends EntityMob
      */
     public void onUpdate()
     {
-        this.renderYawOffset = this.rotationYaw;
+        this.renderYawOffset = this.getRotationYaw();
         super.onUpdate();
     }
 

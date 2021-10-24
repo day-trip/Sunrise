@@ -267,8 +267,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             entity.serverPosX = packetIn.getX();
             entity.serverPosY = packetIn.getY();
             entity.serverPosZ = packetIn.getZ();
-            entity.rotationPitch = (float)(packetIn.getPitch() * 360) / 256.0F;
-            entity.rotationYaw = (float)(packetIn.getYaw() * 360) / 256.0F;
+            entity.setRotationPitch((float)(packetIn.getPitch() * 360) / 256.0F);
+            entity.setRotationYaw((float)(packetIn.getYaw() * 360) / 256.0F);
             Entity[] aentity = entity.getParts();
 
             if (aentity != null)
@@ -310,8 +310,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         entity.serverPosX = packetIn.getX();
         entity.serverPosY = packetIn.getY();
         entity.serverPosZ = packetIn.getZ();
-        entity.rotationYaw = 0.0F;
-        entity.rotationPitch = 0.0F;
+        entity.setRotationYaw(0.0F);
+        entity.setRotationPitch(0.0F);
         entity.setEntityId(packetIn.getEntityID());
         clientWorldController.addEntityToWorld(packetIn.getEntityID(), entity);
     }
@@ -337,8 +337,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             entity.serverPosX = packetIn.func_149051_d();
             entity.serverPosY = packetIn.func_149050_e();
             entity.serverPosZ = packetIn.func_149049_f();
-            entity.rotationYaw = 0.0F;
-            entity.rotationPitch = 0.0F;
+            entity.setRotationYaw(0.0F);
+            entity.setRotationPitch(0.0F);
             entity.setEntityId(packetIn.func_149052_c());
             clientWorldController.addWeatherEffect(entity);
         }
@@ -482,8 +482,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             double d0 = (double)entity.serverPosX / 32.0D;
             double d1 = (double)entity.serverPosY / 32.0D;
             double d2 = (double)entity.serverPosZ / 32.0D;
-            float f = packetIn.func_149060_h() ? (float)(packetIn.func_149066_f() * 360) / 256.0F : entity.rotationYaw;
-            float f1 = packetIn.func_149060_h() ? (float)(packetIn.func_149063_g() * 360) / 256.0F : entity.rotationPitch;
+            float f = packetIn.func_149060_h() ? (float)(packetIn.func_149066_f() * 360) / 256.0F : entity.getRotationYaw();
+            float f1 = packetIn.func_149060_h() ? (float)(packetIn.func_149063_g() * 360) / 256.0F : entity.getRotationPitch();
             entity.setPositionAndRotation2(d0, d1, d2, f, f1, 3, false);
             entity.onGround = packetIn.getOnGround();
         }
@@ -564,16 +564,16 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.X_ROT))
         {
-            f1 += entityplayer.rotationPitch;
+            f1 += entityplayer.getRotationPitch();
         }
 
         if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.Y_ROT))
         {
-            f += entityplayer.rotationYaw;
+            f += entityplayer.getRotationYaw();
         }
 
         entityplayer.setPositionAndRotation(d0, d1, d2, f, f1);
-        netManager.sendPacket(new C03PacketPlayer.C06PacketPlayerPosLook(entityplayer.posX, entityplayer.getEntityBoundingBox().minY, entityplayer.posZ, entityplayer.rotationYaw, entityplayer.rotationPitch, false));
+        netManager.sendPacket(new C03PacketPlayer.C06PacketPlayerPosLook(entityplayer.posX, entityplayer.getEntityBoundingBox().minY, entityplayer.posZ, entityplayer.getRotationYaw(), entityplayer.getRotationPitch(), false));
 
         if (!doneLoadingTerrain)
         {

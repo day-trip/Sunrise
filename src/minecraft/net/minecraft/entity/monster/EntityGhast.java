@@ -286,7 +286,7 @@ public class EntityGhast extends EntityFlying implements IMob
         {
             if (this.parentEntity.getAttackTarget() == null)
             {
-                this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw = -((float)MathHelper.func_181159_b(this.parentEntity.motionX, this.parentEntity.motionZ)) * 180.0F / (float)Math.PI;
+                this.parentEntity.renderYawOffset = this.parentEntity.setRotationYaw(-((float)MathHelper.func_181159_b(this.parentEntity.motionX, this.parentEntity.motionZ)) * 180.0F / (float)Math.PI);
             }
             else
             {
@@ -297,7 +297,7 @@ public class EntityGhast extends EntityFlying implements IMob
                 {
                     double d1 = entitylivingbase.posX - this.parentEntity.posX;
                     double d2 = entitylivingbase.posZ - this.parentEntity.posZ;
-                    this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw = -((float)MathHelper.func_181159_b(d1, d2)) * 180.0F / (float)Math.PI;
+                    this.parentEntity.renderYawOffset = this.parentEntity.setRotationYaw(-((float)MathHelper.func_181159_b(d1, d2)) * 180.0F / (float)Math.PI);
                 }
             }
         }

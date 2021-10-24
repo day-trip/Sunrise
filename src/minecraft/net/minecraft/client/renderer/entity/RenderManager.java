@@ -256,8 +256,8 @@ public class RenderManager
         }
         else
         {
-            playerViewY = livingPlayerIn.prevRotationYaw + (livingPlayerIn.rotationYaw - livingPlayerIn.prevRotationYaw) * partialTicks;
-            playerViewX = livingPlayerIn.prevRotationPitch + (livingPlayerIn.rotationPitch - livingPlayerIn.prevRotationPitch) * partialTicks;
+            playerViewY = livingPlayerIn.prevRotationYaw + (livingPlayerIn.getRotationYaw() - livingPlayerIn.prevRotationYaw) * partialTicks;
+            playerViewX = livingPlayerIn.prevRotationPitch + (livingPlayerIn.getRotationPitch() - livingPlayerIn.prevRotationPitch) * partialTicks;
         }
 
         if (optionsIn.thirdPersonView == 2)
@@ -318,7 +318,7 @@ public class RenderManager
         double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double)partialTicks;
         double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double)partialTicks;
         double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double)partialTicks;
-        float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
+        float f = entity.prevRotationYaw + (entity.getRotationYaw() - entity.prevRotationYaw) * partialTicks;
         int i = entity.getBrightnessForRender(partialTicks);
 
         if (entity.isBurning())

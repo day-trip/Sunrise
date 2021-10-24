@@ -61,7 +61,7 @@ public abstract class EntityFireball extends Entity
     {
         super(worldIn);
         this.setSize(1.0F, 1.0F);
-        this.setLocationAndAngles(x, y, z, this.rotationYaw, this.rotationPitch);
+        this.setLocationAndAngles(x, y, z, this.getRotationYaw(), this.getRotationPitch());
         this.setPosition(x, y, z);
         double d0 = (double)MathHelper.sqrt_double(accelX * accelX + accelY * accelY + accelZ * accelZ);
         this.accelerationX = accelX / d0 * 0.1D;
@@ -74,7 +74,7 @@ public abstract class EntityFireball extends Entity
         super(worldIn);
         this.shootingEntity = shooter;
         this.setSize(1.0F, 1.0F);
-        this.setLocationAndAngles(shooter.posX, shooter.posY, shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
+        this.setLocationAndAngles(shooter.posX, shooter.posY, shooter.posZ, shooter.getRotationYaw(), shooter.getRotationPitch());
         this.setPosition(this.posX, this.posY, this.posZ);
         this.motionX = this.motionY = this.motionZ = 0.0D;
         accelX = accelX + this.rand.nextGaussian() * 0.4D;
@@ -174,30 +174,30 @@ public abstract class EntityFireball extends Entity
             this.posY += this.motionY;
             this.posZ += this.motionZ;
             float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.rotationYaw = (float)(MathHelper.func_181159_b(this.motionZ, this.motionX) * 180.0D / Math.PI) + 90.0F;
+            this.setRotationYaw((float)(MathHelper.func_181159_b(this.motionZ, this.motionX) * 180.0D / Math.PI) + 90.0F);
 
-            for (this.rotationPitch = (float)(MathHelper.func_181159_b((double)f1, this.motionY) * 180.0D / Math.PI) - 90.0F; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+            for (this.setRotationPitch((float)(MathHelper.func_181159_b((double)f1, this.motionY) * 180.0D / Math.PI) - 90.0F); this.getRotationPitch() - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
             {
                 ;
             }
 
-            while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
+            while (this.getRotationPitch() - this.prevRotationPitch >= 180.0F)
             {
                 this.prevRotationPitch += 360.0F;
             }
 
-            while (this.rotationYaw - this.prevRotationYaw < -180.0F)
+            while (this.getRotationYaw() - this.prevRotationYaw < -180.0F)
             {
                 this.prevRotationYaw -= 360.0F;
             }
 
-            while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
+            while (this.getRotationYaw() - this.prevRotationYaw >= 180.0F)
             {
                 this.prevRotationYaw += 360.0F;
             }
 
-            this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-            this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+            this.setRotationPitch(this.prevRotationPitch + (this.getRotationPitch() - this.prevRotationPitch) * 0.2F);
+            this.setRotationYaw(this.prevRotationYaw + (this.getRotationYaw() - this.prevRotationYaw) * 0.2F);
             float f2 = this.getMotionFactor();
 
             if (this.isInWater())

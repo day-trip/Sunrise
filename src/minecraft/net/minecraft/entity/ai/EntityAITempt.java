@@ -100,7 +100,7 @@ public class EntityAITempt extends EntityAIBase
                     return false;
                 }
 
-                if (Math.abs((double)this.temptingPlayer.rotationPitch - this.pitch) > 5.0D || Math.abs((double)this.temptingPlayer.rotationYaw - this.yaw) > 5.0D)
+                if (Math.abs((double) this.temptingPlayer.getRotationPitch() - this.pitch) > 5.0D || Math.abs((double) this.temptingPlayer.getRotationYaw() - this.yaw) > 5.0D)
                 {
                     return false;
                 }
@@ -112,8 +112,8 @@ public class EntityAITempt extends EntityAIBase
                 this.targetZ = this.temptingPlayer.posZ;
             }
 
-            this.pitch = (double)this.temptingPlayer.rotationPitch;
-            this.yaw = (double)this.temptingPlayer.rotationYaw;
+            this.pitch = (double) this.temptingPlayer.getRotationPitch();
+            this.yaw = (double) this.temptingPlayer.getRotationYaw();
         }
 
         return this.shouldExecute();

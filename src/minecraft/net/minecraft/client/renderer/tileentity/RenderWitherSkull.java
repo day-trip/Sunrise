@@ -47,8 +47,8 @@ public class RenderWitherSkull extends Render<EntityWitherSkull>
     {
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
-        float f = this.func_82400_a(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
-        float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
+        float f = this.func_82400_a(entity.prevRotationYaw, entity.getRotationYaw(), partialTicks);
+        float f1 = entity.prevRotationPitch + (entity.getRotationPitch() - entity.prevRotationPitch) * partialTicks;
         GlStateManager.translate((float)x, (float)y, (float)z);
         float f2 = 0.0625F;
         GlStateManager.enableRescaleNormal();

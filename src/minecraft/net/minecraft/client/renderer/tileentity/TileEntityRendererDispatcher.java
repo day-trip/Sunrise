@@ -94,8 +94,8 @@ public class TileEntityRendererDispatcher
         this.renderEngine = textureManagerIn;
         this.entity = entityIn;
         this.fontRenderer = fontrendererIn;
-        this.entityYaw = entityIn.prevRotationYaw + (entityIn.rotationYaw - entityIn.prevRotationYaw) * partialTicks;
-        this.entityPitch = entityIn.prevRotationPitch + (entityIn.rotationPitch - entityIn.prevRotationPitch) * partialTicks;
+        this.entityYaw = entityIn.prevRotationYaw + (entityIn.getRotationYaw() - entityIn.prevRotationYaw) * partialTicks;
+        this.entityPitch = entityIn.prevRotationPitch + (entityIn.getRotationPitch() - entityIn.prevRotationPitch) * partialTicks;
         this.entityX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double)partialTicks;
         this.entityY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double)partialTicks;
         this.entityZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double)partialTicks;

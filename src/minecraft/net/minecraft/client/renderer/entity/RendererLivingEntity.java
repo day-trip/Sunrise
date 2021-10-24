@@ -128,7 +128,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 }
             }
 
-            float f7 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
+            float f7 = entity.prevRotationPitch + (entity.getRotationPitch() - entity.prevRotationPitch) * partialTicks;
             renderLivingAt(entity, x, y, z);
             float f8 = handleRotationFloat(entity, partialTicks);
             rotateCorpse(entity, f8, f, partialTicks);

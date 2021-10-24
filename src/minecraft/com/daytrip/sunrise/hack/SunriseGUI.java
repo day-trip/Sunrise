@@ -26,17 +26,20 @@ public class SunriseGUI implements EventListener {
         if(event instanceof EventRenderHud) {
             ScaledResolution sr = new ScaledResolution(minecraft);
 
+            Gui.drawRect(0, 0, sr.getScaledWidth(), 25, new Color(128, 128, 128, 195).getRGB());
+
             minecraft.smoothFontRendererObj.drawString(I18n.format("client.name"), 7, 7, Color.ORANGE.getRGB(), false);
 
             AtomicInteger i = new AtomicInteger();
 
             HackManager.getHacks().values().stream().sorted(hackNameLengthComparator.reversed()).forEach(hack -> {
                 if(hack.isEnabled()) {
-                    int width = minecraft.fontRendererObj.getStringWidth(hack.getName()) + 3;
+                    int width = minecraft.fontRendererObj.getStringWidth(hack.getName());
                     int height = 15;
+                    int offset = 25;
 
-                    Gui.drawRect(sr.getScaledWidth() - width, i.get() * height, sr.getScaledWidth(), i.get() * height + height, new Color(64, 64, 64, 150).getRGB());
-                    minecraft.fontRendererObj.drawString(hack.getName(), sr.getScaledWidth() - width + 3, (i.get() * height) + height / 2 - (minecraft.fontRendererObj.FONT_HEIGHT / 2), Color.cyan.getRGB());
+                    Gui.drawRect(sr.getScaledWidth() - width - 6, offset + i.get() * height, sr.getScaledWidth(), offset + i.get() * height + height, new Color(64, 64, 64, 170).getRGB());
+                    minecraft.smoothFontRendererObj.drawString(hack.getName(), sr.getScaledWidth() - width - 3, offset + (i.get() * height) + height / 2 - (minecraft.fontRendererObj.FONT_HEIGHT / 2), Color.cyan.getRGB());
 
                     i.getAndIncrement();
                 }

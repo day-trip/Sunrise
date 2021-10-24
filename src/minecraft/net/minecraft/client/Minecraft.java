@@ -11,6 +11,8 @@ import com.daytrip.sunrise.event.impl.input.EventKeypress;
 import com.daytrip.sunrise.gui.LoadingManager;
 import com.daytrip.sunrise.SunriseClient;
 import com.daytrip.sunrise.event.impl.*;
+import com.daytrip.sunrise.loading.InitPhase;
+import com.daytrip.sunrise.util.Wrappers;
 import com.daytrip.sunrise.util.math.InterpolationMath;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
@@ -120,9 +122,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
 {
@@ -317,33 +317,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
 
         ImageIO.setUseCache(false);
         Bootstrap.register();
+
+        EventBus.initBus();
     }
 
     public void run()
     {
         running = true;
-
-        try
-        {
-            EventBus.initBus();
-
-            EventBus.registerListener(new SunriseClient());
-
-            new EventRegisterListeners().post();
-
-            EventBus.registerListener(this);
-
-            new EventGamePreInit().post();
-            new EventGameInit().post();
-            new EventGamePostInit().post();
-        }
-        catch (Throwable throwable)
-        {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Initializing game");
-            crashreport.makeCategory("Initialization");
-            displayCrashReport(addGraphicsAndWorldToCrashReport(crashreport));
-            return;
-        }
 
         while (true)
         {
@@ -355,7 +335,21 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
                     {
                         try
                         {
-                            runGameLoop();
+                            if(InitPhase.get() == InitPhase.Phase.INIT) {
+                                EventBus.registerListener(new SunriseClient());
+
+                                Wrappers.post(new EventRegisterListeners());
+
+                                EventBus.registerListener(this);
+
+                                Wrappers.post(new EventGamePreInit());
+                                Wrappers.post(new EventGameInit());
+                                Wrappers.post(new EventGamePostInit());
+
+                                InitPhase.next();
+                            } else if (InitPhase.get() == InitPhase.Phase.LOOPING) {
+                                runGameLoop();
+                            }
                         }
                         catch (OutOfMemoryError var10)
                         {
@@ -560,8 +554,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         renderEngine = new TextureManager(mcResourceManager);
         mcResourceManager.registerReloadListener(renderEngine);
         LoadingManager.next();
-        fontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
-        smoothFontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii_smooth.png"), renderEngine, false);
+        fontRendererObj = new FontRenderer(new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
+        smoothFontRendererObj = new FontRenderer(new ResourceLocation("textures/font/ascii_smooth.png"), renderEngine, false);
         LoadingManager.next();
         drawSplashScreen();
         initStream();
@@ -589,7 +583,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
             fontRendererObj.setBidiFlag(mcLanguageManager.isCurrentLanguageBidirectional());
         }
 
-        standardGalacticFontRenderer = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii_sga.png"), renderEngine, false);
+        standardGalacticFontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii_sga.png"), renderEngine, false);
         mcResourceManager.registerReloadListener(fontRendererObj);
         mcResourceManager.registerReloadListener(smoothFontRendererObj);
         mcResourceManager.registerReloadListener(standardGalacticFontRenderer);
@@ -1202,7 +1196,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         }
 
         mcProfiler.endSection();
-        long l = System.nanoTime();
         mcProfiler.startSection("tick");
 
         for (int j = 0; j < timer.elapsedTicks; ++j)
@@ -1351,14 +1344,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
 
     public void freeMemory()
     {
-        try
-        {
-            memoryReserve = new byte[0];
-            renderGlobal.deleteAllDisplayLists();
-        }
-        catch (Throwable ignored)
-        {
-        }
+        memoryReserve = new byte[0];
 
         try
         {

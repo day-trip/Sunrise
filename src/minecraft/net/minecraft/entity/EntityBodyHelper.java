@@ -28,7 +28,7 @@ public class EntityBodyHelper
 
         if (d0 * d0 + d1 * d1 > 2.500000277905201E-7D)
         {
-            this.theLiving.renderYawOffset = this.theLiving.rotationYaw;
+            this.theLiving.renderYawOffset = this.theLiving.getRotationYaw();
             this.theLiving.rotationYawHead = this.computeAngleWithBound(this.theLiving.renderYawOffset, this.theLiving.rotationYawHead, 75.0F);
             this.prevRenderYawHead = this.theLiving.rotationYawHead;
             this.rotationTickCounter = 0;

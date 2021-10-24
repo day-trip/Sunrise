@@ -195,8 +195,8 @@ public class ItemMonsterPlacer extends Item
                 {
                     EntityLiving entityliving = (EntityLiving)entity;
                     entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(worldIn.rand.nextFloat() * 360.0F), 0.0F);
-                    entityliving.rotationYawHead = entityliving.rotationYaw;
-                    entityliving.renderYawOffset = entityliving.rotationYaw;
+                    entityliving.rotationYawHead = entityliving.getRotationYaw();
+                    entityliving.renderYawOffset = entityliving.getRotationYaw();
                     entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), (IEntityLivingData)null);
                     worldIn.spawnEntityInWorld(entity);
                     entityliving.playLivingSound();

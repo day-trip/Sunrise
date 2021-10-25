@@ -2172,7 +2172,7 @@ class Commands(object):
                 self.logger.info('File tagged for deletion : %s', entry[0])
 
         if 'CHANGELOG' in [i[0] for i in newfiles]:
-            print ''
+            print('')
             self.logger.info('== CHANGELOG ==')
             changelog_url = self.updateurl + 'mcp/CHANGELOG'
             changelog = urllib.urlopen(changelog_url).readlines()
@@ -2180,14 +2180,14 @@ class Commands(object):
                 self.logger.info(line.strip())
                 if not line.strip():
                     break
-            print ''
-            print ''
+            print('')
+            print('')
 
         if not force:
-            print 'WARNING:'
+            print('WARNING:')
             print 'You are going to update MCP'
             print 'Are you sure you want to continue ?'
-            answer = raw_input('If you really want to update, enter "Yes" ')
+            answer = input('If you really want to update, enter "Yes" ')
             if answer.lower() not in ['yes', 'y']:
                 print 'You have not entered "Yes", aborting the update process'
                 sys.exit(1)

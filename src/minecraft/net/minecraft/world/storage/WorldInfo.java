@@ -1,8 +1,7 @@
 package net.minecraft.world.storage;
 
-import java.util.concurrent.Callable;
-import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.EnumDifficulty;
@@ -330,12 +329,14 @@ public class WorldInfo
         nbt.setBoolean("DifficultyLocked", difficultyLocked);
         nbt.setTag("GameRules", theGameRules.writeToNBT());
 
+        if(lastCommandTyped != null && !lastCommandTyped.isEmpty()) {
+            nbt.setString("lastCommand", lastCommandTyped);
+        }
+
         if (playerNbt != null)
         {
             nbt.setTag("Player", playerNbt);
         }
-
-        nbt.setString("lastCommand", lastCommandTyped);
     }
 
     /**

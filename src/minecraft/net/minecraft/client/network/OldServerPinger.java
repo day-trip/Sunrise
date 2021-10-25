@@ -11,11 +11,9 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelException;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import java.net.InetAddress;
@@ -51,7 +49,7 @@ public class OldServerPinger
 
     public void ping(ServerData server) throws UnknownHostException
     {
-        ServerAddress serveraddress = ServerAddress.func_78860_a(server.serverIP);
+        ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
         NetworkManager networkmanager = NetworkManager.func_181124_a(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
         pingDestinations.add(networkmanager);
         server.serverMOTD = "Pinging...";
@@ -184,7 +182,7 @@ public class OldServerPinger
 
     private void tryCompatibilityPing(ServerData server)
     {
-        ServerAddress serveraddress = ServerAddress.func_78860_a(server.serverIP);
+        ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
         (new Bootstrap()).group(NetworkManager.CLIENT_NIO_EVENTLOOP.getValue()).handler(new ChannelInitializer<Channel>()
         {
             protected void initChannel(Channel p_initChannel_1_) throws Exception

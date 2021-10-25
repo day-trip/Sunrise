@@ -26,6 +26,7 @@ public class SunriseClient implements EventListener {
         Minecraft minecraft = Minecraft.getMinecraft();
 
         if(event instanceof EventGamePreInit) {
+            // NO INTERNET :((((((((((((((((((((((((((((((((((((((((((((((((((((((
             LoginManager.applyUser(LoginManager.login("malaworld@gmail.com", "JaiAvi10:14"));
         }
         if(event instanceof EventRegisterListeners) {

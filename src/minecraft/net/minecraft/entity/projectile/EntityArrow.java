@@ -1,6 +1,5 @@
 package net.minecraft.entity.projectile;
 
-import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -15,15 +14,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class EntityArrow extends Entity implements IProjectile
 {
@@ -64,7 +58,7 @@ public class EntityArrow extends Entity implements IProjectile
         setPosition(x, y, z);
     }
 
-    public EntityArrow(World worldIn, EntityLivingBase shooter, EntityLivingBase target, float p_i1755_4_, float p_i1755_5_)
+    public EntityArrow(World worldIn, EntityLivingBase shooter, EntityLivingBase target, float velocity, float inaccuracy)
     {
         super(worldIn);
         renderDistanceWeight = 10.0D;
@@ -89,7 +83,7 @@ public class EntityArrow extends Entity implements IProjectile
             double d5 = d2 / d3;
             setLocationAndAngles(shooter.posX + d4, posY, shooter.posZ + d5, f, f1);
             float f2 = (float)(d3 * 0.20000000298023224D);
-            setThrowableHeading(d0, d1 + (double)f2, d2, p_i1755_4_, p_i1755_5_);
+            setThrowableHeading(d0, d1 + (double)f2, d2, velocity, inaccuracy);
         }
     }
 
@@ -396,10 +390,12 @@ public class EntityArrow extends Entity implements IProjectile
             posY += motionY;
             posZ += motionZ;
             float f3 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
-            setRotationYaw((float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI));
 
-            for (setRotationPitch((float)(MathHelper.func_181159_b(motionY, f3) * 180.0D / Math.PI)); getRotationPitch() - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
-            {
+            setRotationYaw((float)(MathHelper.func_181159_b(motionX, motionZ) * 180.0D / Math.PI));
+            setRotationPitch((float)(MathHelper.func_181159_b(motionY, f3) * 180.0D / Math.PI));
+
+            while(getRotationPitch() - prevRotationPitch < -180.0F) {
+                prevRotationPitch -= 360.0F;
             }
 
             while (getRotationPitch() - prevRotationPitch >= 180.0F)

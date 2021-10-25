@@ -145,7 +145,7 @@ public class MathHelper
     }
 
     /**
-     * Buckets an integer with specifed bucket sizes.  Args: i, bucketSize
+     * Buckets an integer with specified bucket sizes.  Args: i, bucketSize
      */
     public static int bucketInt(int p_76137_0_, int p_76137_1_)
     {
@@ -227,6 +227,14 @@ public class MathHelper
         }
 
         return value;
+    }
+
+    public static float wrapAngle360(float angle) {
+        angle = angle % 360;
+        if(angle < 0) {
+            angle = 360 - angle;
+        }
+        return angle;
     }
 
     /**
@@ -545,7 +553,13 @@ public class MathHelper
         }
     }
 
-    public static float angle(int x1, int x2, int z1, int z2) {
-        return (float) Math.abs(Math.atan((double) (x2 - x1) / (z2 - z1)));
+    public static double angle(double x1, double x2, double z1, double z2) {
+        return Math.toDegrees(
+                Math.atan(
+                        Math.abs(
+                                (x2 - x1) / (z2 - z1)
+                        )
+                )
+        );
     }
 }

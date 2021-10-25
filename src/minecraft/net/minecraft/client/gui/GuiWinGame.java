@@ -1,12 +1,6 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,6 +13,13 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.Charsets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Random;
 
 public class GuiWinGame extends GuiScreen
 {
@@ -93,7 +94,7 @@ public class GuiWinGame extends GuiScreen
 
             try
             {
-                String s = "";
+                String s;
                 String s1 = "" + EnumChatFormatting.WHITE + EnumChatFormatting.OBFUSCATED + EnumChatFormatting.GREEN + EnumChatFormatting.AQUA;
                 int i = 274;
                 InputStream inputstream = mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt")).getInputStream();
@@ -144,45 +145,13 @@ public class GuiWinGame extends GuiScreen
         }
     }
 
-    private void drawWinGameScreen(int p_146575_1_, int p_146575_2_, float p_146575_3_)
-    {
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        mc.getTextureManager().bindTexture(Gui.optionsBackground);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        int i = width;
-        float f = 0.0F - ((float) field_146581_h + p_146575_3_) * 0.5F * field_146578_s;
-        float f1 = (float) height - ((float) field_146581_h + p_146575_3_) * 0.5F * field_146578_s;
-        float f2 = 0.015625F;
-        float f3 = ((float) field_146581_h + p_146575_3_ - 0.0F) * 0.02F;
-        float f4 = (float)(field_146579_r + height + height + 24) / field_146578_s;
-        float f5 = (f4 - 20.0F - ((float) field_146581_h + p_146575_3_)) * 0.005F;
-
-        if (f5 < f3)
-        {
-            f3 = f5;
-        }
-
-        if (f3 > 1.0F)
-        {
-            f3 = 1.0F;
-        }
-
-        f3 = f3 * f3;
-        f3 = f3 * 96.0F / 255.0F;
-        worldrenderer.pos(0.0D, height, zLevel).tex(0.0D, f * f2).color(f3, f3, f3, 1.0F).endVertex();
-        worldrenderer.pos(i, height, zLevel).tex((float)i * f2, f * f2).color(f3, f3, f3, 1.0F).endVertex();
-        worldrenderer.pos(i, 0.0D, zLevel).tex((float)i * f2, f1 * f2).color(f3, f3, f3, 1.0F).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, zLevel).tex(0.0D, f1 * f2).color(f3, f3, f3, 1.0F).endVertex();
-        tessellator.draw();
-    }
-
     /**
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        drawWinGameScreen(mouseX, mouseY, partialTicks);
+        drawDefaultBackground();
+
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         int i = 274;

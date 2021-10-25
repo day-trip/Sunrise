@@ -4,11 +4,6 @@ import net.minecraft.util.BlockPos;
 
 public class DestroyBlockProgress
 {
-    /**
-     * entity ID of the player associated with this partially destroyed Block. Used to identify the Blocks in the client
-     * Renderer, max 1 per player on a server
-     */
-    private final int miningPlayerEntId;
     private final BlockPos position;
 
     /**
@@ -21,15 +16,14 @@ public class DestroyBlockProgress
      */
     private int createdAtCloudUpdateTick;
 
-    public DestroyBlockProgress(int miningPlayerEntIdIn, BlockPos positionIn)
+    public DestroyBlockProgress(BlockPos positionIn)
     {
-        this.miningPlayerEntId = miningPlayerEntIdIn;
-        this.position = positionIn;
+        position = positionIn;
     }
 
     public BlockPos getPosition()
     {
-        return this.position;
+        return position;
     }
 
     /**
@@ -43,12 +37,12 @@ public class DestroyBlockProgress
             damage = 10;
         }
 
-        this.partialBlockProgress = damage;
+        partialBlockProgress = damage;
     }
 
     public int getPartialBlockDamage()
     {
-        return this.partialBlockProgress;
+        return partialBlockProgress;
     }
 
     /**
@@ -56,7 +50,7 @@ public class DestroyBlockProgress
      */
     public void setCloudUpdateTick(int createdAtCloudUpdateTickIn)
     {
-        this.createdAtCloudUpdateTick = createdAtCloudUpdateTickIn;
+        createdAtCloudUpdateTick = createdAtCloudUpdateTickIn;
     }
 
     /**
@@ -64,6 +58,6 @@ public class DestroyBlockProgress
      */
     public int getCreationCloudUpdateTick()
     {
-        return this.createdAtCloudUpdateTick;
+        return createdAtCloudUpdateTick;
     }
 }

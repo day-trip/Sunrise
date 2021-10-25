@@ -1,10 +1,11 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.LanServerDetector;
+
+import java.util.List;
 
 public class ServerSelectionList extends GuiListExtended
 {
@@ -78,7 +79,7 @@ public class ServerSelectionList extends GuiListExtended
         }
     }
 
-    public void func_148194_a(List<LanServerDetector.LanServer> p_148194_1_)
+    public void func_148194_a(List<? extends LanServerDetector.LanServer> p_148194_1_)
     {
         field_148199_m.clear();
 

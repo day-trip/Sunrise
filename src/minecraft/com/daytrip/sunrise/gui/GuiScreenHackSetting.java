@@ -52,7 +52,7 @@ public class GuiScreenHackSetting extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        drawBackground(0);
+        drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         drawCenteredString(fontRendererObj, "Modifying setting: " + HackManager.getHack(hackIndex).getSettingManager().getSetting(settingIndex).getName(), width / 2, 16, 16777215);
     }

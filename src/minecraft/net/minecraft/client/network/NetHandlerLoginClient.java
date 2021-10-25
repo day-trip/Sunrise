@@ -5,11 +5,6 @@ import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
 import com.mojang.authlib.exceptions.InvalidCredentialsException;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
-import java.math.BigInteger;
-import java.security.PublicKey;
-import javax.crypto.SecretKey;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
@@ -26,6 +21,11 @@ import net.minecraft.util.CryptManager;
 import net.minecraft.util.IChatComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.crypto.SecretKey;
+import java.math.BigInteger;
+import java.security.PublicKey;
+import java.util.Objects;
 
 public class NetHandlerLoginClient implements INetHandlerLoginClient
 {
@@ -47,7 +47,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient
         SecretKey secretkey = CryptManager.createNewSharedKey();
         String s = packetIn.getServerId();
         PublicKey publickey = packetIn.getPublicKey();
-        String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);
+        String s1 = (new BigInteger(Objects.requireNonNull(CryptManager.getServerIdHash(s, publickey, secretkey)))).toString(16);
 
         if (mc.getCurrentServerData() != null && mc.getCurrentServerData().func_181041_d())
         {

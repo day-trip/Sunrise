@@ -2,8 +2,6 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import java.io.IOException;
-import java.util.List;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
@@ -13,6 +11,9 @@ import net.minecraft.client.resources.I18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+
+import java.io.IOException;
+import java.util.List;
 
 public class GuiMultiplayer extends GuiScreen {
     private static final Logger logger = LogManager.getLogger();
@@ -54,7 +55,7 @@ public class GuiMultiplayer extends GuiScreen {
         if (!initialized)
         {
             initialized = true;
-            savedServerList = new ServerList(mc);
+            savedServerList = new ServerList();
             savedServerList.loadServerList();
             lanServerList = new LanServerDetector.LanServerList();
 
@@ -140,11 +141,11 @@ public class GuiMultiplayer extends GuiScreen {
     {
         if (button.enabled)
         {
-            GuiListExtended.IGuiListEntry guilistextended$iguilistentry = serverListSelector.func_148193_k() < 0 ? null : serverListSelector.getListEntry(serverListSelector.func_148193_k());
+            GuiListExtended.IGuiListEntry entry = serverListSelector.func_148193_k() < 0 ? null : serverListSelector.getListEntry(serverListSelector.func_148193_k());
 
-            if (button.id == 2 && guilistextended$iguilistentry instanceof ServerListEntryNormal)
+            if (button.id == 2 && entry instanceof ServerListEntryNormal && ((ServerListEntryNormal) entry).getServerData().isEditable())
             {
-                String s4 = ((ServerListEntryNormal)guilistextended$iguilistentry).getServerData().serverName;
+                String s4 = ((ServerListEntryNormal)entry).getServerData().serverName;
 
                 if (s4 != null)
                 {
@@ -171,10 +172,10 @@ public class GuiMultiplayer extends GuiScreen {
                 addingServer = true;
                 mc.displayGuiScreen(new GuiScreenAddServer(this, selectedServer = new ServerData(I18n.format("selectServer.defaultName"), "", false)));
             }
-            else if (button.id == 7 && guilistextended$iguilistentry instanceof ServerListEntryNormal)
+            else if (button.id == 7 && entry instanceof ServerListEntryNormal && ((ServerListEntryNormal) entry).getServerData().isEditable())
             {
                 editingServer = true;
-                ServerData serverdata = ((ServerListEntryNormal)guilistextended$iguilistentry).getServerData();
+                ServerData serverdata = ((ServerListEntryNormal)entry).getServerData();
                 selectedServer = new ServerData(serverdata.serverName, serverdata.serverIP, false);
                 selectedServer.copyFrom(serverdata);
                 mc.displayGuiScreen(new GuiScreenAddServer(this, selectedServer));

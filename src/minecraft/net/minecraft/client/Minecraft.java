@@ -13,7 +13,7 @@ import com.daytrip.sunrise.SunriseClient;
 import com.daytrip.sunrise.event.impl.*;
 import com.daytrip.sunrise.loading.InitPhase;
 import com.daytrip.sunrise.util.Wrappers;
-import com.daytrip.sunrise.util.math.InterpolationMath;
+import com.daytrip.sunrise.util.math.interpolation.InterpolationMath;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -144,6 +144,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
      * Set to 'this' in Minecraft constructor; used by some settings get methods
      */
     private static Minecraft theMinecraft;
+
     public PlayerControllerMP playerController;
     private boolean fullscreen;
     private boolean hasCrashed;
@@ -325,72 +326,67 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
     {
         running = true;
 
-        while (true)
+        try
         {
-            try
+            while (running)
             {
-                while (running)
+                if (!hasCrashed || crashReporter == null)
                 {
-                    if (!hasCrashed || crashReporter == null)
+                    try
                     {
-                        try
-                        {
-                            if(InitPhase.get() == InitPhase.Phase.INIT) {
-                                EventBus.registerListener(new SunriseClient());
+                        if(InitPhase.get() == InitPhase.Phase.INIT) {
+                            EventBus.registerListener(new SunriseClient());
 
-                                Wrappers.post(new EventRegisterListeners());
+                            Wrappers.post(new EventRegisterListeners());
 
-                                EventBus.registerListener(this);
+                            EventBus.registerListener(this);
 
-                                Wrappers.post(new EventGamePreInit());
-                                Wrappers.post(new EventGameInit());
-                                Wrappers.post(new EventGamePostInit());
+                            Wrappers.post(new EventGamePreInit());
+                            Wrappers.post(new EventGameInit());
+                            Wrappers.post(new EventGamePostInit());
 
-                                InitPhase.next();
-                            } else if (InitPhase.get() == InitPhase.Phase.LOOPING) {
-                                runGameLoop();
-                            }
-                        }
-                        catch (OutOfMemoryError var10)
-                        {
-                            freeMemory();
-                            displayGuiScreen(new GuiMemoryErrorScreen());
-                            System.gc();
+                            InitPhase.next();
+                        } else if (InitPhase.get() == InitPhase.Phase.LOOPING) {
+                            runGameLoop();
                         }
                     }
-                    else
+                    catch (OutOfMemoryError var10)
                     {
-                        displayCrashReport(crashReporter);
+                        freeMemory();
+                        displayGuiScreen(new GuiMemoryErrorScreen());
+                        System.gc();
                     }
-
                 }
-            }
-            catch (MinecraftError var12)
-            {
-                break;
-            }
-            catch (ReportedException reportedexception)
-            {
-                addGraphicsAndWorldToCrashReport(reportedexception.getCrashReport());
-                freeMemory();
-                logger.fatal("Reported exception thrown!", reportedexception);
-                displayCrashReport(reportedexception.getCrashReport());
-                break;
-            }
-            catch (Throwable throwable1)
-            {
-                CrashReport crashreport1 = addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable1));
-                freeMemory();
-                logger.fatal("Unreported exception thrown!", throwable1);
-                displayCrashReport(crashreport1);
-                break;
-            }
-            finally
-            {
-                shutdownMinecraftApplet();
-            }
+                else
+                {
+                    displayCrashReport(crashReporter);
+                }
 
+            }
+        }
+        catch (MinecraftError var12)
+        {
             return;
+        }
+        catch (ReportedException reportedexception)
+        {
+            addGraphicsAndWorldToCrashReport(reportedexception.getCrashReport());
+            freeMemory();
+            logger.fatal("Reported exception thrown!", reportedexception);
+            displayCrashReport(reportedexception.getCrashReport());
+            return;
+        }
+        catch (Throwable throwable1)
+        {
+            CrashReport crashreport1 = addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable1));
+            freeMemory();
+            logger.fatal("Unreported exception thrown!", throwable1);
+            displayCrashReport(crashreport1);
+            return;
+        }
+        finally
+        {
+            shutdownMinecraftApplet();
         }
     }
 
@@ -933,7 +929,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
-        renderEngine.bindTexture(new ResourceLocation("textures/gui/title/galaxy.png"));
+        renderEngine.bindTexture(new ResourceLocation("textures/gui/title/galaxy_1.png"));
 
         float f = 1.0F / textureWidth;
         float f1 = 1.0F / textureHeight;
@@ -1050,7 +1046,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage, EventListener
             drawPlainBackground(Color.darkGray.getRGB());
         } else {
             drawLoadingImage(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
-            drawLoadingGradient();
+            //drawLoadingGradient();
         }
         drawLoadingBar(LoadingManager.getPercentage());
 

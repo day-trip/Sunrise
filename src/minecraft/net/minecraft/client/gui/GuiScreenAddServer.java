@@ -16,7 +16,7 @@ public class GuiScreenAddServer extends GuiScreen
     private GuiTextField serverNameField;
     private GuiButton serverResourcePacks;
     private final Predicate<String> field_181032_r = p_apply_1_ -> {
-        if (p_apply_1_.length() == 0)
+        if (p_apply_1_.isEmpty())
         {
             return true;
         }
@@ -76,7 +76,7 @@ public class GuiScreenAddServer extends GuiScreen
         serverIPField.setMaxStringLength(128);
         serverIPField.setText(serverData.serverIP);
         serverIPField.func_175205_a(field_181032_r);
-        buttonList.get(0).enabled = serverIPField.getText().length() > 0 && serverIPField.getText().split(":").length > 0 && serverNameField.getText().length() > 0;
+        buttonList.get(0).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
     }
 
     /**
@@ -132,7 +132,7 @@ public class GuiScreenAddServer extends GuiScreen
             actionPerformed(buttonList.get(0));
         }
 
-        buttonList.get(0).enabled = serverIPField.getText().length() > 0 && serverIPField.getText().split(":").length > 0 && serverNameField.getText().length() > 0;
+        buttonList.get(0).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
     }
 
     /**

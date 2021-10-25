@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.entity;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerCreeperCharge;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -36,9 +37,9 @@ public class RenderCreeper extends RenderLiving<EntityCreeper>
     /**
      * Returns an ARGB int color back. Args: entityLiving, lightBrightness, partialTickTime
      */
-    protected int getColorMultiplier(EntityCreeper entitylivingbaseIn, float lightBrightness, float partialTickTime)
+    public int getColorMultiplier(EntityLivingBase entitylivingbaseIn, float lightBrightness, float partialTickTime)
     {
-        float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
+        float f = ((EntityCreeper)entitylivingbaseIn).getCreeperFlashIntensity(partialTickTime);
 
         if ((int)(f * 10.0F) % 2 == 0)
         {

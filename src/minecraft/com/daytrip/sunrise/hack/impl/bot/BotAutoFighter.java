@@ -4,39 +4,35 @@ import com.daytrip.sunrise.HackAPI;
 import com.daytrip.sunrise.event.Event;
 import com.daytrip.sunrise.event.EventHandler;
 import com.daytrip.sunrise.event.EventIgnores;
-import com.daytrip.sunrise.event.impl.*;
-import com.daytrip.sunrise.event.impl.input.*;
+import com.daytrip.sunrise.event.impl.EventEntityAttackedByPlayer;
+import com.daytrip.sunrise.event.impl.EventPlayerDamaged;
+import com.daytrip.sunrise.event.impl.EventRenderBrightnessBuffer;
+import com.daytrip.sunrise.event.impl.EventTick;
+import com.daytrip.sunrise.event.impl.input.EventClickMouse;
+import com.daytrip.sunrise.event.impl.input.EventKeypress;
+import com.daytrip.sunrise.event.impl.input.EventProcessMouse;
+import com.daytrip.sunrise.event.impl.input.EventUpdateMovementInput;
 import com.daytrip.sunrise.hack.Hack;
-import com.daytrip.sunrise.hack.pathfinding.PathFinder;
-import com.daytrip.sunrise.hack.pathfinding.Point;
 import com.daytrip.sunrise.hack.setting.impl.SettingBoolean;
 import com.daytrip.sunrise.hack.task.Task;
 import com.daytrip.sunrise.module.ModulePathFinding;
-import com.daytrip.sunrise.util.math.*;
+import com.daytrip.sunrise.util.math.RandomMath;
+import com.daytrip.sunrise.util.math.interpolation.InterpolationMath;
 import com.daytrip.sunrise.util.minecraft.ExtendedReach;
-import com.daytrip.sunrise.util.timer.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import com.daytrip.sunrise.util.timer.TickTimer;
+import com.daytrip.sunrise.util.timer.TimerManager;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.input.Keyboard;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class BotAutoFighter extends Hack {
-    // Dangerous blocks to avoid while navigating
-    public static final Block[] DANGER_BLOCKS = { Blocks.fire, Blocks.lava, Blocks.flowing_lava, Blocks.water, Blocks.flowing_water, Blocks.soul_sand, Blocks.web };
-
-    // Hotbar slots TODO: make customizable
+    // HotBar slots TODO: make customizable
     private static final int inventorySwordSlot = 0;
     private static final int inventoryRodSlot = 3;
 
@@ -46,12 +42,8 @@ public class BotAutoFighter extends Hack {
     private double distanceToTarget;
 
     private float yaw;
-    private float prevYaw;
     private float pitch;
     private double angleDistance;
-
-    // Whether or not to automatically navigate
-    private boolean autoNavigate = true;
 
     // The timers
     private TickTimer rodTimer;
@@ -59,19 +51,12 @@ public class BotAutoFighter extends Hack {
 
     // Whether or not the bot can melee
     private boolean canSword = true;
-    // The amount of hits left until the bot has to rod the target
-    private int mustRodCounter;
-
-    private boolean isRodding;
 
     // Whether or not the bot can approach the target
     private boolean canMove = true;
 
     private String strafe = "left";
     private RandomMath.RandomInteger targetStrafeTicks;
-
-    private boolean lockAim;
-    private BlockPos aimLockPos;
 
     private int hitCounter;
     private RandomMath.RandomInteger targetHitCounter;
@@ -133,18 +118,6 @@ public class BotAutoFighter extends Hack {
                     distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
 
                     Vec3 vec3 = target.getPositionVector();
-                    if(isRodding) {
-                        /*double x = minecraft.thePlayer.posX - target.posX;
-                        double y = minecraft.thePlayer.posY - target.posY;
-                        double z = minecraft.thePlayer.posZ - target.posZ;
-                        double len = Math.sqrt(x * x + y * y + x * z);
-                        x /= len;
-                        y /= len;
-                        z /= len;
-                        vec3 = vec3.addVector(target.getMotionVector().multiply(x, y, z));*/
-
-                        vec3 = vec3.add(0, distanceToTarget / 4, 0);
-                    }
                     yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
                     pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), vec3, (float) (((target.getEntityBoundingBox().maxY - target.getEntityBoundingBox().minY) / 2)));
 
@@ -164,29 +137,16 @@ public class BotAutoFighter extends Hack {
                 .withName("PVP Module: Aim")
                 .executeIf(() -> true)
                 .onTick(() -> {
-                    if(!lockAim) {
-                        if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
-                            if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
-                                cameraInterpolationTimer.update();
-                                float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
-                                minecraft.thePlayer.setRotationYaw((float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.getRotationYaw()), (float) Math.toRadians(yaw), progress)));
-                                minecraft.thePlayer.setRotationPitch((float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.getRotationPitch()), (float) Math.toRadians(pitch), progress)));
-
-                                /*if(prevYaw - yaw > 0.7) {
-                                    cameraInterpolationTimer.reset();
-                                }*/
-                                prevYaw = yaw;
-                            } else {
-                                minecraft.thePlayer.setRotationYaw(yaw);
-                                minecraft.thePlayer.setRotationPitch(pitch);
-                            }
+                    if(settingManager.<SettingBoolean>getSetting("aim_lock").getValue()) {
+                        if(settingManager.<SettingBoolean>getSetting("interpolate").getValue()) {
+                            cameraInterpolationTimer.update();
+                            float progress = (cameraInterpolationTimer.getCurrentTicks() + minecraft.timer.elapsedPartialTicks) / cameraInterpolationTimer.getTargetTicks();
+                            minecraft.thePlayer.setRotationYaw((float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.getRotationYaw()), (float) Math.toRadians(yaw), progress)));
+                            minecraft.thePlayer.setRotationPitch((float) Math.toDegrees(InterpolationMath.angleLinearInterpolate((float) Math.toRadians(minecraft.thePlayer.getRotationPitch()), (float) Math.toRadians(pitch), progress)));
+                        } else {
+                            minecraft.thePlayer.setRotationYaw(yaw);
+                            minecraft.thePlayer.setRotationPitch(pitch);
                         }
-                    } else {
-                        float yaw = math.yawToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()), 0);
-                        float pitch = math.pitchToFaceEntity(minecraft.thePlayer.getPositionVector(), new Vec3(aimLockPos.getX(), aimLockPos.getY(), aimLockPos.getZ()), 0);
-
-                        minecraft.thePlayer.setRotationYaw(yaw);
-                        minecraft.thePlayer.setRotationPitch(pitch);
                     }
                 })
         );
@@ -238,7 +198,7 @@ public class BotAutoFighter extends Hack {
                 .whenCannotExecute(() -> minecraft.thePlayer.movementInput.moveStrafe = 0)
                 .callEvery(() -> targetStrafeTicks.get(), () -> {
                     targetStrafeTicks.generate();
-                    if(strafe.equals("left")) {
+                    if("left".equals(strafe)) {
                         strafe = "right";
                     } else {
                         strafe = "left";
@@ -246,7 +206,7 @@ public class BotAutoFighter extends Hack {
                 }).nextInterval(targetStrafeTicks::get)
                 .onTick(() -> {
                     if(distanceToTarget > 2.5 && distanceToTarget < 10) {
-                        if(strafe.equals("left")) {
+                        if("left".equals(strafe)) {
                             minecraft.thePlayer.movementInput.moveStrafe = -1;
                         } else {
                             minecraft.thePlayer.movementInput.moveStrafe = 1;
@@ -254,19 +214,6 @@ public class BotAutoFighter extends Hack {
                     }
                 })
         );
-
-        /*
-        taskManager.registerTask(3, new Task()
-                .withName("PVP Module: Rod Target")
-                .executeIf(() -> distanceToTarget > 6)
-                .whenCannotExecute(() -> isRodding = false)
-                .onTick(() -> {
-                    isRodding = true;
-                    rodTimer.update();
-                })
-        );
-
-         */
     }
 
     @Override
@@ -297,14 +244,34 @@ public class BotAutoFighter extends Hack {
             }
         }
         if(event instanceof EventRenderBrightnessBuffer && target != null && minecraft.inWorld()) {
-            EventRenderBrightnessBuffer eventRBB = (EventRenderBrightnessBuffer) event;
-            if(eventRBB.getEntityLivingBase() == target) {
-                // Custom damage color for the target
-                if(eventRBB.getContext() == 0) {
-                    eventRBB.setR(0.0F);
-                    eventRBB.setG(1.0F);
-                    eventRBB.setB(0.0F);
-                    eventRBB.setA(0.3F);
+            EventRenderBrightnessBuffer eventRenderBrightnessBuffer = (EventRenderBrightnessBuffer) event;
+            if(eventRenderBrightnessBuffer.onEntity == target) {
+                event.setCancelled(true);
+                Render<EntityLivingBase> render = minecraft.getRenderManager().getEntityRenderObject(target);
+                if(render instanceof RendererLivingEntity) {
+                    float brightness = target.getBrightness(0);
+                    int colorMultiplier = ((RendererLivingEntity<?>) render).getColorMultiplier(target, brightness, 0);
+                    boolean flag = (colorMultiplier >> 24 & 255) > 0;
+                    boolean showDamageOverlay = target.hurtTime > 0 || target.deathTime > 0;
+
+                    if (!flag && !eventRenderBrightnessBuffer.combineTextures)
+                    {
+                        return;
+                    }
+
+                    ((RendererLivingEntity<?>) render).prepareBrightness();
+                    if(showDamageOverlay) {
+                        eventRenderBrightnessBuffer.buffer.put(0);
+                        eventRenderBrightnessBuffer.buffer.put(1);
+                        eventRenderBrightnessBuffer.buffer.put(0);
+                        eventRenderBrightnessBuffer.buffer.put(0.7f);
+                    } else {
+                        eventRenderBrightnessBuffer.buffer.put(0);
+                        eventRenderBrightnessBuffer.buffer.put(1);
+                        eventRenderBrightnessBuffer.buffer.put(1);
+                        eventRenderBrightnessBuffer.buffer.put(0.7f);
+                    }
+                    ((RendererLivingEntity<?>) render).afterBrightness();
                 }
             }
         }
@@ -329,10 +296,6 @@ public class BotAutoFighter extends Hack {
             }
         }
         if(event instanceof EventPlayerDamaged) {
-            System.out.println("Me: Who was damaged?");
-            System.out.println("Everyone else: WHO!");
-            System.out.println("Me: " + ((EventPlayerDamaged) event).player.getName() + " was!");
-
             if(((EventPlayerDamaged) event).damageSource instanceof EntityDamageSourceIndirect) {
                 EntityDamageSourceIndirect sourceIndirect = (EntityDamageSourceIndirect) ((EventPlayerDamaged) event).damageSource;
                 if(sourceIndirect.getEntity() == target || sourceIndirect.getEntity() == minecraft.thePlayer) {
@@ -340,9 +303,8 @@ public class BotAutoFighter extends Hack {
                 }
             }
 
-
+            // Some sources say this reduces KB, others don't
             /*if(((EventPlayerDamaged) event).player == minecraft.thePlayer) {
-                // Some sources say this reduces KB, others don't
                 TimerManager.registerTimer(new TickTimer(tickTimer -> minecraft.thePlayer.jump(), 3, false));
             }*/
         }
@@ -376,18 +338,9 @@ public class BotAutoFighter extends Hack {
             }
         }
         if(event instanceof EventTick && target != null && minecraft.inWorld()) {
-            //taskManager.tick();
+            taskManager.tick();
 
-            /*distanceToTarget = target.getDistanceToEntity(minecraft.thePlayer);
-            if(distanceToTarget > 4) {
-                taskManager.stopAndEndLine();
-                modulePathFinding.run(target, math);
-            } else {
-                taskManager.start();
-                taskManager.tick();
-            }*/
-
-            modulePathFinding.run(target);
+            //modulePathFinding.run(target);
         }
     }
 
@@ -404,7 +357,6 @@ public class BotAutoFighter extends Hack {
 
         rodTimer = null;
         cameraInterpolationTimer = null;
-        mustRodCounter = 0;
 
         HackAPI.stopMovingAndSprinting();
     }
@@ -444,168 +396,6 @@ public class BotAutoFighter extends Hack {
             canMove = true;
             HackAPI.startMovingAndSprinting();
         }, castTimeTicks.get(), false));
-    }
-
-    private final Map<Vec2, int[][]> pathDataMap = new HashMap<>();
-
-    private void generatePathData(Vec2 chunkCoords) {
-        Chunk chunk = minecraft.theWorld.getChunkFromChunkCoords(chunkCoords.getX(), chunkCoords.getZ());
-
-        int x = chunk.xPosition << 4;
-        int z = chunk.zPosition << 4;
-
-        pathDataMap.computeIfAbsent(chunkCoords, vector2f -> {
-            int[][] pathData = new int[16][16];
-
-            for(int xx = x; xx < x + 16; xx++) {
-                for(int zz = z; zz < z + 16; zz++) {
-                    List<Block> dangerBlocks = Arrays.asList(DANGER_BLOCKS);
-                    int xxx = xx - x;
-                    int zzz = zz - z;
-                    IBlockState state = minecraft.theWorld.getBlockState(new BlockPos(xx, minecraft.thePlayer.getPosition().getY(), zz));
-                    IBlockState stateDown = minecraft.theWorld.getBlockState(new BlockPos(xx, minecraft.thePlayer.getPosition().getY() - 1, zz));
-                    if(dangerBlocks.contains(state.getBlock()) || dangerBlocks.contains(stateDown.getBlock())) {
-                        pathData[xxx][zzz] = 1;
-                    } else {
-                        pathData[xxx][zzz] = 0;
-                    }
-                }
-            }
-            ArrayMath.printNeat(pathData);
-            return pathData;
-        });
-    }
-
-    private void pathFinderNavigation() {
-        Vec2 chunkCoords = new Vec2(minecraft.thePlayer.getPosition().getX() >> 4, minecraft.thePlayer.getPosition().getZ() >> 4);
-        Chunk chunk = minecraft.theWorld.getChunkFromChunkCoords(chunkCoords.getX(), chunkCoords.getZ());
-
-        int x = chunk.xPosition << 4;
-        int z = chunk.zPosition << 4;
-
-        // Middle middle
-        generatePathData(chunkCoords);
-        // Middle right
-        generatePathData(chunkCoords.clone().add(1, 0));
-        // Middle left
-        generatePathData(chunkCoords.clone().add(-1, 0));
-        // Top middle
-        generatePathData(chunkCoords.clone().add(0, 1));
-        // Bottom middle
-        generatePathData(chunkCoords.clone().add(0, -1));
-        // Top right
-        generatePathData(chunkCoords.clone().add(1, 1));
-        // Bottom left
-        generatePathData(chunkCoords.clone().add(-1, -1));
-        // Bottom right
-        generatePathData(chunkCoords.clone().add(1, -1));
-        // Top left
-        generatePathData(chunkCoords.clone().add(-1, 1));
-
-        int[][] finalArray = ArrayGrid.create()
-                .add(pathDataMap.get(chunkCoords), 1, 1)
-
-                .add(pathDataMap.get(chunkCoords.clone().add(1, 0)), 2, 1)
-                .add(pathDataMap.get(chunkCoords.clone().add(-1, 0)), 0, 1)
-                .add(pathDataMap.get(chunkCoords.clone().add(0, 1)), 1, 2)
-                .add(pathDataMap.get(chunkCoords.clone().add(0, -1)), 1, 0)
-
-                .add(pathDataMap.get(chunkCoords.clone().add(1, 1)), 2, 2)
-                .add(pathDataMap.get(chunkCoords.clone().add(-1, -1)), 0, 0)
-                .add(pathDataMap.get(chunkCoords.clone().add(1, -1)), 2, 0)
-                .add(pathDataMap.get(chunkCoords.clone().add(-1, 1)), 0, 2)
-
-                .build();
-
-        List<Point> path =  PathFinder.FindPath(
-                finalArray,
-                new Point(
-                        minecraft.thePlayer.getPosition().getX() - x,
-                        minecraft.thePlayer.getPosition().getZ() - z
-                ),
-                new Point(
-                        target.getPosition().getX() - x,
-                        target.getPosition().getZ() - z
-                )
-        );
-
-        if(path != null) {
-            int i = 0;
-            for(Point point : path) {
-                Point p = new Point(point.x + x, point.y + z);
-                System.out.println(p);
-                lockAim = true;
-                if(i == 0) {
-                    aimLockPos = new BlockPos(p.x, minecraft.thePlayer.getPosition().getY() + 1, p.y);
-                }
-                i++;
-            }
-        }
-    }
-
-    private void legacyNavigation() {
-        double predX = minecraft.thePlayer.posX + (minecraft.thePlayer.motionX * getBPSState()) * minecraft.timer.renderPartialTicks;
-        double predY = minecraft.thePlayer.posY + (minecraft.thePlayer.motionY * getBPSState()) * minecraft.timer.renderPartialTicks;
-        double predZ = minecraft.thePlayer.posZ + (minecraft.thePlayer.motionZ * getBPSState()) * minecraft.timer.renderPartialTicks;
-
-        BlockPos predictedLocation = new BlockPos(Math.round(predX), Math.round(predY), Math.round(predZ));
-
-        System.out.println("a");
-        System.out.println(minecraft.thePlayer.getPosition());
-        System.out.println("b");
-        System.out.println(predictedLocation);
-
-        IBlockState predictedBlock = minecraft.theWorld.getBlockState(predictedLocation);
-        IBlockState predictedBlockDown = minecraft.theWorld.getBlockState(predictedLocation.down());
-
-        System.out.println(predictedBlock.getBlock().toString());
-        System.out.println(predictedBlockDown.getBlock().toString());
-
-        List<Block> dangerBlocks = Arrays.asList(DANGER_BLOCKS);
-
-        if(predictedBlock.getBlock() != Blocks.air && !dangerBlocks.contains(predictedBlock.getBlock())) {
-            minecraft.thePlayer.jump();
-        }
-
-        BlockPos groundBlock = findBlock(predictedLocation.down());
-        IBlockState predictedBlockGround = minecraft.theWorld.getBlockState(groundBlock);
-
-        if(dangerBlocks.contains(predictedBlock.getBlock()) || dangerBlocks.contains(predictedBlockDown.getBlock()) || (predictedBlockGround.getBlock() != Blocks.water && predictedLocation.down().getY() - groundBlock.getY() > 13)) {
-            if(autoNavigate) {
-                //stopMovingAndSprinting(true);
-                minecraft.thePlayer.movementInput.moveStrafe = 0;
-                minecraft.thePlayer.setJumping(false);
-            }
-            autoNavigate = false;
-        } else {
-            autoNavigate = true;
-        }
-    }
-
-    private BlockPos findBlock(BlockPos start) {
-        int airBlocks = 0;
-        while(true) {
-            if(minecraft.theWorld.getBlockState(start.down(airBlocks + 1)).getBlock() == Blocks.air) {
-                airBlocks++;
-            } else {
-                break;
-            }
-        }
-        return start.down(airBlocks);
-    }
-
-    private double getBPSState() {
-        return 6;
-    }
-
-    private double getBPSSState() {
-        if(minecraft.thePlayer.isSprinting()) {
-            return 5.612;
-        }
-        if(minecraft.thePlayer.isSneaking()) {
-            return 1.3;
-        }
-        return 4.317;
     }
 
     public EntityLivingBase getTarget() {

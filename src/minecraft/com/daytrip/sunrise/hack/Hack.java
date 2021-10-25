@@ -138,7 +138,8 @@ public class Hack implements EventListener {
 
     @Override
     public boolean ignore(Event event) {
-        return !isEnabled;
+        if (!isEnabled) return true;
+        return !minecraft.inWorld();
     }
 
     public int getKey() {

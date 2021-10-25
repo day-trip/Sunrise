@@ -1,8 +1,5 @@
 package net.minecraft.client.renderer;
 
-import java.util.BitSet;
-import java.util.List;
-
 import com.daytrip.sunrise.hack.HackManager;
 import com.daytrip.sunrise.hack.impl.HackXRay;
 import net.minecraft.block.Block;
@@ -14,20 +11,19 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.profiler.crash.CrashReport;
 import net.minecraft.profiler.crash.CrashReportCategory;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
-import net.minecraft.util.Vec3i;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
+
+import java.util.BitSet;
+import java.util.List;
 
 public class BlockModelRenderer
 {
-    public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn)
+    public void renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn)
     {
         Block block = blockStateIn.getBlock();
         block.setBlockBoundsBasedOnState(blockAccessIn, blockPosIn);
-        return renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, worldRendererIn, true);
+        renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, worldRendererIn, true);
     }
 
     public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn, boolean checkSides)
@@ -74,7 +70,7 @@ public class BlockModelRenderer
 
         List<BakedQuad> list1 = modelIn.getGeneralQuads();
 
-        if (list1.size() > 0)
+        if (!list1.isEmpty())
         {
             renderModelAmbientOcclusionQuads(blockAccessIn, blockIn, blockPosIn, worldRendererIn, list1, afloat, bitset, blockmodelrenderer$ambientocclusionface);
             flag = true;
@@ -100,7 +96,7 @@ public class BlockModelRenderer
                 {
                     int i = blockIn.getMixedBrightnessForBlock(blockAccessIn, blockpos);
                     if(HackManager.enabled("x_ray") && HackXRay.ignores.contains(blockIn)) i = 15;
-                    renderModelStandardQuads(blockAccessIn, blockIn, blockPosIn, enumfacing, i, false, worldRendererIn, list, bitset);
+                    renderModelStandardQuads(blockAccessIn, blockIn, blockPosIn, i, false, worldRendererIn, list, bitset);
                     flag = true;
                 }
             }
@@ -108,20 +104,16 @@ public class BlockModelRenderer
 
         List<BakedQuad> list1 = modelIn.getGeneralQuads();
 
-        if (list1.size() > 0)
+        if (!list1.isEmpty())
         {
-            renderModelStandardQuads(blockAccessIn, blockIn, blockPosIn, null, -1, true, worldRendererIn, list1, bitset);
+            renderModelStandardQuads(blockAccessIn, blockIn, blockPosIn, -1, true, worldRendererIn, list1, bitset);
             flag = true;
         }
 
         return flag;
     }
 
-    private void drawBlockOverlay(BlockPos pos) {
-
-    }
-
-    private void renderModelAmbientOcclusionQuads(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn, WorldRenderer worldRendererIn, List<BakedQuad> listQuadsIn, float[] quadBounds, BitSet boundsFlags, BlockModelRenderer.AmbientOcclusionFace aoFaceIn)
+    private void renderModelAmbientOcclusionQuads(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn, WorldRenderer worldRendererIn, List<? extends BakedQuad> listQuadsIn, float[] quadBounds, BitSet boundsFlags, BlockModelRenderer.AmbientOcclusionFace aoFaceIn)
     {
         double d0 = blockPosIn.getX();
         double d1 = blockPosIn.getY();
@@ -214,9 +206,6 @@ public class BlockModelRenderer
             quadBounds[EnumFacing.SOUTH.getIndex() + EnumFacing.values().length] = 1.0F - f5;
         }
 
-        float f9 = 1.0E-4F;
-        float f10 = 0.9999F;
-
         switch (facingIn)
         {
             case DOWN:
@@ -250,7 +239,7 @@ public class BlockModelRenderer
         }
     }
 
-    private void renderModelStandardQuads(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn, EnumFacing faceIn, int brightnessIn, boolean ownBrightness, WorldRenderer worldRendererIn, List<BakedQuad> listQuadsIn, BitSet boundsFlags)
+    private void renderModelStandardQuads(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn, int brightnessIn, boolean ownBrightness, WorldRenderer worldRendererIn, List<? extends BakedQuad> listQuadsIn, BitSet boundsFlags)
     {
         double d0 = blockPosIn.getX();
         double d1 = blockPosIn.getY();
@@ -340,7 +329,7 @@ public class BlockModelRenderer
         renderModelBrightnessColor(p_178266_1_, p_178266_3_, f, f1, f2);
     }
 
-    private void renderModelBrightnessColorQuads(float p_178264_1_, float p_178264_2_, float p_178264_3_, float p_178264_4_, List<BakedQuad> p_178264_5_)
+    private void renderModelBrightnessColorQuads(float p_178264_1_, float p_178264_2_, float p_178264_3_, float p_178264_4_, List<? extends BakedQuad> p_178264_5_)
     {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();

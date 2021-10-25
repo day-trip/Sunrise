@@ -1,7 +1,6 @@
 package net.minecraft.client.multiplayer;
 
 import com.google.common.collect.Lists;
-import java.util.List;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
@@ -15,6 +14,8 @@ import net.minecraft.world.chunk.IChunkProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class ChunkProviderClient implements IChunkProvider
 {
     private static final Logger logger = LogManager.getLogger();
@@ -24,16 +25,16 @@ public class ChunkProviderClient implements IChunkProvider
      * coordinates.
      */
     private Chunk blankChunk;
-    private LongHashMap<Chunk> chunkMapping = new LongHashMap();
-    private List<Chunk> chunkListing = Lists.<Chunk>newArrayList();
+    private LongHashMap<Chunk> chunkMapping = new LongHashMap<>();
+    private List<Chunk> chunkListing = Lists.newArrayList();
 
     /** Reference to the World object. */
     private World worldObj;
 
     public ChunkProviderClient(World worldIn)
     {
-        this.blankChunk = new EmptyChunk(worldIn, 0, 0);
-        this.worldObj = worldIn;
+        blankChunk = new EmptyChunk(worldIn, 0, 0);
+        worldObj = worldIn;
     }
 
     /**
@@ -50,15 +51,15 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public void unloadChunk(int p_73234_1_, int p_73234_2_)
     {
-        Chunk chunk = this.provideChunk(p_73234_1_, p_73234_2_);
+        Chunk chunk = provideChunk(p_73234_1_, p_73234_2_);
 
         if (!chunk.isEmpty())
         {
             chunk.onChunkUnload();
         }
 
-        this.chunkMapping.remove(ChunkCoordIntPair.chunkXZ2Int(p_73234_1_, p_73234_2_));
-        this.chunkListing.remove(chunk);
+        chunkMapping.remove(ChunkCoordIntPair.chunkXZ2Int(p_73234_1_, p_73234_2_));
+        chunkListing.remove(chunk);
     }
 
     /**
@@ -66,9 +67,9 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public Chunk loadChunk(int p_73158_1_, int p_73158_2_)
     {
-        Chunk chunk = new Chunk(this.worldObj, p_73158_1_, p_73158_2_);
-        this.chunkMapping.add(ChunkCoordIntPair.chunkXZ2Int(p_73158_1_, p_73158_2_), chunk);
-        this.chunkListing.add(chunk);
+        Chunk chunk = new Chunk(worldObj, p_73158_1_, p_73158_2_);
+        chunkMapping.add(ChunkCoordIntPair.chunkXZ2Int(p_73158_1_, p_73158_2_), chunk);
+        chunkListing.add(chunk);
         chunk.setChunkLoaded(true);
         return chunk;
     }
@@ -79,8 +80,8 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public Chunk provideChunk(int x, int z)
     {
-        Chunk chunk = (Chunk)this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
-        return chunk == null ? this.blankChunk : chunk;
+        Chunk chunk = chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
+        return chunk == null ? blankChunk : chunk;
     }
 
     /**
@@ -107,14 +108,14 @@ public class ChunkProviderClient implements IChunkProvider
     {
         long i = System.currentTimeMillis();
 
-        for (Chunk chunk : this.chunkListing)
+        for (Chunk chunk : chunkListing)
         {
             chunk.func_150804_b(System.currentTimeMillis() - i > 5L);
         }
 
         if (System.currentTimeMillis() - i > 100L)
         {
-            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[] {Long.valueOf(System.currentTimeMillis() - i)});
+            logger.info("Warning: Clientside chunk ticking took {} ms", System.currentTimeMillis() - i);
         }
 
         return false;
@@ -145,7 +146,7 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public String makeString()
     {
-        return "MultiplayerChunkCache: " + this.chunkMapping.getNumHashElements() + ", " + this.chunkListing.size();
+        return "MultiplayerChunkCache: " + chunkMapping.getNumHashElements() + ", " + chunkListing.size();
     }
 
     public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
@@ -160,7 +161,7 @@ public class ChunkProviderClient implements IChunkProvider
 
     public int getLoadedChunkCount()
     {
-        return this.chunkListing.size();
+        return chunkListing.size();
     }
 
     public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_)
@@ -169,6 +170,6 @@ public class ChunkProviderClient implements IChunkProvider
 
     public Chunk provideChunk(BlockPos blockPosIn)
     {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }
 }

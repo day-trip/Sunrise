@@ -24,6 +24,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -604,10 +605,18 @@ public class GuiScreen extends Gui implements GuiYesNoCallback
      */
     public void drawDefaultBackground()
     {
-        drawWorldBackground(0);
+        if (mc.theWorld != null)
+        {
+            drawGradientRect(0, 0, width, height, -1072689136, -804253680);
+        }
+        else
+        {
+            //drawBackground(tint);
+            drawBackgroundNew(1);
+        }
     }
 
-    public void drawWorldBackground(int tint)
+    public void drawDefaultBackground(int level)
     {
         if (mc.theWorld != null)
         {
@@ -615,14 +624,19 @@ public class GuiScreen extends Gui implements GuiYesNoCallback
         }
         else
         {
-            drawBackground(tint);
+            drawBackgroundNew(level);
         }
+    }
+
+    public void drawBackgroundNew(int level) {
+        mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/title/galaxy_" + level + ".png"));
+        drawModalRectWithCustomSizedTexture(0, 0, 0, 0, width, height, width, height);
     }
 
     /**
      * Draws the background (i is always 0 as of 1.2.2)
      */
-    public void drawBackground(int tint)
+    public void drawBackground()
     {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
@@ -631,10 +645,10 @@ public class GuiScreen extends Gui implements GuiYesNoCallback
         mc.getTextureManager().bindTexture(optionsBackground);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, height, 0.0D).tex(0.0D, (float) height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(width, height, 0.0D).tex((float) width / 32.0F, (float) height / 32.0F + (float)tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(width, 0.0D, 0.0D).tex((float) width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, height, 0.0D).tex(0.0D, (float) height / 32.0F + (float)0).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(width, height, 0.0D).tex((float) width / 32.0F, (float) height / 32.0F + (float)0).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(width, 0.0D, 0.0D).tex((float) width / 32.0F, 0).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0).color(64, 64, 64, 255).endVertex();
         tessellator.draw();
     }
 

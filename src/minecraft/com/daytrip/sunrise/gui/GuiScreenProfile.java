@@ -1,17 +1,42 @@
 package com.daytrip.sunrise.gui;
 
+import com.daytrip.sunrise.gui.button.GuiIconButtonClose;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GuiScreenProfile extends GuiScreen {
+    private final GuiScreen parentScreen;
+
+    public GuiScreenProfile(GuiScreen parentScreen) {
+        this.parentScreen = parentScreen;
+    }
+
+    @Override
+    public void initGui() {
+        buttonList.add(new GuiIconButtonClose(0, width - 23, height - 23));
+    }
+
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+        if(button.id == 0) {
+            mc.displayGuiScreen(parentScreen);
+        }
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        drawBackground(0);
+        drawDefaultBackground();
 
+        drawUserTab();
+    }
+
+    private void drawUserTab() {
         Gui.drawRect(width - 30 - mc.fontRendererObj.getStringWidth(mc.thePlayer.getDisplayName().getFormattedText()), 2, width - 1, 29, Color.DARK_GRAY.getRGB());
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(mc.thePlayer.getLocationSkin());

@@ -1,21 +1,11 @@
 package net.minecraft.entity;
 
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.BlockWall;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.profiler.crash.CrashReport;
-import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -30,26 +20,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.profiler.crash.CrashReport;
+import net.minecraft.profiler.crash.CrashReportCategory;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
 public abstract class Entity implements ICommandSender
 {
-    private static final AxisAlignedBB ZERO_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
     private static int nextEntityID;
     private int entityId;
     public double renderDistanceWeight;
@@ -255,7 +239,7 @@ public abstract class Entity implements ICommandSender
     {
         entityId = nextEntityID++;
         renderDistanceWeight = 1.0D;
-        boundingBox = ZERO_AABB;
+        boundingBox = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
         width = 0.6F;
         height = 1.8F;
         nextStepDistance = 1;
@@ -1601,7 +1585,7 @@ public abstract class Entity implements ICommandSender
             tagCompund.setLong("UUIDMost", getUniqueID().getMostSignificantBits());
             tagCompund.setLong("UUIDLeast", getUniqueID().getLeastSignificantBits());
 
-            if (getCustomNameTag() != null && getCustomNameTag().length() > 0)
+            if (getCustomNameTag() != null && !getCustomNameTag().isEmpty())
             {
                 tagCompund.setString("CustomName", getCustomNameTag());
                 tagCompund.setBoolean("CustomNameVisible", getAlwaysRenderNameTag());
@@ -1691,7 +1675,7 @@ public abstract class Entity implements ICommandSender
             setPosition(posX, posY, posZ);
             setRotation(getRotationYaw(), getRotationPitch());
 
-            if (tagCompund.hasKey("CustomName", 8) && tagCompund.getString("CustomName").length() > 0)
+            if (tagCompund.hasKey("CustomName", 8) && !tagCompund.getString("CustomName").isEmpty())
             {
                 setCustomNameTag(tagCompund.getString("CustomName"));
             }
@@ -2560,7 +2544,7 @@ public abstract class Entity implements ICommandSender
      */
     public boolean hasCustomName()
     {
-        return dataWatcher.getWatchableObjectString(2).length() > 0;
+        return !dataWatcher.getWatchableObjectString(2).isEmpty();
     }
 
     public void setAlwaysRenderNameTag(boolean alwaysRenderNameTag)
@@ -2753,10 +2737,6 @@ public abstract class Entity implements ICommandSender
         EnchantmentHelper.applyArthropodEnchantments(entityLivingBaseIn, entityIn);
     }
 
-    public Vec3 getMotionVector() {
-        return new Vec3(motionX, motionY, motionZ);
-    }
-
     public float getRotationYaw() {
         return rotationYaw;
     }
@@ -2770,24 +2750,16 @@ public abstract class Entity implements ICommandSender
      * @param rotationYaw the angle to face in degrees
      */
     public float setRotationYaw(float rotationYaw) {
-        if(rotationYaw > 360) {
-            this.rotationYaw = rotationYaw - 360;
-        }
-        else if(rotationYaw < 0) {
-            this.rotationYaw = 360 - rotationYaw;
-        }
-        else {
-            this.rotationYaw = rotationYaw;
-        }
+        this.rotationYaw = rotationYaw;
         return this.rotationYaw;
     }
 
     /**
      * Sets the rotation pitch of the player
-     * @param rotationPitch the angle to face in degrees-
+     * @param rotationPitch the angle to face in degrees
      */
     public float setRotationPitch(float rotationPitch) {
-        this.rotationPitch = MathHelper.clamp_float(rotationPitch, -90, 90);
+        this.rotationPitch = rotationPitch;
         return this.rotationPitch;
     }
 }

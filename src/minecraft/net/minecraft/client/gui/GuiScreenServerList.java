@@ -1,9 +1,10 @@
 package net.minecraft.client.gui;
 
-import java.io.IOException;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
+
+import java.io.IOException;
 
 public class GuiScreenServerList extends GuiScreen
 {
@@ -11,7 +12,8 @@ public class GuiScreenServerList extends GuiScreen
     private final ServerData field_146301_f;
     private GuiTextField field_146302_g;
 
-    public GuiScreenServerList(GuiScreen p_i1031_1_, ServerData p_i1031_2_)
+    public
+    GuiScreenServerList(GuiScreen p_i1031_1_, ServerData p_i1031_2_)
     {
         field_146303_a = p_i1031_1_;
         field_146301_f = p_i1031_2_;
@@ -39,7 +41,7 @@ public class GuiScreenServerList extends GuiScreen
         field_146302_g.setMaxStringLength(128);
         field_146302_g.setFocused(true);
         field_146302_g.setText(mc.gameSettings.lastServer);
-        buttonList.get(0).enabled = field_146302_g.getText().length() > 0 && field_146302_g.getText().split(":").length > 0;
+        buttonList.get(0).enabled = !field_146302_g.getText().isEmpty() && field_146302_g.getText().split(":").length > 0;
     }
 
     /**
@@ -79,7 +81,7 @@ public class GuiScreenServerList extends GuiScreen
     {
         if (field_146302_g.textboxKeyTyped(typedChar, keyCode))
         {
-            buttonList.get(0).enabled = field_146302_g.getText().length() > 0 && field_146302_g.getText().split(":").length > 0;
+            buttonList.get(0).enabled = !field_146302_g.getText().isEmpty() && field_146302_g.getText().split(":").length > 0;
         }
         else if (keyCode == 28 || keyCode == 156)
         {

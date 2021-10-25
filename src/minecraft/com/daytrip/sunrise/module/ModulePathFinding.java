@@ -1,13 +1,12 @@
 package com.daytrip.sunrise.module;
 
-import com.daytrip.sunrise.util.math.AsyncHackMath;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +25,7 @@ public class ModulePathFinding {
         int x = pos.getX();
         int z = pos.getZ();
 
-        float yaw = MathHelper.angle(x, target.getPosition().getX(), z, target.getPosition().getZ());
+        float yaw = (float) MathHelper.angle(minecraft.thePlayer.posX, target.posX, minecraft.thePlayer.posZ, target.posZ);
 
         boolean a = safe(x, z + 1);
         boolean b = safe(x + 1, z);
@@ -192,9 +191,19 @@ public class ModulePathFinding {
     private boolean safe(int x, int z) {
         List<Block> dangerBlocks = Arrays.asList(DANGER_BLOCKS);
 
-        for(int i = 0; i < 3; i++) {
-            if(dangerBlocks.contains(minecraft.theWorld.getBlockState(new BlockPos(x, minecraft.thePlayer.getPosition().getY() - i, z)).getBlock())) {
-                return false;
+        World world = minecraft.theWorld;
+
+        BlockPos pos = new BlockPos(x, minecraft.thePlayer.getPosition().getY(), z);
+        for(int i = 0; i < 30; i++) {
+            Block block = world.getBlockAt(pos.down(i));
+            if(block != Blocks.air) {
+                if(i > 13) {
+                    return false;
+                }
+                if(dangerBlocks.contains(block)) {
+                    return false;
+                }
+                break;
             }
         }
 

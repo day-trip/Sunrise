@@ -37,14 +37,14 @@ def updatenames(conffile, force, only_client, only_server):
             process_client = False
 
         if not force:
-            print 'WARNING:'
-            print 'The updatenames script is unsupported, not recommended, and can break your'
-            print 'code in hard to detect ways.'
-            print 'Only use this script if you absolutely know what you are doing, or when a'
-            print 'MCP team member asks you to do so.'
-            answer = raw_input('If you really want to update all classes, enter "Yes" ')
+            print('WARNING:')
+            print('The updatenames script is unsupported, not recommended, and can break your')
+            print('code in hard to detect ways.')
+            print('Only use this script if you absolutely know what you are doing, or when a')
+            print('MCP team member asks you to do so.')
+            answer = input('If you really want to update all classes, enter "Yes" ')
             if answer.lower() not in ['yes']:
-                print 'You have not entered "Yes", aborting the update process'
+                print('You have not entered "Yes", aborting the update process')
                 sys.exit(1)
 
         if process_client:

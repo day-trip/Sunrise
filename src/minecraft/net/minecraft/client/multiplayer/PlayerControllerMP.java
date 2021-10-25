@@ -13,20 +13,9 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.network.play.client.C02PacketUseEntity;
-import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
-import net.minecraft.network.play.client.C09PacketHeldItemChange;
-import net.minecraft.network.play.client.C0EPacketClickWindow;
-import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
-import net.minecraft.network.play.client.C11PacketEnchantItem;
+import net.minecraft.network.play.client.*;
 import net.minecraft.stats.StatFileWriter;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 
@@ -72,7 +61,7 @@ public class PlayerControllerMP
     {
         if (!mcIn.theWorld.extinguishFire(mcIn.thePlayer, p_178891_2_, p_178891_3_))
         {
-            p_178891_1_.onPlayerDestroyBlock(p_178891_2_, p_178891_3_);
+            p_178891_1_.onPlayerDestroyBlock(p_178891_2_);
         }
     }
 
@@ -117,54 +106,22 @@ public class PlayerControllerMP
     /**
      * Called when a player completes the destruction of a block
      */
-    public boolean onPlayerDestroyBlock(BlockPos pos, EnumFacing side)
+    public void onPlayerDestroyBlock(BlockPos pos)
     {
-        if (currentGameType.isAdventure())
-        {
-            if (currentGameType == WorldSettings.GameType.SPECTATOR)
-            {
-                return false;
-            }
-
-            if (!mc.thePlayer.isAllowEdit())
-            {
-                Block block = mc.theWorld.getBlockState(pos).getBlock();
-                ItemStack itemstack = mc.thePlayer.getCurrentEquippedItem();
-
-                if (itemstack == null)
-                {
-                    return false;
-                }
-
-                if (!itemstack.canDestroy(block))
-                {
-                    return false;
-                }
-            }
-        }
-
-        if (currentGameType.isCreative() && mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)
-        {
-            return false;
-        }
-        else
+        if(!currentGameType.isAdventure())
         {
             World world = mc.theWorld;
-            IBlockState iblockstate = world.getBlockState(pos);
-            Block block1 = iblockstate.getBlock();
+            IBlockState state = world.getBlockState(pos);
+            Block block = state.getBlock();
 
-            if (block1.getMaterial() == Material.air)
+            if(block.getMaterial() != Material.air)
             {
-                return false;
-            }
-            else
-            {
-                world.playAuxSFX(2001, pos, Block.getStateId(iblockstate));
+                world.playAuxSFX(2001, pos, Block.getStateId(state));
                 boolean flag = world.setBlockToAir(pos);
 
                 if (flag)
                 {
-                    block1.onBlockDestroyedByPlayer(world, pos, iblockstate);
+                    block.onBlockDestroyedByPlayer(world, pos, state);
                 }
 
                 currentBlock = new BlockPos(currentBlock.getX(), -1, currentBlock.getZ());
@@ -175,7 +132,7 @@ public class PlayerControllerMP
 
                     if (itemstack1 != null)
                     {
-                        itemstack1.onBlockDestroyed(world, block1, pos, mc.thePlayer);
+                        itemstack1.onBlockDestroyed(world, block, pos, mc.thePlayer);
 
                         if (itemstack1.stackSize == 0)
                         {
@@ -184,7 +141,6 @@ public class PlayerControllerMP
                     }
                 }
 
-                return flag;
             }
         }
     }
@@ -248,7 +204,7 @@ public class PlayerControllerMP
 
                 if (flag && block1.getPlayerRelativeBlockHardness(mc.thePlayer, mc.thePlayer.worldObj, loc) >= 1.0F)
                 {
-                    onPlayerDestroyBlock(loc, face);
+                    onPlayerDestroyBlock(loc);
                 }
                 else
                 {
@@ -319,7 +275,7 @@ public class PlayerControllerMP
                 {
                     isHittingBlock = false;
                     netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, posBlock, directionFacing));
-                    onPlayerDestroyBlock(posBlock, directionFacing);
+                    onPlayerDestroyBlock(posBlock);
                     curBlockDamageMP = 0.0F;
                     stepSoundTickCounter = 0.0F;
                     blockHitDelay = 5;
@@ -463,7 +419,7 @@ public class PlayerControllerMP
             int i = itemStackIn.stackSize;
             ItemStack itemstack = itemStackIn.useItemRightClick(worldIn, playerIn);
 
-            if (itemstack != itemStackIn || itemstack != null && itemstack.stackSize != i)
+            if (itemstack != itemStackIn || itemstack.stackSize != i)
             {
                 playerIn.inventory.mainInventory[playerIn.inventory.currentItem] = itemstack;
 
@@ -525,12 +481,11 @@ public class PlayerControllerMP
     /**
      * Handles slot clicks sends a packet to the server.
      */
-    public ItemStack windowClick(int windowId, int slotId, int mouseButtonClicked, int mode, EntityPlayer playerIn)
+    public void windowClick(int windowId, int slotId, int mouseButtonClicked, int mode, EntityPlayer playerIn)
     {
         short short1 = playerIn.openContainer.getNextTransactionID(playerIn.inventory);
         ItemStack itemstack = playerIn.openContainer.slotClick(slotId, mouseButtonClicked, mode, playerIn);
         netClientHandler.addToSendQueue(new C0EPacketClickWindow(windowId, slotId, mouseButtonClicked, mode, itemstack, short1));
-        return itemstack;
     }
 
     /**

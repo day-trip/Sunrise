@@ -49,22 +49,12 @@ public class EntityFootStepFX extends EntityFX
         currentFootSteps.bindTexture(FOOTPRINT_TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
-
-        /*
+        
         worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
         worldRendererIn.pos(f3 - 0.125F, f4, f5 + 0.125F).tex(0.0D, 1.0D).color(f6, f6, f6, f1).endVertex();
         worldRendererIn.pos(f3 + 0.125F, f4, f5 + 0.125F).tex(1.0D, 1.0D).color(f6, f6, f6, f1).endVertex();
         worldRendererIn.pos(f3 + 0.125F, f4, f5 - 0.125F).tex(1.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
         worldRendererIn.pos(f3 - 0.125F, f4, f5 - 0.125F).tex(0.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
-        Tessellator.getInstance().draw();
-
-         */
-
-        worldRendererIn.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        worldRendererIn.pos(f3 - 0.125F, f4, f5 + 0.125F).color(0.0f, 1.0f, 0.0f, 1.0f).endVertex();
-        worldRendererIn.pos(f3 + 0.125F, f4, f5 + 0.125F).color(0.0f, 1.0f, 0.0f, 1.0f).endVertex();
-        worldRendererIn.pos(f3 + 0.125F, f4, f5 - 0.125F).color(0.0f, 1.0f, 0.0f, 1.0f).endVertex();
-        worldRendererIn.pos(f3 - 0.125F, f4, f5 - 0.125F).color(0.0f, 1.0f, 0.0f, 1.0f).endVertex();
         Tessellator.getInstance().draw();
 
         GlStateManager.disableBlend();
